@@ -90,8 +90,8 @@
 
 <!ELEMENT drawtextbox EMPTY>
 <!ATTLIST drawtextbox
-  x CDATA #REQUIRED
-  y CDATA #REQUIRED
+  x CDATA #IMPLIED
+  y CDATA #IMPLIED
   width CDATA #REQUIRED
   height CDATA #IMPLIED
   align (left|center|right) #IMPLIED
@@ -130,8 +130,8 @@
 
 <!ELEMENT drawrectangle EMPTY>
 <!ATTLIST drawrectangle
-  x CDATA #REQUIRED
-  y CDATA #REQUIRED
+  x CDATA #IMPLIED
+  y CDATA #IMPLIED
   width CDATA #IMPLIED
   height CDATA #IMPLIED
   align (left|center|right) #IMPLIED

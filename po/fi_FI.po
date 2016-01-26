@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vdr-skindesigner 0.2.0\n"
 "Report-Msgid-Bugs-To: <see README>\n"
-"POT-Creation-Date: 2015-08-14 17:20+0200\n"
+"POT-Creation-Date: 2016-01-20 18:31+0100\n"
 "PO-Revision-Date: 2015-01-25 01:25+0200\n"
 "Last-Translator: Rolf Ahrenberg\n"
 "Language-Team: Finnish\n"
@@ -84,10 +84,7 @@ msgstr ""
 msgid "Plugin Setup"
 msgstr "Yleiset"
 
-msgid "Menu Item display method"
-msgstr "Valikkorivien esitystapa"
-
-msgid "Frames per Second (fading and shifting)"
+msgid "Maximum number of custom tokens"
 msgstr ""
 
 msgid "Reruns"
@@ -111,6 +108,9 @@ msgstr "Kuvat"
 msgid "Debug Image Loading"
 msgstr "Debuggaa kuvien latausta"
 
+msgid "Cache icons, skinparts and logos at start"
+msgstr ""
+
 msgid "Limit Channel Logo Cache"
 msgstr "Rajoita kanavalogojen välimuistia"
 
@@ -132,8 +132,14 @@ msgstr "ikoni(a)"
 msgid "size"
 msgstr "koko"
 
-msgid "byte"
-msgstr "tavu(a)"
+msgid "MB"
+msgstr ""
+
+msgid "int. memory"
+msgstr ""
+
+msgid "high level memory"
+msgstr ""
 
 msgid "logos"
 msgstr "logo(a)"
@@ -167,3 +173,9 @@ msgstr ""
 
 msgid "Supported Plugins"
 msgstr ""
+
+#~ msgid "byte"
+#~ msgstr "tavu(a)"
+
+#~ msgid "Menu Item display method"
+#~ msgstr "Valikkorivien esitystapa"

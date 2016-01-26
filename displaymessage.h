@@ -1,19 +1,15 @@
 #ifndef __DISPLAYMESSAGE_H
 #define __DISPLAYMESSAGE_H
 
-#include <vdr/thread.h>
-#include <vdr/skins.h>
 #include "config.h"
-#include "libtemplate/template.h"
-#include "views/displaymessageview.h"
+#include "coreengine/viewdisplaymessage.h"
 
 class cSDDisplayMessage : public cSkinDisplayMessage {
 private:
-    cDisplayMessageView *messageView;
-    bool doOutput;
-    bool initial;
+    cViewMessage *view;
+    bool ok;
 public:
-    cSDDisplayMessage(cTemplate *messageTemplate);
+    cSDDisplayMessage(cViewMessage *messageView);
     virtual ~cSDDisplayMessage();
     virtual void SetMessage(eMessageType Type, const char *Text);
     virtual void Flush(void);

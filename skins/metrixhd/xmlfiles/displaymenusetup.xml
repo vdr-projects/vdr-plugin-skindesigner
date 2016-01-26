@@ -54,7 +54,7 @@
                 <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{clrWhite}" text="{number} {label}" />
             </areascroll>
         </listelement>
-        <currentelement delay="50" fadetime="0">
+        <currentelement fadetime="300">
             <area x="61%" y="30%" width="37%" height="36%" layer="2">
                 <fill color="{clrTransBlueLight}" />
             </area>

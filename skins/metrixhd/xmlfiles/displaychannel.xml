@@ -4,7 +4,7 @@
 <displaychannel x="0" y="0" width="100%" height="100%" fadetime="{fadetime}" shifttime="{shifttimechannel}" shifttype="bottom" shiftmode="slowed">
     <background>
         <!-- background infobar -->
-        <area x="0" y="80%" width="100%" height="20%" layer="1">
+        <area x="20%" y="80%" width="80%" height="20%" layer="1">
             <fill color="{clrTransBlack}" />
         </area>
         <!-- background channellogo -->
@@ -61,8 +61,8 @@
             <drawimage name="txt" condition="{hasVT}" imagetype="icon" path="ico_txt_on" x="{posx(dolby)} - 15 - {width(txt)}" valign="center" width="{areaheight}*0.8*1.3" height="{areaheight}*0.8"/>
             <drawimage condition="not{hasVT}" imagetype="icon" path="ico_txt_off" x="{posx(dolby)} - 15 - {width(txt)}" valign="center" width="{areaheight}*0.8*1.3" height="{areaheight}*0.8"/>
             <!-- recording icon -->
-            <drawimage name="rec" condition="{isRecording}" imagetype="icon" path="ico_rec_on" x="{posx(txt)} - 15 - {width(rec)}" valign="center" width="{areaheight}*0.8*1.96" height="{areaheight}*0.8"/>
-            <drawimage condition="not{isRecording}" imagetype="icon" path="ico_rec_off" x="{posx(txt)} - 15 - {width(rec)}" valign="center" width="{areaheight}*0.8*1.96" height="{areaheight}*0.8"/>
+            <drawimage animtype="blink" animfreq="500" name="rec" condition="{isRecording}" imagetype="icon" path="ico_rec_on" x="{posx(txt)} - 15 - {width(rec)}" valign="center" width="{areaheight}*0.8*1.96" height="{areaheight}*0.8"/>
+            <drawimage condition="not{isRecording}" imagetype="icon" path="ico_rec_off" x="{posx(txt)} - 15 - {width(rec)}" valign="center" width="{areaheight}*0.8*1.95652" height="{areaheight}*0.8"/>
         </area>
     </statusinfo>
 
@@ -100,10 +100,7 @@
         </area>
     </signalquality>
 
-    <signalqualityback>
-    </signalqualityback>
-
-    <devices condition="{showdevices}" detached="true" delay="100" shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
+    <devices condition="{showdevices}" shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
         <area x="70%" y="30%" width="30%" height="{areaheight}/12 * {numdevices}" layer="1" background="true">
             <fill color="{clrTransBlack}"/>
         </area>
@@ -121,7 +118,7 @@
         </area>
     </devices>
 
-    <currentweather detached="true" delay="100" shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
+    <currentweather shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
         <area background="true" x="70%" y="15%" width="30%" height="13%" layer="1">
             <fill color="{clrTransBlack}" />
             <drawrectangle x="0" y="0" width="45%" height="100%" color="{clrTransBlueLight}" />
@@ -138,16 +135,16 @@
         </area>
     </currentweather>
 
-    <scrapercontent detached="true" delay="0" fadetime="0">
+    <scrapercontent shifttime="{shifttimedatetime}" shifttype="left" shiftmode="slowed">
         <area condition="{isbanner}" x="0" y="0" width="{areaheight}*0.13*{mediawidth}/{mediaheight}" height="13%" layer="2">
-            <drawimage imagetype="image" path="{mediapath}" align="center" valign="center"  width="{areawidth}" height="{areaheight}"/>
+            <drawimage imagetype="image" path="{mediapath}" align="center" valign="center" width="{areawidth}" height="{areaheight}"/>
         </area>
         <area condition="not{isbanner}" x="0" y="0" width="{areaheight}*0.5*{mediawidth}/{mediaheight}" height="50%" layer="2">
             <drawimage imagetype="image" path="{mediapath}" x="5" y="5" width="{areawidth}-10" height="{areaheight}-10"/>
         </area>
     </scrapercontent>
 
-    <datetime detached="true" delay="100" shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
+    <datetime shifttime="{shifttimedatetime}" shifttype="right" shiftmode="slowed">
         <area background="true" x="70%" y="0" width="30%" height="13%" layer="1">
             <fill color="{clrTransBlack}" />
             <drawrectangle x="0" y="0" width="45%" height="100%" color="{clrTransBlueLight}" />
@@ -171,8 +168,5 @@
             <drawtext align="center" valign="center" width="{areawidth} - 80" font="{light}" fontsize="40%" color="{clrWhite}" text="{text}" />
         </area>
     </message>
-
-    <customtokens>
-    </customtokens>
 
 </displaychannel>

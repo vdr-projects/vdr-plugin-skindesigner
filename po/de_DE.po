@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vdr-skindesigner 0.0.1\n"
 "Report-Msgid-Bugs-To: <see README>\n"
-"POT-Creation-Date: 2015-08-14 17:20+0200\n"
+"POT-Creation-Date: 2016-01-20 18:31+0100\n"
 "PO-Revision-Date: 2014-09-27 11:02+0200\n"
 "Last-Translator: Louis Braun <louis.braun@gmx.de>\n"
 "Language-Team: \n"
@@ -46,7 +46,7 @@ msgid "at one go"
 msgstr "alle auf einmal"
 
 msgid "Downloading Skin Screenshots..."
-msgstr "Lade Screenshots herunter..."
+msgstr ""
 
 msgid "Install Skin"
 msgstr "Installiere Skin"
@@ -84,11 +84,8 @@ msgstr "Skin gelöscht"
 msgid "Plugin Setup"
 msgstr ""
 
-msgid "Menu Item display method"
-msgstr "Art der Ausgabe der Menüelemente"
-
-msgid "Frames per Second (fading and shifting)"
-msgstr "Frames pro Sekunde (fading und shifting)"
+msgid "Maximum number of custom tokens"
+msgstr "Maximale Anzahl Custom Tokens"
 
 msgid "Reruns"
 msgstr "Wiederholungen"
@@ -111,6 +108,9 @@ msgstr "Bilder"
 msgid "Debug Image Loading"
 msgstr "Debugausgabe für das Laden der Bilder"
 
+msgid "Cache icons, skinparts and logos at start"
+msgstr "Icons, Skinparts und Logos beim Start cachen"
+
 msgid "Limit Channel Logo Cache"
 msgstr "Größe des Kanallogo Caches bechränken"
 
@@ -132,8 +132,14 @@ msgstr "Icons"
 msgid "size"
 msgstr "Größe"
 
-msgid "byte"
-msgstr "Byte"
+msgid "MB"
+msgstr ""
+
+msgid "int. memory"
+msgstr "int. Speicher"
+
+msgid "high level memory"
+msgstr "High Level Speicher"
 
 msgid "logos"
 msgstr "Logos"
@@ -163,7 +169,7 @@ msgid "Author"
 msgstr "Autor"
 
 msgid "Used Fonts"
-msgstr "Benutze Schriften"
+msgstr "Benutze Schriftarten"
 
 msgid "Supported Plugins"
 msgstr "Unterstützte Plugins"

@@ -48,8 +48,8 @@
 
     <tab name="current" x="2%" y="20%" width="94%" height="65%" layer="2" scrollheight="{areaheight}/4">
         <drawtextbox name="summary" x="0" y="5%" width="{areawidth}" font="{semibold}" fontsize="10%" color="{clrWhite}" text="{summary}" />
-        <drawrectangle x="0" y="{height(summary)}" width="{areawidth}" height="1" color="{clrWhite}" />
-        <loop name="hourly" x="0" y="{height(summary)}" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/5">
+        <drawrectangle x="0" y="{posy(summary)} + {height(summary)} + 10" width="{areawidth}" height="1" color="{clrWhite}" />
+        <loop name="hourly" x="0" y="{posy(summary)} + {height(summary)} + 10" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/5">
             <drawtext x="0" font="{semibold}" fontsize="9%" valign="center" color="{clrWhite}" text="{hourly[timestamp]}" />
             <drawimage imagetype="icon" path="{hourly[icon]}" x="{rowheight}" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
             <drawtext name="temp" x="2*{rowheight} + 0.75*{rowheight} - {width(temp)}/2" font="{light}" fontsize="13%" y="0" color="{clrWhite}" text="{hourly[temperature]}°C" />

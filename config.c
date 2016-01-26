@@ -1,6 +1,6 @@
 #include "config.h"
-#include "libcore/helpers.h"
-#include "libcore/imageloader.h"
+#include "extensions/helpers.h"
+#include "extensions/imageloader.h"
 
 cDesignerConfig::cDesignerConfig() {
     tmplGlobals = NULL;
@@ -9,6 +9,7 @@ cDesignerConfig::cDesignerConfig() {
     installerSkinPathSet = false;
     logoPathSet = false;
     //Common
+    cacheImagesInitial = 1;
     numLogosPerSizeInitial = 30;
     limitLogoCache = 1;
     numLogosMax = 200;
@@ -18,11 +19,8 @@ cDesignerConfig::cDesignerConfig() {
     rerunAmount = 10;
     rerunDistance = 2;
     rerunMaxChannel = 0;
-    //menu display style, display menu items 
-    //one after each other or in one step
-    blockFlush = 1;
-    //frames per second for fading and shifting
-    framesPerSecond = 40;
+    //max number of custom int and string tokens
+    numCustomTokens = 10;
     //remember current skin and theme, osd size and osd fonts
     SetSkin();
     SetOSDSize();
@@ -475,98 +473,6 @@ cString cDesignerConfig::GetSkinRessourcePath(void) {
     return cString::sprintf("%s%s", *skinPath, osdSkin.c_str());
 }
 
-void cDesignerConfig::AddPluginMenus(string name, map< int, string > menus) {
-    pluginMenus.insert(pair< string, map < int, string > >(name, menus));
-}
-
-void cDesignerConfig::AddPluginViews(string name, 
-                                     map< int, string > views,
-                                     multimap< int, pair <int, string> > subViews,
-                                     map< int, map <int, string> > viewElements,
-                                     map< int, map <int, string> > viewGrids) {
-    pluginViews.insert(pair< string, map < int, string > >(name, views));
-    pluginSubViews.insert(pair< string, multimap< int, pair <int, string> > >(name, subViews));
-    pluginViewElements.insert(pair< string, map< int, map <int, string> > >(name, viewElements));
-    pluginViewGrids.insert(pair< string, map< int, map <int, string> > >(name, viewGrids));
-}
-
-void cDesignerConfig::InitPluginMenuIterator(void) {
-    plugMenuIt = pluginMenus.begin();
-}
-
-map <int,string> *cDesignerConfig::GetPluginTemplates(string &name) {
-    if (plugMenuIt == pluginMenus.end())
-        return NULL;
-    name = plugMenuIt->first;
-    map <int,string> *templates = &plugMenuIt->second;
-    plugMenuIt++;
-    return templates; 
-}
-
-void cDesignerConfig::InitPluginViewIterator(void) {
-    plugViewIt = pluginViews.begin();
-}
-
-map <int,string> *cDesignerConfig::GetPluginViews(string &name) {
-    if (plugViewIt == pluginViews.end())
-        return NULL;
-    name = plugViewIt->first;
-    map <int,string> *views = &plugViewIt->second;
-    plugViewIt++;
-    return views; 
-}
-
-map <int,string> cDesignerConfig::GetPluginSubViews(string name, int viewID) {
-    map <int,string> subViews;
-
-    map < string, multimap< int, pair <int, string> > >::iterator hit = pluginSubViews.find(name);
-    if (hit == pluginSubViews.end())
-        return subViews;
-
-    multimap< int, pair<int, string> > subs = hit->second;
-
-    pair < multimap< int, pair<int, string> >::iterator, multimap< int, pair<int, string> >::iterator> viewSubViews;
-    viewSubViews = subs.equal_range(viewID); 
-
-    for (multimap< int, pair<int, string> >::iterator it=viewSubViews.first; it!=viewSubViews.second; ++it) {
-        pair<int, string> subViewFound = it->second;
-        subViews.insert(pair<int,string>(subViewFound.first, subViewFound.second));
-    }
-    return subViews;
-}
-
-int cDesignerConfig::GetPluginViewElementID(string pluginName, string viewElementName, int viewID) {
-    map < string, map< int, map <int, string> > >::iterator hit = pluginViewElements.find(pluginName);
-    if (hit == pluginViewElements.end())
-        return -1;
-    map< int, map <int, string> >::iterator hit2 = (hit->second).find(viewID);
-    if (hit2 == (hit->second).end())
-        return -1;
-    
-    map <int, string> viewElements = hit2->second;
-    for (map <int, string>::iterator it = viewElements.begin(); it != viewElements.end(); it++) {
-        if (!(it->second).compare(viewElementName))
-            return it->first;
-    }
-    return -1;
-}
-
-int cDesignerConfig::GetPluginViewGridID(string pluginName, string viewGridName, int viewID) {
-    map < string, map< int, map <int, string> > >::iterator hit = pluginViewGrids.find(pluginName);
-    if (hit == pluginViewGrids.end())
-        return -1;
-    map< int, map <int, string> >::iterator hit2 = (hit->second).find(viewID);
-    if (hit2 == (hit->second).end())
-        return -1;
-    
-    map <int, string> viewGrids = hit2->second;
-    for (map <int, string>::iterator it = viewGrids.begin(); it != viewGrids.end(); it++) {
-        if (!(it->second).compare(viewGridName))
-            return it->first;
-    }
-    return -1;
-}
-
 cString cDesignerConfig::CheckSlashAtEnd(std::string path) {
     try {
         if (!(path.at(path.size()-1) == '/'))
@@ -578,14 +484,14 @@ cString cDesignerConfig::CheckSlashAtEnd(std::string path) {
 bool cDesignerConfig::SetupParse(const char *Name, const char *Value) {
     bool pluginSetupParam = true;
     if      (!strcasecmp(Name, "DebugImageLoading"))       debugImageLoading = atoi(Value);
+    else if (!strcasecmp(Name, "CacheImagesInitial"))      cacheImagesInitial = atoi(Value);
     else if (!strcasecmp(Name, "LimitChannelLogoCache"))   limitLogoCache = atoi(Value);
     else if (!strcasecmp(Name, "NumberLogosInitially"))    numLogosPerSizeInitial = atoi(Value);
     else if (!strcasecmp(Name, "NumberLogosMax"))          numLogosMax = atoi(Value);
     else if (!strcasecmp(Name, "RerunAmount"))             rerunAmount = atoi(Value);
     else if (!strcasecmp(Name, "RerunDistance"))           rerunDistance = atoi(Value);
     else if (!strcasecmp(Name, "RerunMaxChannel"))         rerunMaxChannel = atoi(Value);
-    else if (!strcasecmp(Name, "BlockFlush"))              blockFlush = atoi(Value);
-    else if (!strcasecmp(Name, "FramesPerSecond"))         framesPerSecond = atoi(Value);
+    else if (!strcasecmp(Name, "NumCustomTokens"))         numCustomTokens = atoi(Value);
     else pluginSetupParam = false;
 
     if (!pluginSetupParam) {

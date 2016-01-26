@@ -1,345 +1,174 @@
-#include <vdr/player.h>
 #include "displaymenu.h"
-#include "libcore/helpers.h"
 
-cSDDisplayMenu::cSDDisplayMenu(cTemplate *menuTemplate) {
-    textAreaFont = NULL;
-    rootView = NULL;
-    doOutput = true;
-    state = vsInit;
-    pluginMenu = -1;
-    pluginName = "";
-    pluginMenuType = mtUnknown;
-    if (!menuTemplate) {
-        doOutput = false;
-        dsyslog("skindesigner: displayMenu no valid template - aborting");
-        return;
+cSDDisplayMenu::cSDDisplayMenu(cViewMenu *menuView) {
+    view = menuView;
+    bool ok = false;
+    if (view)
+        ok = view->Init();
+    if (ok) {
+        SetCurrentRecording();
+    } else {
+        esyslog("skindesigner: Error initiating displaymenu view - aborting");
     }
-    rootView = new cDisplayMenuRootView(menuTemplate->GetRootView());
-    if (!rootView->createOsd()) {
-        doOutput = false;
-        return;
-    }
-    SetCurrentRecording();
-    rootView->DrawDebugGrid();
 }
 
 cSDDisplayMenu::~cSDDisplayMenu() {
-    if (rootView)
-        delete rootView;
-    if (textAreaFont)
-        delete textAreaFont;
+    if (view)
+        view->Close();
 }
 
 void cSDDisplayMenu::Scroll(bool Up, bool Page) {
-    if (!doOutput)
-        return;
-    rootView->KeyInput(Up, Page);
+    if (view)
+        view->KeyDetailView(Up, Page);
 }
 
 int cSDDisplayMenu::MaxItems(void) {
-    if (!doOutput)
-        return 0;
-    int maxItems = rootView->GetMaxItems();
-    return maxItems;
+    if (view)
+        return view->NumListItems();
+    return 0;
 }
 
 void cSDDisplayMenu::Clear(void) {
-    if (!doOutput)
-        return;
-    rootView->Clear();
+    if (view)
+        view->Clear();
 }
 
 void cSDDisplayMenu::SetMenuCategory(eMenuCategory MenuCat) {
-    if (!doOutput)
-        return;
-    rootView->SetMenu(MenuCat, (state == vsInit) ? true : false);
-    cSkinDisplayMenu::SetMenuCategory(MenuCat);
-    if (state != vsInit)
-        state = vsMenuInit;
+    if (view)
+        view->SetSubView(MenuCat);
 }
 
 void cSDDisplayMenu::SetMenuSortMode(eMenuSortMode MenuSortMode) {
-    if (!doOutput)
-        return;
-    rootView->SetSortMode(MenuSortMode);
+    if (view)
+        view->SetSortMode(MenuSortMode);
 }
 
 eMenuOrientation cSDDisplayMenu::MenuOrientation(void) {
-    if (!doOutput)
-        return moVertical;
-    return rootView->MenuOrientation();
+    if (view)
+        return view->MenuOrientation();
+    return moVertical;
 }
 
-void cSDDisplayMenu::SetPluginMenu(string name, int menu, int type, bool init) {
-    pluginName = name;
-    pluginMenu = menu;
-    pluginMenuType = (ePluginMenuType)type;
-    rootView->SetPluginMenu(pluginName, pluginMenu, pluginMenuType);
-    if (!init) {
-        rootView->SetMenu(mcPlugin, false);        
-    }
+void cSDDisplayMenu::SetPluginMenu(int plugId, int menuId, int type, bool init) {
+    if (view)
+        view->SetPluginMenu(plugId, menuId);
 }
 
 void cSDDisplayMenu::SetTitle(const char *Title) {
-    if (!doOutput)
-        return;
-    rootView->SetTitle(Title);
+    if (view)
+        view->SetTitleHeader(Title);
 }
 
 void cSDDisplayMenu::SetButtons(const char *Red, const char *Green, const char *Yellow, const char *Blue) {
-    if (!doOutput)
-        return;
-    rootView->SetButtonTexts(Red, Green, Yellow, Blue);
-    if (state != vsInit && MenuCategory() != mcMain)
-        state = vsMenuInit;
+    if (view)
+        view->SetMenuButtons(Red, Green, Yellow, Blue);
 }
 
 void cSDDisplayMenu::SetMessage(eMessageType Type, const char *Text) {
-    if (!doOutput)
-        return;
-    rootView->SetMessage(Type, Text);
-    rootView->DoFlush();
+    if (view)
+        view->SetMessage(Type, Text);
 }
 
 bool cSDDisplayMenu::SetItemEvent(const cEvent *Event, int Index, bool Current, bool Selectable, const cChannel *Channel, bool WithDate, eTimerMatch TimerMatch) {
-    if (!doOutput)
-        return true;
-    if (!rootView->SubViewAvailable())
+    if (!view)
         return false;
-    if (config.blockFlush)
-        rootView->LockFlush();
-    bool isFav = false;
-    if (MenuCategory() == mcSchedule && Channel) {
-        isFav = true;
-        rootView->SetEpgSearchFavorite();
+    if (Index == 0) {
+        view->SetChannelHeader(Event);
     }
-    const cChannel *channel = Channel;
-    if (MenuCategory() == mcSchedule) {
-        if (!channel) {
-            channel = rootView->GetChannel();
-        } 
-        if (!channel && Event) {
-            channel = Channels.GetByChannelID(Event->ChannelID());
-        }
-        rootView->SetChannel(channel);
-    }
-
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list)
-        return false;
-    list->AddSchedulesMenuItem(Index, Event, channel, TimerMatch, MenuCategory(), isFav, Current, Selectable, "");
-    if (state == vsIdle)
-        state = vsMenuUpdate;
-    return true;
+    return view->SetItemEvent(Event, Index, Current, Selectable, Channel, WithDate, TimerMatch);
 }
 
 bool cSDDisplayMenu::SetItemTimer(const cTimer *Timer, int Index, bool Current, bool Selectable) {
-    if (!doOutput)
-        return true;
-    if (!rootView->SubViewAvailable())
+    if (!view)
         return false;
-    if (config.blockFlush)
-        rootView->LockFlush();
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list)
-        return false;
-    list->AddTimersMenuItem(Index, Timer, Current, Selectable);
-    if (state == vsIdle)
-        state = vsMenuUpdate;
-    return true;
+    return view->SetItemTimer(Timer, Index, Current, Selectable);
 }
 
 bool cSDDisplayMenu::SetItemChannel(const cChannel *Channel, int Index, bool Current, bool Selectable, bool WithProvider) {
-    if (!doOutput)
-        return true;
-    if (!rootView->SubViewAvailable())
+    if (!view)
         return false;
-    if (config.blockFlush)
-        rootView->LockFlush();
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list)
-        return false;
-    list->AddChannelsMenuItem(Index, Channel, WithProvider, Current, Selectable);
-    if (state == vsIdle)
-        state = vsMenuUpdate;
-    return true;
+    return view->SetItemChannel(Channel, Index, Current, Selectable, WithProvider);
 }
 
 bool cSDDisplayMenu::SetItemRecording(const cRecording *Recording, int Index, bool Current, bool Selectable, int Level, int Total, int New) {
-    if (!doOutput)
-        return true;
-    if (!rootView->SubViewAvailable())
+    if (!view)
         return false;
-    if (config.blockFlush)
-        rootView->LockFlush();
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list)
-        return false;
-
-    list->AddRecordingMenuItem(Index, Recording, Level, Total, New, Current, Selectable);
-    if (state == vsIdle)
-        state = vsMenuUpdate;
-    return true;
-}
-
-bool cSDDisplayMenu::SetItemPlugin(map<string,string> *stringTokens, map<string,int> *intTokens, map<string,vector<map<string,string> > > *loopTokens, int Index, bool Current, bool Selectable) {
-    if (!doOutput)
-        return true;
-    if (!rootView->SubViewAvailable())
-        return false;
-    if (config.blockFlush)
-        rootView->LockFlush();
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list)
-        return false;
-    list->AddPluginMenuItem(stringTokens, intTokens, loopTokens, Index, Current, Selectable);
-    if (state == vsIdle)
-        state = vsMenuUpdate;
-    return true;
+    return view->SetItemRecording(Recording, Index, Current, Selectable, Level, Total, New);
 }
 
 void cSDDisplayMenu::SetItem(const char *Text, int Index, bool Current, bool Selectable) {
-    if (!doOutput)
+    if (!view)
         return;
-    //esyslog("skindesigner: %s %d - %s", Current ? "----->" : "", Index, Text);
-    cDisplayMenuListView *list = rootView->GetListView();
-    if (!list) {
-        return;
-    }
-    if (config.blockFlush)
-        rootView->LockFlush();
-    eMenuCategory cat = MenuCategory();
-    if (cat == mcMain && rootView->SubViewAvailable()) {
-        string plugName = list->AddMainMenuItem(Index, Text, Current, Selectable);
-        if (Current) {
-            rootView->SetSelectedPluginMainMenu(plugName);
-        }
-    } else if (cat == mcSetup && rootView->SubViewAvailable()) {
-        list->AddSetupMenuItem(Index, Text, Current, Selectable);        
-    } else if ((cat == mcSchedule || cat == mcScheduleNow || cat == mcScheduleNext) && rootView->SubViewAvailable()) {
-        list->AddSchedulesMenuItem(Index, NULL, NULL, tmNone, MenuCategory(), false, Current, Selectable, Text ? Text : "");
-    } else {
-        rootView->CorrectDefaultMenu();
-        string *tabTexts = new string[MaxTabs];
-        for (int i=0; i<MaxTabs; i++) {
-            const char *s = GetTabbedText(Text, i);
-            if (s) {
-                if (strlen(s) == 0)
-                    tabTexts[i] = " ";
-                else
-                    tabTexts[i] = s;
-            } else {
-                tabTexts[i] = "";
-            }
-        }
-        list->AddDefaultMenuItem(Index, tabTexts, Current, Selectable);
-        SetEditableWidth( rootView->GetListViewWidth() / 2);
-    }
-    if (state == vsIdle)
-        state = vsMenuUpdate;
+    view->SetItem(Text, Index, Current, Selectable);
+    SetEditableWidth(view->GetListWidth() / 2);
+}
+
+bool cSDDisplayMenu::SetItemPlugin(skindesignerapi::cTokenContainer *tk, int Index, bool Current, bool Selectable) {
+    if (!view)
+        return false;
+    bool ok = view->SetItemPlugin(tk, Index, Current, Selectable);
+    return ok;
 }
 
 void cSDDisplayMenu::SetTabs(int Tab1, int Tab2, int Tab3, int Tab4, int Tab5) {
-    if (!doOutput)
-        return;
-    rootView->SetTabs(Tab1, Tab2, Tab3, Tab4, Tab5);
+    if (view)
+        view->SetTabs(Tab1, Tab2, Tab3, Tab4, Tab5);
 }
 
 int cSDDisplayMenu::GetTextAreaWidth(void) const {
-    int areaWidth = rootView->GetTextAreaWidth();
-    return areaWidth;
+    if (view)
+        return view->GetTextAreaWidth();
+    return 0;
 }
 
 const cFont *cSDDisplayMenu::GetTextAreaFont(bool FixedFont) const {
-    if (textAreaFont)
-        return textAreaFont;
-    textAreaFont = rootView->GetTextAreaFont();
-    return textAreaFont;
+    if (view)
+        return view->GetTextAreaFont();
+    return NULL;
 }
 
 void cSDDisplayMenu::SetScrollbar(int Total, int Offset) {
-    if (!doOutput)
-        return;
-    rootView->RenderMenuScrollBar(Total, Offset);
+    if (view)
+        view->SetScrollbar(Total, Offset);
 }
 
 void cSDDisplayMenu::SetEvent(const cEvent *Event) {
-    if (!doOutput)
-        return;
-    rootView->SetDetailedViewEvent(Event);
-    state = vsMenuDetail;
+    if (view)
+        view->SetEvent(Event);
 }
 
 void cSDDisplayMenu::SetRecording(const cRecording *Recording) {
-    if (!doOutput)
-        return;
-    rootView->SetDetailedViewRecording(Recording);
-    state = vsMenuDetail;
+    if (view)
+        view->SetRecording(Recording);
 }
 
 void cSDDisplayMenu::SetText(const char *Text, bool FixedFont) {
-    if (!doOutput)
-        return;
-    rootView->SetDetailedViewText(Text);
-    state = vsMenuDetail;
+    if (view)
+        view->SetText(Text);
 }
 
-bool cSDDisplayMenu::SetPluginText(map<string,string> *stringTokens, map<string,int> *intTokens, map<string,vector<map<string,string> > > *loopTokens) {
-    if (!doOutput)
-        return true;
-    bool tmplOk = rootView->SetDetailedViewPlugin(stringTokens, intTokens, loopTokens);
-    state = vsMenuDetail;
-    return tmplOk;
+bool cSDDisplayMenu::SetPluginText(skindesignerapi::cTokenContainer *tk) {
+    bool ok = false;
+    if (view)
+        ok = view->SetPluginText(tk);
+    return ok;
 }
 
 void cSDDisplayMenu::Flush(void) {
-    if (!doOutput)
-        return;
-    bool doFlush = false;
-    if (state == vsInit) {
-        rootView->Start();
-        rootView->RenderMenuItems();
-        doFlush = true;
-    } else if (state == vsMenuInit) {
-        rootView->Render();
-        rootView->RenderMenuItems();
-        doFlush = true;
-    } else if (state == vsMenuUpdate) {
-        rootView->RenderMenuItems();
-        doFlush = true;
-    } else if (state == vsMenuDetail) {
-        rootView->OpenFlush();
-        rootView->Render();
-        rootView->DoFlush();
-        rootView->RenderDetailView();
-        rootView->DoFlush();
-    }
-
-    if (rootView->RenderDynamicElements()) {
-        doFlush = true;
-    }
-
-    if (doFlush) {
-        if (config.blockFlush)
-            rootView->OpenFlush();
-        rootView->DoFlush();
-    }
-    state = vsIdle;
+    if (view)
+        view->Flush();
 }
 
 void cSDDisplayMenu::SetCurrentRecording(void) {
     cControl *control = cControl::Control();
     if (!control) {
+        view->SetCurrentRecording(NULL);
         return;
     }
     const cRecording *recording = control->GetRecording();
     if (!recording) {
+        view->SetCurrentRecording(NULL);
         return;
     }
-    string recFileName = "";
-    if (recording->FileName()) {
-        recFileName = recording->FileName();
-    }
-    rootView->SetCurrentRecording(recFileName);
+    view->SetCurrentRecording(recording->FileName());
 }

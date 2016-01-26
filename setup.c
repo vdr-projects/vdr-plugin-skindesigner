@@ -1,5 +1,5 @@
 #include <vdr/interface.h>
-#include "libcore/curlfuncs.h"
+#include "extensions/curlfuncs.h"
 #include <vdr/menu.h>
 #include "setup.h"
 
@@ -119,16 +119,17 @@ eOSState cInstallManager::ProcessInstallationStatus(void) {
 }
 
 // --- cSkinDesignerSetup -----------------------------------------------------------
-cSkinDesignerSetup::cSkinDesignerSetup() {
+cSkinDesignerSetup::cSkinDesignerSetup(skindesignerapi::cPluginStructure *skinPreviewStruct) {
+    this->skinPreviewStruct = skinPreviewStruct;
     numLogosPerSizeInitial = config.numLogosPerSizeInitial;
+    cacheImagesInitial = config.cacheImagesInitial;    
     limitLogoCache = config.limitLogoCache;
     numLogosMax = config.numLogosMax;
     debugImageLoading = config.debugImageLoading;
     rerunAmount = config.rerunAmount;
     rerunDistance = config.rerunDistance;
     rerunMaxChannel = config.rerunMaxChannel;
-    blockFlush = config.blockFlush;
-    framesPerSecond = config.framesPerSecond;
+    numCustomTokens = config.numCustomTokens;
     menuDisplayStyle[0] = tr("after one another");
     menuDisplayStyle[1] = tr("at one go");
     Setup();
@@ -179,7 +180,7 @@ eOSState cSkinDesignerSetup::ProcessKey(eKeys Key) {
                 state = osContinue;
             } else if (type == itSkinRepo) {
                 Skins.Message(mtStatus, tr("Downloading Skin Screenshots..."));
-                cSkindesignerSkinPreview *prev = new cSkindesignerSkinPreview(currentSkin);
+                cSkindesignerSkinPreview *prev = new cSkindesignerSkinPreview(currentSkin, skinPreviewStruct);
                 Skins.Message(mtStatus, NULL);
                 state = AddSubMenu(prev);
             }
@@ -254,14 +255,14 @@ eOSState cSkinDesignerSetup::ProcessKey(eKeys Key) {
 
 void cSkinDesignerSetup::Store(void) {
     config.numLogosPerSizeInitial = numLogosPerSizeInitial;
+    config.cacheImagesInitial = cacheImagesInitial;
     config.limitLogoCache = limitLogoCache;
     config.numLogosMax = numLogosMax;
     config.debugImageLoading = debugImageLoading;
     config.rerunAmount = rerunAmount;
     config.rerunDistance = rerunDistance;
     config.rerunMaxChannel = rerunMaxChannel;
-    config.blockFlush = blockFlush;
-    config.framesPerSecond = framesPerSecond;
+    config.numCustomTokens = numCustomTokens;
 
     config.InitSetupIterator();
     cSkinSetup *skinSetup = NULL;
@@ -278,14 +279,14 @@ void cSkinDesignerSetup::Store(void) {
     config.UpdateGlobals();
 
     SetupStore("DebugImageLoading", debugImageLoading);
+    SetupStore("CacheImagesInitial", cacheImagesInitial);
     SetupStore("LimitChannelLogoCache", limitLogoCache);
     SetupStore("NumberLogosInitially", numLogosPerSizeInitial);
     SetupStore("NumberLogosMax", numLogosMax);
     SetupStore("RerunAmount", rerunAmount);
     SetupStore("RerunDistance", rerunDistance);
     SetupStore("RerunMaxChannel", rerunMaxChannel);
-    SetupStore("BlockFlush", blockFlush);
-    SetupStore("FramesPerSecond", framesPerSecond);
+    SetupStore("NumCustomTokens", numCustomTokens);
 }
 
 cOsdItem *cSkinDesignerSetup::InfoItem(const char *label) {
@@ -298,8 +299,7 @@ cOsdItem *cSkinDesignerSetup::InfoItem(const char *label) {
 void cSkinDesignerSetup::PluginSetup(void) {
     Add(InfoItem(tr("Plugin Setup")));
 
-    Add(new cMenuEditStraItem(tr("Menu Item display method"), &blockFlush, 2, menuDisplayStyle));
-    Add(new cMenuEditIntItem(tr("Frames per Second (fading and shifting)"), &framesPerSecond, 10, 100));
+    Add(new cMenuEditIntItem(tr("Maximum number of custom tokens"), &numCustomTokens, 0, 100));
 
     Add(InfoItem(tr("Reruns")));
     Add(new cMenuEditIntItem(tr("Maximum number of reruns to display"), &rerunAmount, 1, 100));
@@ -308,6 +308,7 @@ void cSkinDesignerSetup::PluginSetup(void) {
 
     Add(InfoItem(tr("Image Loading")));
     Add(new cMenuEditBoolItem(tr("Debug Image Loading"), &debugImageLoading));
+    Add(new cMenuEditBoolItem(tr("Cache icons, skinparts and logos at start"), &cacheImagesInitial));
     Add(new cMenuEditBoolItem(tr("Limit Channel Logo Cache"), &limitLogoCache));
     Add(new cMenuEditIntItem(tr("Number to cache initially (per size)"), &numLogosPerSizeInitial, 0, 1000));
     Add(new cMenuEditIntItem(tr("Number to cache in maximum"), &numLogosMax, 0, 1000));
@@ -319,24 +320,26 @@ void cSkinDesignerSetup::ImageCacheStatistics(void) {
     }
 
     Add(InfoItem(tr("Cache Statistics")));
-    int sizeIconCache = 0;
+    float sizeIconCacheInt = 0;
+    float sizeIconCacheExt = 0;
     int numIcons = 0;
-    imgCache->GetIconCacheSize(numIcons, sizeIconCache);
-    cString iconCacheInfo = cString::sprintf("%s %d %s - %s %d %s", tr("cached"), numIcons, tr("icons"), tr("size"), sizeIconCache, tr("byte"));
+    imgCache->GetIconCacheSize(numIcons, sizeIconCacheInt, sizeIconCacheExt);
+    cString iconCacheInfo = cString::sprintf("%s %d %s - %s %.2f%s %s, %.2f%s %s", tr("cached"), numIcons, tr("icons"), tr("size"), sizeIconCacheInt, tr("MB"), tr("int. memory"), sizeIconCacheExt, tr("MB"), tr("high level memory"));
     Add(new cOsdItem(*iconCacheInfo));
     cList<cOsdItem>::Last()->SetSelectable(false);
     
-    int sizeLogoCache = 0;
+    float sizeLogoCache = 0;
     int numLogos = 0;
     imgCache->GetLogoCacheSize(numLogos, sizeLogoCache);
-    cString logoCacheInfo = cString::sprintf("%s %d %s - %s %d %s", tr("cached"), numLogos, tr("logos"), tr("size"), sizeLogoCache, tr("byte"));
+    cString logoCacheInfo = cString::sprintf("%s %d %s - %s %.2f%s %s", tr("cached"), numLogos, tr("logos"), tr("size"), sizeLogoCache, tr("MB"), tr("int. memory"));
     Add(new cOsdItem(*logoCacheInfo));
     cList<cOsdItem>::Last()->SetSelectable(false);
 
-    int sizeSkinpartCache = 0;
+    float sizeSkinpartCacheInt = 0;
+    float sizeSkinpartCacheExt = 0;
     int numSkinparts = 0;
-    imgCache->GetSkinpartsCacheSize(numSkinparts, sizeSkinpartCache);
-    cString skinpartCacheInfo = cString::sprintf("%s %d %s - %s %d %s", tr("cached"), numSkinparts, tr("skinparts"), tr("size"), sizeSkinpartCache, tr("byte"));
+    imgCache->GetSkinpartsCacheSize(numSkinparts, sizeSkinpartCacheInt, sizeSkinpartCacheExt);
+    cString skinpartCacheInfo = cString::sprintf("%s %d %s - %s %.2f%s %s, %.2f%s %s", tr("cached"), numSkinparts, tr("skinparts"), tr("MB"), sizeSkinpartCacheInt, tr("MB"), tr("int. memory"), sizeSkinpartCacheExt, tr("MB"), tr("high level memory"));
     Add(new cOsdItem(*skinpartCacheInfo));
     cList<cOsdItem>::Last()->SetSelectable(false);
 }
@@ -518,10 +521,9 @@ void cSkindesignerSkinSetup::ShowButtons(int current, bool force) {
 
 // --- cSkindesignerSkinPreview -----------------------------------------------------------
 
-cSkindesignerSkinPreview::cSkindesignerSkinPreview(string skinName)  : 
-cSkindesignerOsdMenu(*cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), skinName.c_str())) {
-    currentSkin = skinName;
-    SetPluginName("setup");
+cSkindesignerSkinPreview::cSkindesignerSkinPreview(string skin, skindesignerapi::cPluginStructure *plugStruct)  : 
+cSkindesignerOsdMenu(plugStruct, *cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), skin.c_str())) {
+    currentSkin = skin;
     FirstCallCleared();
     Set();
 }
@@ -584,8 +586,11 @@ void cSkindesignerSkinPreview::Display(void) {
 
 void cSkindesignerSkinPreview::Set(void) {
     SetPluginMenu(0, skindesignerapi::mtText);
-    ClearTokens();
     Clear();
+
+    skindesignerapi::cTokenContainer *tk = GetTokenContainer(0);
+    SetTokenContainer(tk);
+    ClearTokens();
 
     cSkinRepo *skinRepo = config.GetSkinRepo(currentSkin);
     if (!skinRepo) {
@@ -593,55 +598,77 @@ void cSkindesignerSkinPreview::Set(void) {
         return;
     }
 
-    AddStringToken("menuheader", *cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), currentSkin.c_str()));
-    AddStringToken("skinname", currentSkin);
-    AddStringToken("author", skinRepo->Author());
+    
+    int fontsIndex = GetLoopIndex("fonts");
+    int pluginIndex = GetLoopIndex("plugins");
+    int screenshotIndex = GetLoopIndex("screenshots");
+
+    vector<string> *specialFonts = skinRepo->SpecialFonts();
+    vector<string> *supportedPlugins = skinRepo->SupportedPlugins();
+    vector< pair < string, string > > *screenshots = skinRepo->Screenshots();
+
+    vector<int> loopInfo;        
+    loopInfo.push_back((int)specialFonts->size());
+    loopInfo.push_back((int)supportedPlugins->size());
+    loopInfo.push_back((int)screenshots->size());
+    SetLoop(loopInfo);
+
+    AddStringToken((int)eDmSkinPreviewST::menuheader, *cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), currentSkin.c_str()));
+    AddStringToken((int)eDmSkinPreviewST::skinname, currentSkin.c_str());
+    AddStringToken((int)eDmSkinPreviewST::author, skinRepo->Author().c_str());
 
     stringstream plainText;
     plainText << *cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), currentSkin.c_str()) << "\n\n";
     plainText << tr("Author") << ": " << skinRepo->Author() << "\n";
-
     plainText << tr("Used Fonts") << ": \n";
-    vector<string> specialFonts = skinRepo->SpecialFonts();
-    for (vector<string>::iterator it = specialFonts.begin(); it != specialFonts.end(); it++) {
-        map<string,string> usedFonts;
-        usedFonts.insert(pair<string,string>("fonts[name]", *it));
-        usedFonts.insert(pair<string,string>("fonts[installed]", CheckFontInstalled(*it)));
-        AddLoopToken("fonts", usedFonts);
+    
+    int i = 0;
+    for (vector<string>::iterator it = specialFonts->begin(); it != specialFonts->end(); it++) {
+        AddLoopToken(fontsIndex, i, (int)eDmSkinPreviewFontsLT::name, (*it).c_str());
+        AddLoopToken(fontsIndex, i, (int)eDmSkinPreviewFontsLT::installed, CheckFontInstalled(*it));
         plainText << *it << "\n";
+        i++;
     }
     
     plainText << tr("Supported Plugins") << ": \n";
-    vector<string> supportedPlugins = skinRepo->SupportedPlugins();
-    for (vector<string>::iterator it = supportedPlugins.begin(); it != supportedPlugins.end(); it++) {
-        map<string,string> plugins;
-        plugins.insert(pair<string,string>("plugins[name]", *it));
-        AddLoopToken("plugins", plugins);
+    i = 0;
+    for (vector<string>::iterator it = supportedPlugins->begin(); it != supportedPlugins->end(); it++) {
+        AddLoopToken(pluginIndex, i, (int)eDmSkinPreviewPluginsLT::name, (*it).c_str());
         plainText << *it << "\n";
+        i++;
     }
 
     SetText(plainText.str().c_str());
 
-    vector< pair < string, string > > screenshots = skinRepo->Screenshots();
-    int i = 0;
-    for (vector< pair < string, string > >::iterator it = screenshots.begin(); it != screenshots.end(); it++) {
+    i = 0;
+    for (vector< pair < string, string > >::iterator it = screenshots->begin(); it != screenshots->end(); it++) {
         string url = it->second;
         string imgType = ".jpg";
         if (url.find(".png") != string::npos)
             imgType = ".png";
-        stringstream tempName;
-        tempName << "/tmp/screenshot_" << currentSkin << "_" << i++ << imgType;
-        dsyslog("skindesigner: download screenshot name %s url %s", tempName.str().c_str(), url.c_str());
-        CurlGetUrlFile(url.c_str(), tempName.str().c_str());
-        map<string,string> img;
-        img.insert(pair<string,string>("screenshots[desc]", it->first));
-        img.insert(pair<string,string>("screenshots[path]", tempName.str()));
-        AddLoopToken("screenshots", img);
+        cString tempName = cString::sprintf("/tmp/screenshot_%s_%d%s", currentSkin.c_str(), i, imgType.c_str());
+        dsyslog("skindesigner: download screenshot name %s url %s", *tempName, url.c_str());
+        CurlGetUrlFile(url.c_str(), *tempName);
+        AddLoopToken(screenshotIndex, i, (int)eDmSkinPreviewScreenshotsLT::desc, (it->first).c_str());
+        AddLoopToken(screenshotIndex, i, (int)eDmSkinPreviewScreenshotsLT::path, *tempName);
+        i++;
     }
 }
 
-string cSkindesignerSkinPreview::CheckFontInstalled(string fontName) {
+void cSkindesignerSkinPreview::DefineTokens(skindesignerapi::cTokenContainer *tk) {
+    tk->DefineStringToken("{menuheader}", (int)eDmSkinPreviewST::menuheader);
+    tk->DefineStringToken("{skinname}", (int)eDmSkinPreviewST::skinname);
+    tk->DefineStringToken("{author}", (int)eDmSkinPreviewST::author);
+    tk->DefineLoopToken("{fonts[name]}", (int)eDmSkinPreviewFontsLT::name);
+    tk->DefineLoopToken("{fonts[installed]}", (int)eDmSkinPreviewFontsLT::installed);
+    tk->DefineLoopToken("{plugins[name]}", (int)eDmSkinPreviewPluginsLT::name);
+    tk->DefineLoopToken("{screenshots[desc]}", (int)eDmSkinPreviewScreenshotsLT::desc);
+    tk->DefineLoopToken("{screenshots[path]}", (int)eDmSkinPreviewScreenshotsLT::path);
+}
+
+const char *cSkindesignerSkinPreview::CheckFontInstalled(string fontName) {
     if (fontManager->FontInstalled(fontName))
         return "1";
     return "0";
 }
+

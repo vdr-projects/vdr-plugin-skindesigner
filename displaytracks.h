@@ -2,21 +2,15 @@
 #define __DISPLAYTRACKS_H
 
 #include <vdr/skins.h>
-#include <vdr/thread.h>
 #include "config.h"
-#include "libtemplate/template.h"
-#include "views/displayaudiotracksview.h"
+#include "coreengine/viewdisplaytracks.h"
 
 class cSDDisplayTracks : public cSkinDisplayTracks {
 private:
-    cDisplayAudiotracksView *tracksView;
-    bool initial;
-    int numTracks;
-    bool doOutput;
-    int currentTrack;
-    const char *menuTitle;
+    cViewTracks *view;
+    bool ok;
 public:
-    cSDDisplayTracks(cTemplate *audiotracksTemplate, const char *Title, int NumTracks, const char * const *Tracks);
+    cSDDisplayTracks(cViewTracks *tracksView, const char *Title, int NumTracks, const char * const *Tracks);
     virtual ~cSDDisplayTracks();
     virtual void SetTrack(int Index, const char * const *Tracks);
     virtual void SetAudioChannel(int AudioChannel);

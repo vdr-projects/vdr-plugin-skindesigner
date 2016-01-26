@@ -27,29 +27,56 @@
 
 <!ELEMENT background (areacontainer|area|areascroll)*>
 <!ATTLIST background
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
 >
 
 <!ELEMENT backgroundmodeonly (areacontainer|area|areascroll)*>
 <!ATTLIST backgroundmodeonly
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
 >
 
 <!ELEMENT datetime (areacontainer|area|areascroll)*>
 <!ATTLIST datetime
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT time (areacontainer|area|areascroll)*>
 <!ATTLIST time
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT scrapercontent (areacontainer|area|areascroll)*>
 <!ATTLIST scrapercontent
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -63,66 +90,143 @@
 
 <!ELEMENT rectitle (areacontainer|area|areascroll)*>
 <!ATTLIST rectitle
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT recinfo (areacontainer|area|areascroll)*>
 <!ATTLIST recinfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT currenttime (areacontainer|area|areascroll)*>
 <!ATTLIST currenttime
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT totaltime (areacontainer|area|areascroll)*>
 <!ATTLIST totaltime
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT endtime (areacontainer|area|areascroll)*>
 <!ATTLIST endtime
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT progressbar (areacontainer|area|areascroll)*>
 <!ATTLIST progressbar
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT cutmarks (areacontainer|area|areascroll)*>
 <!ATTLIST cutmarks
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT controlicons (areacontainer|area|areascroll)*>
 <!ATTLIST controlicons
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT controliconsmodeonly (areacontainer|area|areascroll)*>
 <!ATTLIST controliconsmodeonly
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT progressmodeonly (areacontainer|area|areascroll)*>
 <!ATTLIST progressmodeonly
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT jump (areacontainer|area|areascroll)*>
 <!ATTLIST jump
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
@@ -138,6 +242,11 @@
   debug CDATA #IMPLIED
   delay CDATA #REQUIRED
   fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
@@ -146,11 +255,23 @@
   debug CDATA #IMPLIED
   delay CDATA #REQUIRED
   fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT customtokens (areacontainer|area|areascroll)*>
 <!ATTLIST customtokens
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >

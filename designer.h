@@ -4,15 +4,19 @@
 class cSkinDesigner;
 
 #include "config.h"
-#include "libtemplate/template.h"
-#include "libtemplate/xmlparser.h"
+#include "coreengine/viewdisplaychannel.h"
+#include "coreengine/viewdisplaymenu.h"
+#include "coreengine/viewdisplayreplay.h"
+#include "coreengine/viewdisplayvolume.h"
+#include "coreengine/viewdisplaytracks.h"
+#include "coreengine/viewdisplaymessage.h"
+#include "coreengine/viewdisplayplugin.h"
 #include "displaychannel.h"
 #include "displaymenu.h"
 #include "displayreplay.h"
 #include "displayvolume.h"
 #include "displaytracks.h"
 #include "displaymessage.h"
-#include "displayplugin.h"
 #include <vdr/skinlcars.h>
 
 class cSkinDesigner : public cSkin {
@@ -22,19 +26,20 @@ private:
     cSkinLCARS *backupSkin;
     bool useBackupSkin;
     cGlobals *globals;
-    cTemplate *channelTemplate;
-    cTemplate *menuTemplate;
-    cTemplate *messageTemplate;
-    cTemplate *replayTemplate;
-    cTemplate *volumeTemplate;
-    cTemplate *audiotracksTemplate;
-    map< string, map <int, cTemplate*> > pluginTemplates;
+    cViewChannel  *channelView;
+    cViewMenu     *menuView;
+    cViewMessage  *messageView;
+    cViewReplay   *replayView;
+    cViewVolume   *volumeView;
+    cViewTracks   *tracksView;
     cSDDisplayMenu *currentMenu;
+    map<int, cViewPlugin* > pluginViews;
     void Init(void);
     void ReloadCaches(void);
-    void DeleteTemplates(void);
-    bool LoadTemplates(void);
-    void CacheTemplates(void);
+    void DeleteViews(void);
+    bool LoadViews(void);
+    void LoadPluginViews(void);
+    void CacheViews(void);
 public:
     cSkinDesigner(string skin);
     virtual ~cSkinDesigner(void);
@@ -45,13 +50,14 @@ public:
     virtual cSkinDisplayVolume *DisplayVolume(void);
     virtual cSkinDisplayTracks *DisplayTracks(const char *Title, int NumTracks, const char * const *Tracks);
     virtual cSkinDisplayMessage *DisplayMessage(void);
-    virtual cSkinDisplayPlugin *DisplayPlugin(string pluginName, int viewID, int subViewID);
     void ActivateBackupSkin(void) { useBackupSkin = true; };
     void Reload(void);
     void ListAvailableFonts(void);
-    bool SetCustomToken(string option);
+    bool SetCustomIntToken(string option);
+    bool SetCustomStringToken(string option);
     void ListCustomTokens(void);
     cSDDisplayMenu *GetDisplayMenu(void) { return currentMenu; };
+    skindesignerapi::ISkinDisplayPlugin *GetDisplayPlugin(int plugId);
 };
 
 #endif //__SKINDESIGNER_H

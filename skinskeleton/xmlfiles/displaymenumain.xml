@@ -21,7 +21,7 @@
     </timers>
 
     <!-- Available Variables lastrecordings: 10 newest recordings
-    {numtimers}                  number of active timers
+    {numtimers}                  number of active timers (to align lastrecordings at timers viewelement)
     {recordings[]}               array with 10 newest recordings
     {recordings[name]}           name of recording
     {recordings[seriesname]}     series name if available
@@ -109,7 +109,7 @@
     {stop}                      End of current Schedule in hh:mm (empty for recordings)
     {duration}                  Duration of current Schedule in min
     {durationhours}             Duration, full hours
-    {minutes}                   Duration, rest of minutes
+    {minutes}                   Duration, rest in minutes
     {elapsed}                   Elapsed time of current Schedule in min (0 for recordings)
     {remaining}                 Remaining time of current Schedule in min (0 for recordings)
     {hasposter}                 true if poster is available

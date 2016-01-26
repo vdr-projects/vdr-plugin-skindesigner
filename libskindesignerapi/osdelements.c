@@ -3,37 +3,37 @@
 /**********************************************************************
 * cOsdElement
 **********************************************************************/
-skindesignerapi::cOsdElement::cOsdElement(skindesignerapi::ISkinDisplayPlugin *view) {
+skindesignerapi::cOsdElement::cOsdElement(skindesignerapi::ISkinDisplayPlugin *view, int viewId) {
     this->view = view;
+    this->viewId = viewId;
+    tk = NULL;
 }
 
 skindesignerapi::cOsdElement::~cOsdElement() {
 }
 
 void skindesignerapi::cOsdElement::ClearTokens(void) {
-    stringTokens.clear();
-    intTokens.clear();
-    loopTokens.clear();
+    tk->Clear();
 }
 
-void skindesignerapi::cOsdElement::AddStringToken(string key, string value) {
-    stringTokens.insert(pair<string,string>(key, value));
+int skindesignerapi::cOsdElement::GetLoopIndex(const char *loop) {
+    return tk->LoopIndex(loop);
 }
 
-void skindesignerapi::cOsdElement::AddIntToken(string key, int value) {
-    intTokens.insert(pair<string,int>(key, value));
+void skindesignerapi::cOsdElement::SetLoop(vector<int> loopInfo) {
+    tk->CreateLoopTokenContainer(&loopInfo);
 }
 
-void skindesignerapi::cOsdElement::AddLoopToken(string loopName, map<string, string> &tokens) {
-    map<string, vector<map<string, string> > >::iterator hitLoop = loopTokens.find(loopName);
-    if (hitLoop == loopTokens.end()) {
-        vector<map<string, string> > tokenVector;
-        tokenVector.push_back(tokens);
-        loopTokens.insert(pair<string, vector<map<string, string> > >(loopName, tokenVector));
-    } else {
-        vector<map<string, string> > *tokenVector = &hitLoop->second;
-        tokenVector->push_back(tokens);
-    }
+void skindesignerapi::cOsdElement::AddStringToken(int index, const char *value) {
+    tk->AddStringToken(index, value);
+}
+
+void skindesignerapi::cOsdElement::AddIntToken(int index, int value) {
+    tk->AddIntToken(index, value);
+}
+
+void skindesignerapi::cOsdElement::AddLoopToken(int loopIndex, int row, int index, const char *value) {
+    tk->AddLoopToken(loopIndex, row, index, value);
 }
 
 bool skindesignerapi::cOsdElement::ChannelLogoExists(string channelId) {
@@ -41,166 +41,162 @@ bool skindesignerapi::cOsdElement::ChannelLogoExists(string channelId) {
 }
 
 string skindesignerapi::cOsdElement::GetEpgImagePath(void) {
-    return view->GetEpgImagePath();    
+    return view->GetEpgImagePath();
 }
 
+void skindesignerapi::cOsdElement::DebugTokenContainer(void) {
+    tk->Debug();
+}
 
 /**********************************************************************
 * cViewElement
 **********************************************************************/
-skindesignerapi::cViewElement::cViewElement(skindesignerapi::ISkinDisplayPlugin *view, int viewElementID) : cOsdElement(view) {
-    this->viewElementID = viewElementID;
+skindesignerapi::cViewElement::cViewElement(skindesignerapi::ISkinDisplayPlugin *view, int viewId, int viewElementId) : cOsdElement(view, viewId) {
+    this->viewElementId = viewElementId;
 }
 
 skindesignerapi::cViewElement::~cViewElement() {
+    view->ClearViewElement(viewElementId, viewId);
 }
 
 void skindesignerapi::cViewElement::Clear(void) {
-    if (!view)
-        return;
-    view->ClearViewElement(viewElementID);
+    view->ClearViewElement(viewElementId, viewId);
 }
 
 void skindesignerapi::cViewElement::Display(void) {
-    if (!view)
-        return;
-    view->SetViewElementIntTokens(&intTokens);
-    view->SetViewElementStringTokens(&stringTokens);
-    view->SetViewElementLoopTokens(&loopTokens);
-    view->DisplayViewElement(viewElementID);
+    view->SetViewElementTokens(viewElementId, viewId, tk);
+    view->DisplayViewElement(viewElementId, viewId);
 }
 
 /**********************************************************************
 * cViewGrid
 **********************************************************************/
-skindesignerapi::cViewGrid::cViewGrid(skindesignerapi::ISkinDisplayPlugin *view, int viewGridID) : cOsdElement(view) {
-    this->viewGridID = viewGridID;
+skindesignerapi::cViewGrid::cViewGrid(skindesignerapi::ISkinDisplayPlugin *view, int viewId, int viewGridId) : cOsdElement(view, viewId) {
+    this->viewGridId = viewGridId;
 }
 
 skindesignerapi::cViewGrid::~cViewGrid() {
-    if (!view)
-        return;
-    view->ClearGrids(viewGridID);    
+    view->ClearGrids(viewId, viewGridId);
 }
 
-void skindesignerapi::cViewGrid::SetGrid(long gridID, double x, double y, double width, double height) {
-    if (!view)
-        return;
-    view->SetGrid(viewGridID, gridID, x, y, width, height, &intTokens, &stringTokens);
+void skindesignerapi::cViewGrid::SetGrid(long gridId, double x, double y, double width, double height) {
+    view->SetGrid(gridId, viewId, viewGridId, x, y, width, height, tk);
 }
 
-void skindesignerapi::cViewGrid::SetCurrent(long gridID, bool current) {
-    if (!view)
-        return;
-    view->SetGridCurrent(viewGridID, gridID, current);
+void skindesignerapi::cViewGrid::SetCurrent(long gridId, bool current) {
+    view->SetGridCurrent(gridId, viewId, viewGridId, current);
 }
 
-void skindesignerapi::cViewGrid::MoveGrid(long gridID, double x, double y, double width, double height) {
-    if (!view)
-        return;
-    view->SetGrid(viewGridID, gridID, x, y, width, height, NULL, NULL);
+void skindesignerapi::cViewGrid::MoveGrid(long gridId, double x, double y, double width, double height) {
+    view->SetGrid(gridId, viewId, viewGridId, x, y, width, height, NULL);
 }
 
-void skindesignerapi::cViewGrid::Delete(long gridID) {
-    if (!view)
-        return;
-    view->DeleteGrid(viewGridID, gridID);
+void skindesignerapi::cViewGrid::Delete(long gridId) {
+    view->DeleteGrid(gridId, viewId, viewGridId);
 }
 
 void skindesignerapi::cViewGrid::Clear(void) {
-    if (!view)
-        return;
-    view->ClearGrids(viewGridID);    
+    view->ClearGrids(viewId, viewGridId);
 }
 
 void skindesignerapi::cViewGrid::Display(void) {
-    if (!view)
-        return;
-    view->DisplayGrids(viewGridID);
+    view->DisplayGrids(viewId, viewGridId);
 }
 
 /**********************************************************************
 * cViewTab
 **********************************************************************/
-skindesignerapi::cViewTab::cViewTab(skindesignerapi::ISkinDisplayPlugin *view) : cOsdElement(view) {
+skindesignerapi::cViewTab::cViewTab(skindesignerapi::ISkinDisplayPlugin *view, int viewId) : cOsdElement(view, viewId) {
 }
 
 skindesignerapi::cViewTab::~cViewTab() {
+    view->ClearTab(viewId);
 }
 
 void skindesignerapi::cViewTab::Init(void) {
-    view->SetTabIntTokens(&intTokens);
-    view->SetTabStringTokens(&stringTokens);
-    view->SetTabLoopTokens(&loopTokens);
-    view->SetTabs();    
+    view->SetTabTokens(viewId, tk);
 }
 
 void skindesignerapi::cViewTab::Left(void) {
-    view->TabLeft();
+    view->TabLeft(viewId);
 }
 
 void skindesignerapi::cViewTab::Right(void) {
-    view->TabRight();
+    view->TabRight(viewId);
 }
 
 void skindesignerapi::cViewTab::Up(void) {
-    view->TabUp();
+    view->TabUp(viewId);
 }
 
 void skindesignerapi::cViewTab::Down(void) {
-    view->TabDown();
+    view->TabDown(viewId);
 }
 
 void skindesignerapi::cViewTab::Display(void) {
-    if (!view)
-        return;
-    view->DisplayTabs();
+    view->DisplayTabs(viewId);
 }
 
 /**********************************************************************
 * cOsdView
 **********************************************************************/
-skindesignerapi::cOsdView::cOsdView(skindesignerapi::ISkinDisplayPlugin *displayPlugin) {
+skindesignerapi::cOsdView::cOsdView(skindesignerapi::cPluginStructure *plugStruct, skindesignerapi::ISkinDisplayPlugin *displayPlugin, int viewId) {
+    this->plugStruct = plugStruct;
     this->displayPlugin = displayPlugin;
+    this->viewId = viewId;
 }
 
 skindesignerapi::cOsdView::~cOsdView() {
-    delete displayPlugin;
+    if (displayPlugin && (viewId == 0))
+        displayPlugin->CloseOsd();
 }
 
 void skindesignerapi::cOsdView::Deactivate(bool hide) {
     if (!displayPlugin)
         return;
-    displayPlugin->Deactivate(hide);
+    displayPlugin->Deactivate(viewId, hide);
 }
 
 void skindesignerapi::cOsdView::Activate(void) {
     if (!displayPlugin)
         return;
-    displayPlugin->Activate();
+    displayPlugin->Activate(viewId);
 }
 
-skindesignerapi::cViewElement *skindesignerapi::cOsdView::GetViewElement(int viewElementID) {
+skindesignerapi::cViewElement *skindesignerapi::cOsdView::GetViewElement(int viewElementId) {
     if (!displayPlugin)
         return NULL;
-    return new cViewElement(displayPlugin, viewElementID);
+    cTokenContainer *tk = plugStruct->GetTokenContainerVE(viewId, viewElementId);
+    if (!tk)
+        return NULL;
+    skindesignerapi::cViewElement *ve = new cViewElement(displayPlugin, viewId, viewElementId);
+    ve->SetTokenContainer(tk);
+    return ve;
 }
 
-skindesignerapi::cViewGrid *skindesignerapi::cOsdView::GetViewGrid(int viewGridID) {
+skindesignerapi::cViewGrid *skindesignerapi::cOsdView::GetViewGrid(int viewGridId) {
     if (!displayPlugin)
         return NULL;
-    displayPlugin->InitGrids(viewGridID);
-    return new cViewGrid(displayPlugin, viewGridID);
+    cTokenContainer *tk = plugStruct->GetTokenContainerGE(viewId, viewGridId);
+    if (!tk)
+        return NULL;
+    skindesignerapi::cViewGrid *ge = new cViewGrid(displayPlugin, viewId, viewGridId);
+    ge->SetTokenContainer(tk);
+    return ge;
 }
 
 skindesignerapi::cViewTab *skindesignerapi::cOsdView::GetViewTabs(void) {
     if (!displayPlugin)
         return NULL;
-    return new cViewTab(displayPlugin);
+    cTokenContainer *tk = plugStruct->GetTokenContainerTab(viewId);
+    if (!tk)
+        return NULL;
+    skindesignerapi::cViewTab *tab = new cViewTab(displayPlugin, viewId);
+    tab->SetTokenContainer(tk);
+    return tab;
 }
 
 void skindesignerapi::cOsdView::Display(void) {
-    if (!displayPlugin)
-        return;
-    displayPlugin->Flush();   
+    if (displayPlugin)
+        displayPlugin->Flush();
 }

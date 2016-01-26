@@ -15,7 +15,7 @@
     <header>
     </header>
 
-     <!-- Available Variables header:
+    <!-- Available Variables menuitems:
     {numelements}                 number of displayed tracks 
     -->
     <menuitems x="0" y="{areaheight} - {numelements} * {areaheight} / 10" orientation="vertical" width="100%" height="{numelements} * {areaheight} / 10" align="top" numlistelements="{numelements}">

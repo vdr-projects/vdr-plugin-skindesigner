@@ -21,7 +21,7 @@
                 <areascroll condition="not{running}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="95%" color="{clrWhite}" text="{start} {title}" />
                 </areascroll>
-                <areascroll condition="{running}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" width="48%" layer="3">
+                <areascroll condition="{running}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" width="80%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="95%" color="{clrWhite}" text="{start} {title}" />
                 </areascroll>
                 <area layer="3">
@@ -88,8 +88,8 @@
                 <drawtext x="20" valign="center" font="{light}" fontsize="95%" color="{clrBlueLight}" text="{title}" />
             </area>
         </listelement>
-        <currentelement delay="500" fadetime="0">
-            <area condition="{whatson}" x="63%" y="0" width="36%" height="100%" layer="2">
+        <currentelement fadetime="300">
+            <area condition="{whatson}" x="63%" y="0" width="36%" height="100%" layer="5">
                 <!-- title -->
                 <drawtext align="center" y="0" font="{semibold}" width="{areawidth}-20" fontsize="8%" color="{clrWhite}" text="{title}" />
                 <!-- progress bar if event is running -->
@@ -103,7 +103,7 @@
                 <drawimage condition="{hasposter}" name="poster" imagetype="image" path="{posterpath}" x="10" y="{posy(start)} + {height(start)} + 20" width="{areawidth}/3" height="{areawidth}/3 * {posterheight} / {posterwidth}"/>
                 <!-- description -->
                 <drawtextbox condition="{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" float="topleft" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 20" font="{light}" fontsize="{areaheight}/20" color="{clrWhite}" text="{description}" />
-                <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" font="{light}" fontsize="{areaheight}/20" color="{clrWhite}" text="{description}" />
+                <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="{areawidth} - 20" height="{areaheight} - {posy(poster)}" font="{light}" fontsize="{areaheight}/20" color="{clrWhite}" text="{description}" />
             </area>
             <areacontainer condition="{whatsonnow}||{whatsonnext}">
                 <area x="63%" y="0" width="36%" height="85%" layer="2">
@@ -132,11 +132,4 @@
         </currentelement>
     </menuitems>
     
-    <scrollbar>
-        <area x="60%" y="10%" width="2%" height="82%" layer="3">
-            <fill color="{clrWhite}" />
-            <drawrectangle x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
-            <drawrectangle x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{clrWhite}" />
-        </area>
-    </scrollbar>
 </menuschedules>

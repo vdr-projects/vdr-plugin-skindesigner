@@ -23,11 +23,20 @@
     <datetime>
     </datetime>
 
+    <!-- Available Variables time:
+    {sec}                    current seconds
+    {min}                    current minutes
+    {hour}                   current hours
+    {hmins}                  current "hourminutes" to display an hour hand
+    -->
+    <time>
+    </time>
+
     <!-- Available Variables scrapercontent:
     {posterpath}                        Full Path of Poster to use in image path attribute
     {posterwidth}                       width of poster in pixel
     {posterheight}                      height of poster in pixel
-    {hasPoster}                         true if poster is available
+    {hasposter}                         true if poster is available
     {bannerpath}                        Full Path of banner to use in image path attribute
     {bannerwidth}                       width of banner in pixel
     {bannerheight}                      height of banner in pixel

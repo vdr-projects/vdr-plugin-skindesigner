@@ -98,7 +98,7 @@
     <screenresolution>
     </screenresolution>
 
-    <!-- Available Variables dvbdeviceinfo:
+    <!-- Available Variables channelgroup:
     {prevAvailable}                     true if previous Channel Group is avaialble
     {nextAvailable}                     true if next Channel Group is avaialble
     {group}                             Name of current Channel Group
@@ -116,10 +116,6 @@
     -->
     <signalquality>
     </signalquality>
-
-    <!-- background of signalmeter, will only be drawn if signalquality was deleted -->
-    <signalqualityback>
-    </signalqualityback>
 
     <!-- Available Variables devices:
     signalstrength and -quality are only set if not mode="light" is used in <devices>

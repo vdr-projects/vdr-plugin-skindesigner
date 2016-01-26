@@ -2,21 +2,17 @@
 #define __DISPLAYREPLAY_H
 
 #include <vdr/skins.h>
-#include <vdr/thread.h>
 #include "config.h"
-#include "libtemplate/template.h"
-#include "views/displayreplayview.h"
+#include "coreengine/viewdisplayreplay.h"
 
 class cSDDisplayReplay : public cSkinDisplayReplay {
 private:
-    cDisplayReplayView *replayView;
-    bool initial;
-    bool initialModeSet;
-    bool doOutput;
-    bool modeOnly;
+    bool ok;
+    bool init;
+    cViewReplay *view;
     void SetTimeShiftValues(const cRecording *recording);
 public:
-    cSDDisplayReplay(cTemplate *replayTemplate, bool ModeOnly);
+    cSDDisplayReplay(cViewReplay *replayView, bool ModeOnly);
     virtual ~cSDDisplayReplay();
     virtual void SetRecording(const cRecording *Recording);
     virtual void SetTitle(const char *Title);

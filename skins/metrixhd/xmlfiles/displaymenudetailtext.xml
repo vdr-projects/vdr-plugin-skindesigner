@@ -4,6 +4,11 @@
             <fill color="{clrTransBlack}" />
         </area>
     </background>
+    <header>
+        <area x="0" y="0" width="41%" height="10%" layer="2">
+            <drawtext x="5" width="{areawidth}-10" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{title}" />
+        </area>
+    </header>
     <datetime>
         <area x="75%" y="0" width="12%" height="10%" layer="2">
             <drawtext align="right" y="15%" font="{light}" fontsize="30%" color="{clrWhite}" text="{dayname}" />

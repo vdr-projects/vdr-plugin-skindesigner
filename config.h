@@ -8,11 +8,13 @@
 #include <vdr/skins.h>
 #include <vdr/plugin.h>
 #include "designer.h"
-#include "libcore/fontmanager.h"
-#include "libcore/imagecache.h"
-#include "libcore/recfolderinfo.h"
-#include "libcore/skinsetup.h"
-#include "libcore/skinrepo.h"
+#include "extensions/pluginmanager.h"
+#include "extensions/fontmanager.h"
+#include "extensions/imagecache.h"
+#include "extensions/recfolderinfo.h"
+#include "extensions/skinsetup.h"
+#include "extensions/skinrepo.h"
+#include "libskindesignerapi/skindesignerapi.h"
 
 #define SCRIPTOUTPUTPATH "/tmp/skindesigner"
 
@@ -32,13 +34,6 @@ private:
     string fontSml;
     string osdLanguage;
     cGlobals *tmplGlobals;
-    map < string, map < int, string > > pluginMenus;
-    map < string, map < int, string > >::iterator plugMenuIt;
-    map < string, map < int, string > > pluginViews;
-    map < string, map < int, string > >::iterator plugViewIt;
-    map < string, multimap< int, pair <int, string> > > pluginSubViews;
-    map < string, map< int, map <int, string> > > pluginViewElements;
-    map < string, map< int, map <int, string> > > pluginViewGrids;
     vector<cSkinDesigner*> skinRefs;
     vector<cSkinDesigner*>::iterator skinRefsIterator;
     vector<string> deliveredSkins;
@@ -100,15 +95,6 @@ public:
     void SetOsdLanguage(void) { osdLanguage = Setup.OSDLanguage; };
     bool OsdLanguageChanged(void);
     cString GetSkinRessourcePath(void);
-    void AddPluginMenus(string name, map< int, string > menus);
-    void AddPluginViews(string name, map< int, string > views, multimap< int, pair <int, string> > subViews, map< int, map <int, string> > viewElements, map< int, map <int, string> > viewGrids);
-    void InitPluginMenuIterator(void);
-    map <int,string> *GetPluginTemplates(string &name);
-    void InitPluginViewIterator(void);
-    map <int,string> *GetPluginViews(string &name);
-    map <int,string> GetPluginSubViews(string name, int viewID);
-    int GetPluginViewElementID(string pluginName, string viewElementName, int viewID);
-    int GetPluginViewGridID(string pluginName, string viewGridName, int viewID);
     cString skinPath;
     cString installerSkinPath;
     cString logoPath;
@@ -117,6 +103,7 @@ public:
     bool replaceDecPoint;
     char decPoint;
     //Setup Parameter
+    int cacheImagesInitial;
     int numLogosPerSizeInitial;
     int limitLogoCache;
     int numLogosMax;
@@ -124,20 +111,21 @@ public:
     int rerunAmount;
     int rerunDistance;
     int rerunMaxChannel;
-    int blockFlush;
-    int framesPerSecond;
+    int numCustomTokens;
     //TemplateReload on Setup Close
     bool setupCloseDoReload;
 };
 
 #ifdef DEFINE_CONFIG
     cDesignerConfig config;
+    cSDPluginManager *plgManager = NULL;
     cFontManager *fontManager = NULL;
     cImageCache *imgCache = NULL;
     cTheme Theme;
     cRecordingsFolderInfo recFolderInfo(Recordings);
 #else
     extern cDesignerConfig config;
+    extern cSDPluginManager *plgManager;
     extern cFontManager *fontManager;
     extern cImageCache *imgCache;
     extern cTheme Theme;

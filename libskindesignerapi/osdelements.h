@@ -12,19 +12,22 @@ namespace skindesignerapi {
 
 class cOsdElement {
 protected:
+    int viewId;
     ISkinDisplayPlugin *view;
-    map < string, string > stringTokens;
-    map < string, int > intTokens;
-    map < string, vector< map< string, string > > > loopTokens;
+    cTokenContainer *tk;
 public:
-    cOsdElement(ISkinDisplayPlugin *view);
+    cOsdElement(ISkinDisplayPlugin *view, int viewId);
     virtual ~cOsdElement();
-    void AddLoopToken(string loopName, map<string, string> &tokens);
-    void AddStringToken(string key, string value);
-    void AddIntToken(string key, int value);
+    void SetTokenContainer(cTokenContainer *tk) { this->tk = tk; };
+    int GetLoopIndex(const char *loop);
+    void SetLoop(vector<int> loopInfo);
+    void AddLoopToken(int loopIndex, int row, int index, const char *value);
+    void AddStringToken(int index, const char *value);
+    void AddIntToken(int index, int value);
     void ClearTokens(void);
     bool ChannelLogoExists(string channelId);
     string GetEpgImagePath(void);
+    void DebugTokenContainer(void);
 };
 
 /**********************************************************************
@@ -32,9 +35,9 @@ public:
 **********************************************************************/
 class cViewElement : public cOsdElement {
 private:
-    int viewElementID;
+    int viewElementId;
 public:
-    cViewElement(ISkinDisplayPlugin *view, int viewElementID);
+    cViewElement(ISkinDisplayPlugin *view, int viewId, int viewElementId);
     virtual ~cViewElement();
     void Clear(void);
     void Display(void);
@@ -45,14 +48,14 @@ public:
 **********************************************************************/
 class cViewGrid : public cOsdElement {
 private:
-    int viewGridID;
+    int viewGridId;
 public:
-    cViewGrid(ISkinDisplayPlugin *view, int viewGridID);
+    cViewGrid(ISkinDisplayPlugin *view, int viewId, int viewGridId);
     virtual ~cViewGrid();
-    void SetGrid(long gridID, double x, double y, double width, double height);
-    void SetCurrent(long gridID, bool current);
-    void MoveGrid(long gridID, double x, double y, double width, double height);
-    void Delete(long gridID);
+    void SetGrid(long gridId, double x, double y, double width, double height);
+    void SetCurrent(long gridId, bool current);
+    void MoveGrid(long gridId, double x, double y, double width, double height);
+    void Delete(long gridId);
     void Clear(void);
     void Display(void);
 };
@@ -63,7 +66,7 @@ public:
 class cViewTab : public cOsdElement {
 private:
 public:
-    cViewTab(ISkinDisplayPlugin *view);
+    cViewTab(ISkinDisplayPlugin *view, int viewId);
     virtual ~cViewTab();
     void Init(void);
     void Left(void);
@@ -79,8 +82,10 @@ public:
 class cOsdView {
 private:
     ISkinDisplayPlugin *displayPlugin;
+    cPluginStructure *plugStruct;
+    int viewId;
 public:
-    cOsdView(ISkinDisplayPlugin *displayPlugin);
+    cOsdView(cPluginStructure *plugStruct, ISkinDisplayPlugin *displayPlugin, int viewId);
     virtual ~cOsdView();
     void Deactivate(bool hide);
     void Activate(void);

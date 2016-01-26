@@ -1,129 +1,84 @@
 #define __STL_CONFIG_H
-#include <vdr/player.h>
 #include "displayreplay.h"
 
-cSDDisplayReplay::cSDDisplayReplay(cTemplate *replayTemplate, bool ModeOnly) {
-    doOutput = true;
-    initial = true;
-    initialModeSet = false;
-    modeOnly = ModeOnly;
-    replayView = NULL;
-    if (!replayTemplate) {
-        doOutput = false;
-        esyslog("skindesigner: displayReplay no valid template - aborting");
-        return;
-    }
-    replayView = new cDisplayReplayView(replayTemplate->GetRootView());
-    if (!replayView->createOsd()) {
-        doOutput = false;
-        return;
-    }
-    replayView->DrawDebugGrid();
+cSDDisplayReplay::cSDDisplayReplay(cViewReplay *replayView, bool ModeOnly) {
+    init = true;
+    view = replayView;
+    ok = view->Init();
+    if (!ok)
+        esyslog("skindesigner: Error initiating displayreplay view - aborting");
+    view->SetModeOnly(ModeOnly);
 }
 
 cSDDisplayReplay::~cSDDisplayReplay() {
-    if (replayView)
-        delete replayView;
+    view->Close();
 }
 
 void cSDDisplayReplay::SetRecording(const cRecording *Recording) {
-    if (!doOutput || !Recording)
-        return;
-    if (initial) {
-        replayView->SetRecordingLength(Recording->LengthInSeconds());
-        SetTimeShiftValues(Recording);
+    if (ok) {
+        view->SetRecording(Recording);
+        if (init) {
+            view->SetRecordingLength(Recording->LengthInSeconds());
+            SetTimeShiftValues(Recording);
+            init = false;
+        }
     }
-    replayView->DrawTitle(Recording);
-    replayView->DrawRecordingInformation(Recording);
-    replayView->DrawScraperContent(Recording);
 }
 
 void cSDDisplayReplay::SetTitle(const char *Title) {
-    if (!doOutput || !Title)
-        return;
-    replayView->DrawTitle(Title);
+    view->SetTitle(Title);
 }
 
 void cSDDisplayReplay::SetMode(bool Play, bool Forward, int Speed) {
-    if (!doOutput)
+    if (!ok)
         return;
     if (!Play && Speed < 0) {
-        string recFileName = "";
         cControl *control = cControl::Control();
         if (control) {
             const cRecording *recording = control->GetRecording();
-            if (recording && recording->FileName())
-                recFileName = recording->FileName();
+            if (recording && recording->FileName()) {
+                view->StartOnPause(recording->FileName());
+            }
         }
-        replayView->DrawOnPause(recFileName, modeOnly);
     } else {
-        replayView->ClearOnPause();
+        view->ClearOnPause();
     }
 
-    replayView->DrawControlIcons(Play, Forward, Speed, modeOnly);
-    initialModeSet = true;
+    view->SetControlIcons(Play, Forward, Speed);
 }
 
 void cSDDisplayReplay::SetProgress(int Current, int Total) {
-    if (!doOutput)
-        return;
-    replayView->DelayOnPause();
-    replayView->DrawProgressBar(Current, Total);
-    replayView->DrawMarks(marks, Current, Total);
-    replayView->DrawEndTime(Current, Total);
+    if (ok) {
+        view->SetProgressbar(Current, Total);
+        view->SetMarks(marks, Current, Total);
+        view->SetEndTime(Current, Total);
+    }
 }
 
 void cSDDisplayReplay::SetCurrent(const char *Current) {
-    if (!doOutput)
-        return;
-    replayView->DrawCurrent(Current);
+    if (ok)
+        view->SetCurrent(Current);
 }
 
 void cSDDisplayReplay::SetTotal(const char *Total) {
-    if (!doOutput)
-        return;
-    replayView->DrawTotal(Total);
+    if (ok)
+        view->SetTotal(Total);
 }
 
 void cSDDisplayReplay::SetJump(const char *Jump) {
-    if (!doOutput)
-        return;
-    replayView->DrawJump(Jump);    
+    if (ok)
+        view->SetJump(Jump);
 }
 
 void cSDDisplayReplay::SetMessage(eMessageType Type, const char *Text) {
-    if (!doOutput)
-        return;
-    replayView->DrawMessage(Type, Text);
+    if (ok)
+        view->SetMessage(Type, Text);
 }
 
 void cSDDisplayReplay::Flush(void) {
-    if (!doOutput)
+    if (!ok)
         return;
-    if (!modeOnly) {
-        replayView->DrawDate();
-        replayView->DrawTime();
-    }
-    if (modeOnly) {
-        cControl *control = cControl::Control();
-        if (control) {
-            double fps = control->FramesPerSecond();
-            int current = 0;
-            int total = 0;
-            if (control->GetIndex(current, total))
-                replayView->DrawProgressModeOnly(fps, current, total);
-        }
-    }
-    if (initial && initialModeSet) {
-        replayView->DrawBackground(modeOnly);
-        replayView->DrawCustomTokens();
-        replayView->DoFadeIn();
-        initial = false;
-    } else {
-        if (replayView->CustomTokenChange())
-            replayView->DrawCustomTokens();
-        replayView->Flush();
-    }
+    view->Flush();
 }
 
 void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {
@@ -146,5 +101,5 @@ void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {
     time_t recordingStart = time(0) - recording->LengthInSeconds();
     int framesTotal = (liveEventStop - recordingStart)*fps;
     int recLength = liveEventStop - recordingStart;
-    replayView->SetTimeShift(framesTotal, recLength);
+    view->SetTimeShift(framesTotal, recLength);
 }

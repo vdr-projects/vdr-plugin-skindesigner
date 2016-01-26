@@ -27,7 +27,7 @@ SKINDESIGNER_SCRIPTDIR ?= $(LIBDIR)/$(PLUGIN)/scripts
 ### The compiler options:
 export CFLAGS   = $(call PKGCFG,cflags)
 export CXXFLAGS = $(call PKGCFG,cxxflags)
-
+CXXFLAGS += -std=c++11
 ### Allow user defined options to overwrite defaults:
 
 -include $(PLGCFG)
@@ -65,51 +65,49 @@ OBJS = $(PLUGIN).o \
        displayreplay.o \
        displaytracks.o \
        displayvolume.o \
-       displayplugin.o \
-       libcore/cairoimage.o \
-       libcore/curlfuncs.o \
-       libcore/pixmapcontainer.o \
-       libcore/fontmanager.o \
-       libcore/imagecache.o \
-       libcore/helpers.o \
-       libcore/imageloader.o \
-       libcore/libxmlwrapper.o \
-       libcore/recfolderinfo.o \
-       libcore/skinsetup.o \
-       libcore/skinrepo.o \
-       libcore/extrecinfo.o \
-       libcore/timers.o \
-       libtemplate/globals.o \
-       libtemplate/parameter.o \
-       libtemplate/template.o \
-       libtemplate/templateview.o \
-       libtemplate/templateviewelement.o \
-       libtemplate/templateviewlist.o \
-       libtemplate/templateviewgrid.o \
-       libtemplate/templatepixmap.o \
-       libtemplate/templateviewtab.o \
-       libtemplate/templatefunction.o \
-       libtemplate/templateloopfunction.o \
-       libtemplate/xmlparser.o \
-       views/animation.o \
-       views/view.o \
-       views/viewgrid.o \
-       views/viewhelpers.o \
-       views/displayviewelements.o \
-       views/displaychannelview.o \
-       views/displaymenurootview.o \
-       views/displaymenuview.o \
-       views/displaymenulistview.o \
-       views/displaymenuitemview.o \
-       views/displaymenuitemcurrentview.o \
-       views/displaymenudetailview.o \
-       views/displaymenutabview.o \
-       views/displaymessageview.o \
-       views/displayreplayview.o \
-       views/displayreplayonpauseview.o \
-       views/displayvolumeview.o \
-       views/displayaudiotracksview.o \
-       views/displaypluginview.o
+       extensions/cairoimage.o \
+       extensions/curlfuncs.o \
+       extensions/fontmanager.o \
+       extensions/imagecache.o \
+       extensions/helpers.o \
+       extensions/imageloader.o \
+       extensions/libxmlwrapper.o \
+       extensions/pluginmanager.o \
+       extensions/recfolderinfo.o \
+       extensions/scrapmanager.o \
+       extensions/skinsetup.o \
+       extensions/skinrepo.o \
+       extensions/extrecinfo.o \
+       extensions/timers.o \
+       coreengine/animation.o \
+       coreengine/attribute.o \
+       coreengine/attributes.o \
+       coreengine/functions.o \
+       coreengine/complextypes.o \
+       coreengine/globals.o \
+       coreengine/gridelement.o \
+       coreengine/osdwrapper.o \
+       coreengine/view.o \
+       coreengine/viewdisplaychannel.o \
+       coreengine/viewdisplaymenu.o \
+       coreengine/viewdisplaymessage.o \
+       coreengine/viewdisplayreplay.o \
+       coreengine/viewdisplaytracks.o \
+       coreengine/viewdisplayvolume.o \
+       coreengine/viewdisplayplugin.o \
+       coreengine/viewelement.o \
+       coreengine/viewelementplugin.o \
+       coreengine/viewelementscommon.o \
+       coreengine/viewelementsdisplaychannel.o \
+       coreengine/viewelementsdisplaymenu.o \
+       coreengine/viewelementsdisplayreplay.o \
+       coreengine/viewelementsdisplaytracks.o \
+       coreengine/viewgrid.o \
+       coreengine/viewlist.o \
+       coreengine/viewdetail.o \
+       coreengine/listelements.o \
+       coreengine/area.o \
+       coreengine/xmlparser.o
 
 ### The main target:
 
@@ -138,7 +136,7 @@ $(SOFILE): SUB_LIBS = libskindesignerapi/libskindesignerapi.so.$(shell pkg-confi
 ### Implicit rules:
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(SUB_DEFINES) $(INCLUDES) -o $@ $<
+	$(CXX) $(CXXFLAGS) -std=c++11 -c $(DEFINES) $(SUB_DEFINES) $(INCLUDES) -o $@ $<
 
 ### Dependencies:
 
@@ -178,7 +176,7 @@ install-i18n: $(I18Nmsgs)
 ### Targets:
 
 $(SOFILE): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) $(LIBS) $(SUB_LIBS) -o $@
+	$(CXX) $(CXXFLAGS) -std=c++11  $(LDFLAGS) -shared $(OBJS) $(LIBS) $(SUB_LIBS) -o $@
 
 install-lib: $(SOFILE)
 	install -D $^ $(DESTDIR)$(LIBDIR)/$^.$(APIVERSION)
@@ -209,4 +207,4 @@ dist: $(I18Npo) clean
 
 clean: clean-subprojects
 	@-rm -f $(PODIR)/*.mo $(PODIR)/*.pot
-	@-rm -f $(OBJS) $(DEPFILE) *.so *.tgz core* *~
+	@-rm -f $(OBJS) $(DEPFILE) *.so *.tgz *~

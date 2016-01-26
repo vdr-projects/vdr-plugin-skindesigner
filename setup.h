@@ -38,15 +38,16 @@ public:
 // --- cSkinDesignerSetup -----------------------------------------------------------
 class cSkinDesignerSetup : public cMenuSetupPage, cInstallManager {
 private:
+    skindesignerapi::cPluginStructure *skinPreviewStruct;
     int numLogosPerSizeInitial;
+    int cacheImagesInitial;
     int limitLogoCache;
     int numLogosMax;
     int debugImageLoading;
     int rerunAmount;
     int rerunDistance;
     int rerunMaxChannel;
-    int blockFlush;
-    int framesPerSecond;
+    int numCustomTokens;
     const char *menuDisplayStyle[2];
     void Setup(void);
     virtual void Store(void);
@@ -57,7 +58,7 @@ private:
     void SkinSetup(void);
     void InstallSkins(void);
 public:
-    cSkinDesignerSetup(void);
+    cSkinDesignerSetup(skindesignerapi::cPluginStructure *skinPreviewStruct);
     virtual ~cSkinDesignerSetup(void);
 };
 
@@ -110,16 +111,15 @@ public:
 };
 
 // --- cSkindesignerSkinPreview -----------------------------------------------------------
-
 class cSkindesignerSkinPreview : public skindesignerapi::cSkindesignerOsdMenu, cInstallManager {
 protected:
     virtual eOSState ProcessKey(eKeys Key);
     void Set(void);
-    string CheckFontInstalled(string fontName);
+    const char *CheckFontInstalled(string fontName);
 public:
-    cSkindesignerSkinPreview(string skin);
+    cSkindesignerSkinPreview(string skin, skindesignerapi::cPluginStructure *plugStruct);
     virtual ~cSkindesignerSkinPreview();
+    static void DefineTokens(skindesignerapi::cTokenContainer *tk);
     void Display(void);
 };
-
 #endif //__SKINDESIGNER_SETUP_H

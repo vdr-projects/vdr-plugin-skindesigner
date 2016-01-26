@@ -13,11 +13,6 @@
 
 namespace skindesignerapi {
 
-enum eMenuType {
-    mtList,
-    mtText
-};
-
 class cOsdView;
 
 /**********************************************************************
@@ -25,11 +20,12 @@ class cOsdView;
 **********************************************************************/
 class cSkindesignerOsdObject : public cOsdObject {
 protected:
-    string pluginName;
-    bool InitSkindesignerInterface(string pluginName);
-    cOsdView *GetOsdView(int viewID, int subViewID = -1);
+    bool init;
+    cPluginStructure *plugStruct;
+    cOsdView *GetOsdView(int subViewId = -1);
+    bool SkindesignerAvailable(void);
 public:
-    cSkindesignerOsdObject(void);
+    cSkindesignerOsdObject(cPluginStructure *plugStruct);
     virtual ~cSkindesignerOsdObject();
     virtual void Show(void) {};
 };
@@ -40,19 +36,19 @@ public:
 class cSkindesignerOsdItem : public cOsdItem {
 private:
     ISDDisplayMenu *sdDisplayMenu;
-    map < string, string > stringTokens;
-    map < string, int > intTokens;
-    map < string, vector< map< string, string > > > loopTokens;
+    cTokenContainer *tokenContainer;
 protected:
 public:
-    cSkindesignerOsdItem(eOSState State = osUnknown);
-    cSkindesignerOsdItem(const char *Text, eOSState State = osUnknown, bool Selectable = true);
+    cSkindesignerOsdItem(cTokenContainer *tk, eOSState State = osUnknown);
+    cSkindesignerOsdItem(cTokenContainer *tk, const char *Text, eOSState State = osUnknown, bool Selectable = true);
     virtual ~cSkindesignerOsdItem();
     virtual void SetMenuItem(cSkinDisplayMenu *DisplayMenu, int Index, bool Current, bool Selectable);
     void SetDisplayMenu(ISDDisplayMenu *sdDisplayMenu) { this->sdDisplayMenu = sdDisplayMenu; };
-    void AddStringToken(string key, string value);
-    void AddIntToken(string key, int value);
-    void AddLoopToken(string loopName, map<string, string> &tokens);
+    int GetLoopIndex(const char *loop);
+    void SetLoop(vector<int> loopInfo);
+    void AddStringToken(int index, const char *value);
+    void AddIntToken(int index, int value);
+    void AddLoopToken(int loopIndex, int row, int index, const char *value);
 };
 
 /**********************************************************************
@@ -60,34 +56,37 @@ public:
 **********************************************************************/
 class cSkindesignerOsdMenu : public cOsdMenu {
 private:
+    cPluginStructure *plugStruct;
+    cTokenContainer *tokenContainer;
+    int activeMenu;
     bool init;
     bool firstCallCleared;
     bool secondCall;
     int firstMenu;
     eMenuType firstType;
     bool displayText;
-    string pluginName;
     ISDDisplayMenu *sdDisplayMenu;
     string text;
-    map < string, string > stringTokens;
-    map < string, int > intTokens;
-    map < string, vector< map< string, string > > > loopTokens;
     bool SetSkinDesignerDisplayMenu(void);
 protected:
+    void SetPluginName(const char *name);
     void FirstCallCleared(void) { firstCallCleared = true; };
     void ClearTokens(void);
-    void SetPluginName(string name) {pluginName = name; };
-    void SetPluginMenu(int menu, eMenuType type);
+    void SetTokenContainer(cTokenContainer *tk);
+    void SetPluginMenu(int menuId, eMenuType type);
     void SetText(string text) { this->text = text; };
-    void AddStringToken(string key, string value);
-    void AddIntToken(string key, int value);
-    void AddLoopToken(string loopName, map<string, string> &tokens);
+    int GetLoopIndex(const char *loop);
+    void SetLoop(vector<int> loopInfo);
+    void AddStringToken(int index, const char *value);
+    void AddIntToken(int index, int value);
+    void AddLoopToken(int loopIndex, int row, int index, const char *value);
     void TextKeyLeft(void);
     void TextKeyRight(void);
     void TextKeyUp(void);
     void TextKeyDown(void);
+    cTokenContainer *GetTokenContainer(int menuId);
 public:
-    cSkindesignerOsdMenu(const char *Title, int c0 = 0, int c1 = 0, int c2 = 0, int c3 = 0, int c4 = 0);
+    cSkindesignerOsdMenu(skindesignerapi::cPluginStructure *plugStruct, const char *Title, int c0 = 0, int c1 = 0, int c2 = 0, int c3 = 0, int c4 = 0);
     virtual ~cSkindesignerOsdMenu();
     virtual void Display(void);
 };

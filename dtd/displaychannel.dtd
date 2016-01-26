@@ -26,79 +26,162 @@
 
 <!ELEMENT background (areacontainer|area|areascroll)*>
 <!ATTLIST background
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT channelinfo (areacontainer|area|areascroll)*>
 <!ATTLIST channelinfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT epginfo (areacontainer|area|areascroll)*>
 <!ATTLIST epginfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT progressbar (areacontainer|area|areascroll)*>
 <!ATTLIST progressbar
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT progressbarback (areacontainer|area|areascroll)*>
 <!ATTLIST progressbarback
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT statusinfo (areacontainer|area|areascroll)*>
 <!ATTLIST statusinfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT audioinfo (areacontainer|area|areascroll)*>
 <!ATTLIST audioinfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT ecminfo (areacontainer|area|areascroll)*>
 <!ATTLIST ecminfo
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT screenresolution (areacontainer|area|areascroll)*>
 <!ATTLIST screenresolution
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT channelgroup (areacontainer|area|areascroll)*>
 <!ATTLIST channelgroup
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT signalquality (areacontainer|area|areascroll)*>
 <!ATTLIST signalquality
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT signalqualityback (areacontainer|area|areascroll)*>
 <!ATTLIST signalqualityback
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
   condition CDATA #IMPLIED
 >
 
 <!ELEMENT devices (areacontainer|area|areascroll)*>
 <!ATTLIST devices
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -113,7 +196,6 @@
 
 <!ELEMENT currentweather (areacontainer|area|areascroll)*>
 <!ATTLIST currentweather
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -127,7 +209,6 @@
 
 <!ELEMENT scrapercontent (areacontainer|area|areascroll)*>
 <!ATTLIST scrapercontent
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -141,7 +222,6 @@
 
 <!ELEMENT datetime (areacontainer|area|areascroll)*>
 <!ATTLIST datetime
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -155,7 +235,6 @@
 
 <!ELEMENT time (areacontainer|area|areascroll)*>
 <!ATTLIST time
-  detached CDATA #IMPLIED
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
@@ -175,8 +254,6 @@
 
 <!ELEMENT customtokens (areacontainer|area|areascroll)*>
 <!ATTLIST customtokens
-  detached CDATA #IMPLIED
-  delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED
   shiftmode CDATA #IMPLIED

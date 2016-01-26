@@ -1,59 +1,31 @@
 #include "displaytracks.h"
 
-
-cSDDisplayTracks::cSDDisplayTracks(cTemplate *audiotracksTemplate, const char *Title, int NumTracks, const char * const *Tracks) {
-    initial = true;
-    numTracks = NumTracks;
-    tracksView = NULL;
-    doOutput = true;
-    currentTrack = 0;
-    menuTitle = Title;
-    if (!audiotracksTemplate) {
-        esyslog("skindesigner: displayTracks no valid template - aborting");
-        doOutput = false;
-        return;
-    }
-    tracksView = new cDisplayAudiotracksView(NumTracks, audiotracksTemplate->GetRootView());
-    if (!tracksView->createOsd()) {
-        doOutput = false;
-        return;
-    }
-    tracksView->DrawDebugGrid();
-    tracksView->DrawBackground();
-
-    cDisplayMenuListView *list = tracksView->GetListView();
-    if (list) {
-        for (int i = 0; i < NumTracks; i++) {
-            list->AddTracksMenuItem(i, Tracks[i], (i==currentTrack)?true:false, true);
-        }
-    }    
+cSDDisplayTracks::cSDDisplayTracks(cViewTracks *tracksView, const char *Title, int NumTracks, const char * const *Tracks) {
+    view = tracksView;
+    ok = view->Init();
+    if (!ok)
+        esyslog("skindesigner: Error initiating displaytracks view - aborting");
+    view->SetTitle(Title);
+    view->SetNumtracks(NumTracks);
+    view->SetTracks(Tracks);
 }
 
 cSDDisplayTracks::~cSDDisplayTracks() {
-    if (tracksView)
-        delete tracksView;
+    view->Close();
 }
 
 void cSDDisplayTracks::SetTrack(int Index, const char * const *Tracks) {
-    cDisplayMenuListView *list = tracksView->GetListView();
-    if (list) {
-        list->AddTracksMenuItem(currentTrack, Tracks[currentTrack], false, true);
-        list->AddTracksMenuItem(Index, Tracks[Index], true, true);
-        currentTrack = Index;
-    }
+    if (ok)
+        view->SetCurrentTrack(Index);
 }
 
 void cSDDisplayTracks::SetAudioChannel(int AudioChannel) {
-    tracksView->DrawHeader(menuTitle, AudioChannel);
+    if (ok)
+        view->SetAudiochannel(AudioChannel);
 }
 
 void cSDDisplayTracks::Flush(void) {
-    if (!doOutput)
+    if (!ok)
         return;
-    if (initial) {
-        tracksView->DoFadeIn();
-    }
-    initial = false;
-    tracksView->RenderMenuItems();
-    tracksView->Flush();
+    view->Flush();
 }

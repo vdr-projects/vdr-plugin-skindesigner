@@ -17,7 +17,7 @@
                 <drawtext x="20" valign="center" font="{light}" fontsize="95%" color="{clrWhite}" text="{name}" />
             </area>
         </listelement>
-        <currentelement delay="500" fadetime="0">
+        <currentelement fadetime="300">
             <area x="63%" y="0" width="36%" height="85%" layer="2">
                 <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="10" y="0" width="30%" height="10%" />
                 <drawtext name="channame" align="right" y="{height(logo)}/2 - {height(channame)}/2" width="65%" font="{semibold}" fontsize="10%" color="{clrWhite}" text="{name}" />

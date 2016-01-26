@@ -1,46 +1,25 @@
 #include "displaymessage.h"
 
-cSDDisplayMessage::cSDDisplayMessage(cTemplate *messageTemplate) {
-    messageView = NULL;
-    doOutput = true;
-    initial = true;
-    if (!messageTemplate) {
-        doOutput = false;
-        esyslog("skindesigner: displayMessage no valid template - aborting");
-        return;
-    }
-    messageView = new cDisplayMessageView(messageTemplate->GetRootView());
-    if (!messageView->createOsd()) {
-        doOutput = false;
-        return;
-    }
-    messageView->DrawDebugGrid();
-    messageView->DrawBackground();
+cSDDisplayMessage::cSDDisplayMessage(cViewMessage *messageView) {
+    view = messageView;
+    ok = view->Init();
+    if (!ok)
+        esyslog("skindesigner: Error initiating displaymessage view - aborting");
 }
 
 cSDDisplayMessage::~cSDDisplayMessage() {
-    if (messageView)
-        delete messageView;
+    view->Close();
 }
 
 void cSDDisplayMessage::SetMessage(eMessageType Type, const char *Text) {
-    if (!doOutput)
+    if (!ok)
         return;
-    messageView->ClearMessage();
-    if (!Text) {
-        return;
-    }
-    messageView->DrawMessage(Type, Text);
+    view->SetMessage(Type, Text);
 }
 
 
 void cSDDisplayMessage::Flush(void) {
-    if (!doOutput)
+    if (!ok)
         return;
-    if (initial) {
-        messageView->DoFadeIn();
-        initial = false;
-    } else {
-        messageView->Flush();
-    }
+    view->Flush();
 }

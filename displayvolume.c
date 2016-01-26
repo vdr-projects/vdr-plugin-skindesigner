@@ -1,44 +1,26 @@
 #include "displayvolume.h"
 
 #include "config.h"
-#include "libcore/helpers.h"
 
-cSDDisplayVolume::cSDDisplayVolume(cTemplate *volumeTemplate) {
-    volumeView = NULL;
-    doOutput = true;
-    initial = true;
-    if (!volumeTemplate) {
-        doOutput = false;
-        esyslog("skindesigner: displayVolume no valid template - aborting");
-        return;
-    }
-    volumeView = new cDisplayVolumeView(volumeTemplate->GetRootView());
-    if (!volumeView->createOsd()) {
-        doOutput = false;
-    } else {
-        volumeView->DrawDebugGrid();
-        volumeView->DrawBackground();
-    }
+cSDDisplayVolume::cSDDisplayVolume(cViewVolume *volumeView) {
+    view = volumeView;
+    ok = view->Init();
+    if (!ok)
+        esyslog("skindesigner: Error initiating displayvolume view - aborting");
 }
 
 cSDDisplayVolume::~cSDDisplayVolume() {
-    if (volumeView)
-        delete volumeView;
+    view->Close();
 }
 
 void cSDDisplayVolume::SetVolume(int Current, int Total, bool Mute) {
-    if (!doOutput)
+    if (!ok)
         return;
-    volumeView->DrawVolume(Current, Total, Mute);
+    view->SetVolume(Current, Total, Mute);
 }
 
 void cSDDisplayVolume::Flush(void) {
-    if (!doOutput)
+    if (!ok)
         return;
-    if (initial) {
-        volumeView->DoFadeIn();
-        initial = false;
-    } else {
-        volumeView->Flush();
-    }
+    view->Flush();
 }

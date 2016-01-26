@@ -7,28 +7,29 @@
  */
 #include <getopt.h>
 #include <vdr/plugin.h>
-#include "libskindesignerapi/skindesignerapi.h"
 
 #define DEFINE_CONFIG 1
 #include "config.h"
 #include "designer.h"
 #include "setup.h"
+#include "libskindesignerapi/skindesignerapi.h"
 
 #if defined(APIVERSNUM) && APIVERSNUM < 20000 
 #error "VDR-2.0.0 API version or greater is required!"
 #endif
 
 
-static const char *VERSION        = "0.7.2";
+static const char *VERSION        = "0.8.0";
 static const char *DESCRIPTION    = trNOOP("Skin Designer");
 
 class cPluginSkinDesigner : public cPlugin, public skindesignerapi::SkindesignerAPI {
 private:
     string libskindesignerApiVersion;
+    skindesignerapi::cPluginStructure *skinPreviewStruct;
 protected:
     bool ServiceRegisterPlugin(skindesignerapi::cPluginStructure *plugStructure);
     skindesignerapi::ISDDisplayMenu *ServiceGetDisplayMenu(void);
-    skindesignerapi::ISkinDisplayPlugin *ServiceGetDisplayPlugin(string pluginName, int viewID, int subViewID);
+    skindesignerapi::ISkinDisplayPlugin *ServiceGetDisplayPlugin(int plugId);
 public:
     cPluginSkinDesigner(void);
     virtual ~cPluginSkinDesigner();
@@ -55,9 +56,11 @@ public:
 cPluginSkinDesigner::cPluginSkinDesigner(void) {
     libskindesignerApiVersion = "undefined";
     config.SetVersion(VERSION);
+    skinPreviewStruct = NULL;
 }
 
 cPluginSkinDesigner::~cPluginSkinDesigner() {
+    delete skinPreviewStruct;
 }
 
 const char *cPluginSkinDesigner::CommandLineHelp(void) {
@@ -115,15 +118,19 @@ bool cPluginSkinDesigner::Start(void) {
     } else
         dsyslog("skindesigner: TrueColor OSD found");
 
+    plgManager = new cSDPluginManager();
     libskindesignerApiVersion = LIBSKINDESIGNERAPIVERSION;
     dsyslog("skindesigner: using libskindesigner API Version %s", libskindesignerApiVersion.c_str());
 
-    //register template for skin preview page
-    skindesignerapi::cPluginStructure plugStruct;
-    plugStruct.name = "setup";
-    plugStruct.libskindesignerAPIVersion = LIBSKINDESIGNERAPIVERSION;
-    plugStruct.SetMenu(0, "skinpreview.xml");
-    ServiceRegisterPlugin(&plugStruct);
+    skinPreviewStruct = new skindesignerapi::cPluginStructure();
+    skinPreviewStruct->name = "setup";
+    skinPreviewStruct->libskindesignerAPIVersion = LIBSKINDESIGNERAPIVERSION;
+    skindesignerapi::cTokenContainer *tkSkinPreview = new skindesignerapi::cTokenContainer();
+    cSkindesignerSkinPreview::DefineTokens(tkSkinPreview);
+    skinPreviewStruct->RegisterMenu(0, skindesignerapi::mtText, "skinpreview.xml", tkSkinPreview);
+    if (RegisterPlugin(skinPreviewStruct)) {
+        dsyslog("skindesigner: skinsetup template successfully registered at skindesigner, id %d", skinPreviewStruct->id);
+    }
 
     config.SetOsdLanguage();
     config.SetPathes();
@@ -153,6 +160,7 @@ bool cPluginSkinDesigner::Start(void) {
 void cPluginSkinDesigner::Stop(void) {
     delete imgCache;
     delete fontManager;
+    delete plgManager;
     cXmlParser::CleanupLibXML();
 }
 
@@ -175,7 +183,7 @@ cOsdObject *cPluginSkinDesigner::MainMenuAction(void) {
 }
 
 cMenuSetupPage *cPluginSkinDesigner::SetupMenu(void) {
-    return new cSkinDesignerSetup();
+    return new cSkinDesignerSetup(skinPreviewStruct);
 }
 
 bool cPluginSkinDesigner::SetupParse(const char *Name, const char *Value) {
@@ -190,8 +198,10 @@ const char **cPluginSkinDesigner::SVDRPHelpPages(void) {
     static const char *HelpPages[] = {
         "RELD\n"
         "    force reload of templates and caches",
-        "SCTK\n"
-        "    Set custom Token name = value",
+        "SCIT\n"
+        "    Set custom Integer Token key = value",
+        "SCST\n"
+        "    Set custom String Token key = value",
         "LCTK\n"
         "    List custom Tokens",
         "LSTF\n"
@@ -236,18 +246,31 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
         activeSkin->ListAvailableFonts();
         ReplyCode = 250;
         return "SKINDESIGNER available fonts listed in syslog.";
-    } else if (strcasecmp(Command, "SCTK") == 0) {
+    } else if (strcasecmp(Command, "SCIT") == 0) {
         if (!Option) {
             ReplyCode = 501;
-            return "SKINDESIGNER SCTK Error: no Token name = value set";
+            return "SKINDESIGNER SCIK Error: no Token name = value set";
         }
-        bool optionOk = activeSkin->SetCustomToken(Option);
+        bool optionOk = activeSkin->SetCustomIntToken(Option);
         if (optionOk) {
             ReplyCode = 250;
-            return cString::sprintf("SKINDESIGNER Set custom Token %s", Option);
+            return cString::sprintf("SKINDESIGNER Set custom Int Token %s", Option);
         } else {
             ReplyCode = 501;
-            return cString::sprintf("SKINDESIGNER Invalid custom Token %s", Option);
+            return cString::sprintf("SKINDESIGNER Invalid custom Int Token %s", Option);
+        }
+    } else if (strcasecmp(Command, "SCST") == 0) {
+        if (!Option) {
+            ReplyCode = 501;
+            return "SKINDESIGNER SCSK Error: no Token name = value set";
+        }
+        bool optionOk = activeSkin->SetCustomStringToken(Option);
+        if (optionOk) {
+            ReplyCode = 250;
+            return cString::sprintf("SKINDESIGNER Set custom String Token %s", Option);
+        } else {
+            ReplyCode = 501;
+            return cString::sprintf("SKINDESIGNER Invalid custom String Token %s", Option);
         }
     } else if (strcasecmp(Command, "LCTK") == 0) {
         activeSkin->ListCustomTokens();
@@ -258,18 +281,18 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
     return "";
 }
 
+
 bool cPluginSkinDesigner::ServiceRegisterPlugin(skindesignerapi::cPluginStructure *plugStructure) {
-    if (plugStructure->menus.size() < 1 && plugStructure->views.size() < 1) {
+    if (plugStructure->menus.size() < 1 && plugStructure->rootview.size() < 1) {
         esyslog("skindesigner: error - plugin without menus or views registered");
         return false;
     }
-    dsyslog("skindesigner: plugin %s uses libskindesigner API Version %s", plugStructure->name.c_str(), plugStructure->libskindesignerAPIVersion.c_str());
-    config.AddPluginMenus(plugStructure->name, plugStructure->menus);
-    config.AddPluginViews(plugStructure->name, plugStructure->views, plugStructure->subViews, plugStructure->viewElements, plugStructure->viewGrids);
+    //basic plugin interface
     if (plugStructure->menus.size() > 0)
-        dsyslog("skindesigner: plugin %s has registered %ld menus", plugStructure->name.c_str(), plugStructure->menus.size());
-    if (plugStructure->views.size() > 0)
-        dsyslog("skindesigner: plugin %s has registered %ld views", plugStructure->name.c_str(), plugStructure->views.size());
+        plgManager->RegisterBasicPlugin(plugStructure);
+    //advanced plugin interface
+    if (plugStructure->rootview.size() > 0)
+        plgManager->RegisterAdvancedPlugin(plugStructure);
     return true;
 }
 
@@ -290,20 +313,13 @@ skindesignerapi::ISDDisplayMenu *cPluginSkinDesigner::ServiceGetDisplayMenu(void
     return NULL;
 }
 
-skindesignerapi::ISkinDisplayPlugin *cPluginSkinDesigner::ServiceGetDisplayPlugin(string pluginName, int viewID, int subViewID) {
-    if (pluginName.size() == 0 || viewID < 0)
-        return NULL;
+skindesignerapi::ISkinDisplayPlugin *cPluginSkinDesigner::ServiceGetDisplayPlugin(int plugId) {
     cSkin *current = Skins.Current();
     cSkinDesigner *availableSkin = NULL;
     config.InitSkinRefsIterator();
     while (availableSkin = config.GetNextSkinRef()) {
         if (availableSkin == current) {
-            cSkinDisplayPlugin *displayPlugin = availableSkin->DisplayPlugin(pluginName, viewID, subViewID);
-            if (displayPlugin) {
-                return displayPlugin;
-            } else {
-                return NULL;
-            }
+            return availableSkin->GetDisplayPlugin(plugId);
         }
     }
     return NULL;

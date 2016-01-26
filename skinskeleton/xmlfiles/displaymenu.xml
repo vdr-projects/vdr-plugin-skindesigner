@@ -96,6 +96,14 @@
     -->
     <colorbuttons>
     </colorbuttons>
+    <!-- Available Variables scrollbar:
+    {height}                  height of scrollbar in tenth of percent
+    {offset}                  offset from top in tenth percent
+    {hasprev}                 true if list elements before currently displayed exist 
+    {hasnext}                 true if list elements after currently displayed exist
+    -->
+    <scrollbar>
+    </scrollbar>
     &displaymenudefault;
     &displaymenumain;
     &displaymenusetup;

@@ -13,49 +13,87 @@
   scaletvy CDATA #IMPLIED
   scaletvwidth CDATA #IMPLIED
   scaletvheight CDATA #IMPLIED
+  orientation CDATA #IMPLIED
   debuggrid CDATA #IMPLIED
 >
 
 <!ELEMENT background (areacontainer|area|areascroll)*>
 <!ATTLIST background
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT header (areacontainer|area|areascroll)*>
 <!ATTLIST header
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT datetime (areacontainer|area|areascroll)*>
 <!ATTLIST datetime
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT message (areacontainer|area|areascroll)*>
 <!ATTLIST message
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT colorbuttons (areacontainer|area|areascroll)*>
 <!ATTLIST colorbuttons
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT scrollbar (areacontainer|area|areascroll)*>
 <!ATTLIST scrollbar
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT detailheader (areacontainer|area|areascroll)*>
 <!ATTLIST detailheader
-  condition CDATA #IMPLIED
+  orientation CDATA #IMPLIED
   debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
 >
 
 <!ELEMENT tablabels (areacontainer|area|areascroll)*>
@@ -85,7 +123,7 @@
 <!ELEMENT currentelement (areacontainer|area|areascroll)*>
 <!ATTLIST currentelement
   condition CDATA #IMPLIED
-  delay CDATA #REQUIRED
+  delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   debug CDATA #IMPLIED
 >

@@ -1,30 +1,17 @@
 #ifndef __DISPLAYCHANNEL_H
 #define __DISPLAYCHANNEL_H
 
-#include <vdr/thread.h>
+#include <vdr/skins.h>
 #include "config.h"
-#include "libtemplate/template.h"
-#include "views/displaychannelview.h"
+#include "coreengine/definitions.h"
+#include "coreengine/viewdisplaychannel.h"
 
 class cSDDisplayChannel : public cSkinDisplayChannel {
 private:
-    cDisplayChannelView *channelView;
-    bool doOutput;
-    bool initial;
-    bool groupSep;
-    bool channelChange;
-    time_t lastSignalDisplay;
-    int lastSignalStrength;
-    int lastSignalQuality;
-    int lastScreenWidth;
-    int currentLast;
-    uint64_t devicesLast;
-    const cEvent *present;
-    int currentChannelSid;
-    int isEncrypted;
-    void SetProgressBar(const cEvent *present);
+    cViewChannel *view;
+    bool ok;
 public:
-    cSDDisplayChannel(cTemplate *channelTemplate, bool WithInfo);
+    cSDDisplayChannel(cViewChannel *channelView, bool WithInfo);
     virtual ~cSDDisplayChannel();
     virtual void SetChannel(const cChannel *Channel, int Number);
     virtual void SetEvents(const cEvent *Present, const cEvent *Following);
