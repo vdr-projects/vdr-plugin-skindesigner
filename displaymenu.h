@@ -1,15 +1,6 @@
 #ifndef __DISPLAYMENU_H
 #define __DISPLAYMENU_H
 
-#if defined(APIVERSNUM) && APIVERSNUM < 20301
-#ifndef MENU_ORIENTATION_DEFINED
-enum eMenuOrientation {
-    moVertical = 0,
-    moHorizontal
-};
-#endif
-#endif
-
 #include "libskindesignerapi/skindesignerapi.h"
 #include <vdr/skins.h>
 #include "coreengine/viewdisplaymenu.h"

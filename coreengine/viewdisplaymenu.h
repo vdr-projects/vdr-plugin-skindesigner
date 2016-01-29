@@ -4,6 +4,15 @@
 #include "view.h"
 #include "viewdetail.h"
 
+#if defined(APIVERSNUM) && APIVERSNUM < 20301
+#ifndef MENU_ORIENTATION_DEFINED
+enum eMenuOrientation {
+    moVertical = 0,
+    moHorizontal
+};
+#endif
+#endif
+
 /***********************************************************
 * cViewMenu
 ***********************************************************/
