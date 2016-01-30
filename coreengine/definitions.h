@@ -950,6 +950,7 @@ enum class eLeMenuRecordingsST {
 enum class eLeMenuRecordingsIT {
     nummenuitem = 0,
     current,
+    separator,
     isnew,
     percentseen,
     watched,

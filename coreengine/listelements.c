@@ -1387,6 +1387,7 @@ bool cLeMenuRecordings::Parse(bool forced) {
     tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eLeMenuRecordingsIT::nummenuitem, num);
     tokenContainer->AddIntToken((int)eLeMenuRecordingsIT::current, current);
+    tokenContainer->AddIntToken((int)eLeMenuRecordingsIT::separator, !selectable);
     bool isFolder = (total > 0) ? true : false;
     tokenContainer->AddIntToken((int)eLeMenuRecordingsIT::folder, isFolder);
 
