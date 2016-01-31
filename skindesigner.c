@@ -198,6 +198,8 @@ const char **cPluginSkinDesigner::SVDRPHelpPages(void) {
     static const char *HelpPages[] = {
         "RELD\n"
         "    force reload of templates and caches",
+        "DLIC\n"
+        "    delete image cache",
         "SCIT\n"
         "    Set custom Integer Token key = value",
         "SCST\n"
@@ -242,6 +244,13 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
         activeSkin->Reload();
         ReplyCode = 250;
         return "SKINDESIGNER reload of templates and caches forced.";
+    } else if (strcasecmp(Command, "DLIC") == 0) {
+        if (imgCache)
+            delete imgCache;
+        imgCache = new cImageCache();
+        imgCache->SetPathes();
+        ReplyCode = 250;
+        return "SKINDESIGNER Image Cache deleted.";
     } else if (strcasecmp(Command, "LSTF") == 0) {
         activeSkin->ListAvailableFonts();
         ReplyCode = 250;
