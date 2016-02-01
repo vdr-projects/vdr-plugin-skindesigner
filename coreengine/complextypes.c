@@ -1456,10 +1456,12 @@ bool cTextExpr::ParsePrintfToken(cTextToken *t) {
         varTokens.push_back(buffer);
         startVar = nextVar + 1;
     }
+    while (isspace(*startVar))
+        startVar++;
     if (startVar+1) {
-        int varLen = end - startVar;
+        int varLen = end - startVar + 1;
         buffer[0] = '{';
-        strncpy((char*)buffer + 1, startVar + 1, varLen);
+        strncpy((char*)buffer + 1, startVar, varLen);
         buffer[varLen] = '}';
         buffer[varLen+1] = '\0';
         varTokens.push_back(buffer);
