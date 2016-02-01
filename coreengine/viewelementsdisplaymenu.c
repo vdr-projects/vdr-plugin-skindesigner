@@ -1,4 +1,3 @@
-#define __STL_CONFIG_H
 #include "viewelementsdisplaymenu.h"
 #include "../config.h"
 #include <vdr/videodir.h>

@@ -1,4 +1,3 @@
-#define __STL_CONFIG_H
 #include "attribute.h"
 #include "../config.h"
 

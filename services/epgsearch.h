@@ -161,7 +161,7 @@ class cServiceHandler
 struct Epgsearch_services_v1_0
 {
 // in/out
-      std::auto_ptr<cServiceHandler> handler;
+      std::unique_ptr<cServiceHandler> handler;
 };
 
 #endif

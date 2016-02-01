@@ -46,6 +46,7 @@ SOFILE = libvdr-$(PLUGIN).so
 DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"' $(CONFIG)
 DEFINES += $(shell xml2-config --cflags)
 DEFINES += -DSCRIPTFOLDER='"$(SKINDESIGNER_SCRIPTDIR)"'
+DEFINES += -D__STL_CONFIG_H
 
 INCLUDES += $(shell pkg-config --cflags freetype2 fontconfig)
 INCLUDES += $(shell pkg-config --cflags librsvg-2.0 cairo-png) -ljpeg

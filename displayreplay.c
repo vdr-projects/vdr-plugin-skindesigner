@@ -1,4 +1,3 @@
-#define __STL_CONFIG_H
 #include "displayreplay.h"
 
 cSDDisplayReplay::cSDDisplayReplay(cViewReplay *replayView, bool ModeOnly) {

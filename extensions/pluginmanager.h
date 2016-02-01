@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include "libskindesignerapi/skindesignerapi.h"
+#include "../libskindesignerapi/skindesignerapi.h"
 
 using namespace std;
 
