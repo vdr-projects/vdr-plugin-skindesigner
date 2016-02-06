@@ -492,6 +492,7 @@ void cVeDmCurrentschedule::ParseFromChannel(const cChannel *channel) {
     if (!event)
         return;
 
+    tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eDMCurrentscheduleIT::islivetv, 1);
     tokenContainer->AddStringToken((int)eDMCurrentscheduleST::title, event->Title());
     tokenContainer->AddStringToken((int)eDMCurrentscheduleST::subtitle, event->ShortText());
@@ -506,6 +507,7 @@ void cVeDmCurrentschedule::ParseFromChannel(const cChannel *channel) {
 }
 
 void cVeDmCurrentschedule::ParseFromRecording(const cRecording *recording) {
+    tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eDMCurrentscheduleIT::islivetv, 0);
     string recFullName = recording->Name() ? recording->Name() : "";
     string recName = "";
@@ -627,6 +629,7 @@ bool cVeDmSystemload::Parse(bool forced) {
             loadHandDec = 0;
         loadHandValue = loadHand / 100 * 100 + loadHandDec;
     }
+    tokenContainer->Clear();
     tokenContainer->AddStringToken((int)eDMSystemloadST::load, *cString::sprintf("%.2f", systemLoad));
     tokenContainer->AddIntToken((int)eDMSystemloadIT::loadhand, loadHandValue);
     SetDirty();
@@ -670,6 +673,7 @@ bool cVeDmSystemmemory::Parse(bool forced) {
         return false;
     }
     lastMemUsage = usedMemMB;
+    tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eDMSystemmemoryIT::totalmem, totalMemMB);
     tokenContainer->AddIntToken((int)eDMSystemmemoryIT::usedmem, usedMemMB);
     if (totalMemMB > 0)
@@ -737,6 +741,7 @@ bool cVeDmTemperatures::Parse(bool forced) {
     lastCpuTemp = cpu;
     lastGpuTemp = gpu;
 
+    tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eDMTemperaturesIT::cputemp, cpu);
     tokenContainer->AddIntToken((int)eDMTemperaturesIT::gputemp, gpu);
     SetDirty();
@@ -793,6 +798,7 @@ bool cVeDmVdrstatistics::Parse(bool forced) {
     lastVdrCPU = vdrCPU;
     lastVdrMEM = vdrMEM;
 
+    tokenContainer->Clear();
     tokenContainer->AddStringToken((int)eDMVdrstatisticsST::vdrcpu, vdrCPU.c_str());
     tokenContainer->AddStringToken((int)eDMVdrstatisticsST::vdrmem, vdrMEM.c_str());
     SetDirty();
@@ -828,6 +834,7 @@ bool cVeDmLastrecordings::Parse(bool forced) {
     if (!cViewElement::Parse(forced))
         return false;
 
+    tokenContainer->Clear();
     cGlobalSortedTimers SortedTimers;// local and remote timers
     int numTimers = SortedTimers.Size();
     //set number of timers so that it is possible to adapt this viewelement accordingly
