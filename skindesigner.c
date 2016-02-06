@@ -104,6 +104,7 @@ bool cPluginSkinDesigner::ProcessArgs(int argc, char *argv[]) {
 }
 
 bool cPluginSkinDesigner::Initialize(void) {
+    plgManager = new cSDPluginManager();
     return true;
 }
 
@@ -118,7 +119,6 @@ bool cPluginSkinDesigner::Start(void) {
     } else
         dsyslog("skindesigner: TrueColor OSD found");
 
-    plgManager = new cSDPluginManager();
     libskindesignerApiVersion = LIBSKINDESIGNERAPIVERSION;
     dsyslog("skindesigner: using libskindesigner API Version %s", libskindesignerApiVersion.c_str());
 
