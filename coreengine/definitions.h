@@ -1234,9 +1234,9 @@ enum class eDmDetailedEpgIT {
     channelnumber,
     channellogoexists,
     hasreruns,
-    epgpic1avaialble,
-    epgpic2avaialble,
-    epgpic3avaialble,
+    epgpic1available,
+    epgpic2available,
+    epgpic3available,
     count
 };
 

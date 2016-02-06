@@ -1,5 +1,6 @@
 #include "viewdetail.h"
 #include "../config.h"
+#include "../extensions/helpers.h"
 /******************************************************************
 * cViewDetail
 ******************************************************************/
@@ -270,9 +271,9 @@ void cViewDetailEpg::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{channelnumber}", (int)eDmDetailedEpgIT::channelnumber);
     tokenContainer->DefineIntToken("{channellogoexists}", (int)eDmDetailedEpgIT::channellogoexists);
     tokenContainer->DefineIntToken("{hasreruns}", (int)eDmDetailedEpgIT::hasreruns);
-    tokenContainer->DefineIntToken("{epgpic1avaialble}", (int)eDmDetailedEpgIT::epgpic1avaialble);
-    tokenContainer->DefineIntToken("{epgpic2avaialble}", (int)eDmDetailedEpgIT::epgpic2avaialble);
-    tokenContainer->DefineIntToken("{epgpic3avaialble}", (int)eDmDetailedEpgIT::epgpic3avaialble);
+    tokenContainer->DefineIntToken("{epgpic1available}", (int)eDmDetailedEpgIT::epgpic1available);
+    tokenContainer->DefineIntToken("{epgpic2available}", (int)eDmDetailedEpgIT::epgpic2available);
+    tokenContainer->DefineIntToken("{epgpic3available}", (int)eDmDetailedEpgIT::epgpic3available);
     tokenContainer->DefineIntToken("{ismovie}", (int)eScraperIT::ismovie);
     tokenContainer->DefineIntToken("{moviebudget}", (int)eScraperIT::moviebudget);
     tokenContainer->DefineIntToken("{movierevenue}", (int)eScraperIT::movierevenue);
@@ -394,6 +395,7 @@ bool cViewDetailEpg::Parse(bool forced) {
     if (scrapInfoAvailable) {
         SetFullScrapInfo(tokenContainer, actorsIndex);
     }
+    SetEpgPictures(event->EventID());
     SetDirty();
     return true;
 }
@@ -492,6 +494,17 @@ void cViewDetailEpg::SetReruns(cList<Epgsearch_searchresults_v1_0::cServiceSearc
             tokenContainer->AddLoopToken(rerunsIndex, i, (int)eRerunsLT::channelnumber, "");
         }
         i++;
+    }
+}
+
+void cViewDetailEpg::SetEpgPictures(int eventId) {
+    for (int i=0; i<3; i++) {
+        cString epgPic = cString::sprintf("%s%d_%d.jpg", *config.epgImagePath, eventId, i);
+        bool epgPicAvailable = FileExists(*epgPic);
+        int indexAvailable = (int)eDmDetailedEpgIT::epgpic1available + i;
+        int indexPath = (int)eDmDetailedEpgST::epgpic1path + i;
+        tokenContainer->AddIntToken(indexAvailable, epgPicAvailable);
+        tokenContainer->AddStringToken(indexPath, *epgPic);
     }
 }
 

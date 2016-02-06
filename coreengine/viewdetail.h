@@ -46,6 +46,7 @@ protected:
     cList<Epgsearch_searchresults_v1_0::cServiceSearchResult> *LoadReruns(void);
     int NumReruns(cList<Epgsearch_searchresults_v1_0::cServiceSearchResult> *reruns);
     void SetReruns(cList<Epgsearch_searchresults_v1_0::cServiceSearchResult> *reruns);
+    void SetEpgPictures(int eventId);
 public:
     cViewDetailEpg(void);
     virtual ~cViewDetailEpg(void);
