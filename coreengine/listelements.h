@@ -217,6 +217,7 @@ private:
     const cTimer *timer;
 public:
     cLeMenuTimers(void);
+    cLeMenuTimers(const cLeMenuTimers &other);
     virtual ~cLeMenuTimers(void);
     void SetTokenContainer(void);
     void SetCurrentElement(cCeMenuTimers *cur) { currentTimer = cur; currentElement = (cViewElement*)cur; };
@@ -255,6 +256,7 @@ private:
     char *FolderName(const char *path, int level);
 public:
     cLeMenuRecordings(void);
+    cLeMenuRecordings(const cLeMenuRecordings &other);
     virtual ~cLeMenuRecordings(void);
     void SetTokenContainer(void);
     void SetCurrentElement(cCeMenuRecordings *cur) { currentRecording = cur; currentElement = (cViewElement*)cur; };
@@ -292,6 +294,7 @@ private:
     cCeMenuPlugin *currentPlugin;
 public:
     cLeMenuPlugin(void);
+    cLeMenuPlugin(const cLeMenuPlugin &other);
     virtual ~cLeMenuPlugin(void);
     void SetTokenContainer(void);
     void SetPlugId(int id) { plugId = id; };

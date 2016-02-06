@@ -479,6 +479,7 @@ cLeMenuSchedules::cLeMenuSchedules(void) {
 }
 
 cLeMenuSchedules::cLeMenuSchedules(const cLeMenuSchedules &other) : cListElement(other) {
+    currentSchedules = NULL;
 }
 
 cLeMenuSchedules::~cLeMenuSchedules(void) {
@@ -789,6 +790,7 @@ cLeMenuChannels::cLeMenuChannels(void) {
 }
 
 cLeMenuChannels::cLeMenuChannels(const cLeMenuChannels &other) : cListElement(other) {
+    currentChannel = NULL;
     channel = NULL;
     withProvider = false;
 }
@@ -1061,6 +1063,11 @@ cLeMenuTimers::cLeMenuTimers(void) {
     timer = NULL;
 }
 
+cLeMenuTimers::cLeMenuTimers(const cLeMenuTimers &other) : cListElement(other) {
+    currentTimer = NULL;
+    timer = NULL;
+}
+
 cLeMenuTimers::~cLeMenuTimers(void) {
 }
 
@@ -1319,6 +1326,14 @@ bool cCeMenuTimers::Parse(bool forced) {
 * cLeMenuRecordings
 ******************************************************************/
 cLeMenuRecordings::cLeMenuRecordings(void) {
+    currentRecording = NULL;
+    recording = NULL;
+    level = 0;
+    total = 0;
+    New = 0;
+}
+
+cLeMenuRecordings::cLeMenuRecordings(const cLeMenuRecordings &other) : cListElement(other) {
     currentRecording = NULL;
     recording = NULL;
     level = 0;
@@ -1717,6 +1732,12 @@ bool cCeMenuRecordings::Parse(bool forced) {
 * cLeMenuPlugin
 ******************************************************************/
 cLeMenuPlugin::cLeMenuPlugin(void) {
+    currentPlugin = NULL;
+    plugId = -1;
+    plugMenuId = -1;
+}
+
+cLeMenuPlugin::cLeMenuPlugin(const cLeMenuPlugin &other) : cListElement(other) {
     currentPlugin = NULL;
     plugId = -1;
     plugMenuId = -1;

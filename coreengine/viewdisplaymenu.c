@@ -1552,6 +1552,7 @@ void cViewMenuDetail::SetPluginText(skindesignerapi::cTokenContainer *tk) {
 }
 
 void cViewMenuDetail::Clear(void) {
+    cSubView::Clear();
     cSubView::Close();
     if (detailedheaderEpg) {
         detailedheaderEpg->Close();
@@ -1569,6 +1570,7 @@ void cViewMenuDetail::Clear(void) {
 }
 
 void cViewMenuDetail::Close(void) {
+    cSubView::Clear();
     cSubView::Close();
     if (detailView) {
         detailView->Close();

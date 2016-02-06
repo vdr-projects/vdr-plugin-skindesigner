@@ -143,25 +143,29 @@ bool cView::ValidViewList(const char *viewList) {
 }
 
 void cView::PreCache(void) {
-    if (container.Width() == 0) {
+    bool rootView = (container.Width() == 0) ? true : false;
+    if (rootView) {
         SetContainer(0, 0, cOsd::OsdWidth(), cOsd::OsdHeight());
         attribs->SetContainer(0, 0, cOsd::OsdWidth(), cOsd::OsdHeight());
         attribs->Cache();
+        rootView = true;
     }
     //set frame for scaling tv picture
     tvFrame = attribs->TvFrame();
     //cache viewelements
+    int contX = rootView ? 0 : ((attribs->X() > -1) ? attribs->X() : 0);
+    int contY = rootView ? 0 : ((attribs->Y() > -1) ? attribs->Y() : 0);
     for (int i=0; i < numViewElements; i++) {
         if (!viewElements[i])
             continue;
-        viewElements[i]->SetContainer(0, 0, attribs->Width(), attribs->Height());
+        viewElements[i]->SetContainer(contX, contY, attribs->Width(), attribs->Height());
         viewElements[i]->Cache();
     }
     if (viewElementsHorizontal) {   
         for (int i=0; i < numViewElements; i++) {
             if (!viewElementsHorizontal[i])
                 continue;
-            viewElementsHorizontal[i]->SetContainer(0, 0, attribs->Width(), attribs->Height());
+            viewElementsHorizontal[i]->SetContainer(contX, contY, attribs->Width(), attribs->Height());
             viewElementsHorizontal[i]->Cache();
         }
     }
@@ -287,6 +291,7 @@ void cView::Flush(void) {
 
 void cView::Debug(void) {
     esyslog("skindesigner: ---> view %s", viewName);
+    attribs->Debug();
     for (int i=0; i < numViewElements; i++) {
         if (!viewElements[i])
             continue;

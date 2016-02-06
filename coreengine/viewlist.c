@@ -25,14 +25,14 @@ cViewList::~cViewList(void) {
     }
     delete[] listElements;
 }
-    
+
 void cViewList::SetGlobals(cGlobals *globals) {
     this->globals = globals;
     if (listElement)
         listElement->SetGlobals(globals);
     if (currentElement)
         currentElement->SetGlobals(globals);
-}   
+}
 
 void cViewList::SetContainer(int x, int y, int width, int height) {
     container.SetX(x);
@@ -137,7 +137,7 @@ void cViewList::PreCache(void) {
     int y = attribs->Y();
     int width = attribs->Width();
     int height = attribs->Height();
-    
+
     int step = 0;
     if (orientation == eOrientation::vertical) {
         step = height / numElements;
@@ -150,12 +150,12 @@ void cViewList::PreCache(void) {
         if (orientation == eOrientation::vertical) {
             start = y + (height - numElements * step) / 2;
         } else {
-            start = x + (width - numElements * step) / 2;            
+            start = x + (width - numElements * step) / 2;
         }
     } else if (align == eAlign::bottom) {
-        start = y + height - numElements * step;         
+        start = y + height - numElements * step;
     } else if (align == eAlign::right) {
-        start = x + width - numElements * step;                 
+        start = x + width - numElements * step;
     }
     Prepare(start, step);
 }
@@ -192,7 +192,7 @@ void cViewList::Clear(void) {
     for (int i = 0; i < numElements; i++) {
         listElements[i]->StopScrolling();
         listElements[i]->Clear();
-    }    
+    }
 }
 
 void cViewList::Close(void) {
@@ -212,7 +212,7 @@ void cViewList::SetTransparency(int transparency) {
     }
 }
 
-void cViewList::Debug(void) {   
+void cViewList::Debug(void) {
 }
 
 /******************************************************************
@@ -242,7 +242,7 @@ void cViewListDefault::Prepare(int start, int step) {
     listDefault = new cLeMenuDefault*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listDefault[i] = new cLeMenuDefault(*tpl);
         listElements[i] = listDefault[i];
@@ -299,7 +299,7 @@ void cViewListDefault::SetTabs(int tab1, int tab2, int tab3, int tab4, int tab5)
         colX[0] = 0;
         colWidths[0] = itemWidth;
         for (int i = 1; i < MAX_TABS; i++) {
-                colX[i] = 0;            
+                colX[i] = 0;
                 colWidths[i] = 0;
         }
     } else {
@@ -320,7 +320,7 @@ void cViewListDefault::SetTabs(int tab1, int tab2, int tab3, int tab4, int tab5)
                 end = true;
                 colWidths[i] = itemWidth - colX[i];
             } else {
-                colWidths[i] = 0;                
+                colWidths[i] = 0;
             }
         }
     }
@@ -336,7 +336,7 @@ void cViewListDefault::Set(const char *text, int index, bool current, bool selec
 }
 
 const cFont *cViewListDefault::GetListFont(void) {
-    return listFont; 
+    return listFont;
 };
 
 int cViewListDefault::GetListWidth(void) {
@@ -365,7 +365,7 @@ void cViewListMain::Prepare(int start, int step) {
     listMain = new cLeMenuMain*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listMain[i] = new cLeMenuMain(*tpl);
         listElements[i] = listMain[i];
@@ -442,7 +442,7 @@ void cViewListSchedules::Prepare(int start, int step) {
     listSchedules = new cLeMenuSchedules*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listSchedules[i] = new cLeMenuSchedules(*tpl);
         listElements[i] = listSchedules[i];
@@ -479,7 +479,7 @@ void cViewListSchedules::Prepare(int start, int step) {
     }
 }
 
-void cViewListSchedules::Set(const cEvent *event, int index, bool current, bool selectable, 
+void cViewListSchedules::Set(const cEvent *event, int index, bool current, bool selectable,
                              const cChannel *channel, bool withDate, eTimerMatch timerMatch) {
     if (!current)
         listSchedules[index]->StopScrolling();
@@ -493,7 +493,7 @@ void cViewListSchedules::Set(const cEvent *event, int index, bool current, bool 
 /******************************************************************
 * cViewListTimers
 ******************************************************************/
-cViewListTimers::cViewListTimers(void) {    
+cViewListTimers::cViewListTimers(void) {
     listTimers = NULL;
     currentTimer = NULL;
 }
@@ -512,7 +512,7 @@ void cViewListTimers::Prepare(int start, int step) {
     listTimers = new cLeMenuTimers*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listTimers[i] = new cLeMenuTimers(*tpl);
         listElements[i] = listTimers[i];
@@ -580,7 +580,7 @@ void cViewListChannels::Prepare(int start, int step) {
     listChannels = new cLeMenuChannels*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listChannels[i] = new cLeMenuChannels(*tpl);
         listElements[i] = listChannels[i];
@@ -648,7 +648,7 @@ void cViewListRecordings::Prepare(int start, int step) {
     listRecordings = new cLeMenuRecordings*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listRecordings[i] = new cLeMenuRecordings(*tpl);
         listElements[i] = listRecordings[i];
@@ -719,7 +719,7 @@ void cViewListPlugin::Prepare(int start, int step) {
     listPlugin = new cLeMenuPlugin*[numElements];
     listElements = new cListElement*[numElements];
     int pos = start;
-    
+
     for (int i = 0; i < numElements; i++) {
         listPlugin[i] = new cLeMenuPlugin(*tpl);
         listElements[i] = listPlugin[i];
@@ -832,14 +832,14 @@ void cViewListAudioTracks::SetTracks(const char * const *tracks) {
         if (orientation == eOrientation::vertical) {
             start = y + (height - numTracks * step) / 2;
         } else {
-            start = x + (width - numTracks * step) / 2;            
+            start = x + (width - numTracks * step) / 2;
         }
     } else if (align == eAlign::bottom) {
-        start = y + height - numTracks * step;         
+        start = y + height - numTracks * step;
     } else if (align == eAlign::right) {
-        start = x + width - numTracks * step;                 
+        start = x + width - numTracks * step;
     } else if (align == eAlign::top) {
-        start = y;                 
+        start = y;
     }
 
     cLeAudioTracks *tpl = dynamic_cast<cLeAudioTracks*>(listElement);
@@ -848,7 +848,7 @@ void cViewListAudioTracks::SetTracks(const char * const *tracks) {
     listAudioTracks = new cLeAudioTracks*[numTracks];
     listElements = new cListElement*[numTracks];
     int pos = start;
-    
+
     for (int i = 0; i < numTracks; i++) {
         listAudioTracks[i] = new cLeAudioTracks(*tpl);
         listElements[i] = listAudioTracks[i];
