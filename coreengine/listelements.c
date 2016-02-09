@@ -1409,7 +1409,6 @@ bool cLeMenuRecordings::Parse(bool forced) {
 
     char *recName = RecName(recording->Name(), level);
     tokenContainer->AddStringToken((int)eLeMenuRecordingsST::name, recName);
-    delete[] recName;
 
     const cRecording *usedRecording = recording;
 
@@ -1458,9 +1457,17 @@ bool cLeMenuRecordings::Parse(bool forced) {
 
     const cEvent *event = NULL;
     const cRecordingInfo *info = usedRecording->Info();
-    if (!info) return true;
+    if (!info) {
+        delete[] recName;
+        return true;
+    }
     event = info->GetEvent();
-    if (!event) return true;
+    if (!event) {
+        delete[] recName;
+        return true;
+    }
+    tokenContainer->AddStringToken((int)eLeMenuRecordingsST::epgname, info->Title() ? info->Title() : recName);
+    delete[] recName;
 
     cString recDate = event->GetDateString();
     cString recTime = event->GetTimeString();
@@ -1694,6 +1701,7 @@ bool cCeMenuRecordings::Parse(bool forced) {
     event = info->GetEvent();
     if (!event) return true;
 
+    tokenContainer->AddStringToken((int)eCeMenuRecordingsST::epgname, info->Title() ? info->Title() : buffer.c_str());
     cString recDate = event->GetDateString();
     cString recTime = event->GetTimeString();
     if (strstr(*recDate, "1970")) {
