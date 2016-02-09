@@ -1359,6 +1359,7 @@ void cLeMenuRecordings::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeMenuRecordingsIT::nummenuitem);
     tokenContainer->DefineIntToken("{current}", (int)eLeMenuRecordingsIT::current);
     tokenContainer->DefineIntToken("{new}", (int)eLeMenuRecordingsIT::isnew);
+    tokenContainer->DefineIntToken("{separator}", (int)eLeMenuRecordingsIT::separator);
     tokenContainer->DefineIntToken("{percentseen}", (int)eLeMenuRecordingsIT::percentseen);
     tokenContainer->DefineIntToken("{watched}", (int)eLeMenuRecordingsIT::watched);
     tokenContainer->DefineIntToken("{cutted}", (int)eLeMenuRecordingsIT::cutted);
