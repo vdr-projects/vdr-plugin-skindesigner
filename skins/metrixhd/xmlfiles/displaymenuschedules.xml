@@ -105,7 +105,7 @@
                 <drawtextbox condition="{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" float="topleft" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 20" font="{light}" fontsize="{areaheight}/20" color="{clrWhite}" text="{description}" />
                 <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="{areawidth} - 20" height="{areaheight} - {posy(poster)}" font="{light}" fontsize="{areaheight}/20" color="{clrWhite}" text="{description}" />
             </area>
-            <areacontainer condition="{whatsonnow}||{whatsonnext}">
+            <areacontainer condition="{whatsonnow}||{whatsonnext}||{whatsonfavorites}">
                 <area x="63%" y="0" width="36%" height="85%" layer="2">
                     <!-- title -->
                     <drawtext align="center" y="0" font="{semibold}" width="{areawidth}-20" fontsize="10%" color="{clrWhite}" text="{title}" />

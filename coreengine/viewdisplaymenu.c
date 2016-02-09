@@ -399,6 +399,8 @@ void cViewMenu::SetMessage(eMessageType type, const char *text) {
 }
 
 void cViewMenu::SetChannelHeader(const cEvent *event) {
+    if (!event)
+        return;
     if (menuChange && menuCat == mcSchedule) {
         const cChannel *channel = Channels.GetByChannelID(event->ChannelID());
         if (channel)
