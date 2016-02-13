@@ -279,6 +279,7 @@ void cViewReplay::Flush(void) {
             Render((int)eVeDisplayReplay::rectitle);
             Render((int)eVeDisplayReplay::recinfo);
             Render((int)eVeDisplayReplay::scrapercontent);
+            Render((int)eVeDisplayReplay::customtokens);
         } else {
             Render((int)eVeDisplayReplay::backgroundmodeonly);            
         } 
