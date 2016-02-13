@@ -1519,6 +1519,8 @@ char *cLeMenuRecordings::RecName(const char *path, int level) {
         startName = strchr(startName, FOLDERDELIMCHAR);
         startName++;
     }
+    if (*startName == '%')
+        startName++;
     const char *endName = startName;
     if (endName = strchr(endName, FOLDERDELIMCHAR)) {
         int len = endName - startName;
