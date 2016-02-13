@@ -520,7 +520,7 @@ void cViewMenu::KeyDetailView(bool up, bool page) {
 }
 
 bool cViewMenu::Init(void) {
-    activeSubview = subViews[(int)eSvDisplayMenu::main];
+    activeSubview = subViews[(int)eSvDisplayMenu::menudefault];
     return cView::Init(); 
 }
 
