@@ -327,6 +327,8 @@ void cViewListDefault::SetTabs(int tab1, int tab2, int tab3, int tab4, int tab5)
 }
 
 void cViewListDefault::Set(const char *text, int index, bool current, bool selectable) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listDefault[index]->StopScrolling();
     listDefault[index]->SetCurrent(current);
@@ -403,6 +405,8 @@ void cViewListMain::Prepare(int start, int step) {
 }
 
 void cViewListMain::Set(const char *text, int index, bool current, bool selectable) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listMain[index]->StopScrolling();
     listMain[index]->SetCurrent(current);
@@ -481,6 +485,8 @@ void cViewListSchedules::Prepare(int start, int step) {
 
 void cViewListSchedules::Set(const cEvent *event, int index, bool current, bool selectable,
                              const cChannel *channel, bool withDate, eTimerMatch timerMatch) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listSchedules[index]->StopScrolling();
     listSchedules[index]->SetCurrent(current);
@@ -550,6 +556,8 @@ void cViewListTimers::Prepare(int start, int step) {
 }
 
 void cViewListTimers::Set(const cTimer *timer, int index, bool current, bool selectable) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listTimers[index]->StopScrolling();
     listTimers[index]->SetCurrent(current);
@@ -618,6 +626,8 @@ void cViewListChannels::Prepare(int start, int step) {
 }
 
 void cViewListChannels::Set(const cChannel *channel, int index, bool current, bool selectable, bool withProvider) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listChannels[index]->StopScrolling();
     listChannels[index]->SetCurrent(current);
@@ -686,6 +696,8 @@ void cViewListRecordings::Prepare(int start, int step) {
 }
 
 void cViewListRecordings::Set(const cRecording *recording, int index, bool current, bool selectable, int level, int total, int New) {
+    if (index < 0 || index  >= numElements)
+        return;
     if (!current)
         listRecordings[index]->StopScrolling();
     listRecordings[index]->SetCurrent(current);
@@ -762,7 +774,9 @@ void cViewListPlugin::Prepare(int start, int step) {
 }
 
 void cViewListPlugin::Set(skindesignerapi::cTokenContainer *tk, int index, bool current, bool selectable) {
-   if (!current)
+    if (index < 0 || index  >= numElements)
+        return;
+    if (!current)
         listPlugin[index]->StopScrolling();
     listPlugin[index]->SetCurrent(current);
     listPlugin[index]->ClearCurrentElement();
