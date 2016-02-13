@@ -233,8 +233,7 @@ void cView::Close(void) {
         delete fader;
         fader = NULL;
     }
-    if (initFinished)
-        UnScaleTv();
+    UnScaleTv();
     ClearVariables();
     for (int i=0; i < numViewElements; i++) {
         if (!viewElements[i])
