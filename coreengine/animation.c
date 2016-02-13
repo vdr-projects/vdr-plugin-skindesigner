@@ -209,7 +209,8 @@ void cAnimation::Detach(void) {
     if (!Running()) return;
     detachable->RenderDetached();
     if (!Running()) return;
-    detachable->Flush();
+    if (!doAnimation)
+        detachable->Flush();
     if (!Running()) return;
     if (doAnimation) {
         detachable->StartAnimation();        
