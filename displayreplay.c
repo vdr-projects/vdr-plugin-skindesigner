@@ -81,6 +81,10 @@ void cSDDisplayReplay::Flush(void) {
 }
 
 void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {
+    //check for instant recording
+    const char *recName = recording->Name();
+    if (recName && *recName == '@')
+        return;
     bool isTimeShift = false;
 #if APIVERSNUM >= 20101
     int usage = recording->IsInUse();
