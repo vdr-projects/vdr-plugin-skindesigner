@@ -819,6 +819,7 @@ void cLeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{isCable}", (int)eLeMenuChannelsIT::isCable);
     tokenContainer->DefineIntToken("{isSat}", (int)eLeMenuChannelsIT::isSat);
     tokenContainer->DefineIntToken("{isTerr}", (int)eLeMenuChannelsIT::isTerr);
+    tokenContainer->DefineIntToken("{isEncrypted}", (int)eLeMenuChannelsIT::isEncrypted);
     InheritTokenContainer();    
 }
 
@@ -845,6 +846,7 @@ bool cLeMenuChannels::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eLeMenuChannelsIT::number, channel->Number());
     tokenContainer->AddIntToken((int)eLeMenuChannelsIT::transponder, channel->Transponder());
     tokenContainer->AddIntToken((int)eLeMenuChannelsIT::frequency, channel->Frequency());
+    tokenContainer->AddIntToken((int)eLeMenuChannelsIT::isEncrypted, channel->Ca());
 
     tokenContainer->AddStringToken((int)eLeMenuChannelsST::name, channel->Name());
     cString channelID = channel->GetChannelID().ToString();
@@ -934,6 +936,7 @@ void cCeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{isCable}", (int)eCeMenuChannelsIT::isCable);
     tokenContainer->DefineIntToken("{isSat}", (int)eCeMenuChannelsIT::isSat);
     tokenContainer->DefineIntToken("{isTerr}", (int)eCeMenuChannelsIT::isTerr);
+    tokenContainer->DefineIntToken("{isEncrypted}", (int)eCeMenuChannelsIT::isEncrypted);
     tokenContainer->DefineIntToken("{presenteventelapsed}", (int)eCeMenuChannelsIT::presenteventelapsed);
     tokenContainer->DefineIntToken("{presenteventduration}", (int)eCeMenuChannelsIT::presenteventduration);
     tokenContainer->DefineIntToken("{presenteventdurationhours}", (int)eCeMenuChannelsIT::presenteventdurationhours);
@@ -969,6 +972,7 @@ bool cCeMenuChannels::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eCeMenuChannelsIT::number, channel->Number());
     tokenContainer->AddIntToken((int)eCeMenuChannelsIT::transponder, channel->Transponder());
     tokenContainer->AddIntToken((int)eCeMenuChannelsIT::frequency, channel->Frequency());
+    tokenContainer->AddIntToken((int)eCeMenuChannelsIT::isEncrypted, channel->Ca());
 
     tokenContainer->AddStringToken((int)eCeMenuChannelsST::name, channel->Name());
     cString channelID = channel->GetChannelID().ToString();

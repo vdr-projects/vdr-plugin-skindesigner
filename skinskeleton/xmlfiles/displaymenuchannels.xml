@@ -15,6 +15,7 @@
         {isCable}                 true if channel is cable channel
         {isSat}                   true if channel is a satellite channel
         {isTerr}                  true if channel is terrestrical
+        {isEncrypted}             true if channel is encrypted
         {presenteventtitle}       title of present event on this channel
         {presenteventstart}       present event start time in hh::mm
         {presenteventstop}        present event event stop time in hh::mm
@@ -42,6 +43,7 @@
         {isCable}                       true if channel is cable channel
         {isSat}                         true if channel is a satellite channel
         {isTerr}                        true if channel is terrestrical
+        {isEncrypted}                   true if channel is encrypted
         {presenteventtitle}             title of present event on this channel
         {presenteventstart}             present event start time in hh::mm
         {presenteventstop}              present event stop time in hh::mm

@@ -803,6 +803,7 @@ enum class eLeMenuChannelsIT {
     isCable,
     isSat,
     isTerr,
+    isEncrypted,
     count
 };
 
@@ -845,6 +846,7 @@ enum class eCeMenuChannelsIT {
     isCable,
     isSat,
     isTerr,
+    isEncrypted,
     presenteventduration,
     presenteventdurationhours,
     presenteventelapsed,
