@@ -41,7 +41,7 @@ private:
     void LoadPluginViews(void);
     void CacheViews(void);
 public:
-    cSkinDesigner(string skin);
+    cSkinDesigner(string skin, cTheme *theme);
     virtual ~cSkinDesigner(void);
     virtual const char *Description(void);
     virtual cSkinDisplayChannel *DisplayChannel(bool WithInfo);

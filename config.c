@@ -31,6 +31,9 @@ cDesignerConfig::cDesignerConfig() {
 
 cDesignerConfig::~cDesignerConfig() {
     ClearSkinSetups();
+    for (vector<cTheme*>::iterator it = themes.begin(); it != themes.end(); it++) {
+        delete *it;
+    }
 }
 
 void cDesignerConfig::SetPathes(void) {
@@ -79,6 +82,10 @@ bool cDesignerConfig::GetThemeColor(string &name, tColor &col) {
     if (!tmplGlobals)
         return false;
     return tmplGlobals->GetColor(name, col);
+}
+
+void cDesignerConfig::StoreTheme(cTheme *theme) {
+    themes.push_back(theme);
 }
 
 void cDesignerConfig::ReadSkinFolder(cString &skinFolder, vector<string> *container) {
@@ -171,7 +178,9 @@ cString cDesignerConfig::GetSkinPath(string skin) {
 }
 
 void cDesignerConfig::AddNewSkinRef(string skin) {
-    cSkinDesigner *newSkin = new cSkinDesigner(skin);
+    cTheme *theme = new cTheme();
+    StoreTheme(theme);
+    cSkinDesigner *newSkin = new cSkinDesigner(skin, theme);
     AddSkin(newSkin);
     skins.push_back(skin);
     installerSkins.push_back(skin);

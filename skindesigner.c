@@ -140,7 +140,9 @@ bool cPluginSkinDesigner::Start(void) {
     bool skinAvailable = false;
     while (config.GetSkin(skin)) {
         config.ReadSkinSetup(skin);
-        cSkinDesigner *newSkin = new cSkinDesigner(skin);
+        cTheme *theme = new cTheme();
+        config.StoreTheme(theme);
+        cSkinDesigner *newSkin = new cSkinDesigner(skin, theme);
         config.AddSkin(newSkin);
         skinAvailable = true;
         if (!trueColorAvailable) {

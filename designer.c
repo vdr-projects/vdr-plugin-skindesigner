@@ -1,7 +1,7 @@
 #include "designer.h"
 #include "extensions/helpers.h"
 
-cSkinDesigner::cSkinDesigner(string skin) : cSkin(skin.c_str(), &::Theme) {
+cSkinDesigner::cSkinDesigner(string skin, cTheme *theme) : cSkin(skin.c_str(), theme) {
     init = true;
     this->skin = skin;
 

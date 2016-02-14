@@ -35,6 +35,7 @@ private:
     string osdLanguage;
     cGlobals *tmplGlobals;
     vector<cSkinDesigner*> skinRefs;
+    vector<cTheme*> themes;
     vector<cSkinDesigner*>::iterator skinRefsIterator;
     vector<string> deliveredSkins;
     vector<string> installerSkins;
@@ -56,6 +57,7 @@ public:
     void SetLogoPath(cString path);
     void SetEpgImagePath(cString path);
     bool GetThemeColor(string &name, tColor &col);
+    void StoreTheme(cTheme *theme);
     void ReadSkins(void);
     void ReadSkinSetup(string skin);
     void InitSkinIterator(void) { skinIterator = skins.begin(); };
@@ -121,14 +123,12 @@ public:
     cSDPluginManager *plgManager = NULL;
     cFontManager *fontManager = NULL;
     cImageCache *imgCache = NULL;
-    cTheme Theme;
     cRecordingsFolderInfo recFolderInfo(Recordings);
 #else
     extern cDesignerConfig config;
     extern cSDPluginManager *plgManager;
     extern cFontManager *fontManager;
     extern cImageCache *imgCache;
-    extern cTheme Theme;
     extern cRecordingsFolderInfo recFolderInfo;
 #endif
 
