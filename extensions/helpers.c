@@ -216,6 +216,9 @@ string GetScreenResolutionString(int width, int height, bool *isHD) {
         case 720:
             name = "sd576i";
             break;
+        case 544:
+            name = "sd480i";
+            break;
         default:
             name = "sd576i";
             break;

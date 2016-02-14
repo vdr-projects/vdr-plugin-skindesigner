@@ -90,7 +90,7 @@
     <!-- Available Variables screenresolution:
     {screenwidth}                      width of currently displayed channel in px
     {screenheight}                     height of currently displayed channel in px
-    {resolution}                       resolution: hd1080i, hd720p, sd576i
+    {resolution}                       resolution: hd1080i, hd720p, sd576i, sd480i
     {aspect}                           screen aspect, each 4:3, 16:9 or 21:9
     {isHD}                             true for hd1080i and hd720p
     {isWideScreen}                     true if aspect is 16:9 or 21:9
