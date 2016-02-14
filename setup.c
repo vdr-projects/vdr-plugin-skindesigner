@@ -435,7 +435,7 @@ eOSState cSkindesignerSkinSetup::ProcessKey(eKeys Key) {
                                                          tr("or higher"),
                                                          tr("needed"));
                         Skins.Message(mtError, *error);
-                        break;
+                        return osContinue;
                     }
                     Skins.Message(mtStatus, *cString::sprintf("%s ...", tr("Updating Skin from Git")));
                 } else {
