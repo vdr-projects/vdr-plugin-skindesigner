@@ -287,7 +287,7 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
         return "SKINDESIGNER Custom Tokens listed in Log";
     }
     ReplyCode = 502;
-    return "";
+    return "SKINDESIGNER not active.";
 }
 
 

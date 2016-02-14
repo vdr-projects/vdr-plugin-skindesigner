@@ -63,7 +63,7 @@ enum class eVeDisplayMenu {
 };
 
 enum class eVeDisplayMenuMain {
-    timers = eVeDisplayMenu::count,
+    timers = (int)eVeDisplayMenu::count,
     devices,
     currentweather,
     currentschedule,
@@ -78,7 +78,7 @@ enum class eVeDisplayMenuMain {
 };
 
 enum class eVeDisplayDetailedMenu {
-    detailheader = eVeDisplayMenu::count,
+    detailheader = (int)eVeDisplayMenu::count,
     tablabels,
     count
 };
@@ -507,7 +507,7 @@ enum class eDMTimersLT {
 };
 
 enum class eDMCurrentscheduleIT {
-    islivetv = eScraperPosterBannerIT::count,
+    islivetv = (int)eScraperPosterBannerIT::count,
     duration,
     durationhours,
     minutes,
@@ -517,7 +517,7 @@ enum class eDMCurrentscheduleIT {
 };
 
 enum class eDMCurrentscheduleST {
-    title = eScraperPosterBannerST::count,
+    title = (int)eScraperPosterBannerST::count,
     subtitle,
     start,
     stop,
@@ -1038,7 +1038,7 @@ enum class eScraperHeaderIT {
 };
 
 enum class eDmDetailedHeaderEpgST {
-    title = eScraperHeaderST::count,
+    title = (int)eScraperHeaderST::count,
     shorttext,
     start,
     stop,
@@ -1053,7 +1053,7 @@ enum class eDmDetailedHeaderEpgST {
 };
 
 enum class eDmDetailedHeaderEpgIT {
-    daynumeric = eScraperHeaderIT::count,
+    daynumeric = (int)eScraperHeaderIT::count,
     month,
     year,
     running,
@@ -1067,7 +1067,7 @@ enum class eDmDetailedHeaderEpgIT {
 };
 
 enum class eDmDetailedHeaderRecST {
-    name = eScraperHeaderST::count,
+    name = (int)eScraperHeaderST::count,
     epgname,
     shorttext,
     date,
@@ -1081,7 +1081,7 @@ enum class eDmDetailedHeaderRecST {
 };
 
 enum class eDmDetailedHeaderRecIT {
-    daynumeric = eScraperHeaderIT::count,
+    daynumeric = (int)eScraperHeaderIT::count,
     month,
     year,
     duration,
@@ -1206,7 +1206,7 @@ enum class eScraperLT {
 };
 
 enum class eDmDetailedEpgST {
-    title = eScraperST::count,
+    title = (int)eScraperST::count,
     shorttext,
     description,
     start,
@@ -1224,7 +1224,7 @@ enum class eDmDetailedEpgST {
 };
 
 enum class eDmDetailedEpgIT {
-    daynumeric = eScraperIT::count,
+    daynumeric = (int)eScraperIT::count,
     month,
     year,
     running,
@@ -1255,7 +1255,7 @@ enum class eRerunsLT {
 };
 
 enum class eDmDetailedRecST {
-    name = eScraperST::count,
+    name = (int)eScraperST::count,
     epgname,
     shorttext,
     description,
@@ -1280,7 +1280,7 @@ enum class eDmDetailedRecST {
 };
 
 enum class eDmDetailedRecIT {
-    daynumeric = eScraperIT::count,
+    daynumeric = (int)eScraperIT::count,
     month,
     year,
     duration,
@@ -1424,7 +1424,7 @@ enum class eDRJumpST {
 };
 
 enum class eDROnpauseST {
-    name = eScraperST::count,
+    name = (int)eScraperST::count,
     shorttext,
     description,
     date,
@@ -1435,7 +1435,7 @@ enum class eDROnpauseST {
 };
 
 enum class eDROnpauseIT {
-    daynumeric = eScraperIT::count,
+    daynumeric = (int)eScraperIT::count,
     month,
     year,
     duration,
