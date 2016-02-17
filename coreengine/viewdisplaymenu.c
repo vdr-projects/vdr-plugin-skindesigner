@@ -889,15 +889,15 @@ void cSubView::DrawStaticVEs(void) {
         background->Show();
         background->Render();
     }
+}
+
+void cSubView::DrawDynamicVEs(void) {
     if (header) {
         header->Show();
         header->Set(menuCat);
         if (header->Parse())
             header->Render();
     }
-}
-
-void cSubView::DrawDynamicVEs(void) {
     if (datetime) {
         datetime->Show();
         if (datetime->Parse())

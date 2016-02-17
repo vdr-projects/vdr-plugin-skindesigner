@@ -11,6 +11,7 @@
 * cVeDmHeader
 ******************************************************************/
 cVeDmHeader::cVeDmHeader(void) {
+    changed = false;
     title = NULL;
     channelName = NULL;
     channelNumber = 0;
@@ -48,12 +49,11 @@ void cVeDmHeader::SetTokenContainer(void) {
 }
 
 void cVeDmHeader::SetTitle(const char *title) { 
+    if (this->title && !strcmp(this->title, title))
+        return;
+    free(this->title);
     this->title = strdup(title); 
-    free(channelName);
-    channelName = NULL;
-    channelNumber = 0;
-    free(channelId);
-    channelId = NULL;
+    changed = true;
 }
 
 void cVeDmHeader::SetChannel(const cChannel *channel) {
@@ -65,6 +65,8 @@ void cVeDmHeader::SetChannel(const cChannel *channel) {
 }
 
 void cVeDmHeader::Set(eMenuCategory menuCat) {
+    if (!changed)
+        return;
     tokenContainer->Clear();
     tokenContainer->AddStringToken((int)eDMHeaderST::title, title);
     tokenContainer->AddStringToken((int)eDMHeaderST::vdrversion, VDRVERSION);
@@ -101,6 +103,7 @@ void cVeDmHeader::Set(eMenuCategory menuCat) {
         tokenContainer->AddIntToken((int)eDMHeaderIT::channelnumber, channelNumber);
         tokenContainer->AddIntToken((int)eDMHeaderIT::channellogoexists, imgCache->LogoExists(channelId));
     }
+    changed = false;
     SetDirty();
 }
 

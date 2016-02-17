@@ -9,6 +9,7 @@
 ******************************************************************/
 class cVeDmHeader : public cViewElement {
 private:
+    bool changed;
     char *title;
     char *channelName;
     int channelNumber;
