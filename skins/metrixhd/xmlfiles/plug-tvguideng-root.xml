@@ -32,7 +32,7 @@
             <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{clrWhite}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{clrWhite}" text="{title}" />
             <drawtextbox name="shorttext" x="0" y="55%" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} - {areaheight}*0.15" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
+            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
         </areascroll>
         <area condition="not{isdummy}++{hasposter}" x="1%" y="1%" width="{areaheight}*0.2*{posterwidth}/{posterheight}" height="19%" layer="2">
             <drawimage imagetype="image" path="{posterpath}" x="0" y="0" width="100%" height="100%"/>
@@ -41,7 +41,7 @@
             <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{clrWhite}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{clrWhite}" text="{title}" />
             <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} - {areaheight}*0.15" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
+            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
         </areascroll>
         <area condition="{isdummy}" x="1%" y="1%" width="68%" height="19%" layer="2">
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="35%" color="{clrWhite}" text="{title}" />
@@ -53,7 +53,7 @@
             <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{clrWhite}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{clrWhite}" text="{title}" />
             <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} - {areaheight}*0.15" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
+            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
         </areascroll>
         <area condition="not{isdummy}++{hasposter}" x="1%" y="1%" width="{areaheight}*0.2*{posterwidth}/{posterheight}" height="19%" layer="2">
             <drawimage imagetype="image" path="{posterpath}" x="0" y="0" width="100%" height="100%"/>
@@ -62,7 +62,7 @@
             <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{clrWhite}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{clrWhite}" text="{title}" />
             <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} - {areaheight}*0.15" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
+            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{clrWhite}" text="{description}" />
         </areascroll>
         <area condition="{isdummy}" x="1%" y="1%" width="68%" height="19%" layer="2">
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="35%" color="{clrWhite}" text="{title}" />
@@ -281,7 +281,7 @@
         <area layer="3">
             <drawtext condition="not{dummy}" x="3" y="2%" font="{light}" fontsize="{areawidth}*0.16" color="{clrWhite}" text="{start} - {stop}" />
             <drawtextbox name="title" condition="not{dummy}" x="2%" y="{areawidth}*0.16" width="96%" font="{semibold}" fontsize="{areawidth}*0.15" color="{clrWhite}" text="{title}" />
-            <drawtextbox condition="not{dummy}" x="2%" y="{posy(title)} + {height(title)} - {areawidth}*0.1" width="96%" height="{areaheight}*1.1 - {posy(title)} - {height(title)}" font="{light}" fontsize="{areawidth}*0.12" color="{clrWhite}" text="{shorttext}" />
+            <drawtextbox condition="not{dummy}" x="2%" y="{posy(title)} + {height(title)}" width="96%" height="{areaheight}*1.1 - {posy(title)} - {height(title)}" font="{light}" fontsize="{areawidth}*0.12" color="{clrWhite}" text="{shorttext}" />
             <drawtextbox condition="{dummy}" x="2%" y="5%" width="96%" font="{light}" fontsize="{areawidth}*0.2" color="{clrWhite}" text="{title}" />
             <drawimage condition="{timer}" imagetype="icon" path="ico_rec_on" x="{areawidth} - {areaheight}*0.32*45/23" y="68%" width="{areaheight}*0.3*45/23" height="{areaheight}*0.3"/>
             <drawimage condition="{switchtimer}++not{timer}" imagetype="icon" path="ico_switchtimer" x="{areawidth} - {areaheight}*0.32*45/23" y="68%" width="{areaheight}*0.3*45/23" height="{areaheight}*0.3"/>
