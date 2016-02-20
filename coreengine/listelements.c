@@ -273,6 +273,13 @@ void cLeMenuDefault::CheckProgressBar(const char *text, int tab) {
     tokenContainer->AddIntToken(32 + tab, len);
 }
 
+void cLeMenuDefault::Clear(void) {
+    if (current && currentElement) {
+        currentElement->Close();
+    }
+    cViewElement::Close();
+    dirty = false;
+}
 /******************************************************************
 * cVeMenuMain
 ******************************************************************/

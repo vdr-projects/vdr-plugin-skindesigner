@@ -106,7 +106,7 @@
             <areascroll condition="not{separator} ++ not{setup}" scrollelement="column1" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="{column1width}" layer="3">
                 <drawtext name="column1" x="{column1x}" width="{column1width}" valign="center" font="{light}" fontsize="90%" color="{clrWhite}" text="{column1}" />
             </areascroll>
-            <area condition="not{separator} ++ not{setup}" x="1%" width="100%" layer="3">
+            <area condition="not{separator} ++ not{setup}" x="1%" width="100%" layer="4">
                 <drawtext condition="{column2set}" x="{column2x}" valign="center" font="{light}" fontsize="90%" width="{column2width}" color="{clrWhite}" text="{column2}" />
                 <drawtext condition="{column3set}" x="{column3x}" valign="center" font="{light}" fontsize="90%" width="{column3width}" color="{clrWhite}" text="{column3}" />
                 <drawtext condition="{column4set}" x="{column4x}" valign="center" font="{light}" fontsize="90%" width="{column4width}" color="{clrWhite}" text="{column4}" />
