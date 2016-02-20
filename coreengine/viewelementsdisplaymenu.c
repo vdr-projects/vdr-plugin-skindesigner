@@ -49,6 +49,8 @@ void cVeDmHeader::SetTokenContainer(void) {
 }
 
 void cVeDmHeader::SetTitle(const char *title) { 
+    if (!title)
+        return;
     if (this->title && !strcmp(this->title, title))
         return;
     free(this->title);
@@ -79,12 +81,13 @@ void cVeDmHeader::Set(eMenuCategory menuCat) {
     //check for standard menu entries
     bool hasIcon = false;
 
-    string icon = imgCache->GetIconName(title, menuCat);
-    if (imgCache->MenuIconExists(icon))
-        hasIcon = true;
-
-    tokenContainer->AddStringToken((int)eDMHeaderST::icon, icon.c_str());
-    tokenContainer->AddIntToken((int)eDMHeaderIT::hasicon, hasIcon);
+    if (title) {
+        string icon = imgCache->GetIconName(title, menuCat);
+        if (imgCache->MenuIconExists(icon))
+            hasIcon = true;
+        tokenContainer->AddStringToken((int)eDMHeaderST::icon, icon.c_str());
+        tokenContainer->AddIntToken((int)eDMHeaderIT::hasicon, hasIcon);
+    }
 
     //Disc Usage
     tokenContainer->AddStringToken((int)eDMHeaderST::vdrusagestring, *cVideoDiskUsage::String());
