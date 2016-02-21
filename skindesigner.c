@@ -231,7 +231,7 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
 
     if (!activeSkin) {
         ReplyCode = 550;
-        return "";
+        return "SKINDESIGNER not active.";
     }
 
     if (strcasecmp(Command, "RELD") == 0) {
@@ -289,7 +289,7 @@ cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Optio
         return "SKINDESIGNER Custom Tokens listed in Log";
     }
     ReplyCode = 502;
-    return "SKINDESIGNER not active.";
+    return "SKINDESIGNER invalid SVDRP command.";
 }
 
 
