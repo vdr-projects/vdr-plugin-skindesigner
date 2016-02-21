@@ -250,6 +250,7 @@ void cArea::Clear(void) {
     if (!init && isBackgroundArea) {
         return;
     }
+    StopBlinkers();
     if (pix) {
         pix->Fill(clrTransparent);
     }
