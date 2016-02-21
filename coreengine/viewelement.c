@@ -463,7 +463,8 @@ bool cViewElement::Parse(bool forced) {
         return true;
     }
     delete detacher;
-    detacher = new cAnimation((cDetachable*)this, waitOnWakeup, startAnimation);
+    bool isAnimated = (FadeTime() > 0) || (ShiftTime() > 0);
+    detacher = new cAnimation((cDetachable*)this, waitOnWakeup, startAnimation && isAnimated);
     detacher->Start();
     startAnimation = false;
     init = false;

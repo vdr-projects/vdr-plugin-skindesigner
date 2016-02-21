@@ -198,11 +198,12 @@ void cAnimation::Scroll(void) {
 void cAnimation::Detach(void) {
     if (waitOnWakeup) {
         Wait();
-        int delay = 100 + detachable->Delay();
-        Sleep(delay);        
+        int delay = 50 + detachable->Delay();
+        Sleep(delay);
     } else {
         int delay = detachable->Delay();
-        Sleep(delay);
+        if (delay > 0)
+            Sleep(delay);
     }
     if (!Running()) return;
     detachable->ParseDetached();
