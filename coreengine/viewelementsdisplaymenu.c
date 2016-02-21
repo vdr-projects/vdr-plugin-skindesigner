@@ -49,8 +49,6 @@ void cVeDmHeader::SetTokenContainer(void) {
 }
 
 void cVeDmHeader::SetTitle(const char *title) { 
-    if (!title)
-        return;
     if (this->title && !strcmp(this->title, title))
         return;
     free(this->title);
