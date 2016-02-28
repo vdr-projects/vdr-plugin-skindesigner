@@ -175,6 +175,7 @@ void cLeMenuDefault::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{mailbox}", (int)eLeMenuDefaultIT::mailbox);
     tokenContainer->DefineIntToken("{neutrinoepg}", (int)eLeMenuDefaultIT::neutrinoepg);
     tokenContainer->DefineIntToken("{remotetimers}", (int)eLeMenuDefaultIT::remotetimers);
+    tokenContainer->DefineIntToken("{zaphistory}", (int)eLeMenuDefaultIT::zaphistory);
     InheritTokenContainer();
 }
 
@@ -293,7 +294,9 @@ void cLeMenuDefault::SetMenuCategory(void) {
         tokenContainer->AddIntToken((int)eLeMenuDefaultIT::neutrinoepg, 1);
     } else if (!strcmp(plugName, "remotetimers")) {
         tokenContainer->AddIntToken((int)eLeMenuDefaultIT::remotetimers, 1);
-    } 
+    } else if (!strcmp(plugName, "zaphistory")) {
+        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::zaphistory, 1);
+    }
 }
 
 void cLeMenuDefault::CheckProgressBar(const char *text, int tab) {

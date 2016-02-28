@@ -664,6 +664,7 @@ enum class eLeMenuDefaultIT {
     mailbox,
     neutrinoepg,
     remotetimers,
+    zaphistory,
     count
 };
 
