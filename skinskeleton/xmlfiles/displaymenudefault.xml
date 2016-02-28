@@ -45,6 +45,14 @@
         {setup}                     is set to true
         For the commands menu
         {commands}                  is set to true
+        The following tokens are set for the different other menu categiries:
+        {unknown}                    true if mcUndefined or mcUnknown is set
+        {channeledit}                true if mcChannelEdit is set
+        {timeredit}                  true if mcTimerEdit is set
+        {recordinginfo}              true if mcRecordingInfo is set
+        {recordingedit}              true if mcRecordingEdit is set
+        {folder}                     true if mcFolder is set
+        {cam}                        true if mcCam is set
         If a plugin is running, a token called as the name of the plugin is set to true
         {pluginname}                is set to true
         -->

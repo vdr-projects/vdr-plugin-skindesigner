@@ -13,7 +13,7 @@ cListElement::cListElement(void) {
     wasCurrent = false;
     selectable = false;
     currentElement = NULL;
-    menuCat = mcUnknown;
+    menuCat = mcUndefined;
 };
 
 cListElement::cListElement(const cListElement &other) : cViewElement(other) {
@@ -161,8 +161,15 @@ void cLeMenuDefault::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{column4pbsize}", (int)eLeMenuDefaultIT::column4pbsize);
     tokenContainer->DefineIntToken("{column5pbsize}", (int)eLeMenuDefaultIT::column5pbsize);
     tokenContainer->DefineIntToken("{column6pbsize}", (int)eLeMenuDefaultIT::column6pbsize);
+    tokenContainer->DefineIntToken("{unknown}", (int)eLeMenuDefaultIT::unknown);
+    tokenContainer->DefineIntToken("{channeledit}", (int)eLeMenuDefaultIT::channeledit);
+    tokenContainer->DefineIntToken("{timeredit}", (int)eLeMenuDefaultIT::timeredit);
+    tokenContainer->DefineIntToken("{recordinginfo}", (int)eLeMenuDefaultIT::recordinginfo);
+    tokenContainer->DefineIntToken("{recordingedit}", (int)eLeMenuDefaultIT::recordingedit);
     tokenContainer->DefineIntToken("{setup}", (int)eLeMenuDefaultIT::setup);
     tokenContainer->DefineIntToken("{commands}", (int)eLeMenuDefaultIT::commands);
+    tokenContainer->DefineIntToken("{folder}", (int)eLeMenuDefaultIT::folder);
+    tokenContainer->DefineIntToken("{cam}", (int)eLeMenuDefaultIT::cam);
     tokenContainer->DefineIntToken("{fritzbox}", (int)eLeMenuDefaultIT::fritzbox);
     tokenContainer->DefineIntToken("{systeminfo}", (int)eLeMenuDefaultIT::systeminfo);
     tokenContainer->DefineIntToken("{mailbox}", (int)eLeMenuDefaultIT::mailbox);
@@ -230,13 +237,48 @@ const char *cLeMenuDefault::GetTabbedText(const char *s, int tab) {
 }
 
 void cLeMenuDefault::SetMenuCategory(void) {
-    if (menuCat >= mcPluginSetup && menuCat <= mcSetupPlugins) {
-        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::setup, 1);
-        return;
-    } else if (menuCat == mcCommand) {
-        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::commands, 1);        
-        return;
-    } 
+    switch (menuCat) {
+        case mcUnknown:
+        case mcUndefined:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::unknown, 1);
+            break;
+        case mcChannelEdit:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::channeledit, 1);
+            break;
+        case mcTimerEdit:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::timeredit, 1);
+            break;
+        case mcRecordingInfo:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::recordinginfo, 1);
+            break;
+        case mcRecordingEdit:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::recordingedit, 1);
+            break;
+        case mcPluginSetup:
+        case mcSetup:
+        case mcSetupOsd:
+        case mcSetupEpg:
+        case mcSetupDvb:
+        case mcSetupLnb:
+        case mcSetupCam:
+        case mcSetupRecord:
+        case mcSetupReplay:
+        case mcSetupMisc:
+        case mcSetupPlugins:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::setup, 1);
+            return;
+        case mcCommand:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::commands, 1);
+            return;
+        case mcFolder:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::folder, 1);
+            break;
+        case mcCam:
+            tokenContainer->AddIntToken((int)eLeMenuDefaultIT::cam, 1);
+            break;
+        default:
+            break;
+    }
 
     if (!plugName) {
         return;
