@@ -784,7 +784,7 @@ eMenuOrientation cSubView::MenuOrientation(void) {
 void cSubView::SetTitle(const char *title) {
     if (header) {
         header->SetTitle(title);        
-    }     
+    }
 }
 
 void cSubView::SetChannel(const cChannel *channel) {
@@ -1581,6 +1581,12 @@ void cViewMenuDetail::Close(void) {
 
 void cViewMenuDetail::DrawStaticVEs(void) {
     cSubView::DrawStaticVEs();
+    if (header) {
+        header->Show();
+        header->Set(menuCat);
+        if (header->Parse())
+            header->Render();
+    }
     if (detailedheaderEpg && detailedheaderEpg->Parse()) {
         detailedheaderEpg->Render();
     } else if (detailedheaderRec && detailedheaderRec->Parse()) {
