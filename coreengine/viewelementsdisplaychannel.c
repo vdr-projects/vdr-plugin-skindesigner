@@ -156,6 +156,7 @@ void cVeDcEpgInfo::Set(const cEvent *p, const cEvent *f) {
         tokenContainer->AddIntToken((int)eDCEpgInfoIT::nextduration, f->Duration() / 60);
         tokenContainer->AddIntToken((int)eDCEpgInfoIT::nextdurationhours, f->Duration() / 3600);
         tokenContainer->AddIntToken((int)eDCEpgInfoIT::nextdurationminutes, (f->Duration() / 60) % 60);
+        tokenContainer->AddIntToken((int)eDCEpgInfoIT::nextrecording, EventHasTimer(f));
         tokenContainer->AddIntToken((int)eDCEpgInfoIT::hasVPS, (bool)f->Vps());
     }
     SetDirty();
