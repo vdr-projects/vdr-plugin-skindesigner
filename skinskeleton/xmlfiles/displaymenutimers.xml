@@ -53,6 +53,10 @@
         {posterwidth}       width of scraped poster
         {posterheight}      height of scraped poster
         {posterpath}        absolute path of scraped poster
+        {hasbanner}         true if a scraped banner is available for event
+        {bannerwidth}       width of scraped banner
+        {bannerheight}      height of scraped banner
+        {bannerpath}        absolute path of scraped banner
         {flagactive}        true if timer is active
         {flaginstant}       true if timer is an instant timer
         {flagvps}           true if timer uses VPS

@@ -968,6 +968,7 @@ void cCeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{presenteventdate}", (int)eCeMenuChannelsST::presenteventdate);
     tokenContainer->DefineStringToken("{presenteventdurationminutes}", (int)eCeMenuChannelsST::presenteventdurationminutes);
     tokenContainer->DefineStringToken("{posterpath}", (int)eCeMenuChannelsST::posterpath);
+    tokenContainer->DefineStringToken("{bannerpath}", (int)eCeMenuChannelsST::bannerpath);
     tokenContainer->DefineStringToken("{nexteventtitle}", (int)eCeMenuChannelsST::nexteventtitle);
     tokenContainer->DefineStringToken("{nexteventstart}", (int)eCeMenuChannelsST::nexteventstart);
     tokenContainer->DefineStringToken("{nexteventstop}", (int)eCeMenuChannelsST::nexteventstop);
@@ -995,6 +996,9 @@ void cCeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{hasposter}", (int)eCeMenuChannelsIT::hasposter);
     tokenContainer->DefineIntToken("{posterwidth}", (int)eCeMenuChannelsIT::posterwidth);
     tokenContainer->DefineIntToken("{posterheight}", (int)eCeMenuChannelsIT::posterheight);
+    tokenContainer->DefineIntToken("{hasbanner}", (int)eCeMenuChannelsIT::hasbanner);
+    tokenContainer->DefineIntToken("{bannerwidth}", (int)eCeMenuChannelsIT::bannerwidth);
+    tokenContainer->DefineIntToken("{bannerheight}", (int)eCeMenuChannelsIT::bannerheight);
     tokenContainer->DefineIntToken("{nexteventduration}", (int)eCeMenuChannelsIT::nexteventduration);
     tokenContainer->DefineIntToken("{nexteventdurationhours}", (int)eCeMenuChannelsIT::nexteventdurationhours);
     tokenContainer->DefineLoopToken("{schedule[title]}", (int)eCeMenuChannelsLT::title);
@@ -1060,7 +1064,8 @@ bool cCeMenuChannels::Parse(bool forced) {
             tokenContainer->AddIntToken((int)eCeMenuChannelsIT::presenteventduration, presentEvent->Duration() / 60);
             tokenContainer->AddIntToken((int)eCeMenuChannelsIT::presenteventdurationhours, presentEvent->Duration() / 3600);
             tokenContainer->AddStringToken((int)eCeMenuChannelsST::presenteventdurationminutes, *cString::sprintf("%.2d", (presentEvent->Duration() / 60)%60));
-            //SetScraperPoster(presentEvent);
+            if (LoadFullScrapInfo(presentEvent, NULL))
+                SetScraperPosterBannerChannel(tokenContainer);
         }
         const cList<cEvent> *events = schedule->Events();
         if (events && presentEvent) {
@@ -1276,6 +1281,7 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{eventshorttext}", (int)eCeMenuTimersST::eventshorttext);
     tokenContainer->DefineStringToken("{eventdescription}", (int)eCeMenuTimersST::eventdescription);
     tokenContainer->DefineStringToken("{posterpath}", (int)eCeMenuTimersST::posterpath);
+    tokenContainer->DefineStringToken("{bannerpath}", (int)eCeMenuTimersST::bannerpath);
     tokenContainer->DefineIntToken("{menuitemx}", (int)eCeMenuTimersIT::menuitemx);
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuTimersIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuTimersIT::menuitemwidth);
@@ -1292,6 +1298,9 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{hasposter}", (int)eCeMenuTimersIT::hasposter);
     tokenContainer->DefineIntToken("{posterwidth}", (int)eCeMenuTimersIT::posterwidth);
     tokenContainer->DefineIntToken("{posterheight}", (int)eCeMenuTimersIT::posterheight);
+    tokenContainer->DefineIntToken("{hasbanner}", (int)eCeMenuTimersIT::hasbanner);
+    tokenContainer->DefineIntToken("{bannerwidth}", (int)eCeMenuTimersIT::bannerwidth);
+    tokenContainer->DefineIntToken("{bannerheight}", (int)eCeMenuTimersIT::bannerheight);
     InheritTokenContainer();
 }
 
@@ -1374,6 +1383,8 @@ bool cCeMenuTimers::Parse(bool forced) {
         tokenContainer->AddStringToken((int)eCeMenuTimersST::eventstop, *event->GetEndTimeString());
         tokenContainer->AddStringToken((int)eCeMenuTimersST::eventshorttext, event->ShortText());
         tokenContainer->AddStringToken((int)eCeMenuTimersST::eventdescription, event->Description());
+        if (LoadFullScrapInfo(event, NULL))
+            SetScraperPosterBannerTimer(tokenContainer);
     }
     return true;
 }

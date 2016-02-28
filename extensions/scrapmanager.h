@@ -18,6 +18,8 @@ protected:
     int NumActors(void);
     void SetHeaderScrapInfo(skindesignerapi::cTokenContainer *tk);
     void SetScraperPosterBanner(skindesignerapi::cTokenContainer *tk);
+    void SetScraperPosterBannerChannel(skindesignerapi::cTokenContainer *tk);
+    void SetScraperPosterBannerTimer(skindesignerapi::cTokenContainer *tk);
     void SetScraperRecordingPoster(skindesignerapi::cTokenContainer *tk, const cRecording *recording, bool isListElement);
     void RecPoster(const cRecording *rec, int &posterWidth, int &posterHeight, string &path, bool &hasPoster);
     void SetPosterBanner(skindesignerapi::cTokenContainer *tk, const cEvent *event, const cRecording *recording);

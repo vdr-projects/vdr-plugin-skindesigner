@@ -128,6 +128,54 @@ void cScrapManager::SetScraperPosterBanner(skindesignerapi::cTokenContainer *tk)
     }
 }
 
+void cScrapManager::SetScraperPosterBannerChannel(skindesignerapi::cTokenContainer *tk) {
+    if (movie) {
+        tk->AddIntToken((int)eCeMenuChannelsIT::hasposter, 1);
+        tk->AddStringToken((int)eCeMenuChannelsST::posterpath, movie->poster.path.c_str());
+        tk->AddIntToken((int)eCeMenuChannelsIT::posterwidth, movie->poster.width);
+        tk->AddIntToken((int)eCeMenuChannelsIT::posterheight, movie->poster.height);
+    } else if (series) {
+        vector<cTvMedia>::iterator poster = series->posters.begin();
+        if (poster != series->posters.end()) {
+            tk->AddIntToken((int)eCeMenuChannelsIT::hasposter, 1);
+            tk->AddIntToken((int)eCeMenuChannelsIT::posterwidth, (*poster).width);
+            tk->AddIntToken((int)eCeMenuChannelsIT::posterheight, (*poster).height);
+            tk->AddStringToken((int)eCeMenuChannelsST::posterpath, (*poster).path.c_str());
+        }
+        vector<cTvMedia>::iterator banner = series->banners.begin();
+        if (banner != series->banners.end()) {
+            tk->AddIntToken((int)eCeMenuChannelsIT::hasbanner, 1);
+            tk->AddIntToken((int)eCeMenuChannelsIT::bannerwidth, (*banner).width);
+            tk->AddIntToken((int)eCeMenuChannelsIT::bannerheight, (*banner).height);
+            tk->AddStringToken((int)eCeMenuChannelsST::bannerpath, (*banner).path.c_str());
+        }
+    }
+}
+
+void cScrapManager::SetScraperPosterBannerTimer(skindesignerapi::cTokenContainer *tk) {
+    if (movie) {
+        tk->AddIntToken((int)eCeMenuTimersIT::hasposter, 1);
+        tk->AddStringToken((int)eCeMenuTimersST::posterpath, movie->poster.path.c_str());
+        tk->AddIntToken((int)eCeMenuTimersIT::posterwidth, movie->poster.width);
+        tk->AddIntToken((int)eCeMenuTimersIT::posterheight, movie->poster.height);
+    } else if (series) {
+        vector<cTvMedia>::iterator poster = series->posters.begin();
+        if (poster != series->posters.end()) {
+            tk->AddIntToken((int)eCeMenuTimersIT::hasposter, 1);
+            tk->AddIntToken((int)eCeMenuTimersIT::posterwidth, (*poster).width);
+            tk->AddIntToken((int)eCeMenuTimersIT::posterheight, (*poster).height);
+            tk->AddStringToken((int)eCeMenuTimersST::posterpath, (*poster).path.c_str());
+        }
+        vector<cTvMedia>::iterator banner = series->banners.begin();
+        if (banner != series->banners.end()) {
+            tk->AddIntToken((int)eCeMenuTimersIT::hasbanner, 1);
+            tk->AddIntToken((int)eCeMenuTimersIT::bannerwidth, (*banner).width);
+            tk->AddIntToken((int)eCeMenuTimersIT::bannerheight, (*banner).height);
+            tk->AddStringToken((int)eCeMenuTimersST::bannerpath, (*banner).path.c_str());
+        }
+    }
+}
+
 void cScrapManager::SetScraperRecordingPoster(skindesignerapi::cTokenContainer *tk, const cRecording *recording, bool isListElement) {
     if (!pScraper) {
         return;

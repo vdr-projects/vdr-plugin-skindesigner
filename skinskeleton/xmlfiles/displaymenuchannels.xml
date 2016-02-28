@@ -59,6 +59,10 @@
         {posterwidth}                   width of scraped poster
         {posterheight}                  height of scraped poster
         {posterpath}                    absolute path of scraped poster
+        {hasbanner}                     true if a scraped banner is available for this elements present evemt
+        {bannerwidth}                   width of scraped banner
+        {bannerheight}                  height of scraped banner
+        {bannerpath}                    absolute path of scraped banner
         {nexteventtitle}                title of next event on this channel
         {nexteventstart}                next event start time in hh::mm
         {nexteventstop}                 next event event stop time in hh::mm

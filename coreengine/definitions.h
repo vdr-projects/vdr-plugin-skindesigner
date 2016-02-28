@@ -830,6 +830,7 @@ enum class eCeMenuChannelsST {
     presenteventdate,
     presenteventdurationminutes,
     posterpath,
+    bannerpath,
     nexteventtitle,
     nexteventstart,
     nexteventstop,
@@ -861,6 +862,9 @@ enum class eCeMenuChannelsIT {
     hasposter,
     posterwidth,
     posterheight,
+    hasbanner,
+    bannerwidth,
+    bannerheight,
     nexteventduration,
     nexteventdurationhours,
     count
@@ -920,6 +924,7 @@ enum class eCeMenuTimersST {
     eventshorttext,
     eventdescription,
     posterpath,
+    bannerpath,
     count
 };
 
@@ -940,6 +945,9 @@ enum class eCeMenuTimersIT {
     hasposter,
     posterwidth,
     posterheight,
+    hasbanner,
+    bannerwidth,
+    bannerheight,
     count
 };
 

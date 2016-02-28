@@ -195,7 +195,7 @@ public:
 /******************************************************************
 * cCeMenuChannels
 ******************************************************************/
-class cCeMenuChannels : public cCurrentElement {
+class cCeMenuChannels : public cCurrentElement, public cScrapManager {
 private:
     const cChannel *channel;
     bool withProvider;
@@ -231,7 +231,7 @@ public:
 /******************************************************************
 * cCeMenuTimers
 ******************************************************************/
-class cCeMenuTimers : public cCurrentElement {
+class cCeMenuTimers : public cCurrentElement, public cScrapManager {
 private:
     const cTimer *timer;
 public:
