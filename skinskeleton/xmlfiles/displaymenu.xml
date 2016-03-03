@@ -61,15 +61,6 @@
     {sorttime}                true if menu is sorted by time
     {sortprovider}            true if menu is sorted by provider
     -->
-    <sortmode>
-    </sortmode>
-    <!-- Available Variables message:
-    {text}                    message text
-    {status}                  true if message is an status message
-    {info}                    true if message is an info message
-    {warning}                 true if message is an warn message
-    {error}                   true if message is an error message
-    -->
     <message>
     </message>
     <!-- Available Variables colorbuttons:
@@ -93,6 +84,15 @@
     {green}                   label of green button
     {yellow}                  label of yellow button
     {blue}                    label of blue button
+    -->
+    <sortmode>
+    </sortmode>
+    <!-- Available Variables message:
+    {text}                    message text
+    {status}                  true if message is an status message
+    {info}                    true if message is an info message
+    {warning}                 true if message is an warn message
+    {error}                   true if message is an error message
     -->
     <colorbuttons>
     </colorbuttons>

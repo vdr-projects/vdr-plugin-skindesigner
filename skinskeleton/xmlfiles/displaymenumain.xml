@@ -17,7 +17,7 @@
     {timers[channellogoexists]}  true if channel logo exists
     {timers[isremotetimer]}      true if timer is a remote timer from remotetimers plugin
     -->
-    <timers detached="false">
+    <timers>
     </timers>
 
     <!-- Available Variables lastrecordings: 10 newest recordings
@@ -33,7 +33,7 @@
     {recordings[posterwidth]}    width of poster
     {recordings[posterheight]}   height of poster
     -->
-    <lastrecordings detached="false">
+    <lastrecordings>
     </lastrecordings>
 
     <!-- Available Variables discusage:
@@ -44,12 +44,11 @@
     {discalert}               true if disc usage is > 95%
     {vdrusagestring}          localized VDR internal usage string
     -->
-    <discusage detached="false">
+    <discusage>
     </discusage>
 
     <!-- Available Variables devices:
     signalstrength and -quality are only set if not mode="light" is used in <devices>
-    execution slow, should be detached
     {numdevices}                number of available devices
     {devices[]}                 array with available devices
     {devices[num]}              number of current device
@@ -67,13 +66,13 @@
     {devices[channelid]}        ID of the currently tuned channel
     {devices[source]}           source of the currently tuned channel
     -->
-    <devices mode="full|light" detached="false">
+    <devices>
     </devices>
 
     <!-- Available Variables systemload:
     {load}                      current system load
     -->
-    <systemload detached="false">
+    <systemload>
     </systemload>
 
     <!-- Available Variables systemmemory:
@@ -81,23 +80,21 @@
     {usedmem}                   currently used system memory in MB
     {usedmempercent}            currently used system memory in Percent
     -->
-    <systemmemory detached="false">
+    <systemmemory>
     </systemmemory>
 
     <!-- Available Variables vdrstatistics:
-    execution slow, should be detached
     {vdrcpu}                   current cpu usage of vdr process in percent
     {vdrmem}                   current mem usage of vdr process in percent
     -->
-    <vdrstatistics detached="false">
+    <vdrstatistics>
     </vdrstatistics>
 
     <!-- Available Variables tempreatures:
-    execution slow, should be detached
     {cputemp}                  current cpu temperature in °C
     {gputemp}                  current gpu temperature in °C
     -->
-    <temperatures detached="false">
+    <temperatures>
     </temperatures>
 
     <!-- Available Variables currentschedule:
@@ -121,7 +118,7 @@
     {bannerwidth}               width of banner in pixel
     {bannerheight}              height of banner in pixel
     -->
-    <currentschedule detached="false">
+    <currentschedule>
     </currentschedule>
 
     <!-- Available Variables currentweather:
@@ -144,7 +141,7 @@
     {pressure}                  pressure in HPo
     {ozone}                     ozone value in DU
     -->
-    <currentweather detached="false">
+    <currentweather>
     </currentweather>
     
     <!-- Available Variables customtokens:
@@ -152,7 +149,7 @@
     For instance, use an appropriate script which runs periodically as cronjob and
     sets these custom tokens with svdrpsend or dbus2vdr
     --> 
-    <customtokens detached="false">
+    <customtokens>
     </customtokens>
 
     <menuitems x="0" y="0" orientation="vertical" width="100%" height="100%" align="center" numlistelements="8">
