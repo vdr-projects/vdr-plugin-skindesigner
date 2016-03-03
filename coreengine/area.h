@@ -42,6 +42,7 @@ public:
     bool ActiveTab(void) { return activeTab; };
     virtual int GetWidth(void) { return 0; };
     virtual void Cache(void) {};
+    virtual void StopBlinkers(void) {};
     virtual void Close(void) {};
     virtual void Clear(void) {};
     virtual void Hide(void) {};
@@ -82,7 +83,6 @@ private:
     void CreatePixmap(cRect drawPort = cRect::Null);
     void SetScrollFunc(void);
     void StartBlinkers(void);
-    void StopBlinkers(void);
 public:
     cArea(void);
     cArea(const cArea &other);
@@ -131,6 +131,7 @@ public:
     //Blinkable
     int BlinkFreq(int func);
     void DoBlink(int func, bool on);
+    void StopBlinkers(void);
     //Common
     const char *Name(void) { return attribs->Name(); };
     bool BackgroundArea(void) { return attribs->BackgroundArea(); };

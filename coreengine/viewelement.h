@@ -61,6 +61,7 @@ public:
     void SetAreaHeight(int height);
     void Cache(void);
     virtual void Close(void);
+    void StopBlinking(void);
     virtual void Clear(void);
     void Hide(void);
     void Show(void);

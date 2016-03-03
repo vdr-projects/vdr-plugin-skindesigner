@@ -342,7 +342,7 @@ void cAnimation::Blink(void) {
         Sleep(freq);
         if (Running()) {
             blinkable->DoBlink(blinkFunc, blinkOn);
-            blinkable->Flush();  
+            blinkable->Flush();
         }
         blinkOn = !blinkOn;
     }

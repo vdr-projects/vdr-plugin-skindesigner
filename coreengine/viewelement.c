@@ -319,6 +319,12 @@ void cViewElement::Close(void) {
     blocked = false;
 }
 
+void cViewElement::StopBlinking(void) {
+    for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        node->StopBlinkers();
+    }
+}
+
 void cViewElement::Render(void) {
     if (!dirty || blocked)
         return;
