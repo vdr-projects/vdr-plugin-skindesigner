@@ -340,10 +340,10 @@ void cAnimation::Blink(void) {
     bool blinkOn = false;
     while (Running()) {
         Sleep(freq);
-        if (Running()) {
+        if (Running())
             blinkable->DoBlink(blinkFunc, blinkOn);
-            blinkable->Flush();
-        }
+        if (Running())
+            blinkable->Flush();  
         blinkOn = !blinkOn;
     }
 }

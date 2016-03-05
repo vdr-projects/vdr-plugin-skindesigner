@@ -268,6 +268,7 @@ bool cViewElement::Execute(void) {
 void cViewElement::Clear(void) {
     tokenContainer->Clear();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        node->StopBlinkers();
         sdOsd->Lock();
         node->Clear();
         sdOsd->Unlock();
@@ -306,6 +307,7 @@ void cViewElement::Close(void) {
     delete detacher;
     detacher = NULL;
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        node->StopBlinkers();
         sdOsd->Lock();
         node->Close();
         sdOsd->Unlock();

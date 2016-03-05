@@ -136,6 +136,7 @@ void cViewGrid::ClearGrids(void) {
     for (int i = 0; i < gridsize; i++) {
         if (!grid[i])
             continue;
+        grid[i]->StopBlinking();
         grid[i]->Close();
         delete grid[i];
         grid[i] = NULL;

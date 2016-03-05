@@ -190,7 +190,10 @@ void cViewList::Clear(void) {
     if (!listElements)
         return;
     for (int i = 0; i < numElements; i++) {
+        listElements[i]->StopBlinking();
         listElements[i]->StopScrolling();
+    }
+    for (int i = 0; i < numElements; i++) {
         listElements[i]->Clear();
     }
 }
@@ -199,7 +202,10 @@ void cViewList::Close(void) {
     if (!listElements)
         return;
     for (int i = 0; i < numElements; i++) {
+        listElements[i]->StopBlinking();
         listElements[i]->StopScrolling();
+    }
+    for (int i = 0; i < numElements; i++) {
         listElements[i]->Close();
     }
 }

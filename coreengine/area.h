@@ -42,8 +42,8 @@ public:
     bool ActiveTab(void) { return activeTab; };
     virtual int GetWidth(void) { return 0; };
     virtual void Cache(void) {};
-    virtual void StopBlinkers(void) {};
     virtual void Close(void) {};
+    virtual void StopBlinkers(void) {};
     virtual void Clear(void) {};
     virtual void Hide(void) {};
     virtual void Show(void) {};

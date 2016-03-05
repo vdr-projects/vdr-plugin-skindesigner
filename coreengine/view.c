@@ -215,11 +215,6 @@ void cView::Render(int ve, bool force) {
 }
 
 void cView::Close(void) {
-    for (int i=0; i < numViewElements; i++) {
-        if (!viewElements[i])
-            continue;
-        viewElements[i]->StopBlinking();
-    }
     delete fader;
     fader = NULL;
     delete shifter;

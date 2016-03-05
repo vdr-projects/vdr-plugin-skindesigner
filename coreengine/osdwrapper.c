@@ -64,8 +64,6 @@ void cSdOsd::DestroyPixmap(cPixmap *pix) {
 }
 
 void cSdOsd::Flush(void) {
-    Lock();
     if (osd && !flushLocked)
         osd->Flush();
-    Unlock();    
 }
