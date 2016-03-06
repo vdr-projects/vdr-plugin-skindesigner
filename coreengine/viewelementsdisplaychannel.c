@@ -414,6 +414,7 @@ bool cVeDcAudioInfo::Parse(bool forced) {
 cVeDcScreenResolution::cVeDcScreenResolution(void) {
     lastScreenWidth = -1;
     lastScreenHeight = -1;
+    lastAspect = -1.0f;
 }
 
 cVeDcScreenResolution::~cVeDcScreenResolution(void) {
@@ -422,6 +423,7 @@ cVeDcScreenResolution::~cVeDcScreenResolution(void) {
 void cVeDcScreenResolution::Close(void) {
     lastScreenWidth = -1;
     lastScreenHeight = -1;
+    lastAspect = -1.0f;
     cViewElement::Close();
 }
 
@@ -445,7 +447,7 @@ bool cVeDcScreenResolution::Parse(bool forced) {
 
     cDevice::PrimaryDevice()->GetVideoSize(screenWidth, screenHeight, aspect);
 
-    if ((lastScreenWidth == screenWidth) && (lastScreenHeight == screenHeight))
+    if ((lastScreenWidth == screenWidth) && (lastScreenHeight == screenHeight) && (lastAspect == aspect))
         return false;
 
     if ((screenWidth == 0) && (screenHeight == 0))
@@ -453,6 +455,7 @@ bool cVeDcScreenResolution::Parse(bool forced) {
 
     lastScreenWidth = screenWidth;
     lastScreenHeight = screenHeight;
+    lastAspect = aspect;
     SetDirty();
 
     bool isHD = false;

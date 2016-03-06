@@ -92,6 +92,7 @@ class cVeDcScreenResolution : public cViewElement {
 private:
     int lastScreenWidth;
     int lastScreenHeight;
+    double lastAspect;
 public:
     cVeDcScreenResolution(void);
     virtual ~cVeDcScreenResolution(void);
