@@ -39,6 +39,7 @@ public:
     virtual ~cVeDcEpgInfo(void);
     void SetTokenContainer(void);
     void Set(const cEvent *p, const cEvent *f);
+    void Close(void);
 };
 /******************************************************************
 * cVeDcProgressBar

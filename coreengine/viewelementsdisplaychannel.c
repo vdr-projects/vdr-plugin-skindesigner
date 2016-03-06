@@ -162,6 +162,11 @@ void cVeDcEpgInfo::Set(const cEvent *p, const cEvent *f) {
     SetDirty();
 }
 
+void cVeDcEpgInfo::Close(void) {
+    tokenContainer->Clear();
+    cViewElement::Close();
+}
+
 bool cVeDcEpgInfo::EventHasTimer(const cEvent *e) {
     if (!e) return false;
     cGlobalSortedTimers SortedTimers;// local and remote timers
