@@ -123,16 +123,16 @@ void cViewChannel::SetChannel(const cChannel *channel, int number) {
                 veEcmInfo->Set(channel);
         } else {
             displayChannelGroups = true;
-            Clear((int)eVeDisplayChannel::channelinfo);
-            Clear((int)eVeDisplayChannel::epginfo);
-            Clear((int)eVeDisplayChannel::statusinfo);
-            Clear((int)eVeDisplayChannel::progressbar);
-            Clear((int)eVeDisplayChannel::screenresolution);
-            Clear((int)eVeDisplayChannel::signalquality);
-            Clear((int)eVeDisplayChannel::audioinfo);
-            Clear((int)eVeDisplayChannel::ecminfo);
-            Clear((int)eVeDisplayChannel::devices);
-            Clear((int)eVeDisplayChannel::customtokens);
+            Clear((int)eVeDisplayChannel::channelinfo, true);
+            Clear((int)eVeDisplayChannel::epginfo, true);
+            Clear((int)eVeDisplayChannel::statusinfo, true);
+            Clear((int)eVeDisplayChannel::progressbar, true);
+            Clear((int)eVeDisplayChannel::screenresolution, true);
+            Clear((int)eVeDisplayChannel::signalquality, true);
+            Clear((int)eVeDisplayChannel::audioinfo, true);
+            Clear((int)eVeDisplayChannel::ecminfo, true);
+            Clear((int)eVeDisplayChannel::devices, true);
+            Clear((int)eVeDisplayChannel::customtokens, true);
             if (veChannelGroup)
                 veChannelGroup->Set(channel);
         }
@@ -169,7 +169,6 @@ void cViewChannel::Flush(void) {
     if (init) {
         sdOsd.LockFlush();
         Render((int)eVeDisplayChannel::background);
-        Render((int)eVeDisplayChannel::progressbar);
         Render((int)eVeDisplayChannel::currentweather);
     }
     

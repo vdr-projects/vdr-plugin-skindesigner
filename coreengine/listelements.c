@@ -39,11 +39,11 @@ void cListElement::Close(void) {
     dirty = false;
 }
 
-void cListElement::Clear(void) {
+void cListElement::Clear(bool forceClearBackground) {
     if (current && currentElement) {
         currentElement->Close();
     }
-    cViewElement::Clear();
+    cViewElement::Clear(forceClearBackground);
     dirty = false;
 }
 
@@ -318,7 +318,7 @@ void cLeMenuDefault::CheckProgressBar(const char *text, int tab) {
     tokenContainer->AddIntToken(32 + tab, len);
 }
 
-void cLeMenuDefault::Clear(void) {
+void cLeMenuDefault::Clear(bool forceClearBackground) {
     if (current && currentElement) {
         currentElement->Close();
     }

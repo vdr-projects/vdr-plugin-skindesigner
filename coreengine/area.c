@@ -246,8 +246,8 @@ void cArea::Close(void) {
     init = true;
 }
 
-void cArea::Clear(void) {
-    if (!init && isBackgroundArea) {
+void cArea::Clear(bool forceClearBackground) {
+    if (!init && isBackgroundArea && !forceClearBackground) {
         return;
     }
     StopBlinkers();
@@ -685,9 +685,9 @@ void cAreaContainer::Close(void) {
     }
 }
 
-void cAreaContainer::Clear(void) {
+void cAreaContainer::Clear(bool forceClearBackground) {
     for (cArea *area = areas.First(); area; area = areas.Next(area)) {
-        area->Clear();
+        area->Clear(forceClearBackground);
     }
 }
 

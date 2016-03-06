@@ -30,7 +30,7 @@ public:
     bool DoScroll(void) { return current; };
     virtual void RenderCurrent(void) { };
     void Close(void);
-    virtual void Clear(void);
+    virtual void Clear(bool forceClearBackground = false);
 };
 
 /******************************************************************
@@ -70,7 +70,7 @@ public:
     void SetPlugin(const char *plugName) { this->plugName = plugName; };
     void SetTokenContainer(void);
     bool Parse(bool forced = true);
-    void Clear(void);
+    void Clear(bool forceClearBackground = false);
 };
 
 /******************************************************************

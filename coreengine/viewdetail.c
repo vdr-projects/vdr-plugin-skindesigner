@@ -37,7 +37,7 @@ void cViewDetail::ResetTabs(void) {
     activeTabIndex = -1;
 }
 
-void cViewDetail::Clear(void) {
+void cViewDetail::Clear(bool forceClearBackground) {
     cViewElement::Close();    
 }
 

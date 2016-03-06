@@ -265,12 +265,12 @@ bool cViewElement::Execute(void) {
     return attribs->DoExecute();
 }
 
-void cViewElement::Clear(void) {
+void cViewElement::Clear(bool forceClearBackground) {
     tokenContainer->Clear();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         node->StopBlinkers();
         sdOsd->Lock();
-        node->Clear();
+        node->Clear(forceClearBackground);
         sdOsd->Unlock();
     }
     dirty = false;

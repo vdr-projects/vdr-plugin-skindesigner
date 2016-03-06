@@ -201,10 +201,10 @@ bool cView::Init(void) {
     return sdOsd.CreateOsd(osdX, osdY, osdWidth, osdHeight);
 }
 
-void cView::Clear(int ve) {
+void cView::Clear(int ve, bool forceClearBackground) {
     if (!viewElements[ve])
         return;
-    viewElements[ve]->Clear();    
+    viewElements[ve]->Clear(forceClearBackground);
 }
 
 void cView::Render(int ve, bool force) {

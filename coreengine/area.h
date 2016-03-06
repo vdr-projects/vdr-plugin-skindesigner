@@ -44,7 +44,7 @@ public:
     virtual void Cache(void) {};
     virtual void Close(void) {};
     virtual void StopBlinkers(void) {};
-    virtual void Clear(void) {};
+    virtual void Clear(bool forceClearBackground = false) {};
     virtual void Hide(void) {};
     virtual void Show(void) {};
     virtual void Render(void) {};
@@ -104,7 +104,7 @@ public:
     void Cache(void);
     int GetWidth(void) { return attribs->Width(); };
     void Close(void);
-    void Clear(void);
+    void Clear(bool forceClearBackground = false);
     void Hide(void);
     void Show(void);
     void Render(void);
@@ -162,7 +162,7 @@ public:
     void SetHeight(int height);
     void Cache(void);
     void Close(void);
-    void Clear(void);
+    void Clear(bool forceClearBackground = false);
     void Hide(void);
     void Show(void);
     void Render(void);

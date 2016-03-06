@@ -22,7 +22,7 @@ public:
     void SetPlugMenuId(int id) { plugMenuId = id; };
     int GetWidth(void);
     void ResetTabs(void);
-    void Clear(void);
+    void Clear(bool forceClearBackground = false);
     void Close(void);
     void Render(void);
     void Scrollbar(int &barheight, int &offset, bool &end);

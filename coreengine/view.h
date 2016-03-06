@@ -74,7 +74,7 @@ public:
     virtual int GetListWidth(void) { return 0; };
     //View API
     virtual bool Init(void);
-    void Clear(int ve);
+    void Clear(int ve, bool forceClearBackground = false);
     void Render(int ve, bool force = false);
     virtual void Close(void);
     virtual void Flush(void);

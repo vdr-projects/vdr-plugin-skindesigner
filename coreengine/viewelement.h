@@ -62,7 +62,7 @@ public:
     void Cache(void);
     virtual void Close(void);
     void StopBlinking(void);
-    virtual void Clear(void);
+    virtual void Clear(bool forceClearBackground = false);
     void Hide(void);
     void Show(void);
     void WakeUp(void);
