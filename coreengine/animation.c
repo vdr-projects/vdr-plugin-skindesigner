@@ -277,6 +277,8 @@ void cAnimation::Shift(void) {
 
     int frametime = 1000 / FPS;
     int steps = (double)shifttime / (double)frametime;
+    if (steps < 2)
+        return;
     int stepXLinear = 0;
     int stepYLinear = 0;
     if (shiftstart.X() == shiftend.X()) {
