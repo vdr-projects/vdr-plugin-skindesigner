@@ -277,6 +277,10 @@ void cViewMenu::SetSubView(eMenuCategory MenuCat) {
     if (menuCat != MenuCat) {
         catChange = true;
     } else {
+        //assume at least menuChange for mcSchedules menu
+        //that correct channel will be set in header
+        if (menuCat == mcSchedule)
+            menuChange = true;
         return;
     }
     cSubView *newSubview = NULL;
