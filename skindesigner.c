@@ -14,12 +14,12 @@
 #include "setup.h"
 #include "libskindesignerapi/skindesignerapi.h"
 
-#if defined(APIVERSNUM) && APIVERSNUM < 20000 
-#error "VDR-2.0.0 API version or greater is required!"
+#if defined(APIVERSNUM) && APIVERSNUM < 20200
+#error "VDR-2.2.0 API version or greater is required!"
 #endif
 
 
-static const char *VERSION        = "0.8.8";
+static const char *VERSION        = "0.9.0";
 static const char *DESCRIPTION    = trNOOP("Skin Designer");
 
 class cPluginSkinDesigner : public cPlugin, public skindesignerapi::SkindesignerAPI {

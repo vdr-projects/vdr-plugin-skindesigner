@@ -24,7 +24,7 @@ Currently three XML Skins (MetrixHD, nOpacity freestyle and blackhole) are inclu
 Requirements
 ------------
 
-- VDR version >= 2.0.0
+- VDR version >= 2.2.0
 
 - cairo
 
