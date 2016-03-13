@@ -797,10 +797,14 @@ bool cCeMenuSchedules::Parse(bool forced) {
 
     if (menuCat == mcScheduleNow || menuCat == mcScheduleNext) {
         int eventsAvailable = 0;
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_SCHEDULES_READ;
+        const cSchedules* schedules = Schedules;
+#else
         cSchedulesLock schedulesLock;
-        const cSchedules *schedules = cSchedules::Schedules(schedulesLock);
-        const cSchedule *schedule = NULL;
-        schedule = schedules->GetSchedule(channel);
+        const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+        const cSchedule *schedule = schedules->GetSchedule(channel);
         if (schedule) {
             for (const cEvent *e = schedule->GetPresentEvent(); e; e = schedule->Events()->Next(e)) {
                 eventsAvailable++;
@@ -917,10 +921,14 @@ bool cLeMenuChannels::Parse(bool forced) {
     }
 
     //current schedule
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_SCHEDULES_READ;
+    const cSchedules* schedules = Schedules;
+#else
     cSchedulesLock schedulesLock;
-    const cSchedules *schedules = cSchedules::Schedules(schedulesLock);
-    const cSchedule *schedule = NULL;
-    schedule = schedules->GetSchedule(channel);
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+    const cSchedule *schedule = schedules->GetSchedule(channel);
     if (schedule) {
         const cEvent *presentEvent = schedule->GetPresentEvent();
         if (presentEvent) {
@@ -1046,10 +1054,14 @@ bool cCeMenuChannels::Parse(bool forced) {
         tokenContainer->AddIntToken((int)eCeMenuChannelsIT::isTerr, source->IsTerr(source->Code()));
     }
 
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_SCHEDULES_READ;
+    const cSchedules* schedules = Schedules;
+#else
     cSchedulesLock schedulesLock;
-    const cSchedules *schedules = cSchedules::Schedules(schedulesLock);
-    const cSchedule *schedule = NULL;
-    schedule = schedules->GetSchedule(channel);
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+    const cSchedule *schedule = schedules->GetSchedule(channel);
     if (schedule) {
         const cEvent *presentEvent = schedule->GetPresentEvent();
         if (presentEvent) {
@@ -1484,7 +1496,13 @@ bool cLeMenuRecordings::Parse(bool forced) {
         cRecordingsFolderInfo::cFolderInfo *folderInfo = recFolderInfo.Get(folderName);
         delete[] folderName;
         if (folderInfo) {
-            cRecording *newestRec = Recordings.GetByName(*folderInfo->LatestFileName);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+            LOCK_RECORDINGS_READ;
+            const cRecordings* recordings = Recordings;
+#else
+            cRecordings* recordings = &Recordings;
+#endif
+            const cRecording *newestRec = recordings->GetByName(*folderInfo->LatestFileName);
             if (newestRec) {
                 usedRecording = newestRec;
             }
@@ -1724,7 +1742,13 @@ bool cCeMenuRecordings::Parse(bool forced) {
     if (isFolder) {
         cRecordingsFolderInfo::cFolderInfo *folderInfo = recFolderInfo.Get(folderName.str().c_str());
         if (folderInfo) {
-            cRecording *newestRec = Recordings.GetByName(*folderInfo->LatestFileName);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+            LOCK_RECORDINGS_READ;
+            const cRecordings* recordings = Recordings;
+#else
+            cRecordings* recordings = &Recordings;
+#endif
+            const cRecording *newestRec = recordings->GetByName(*folderInfo->LatestFileName);
             if (newestRec) {
                 usedRecording = newestRec;
             }

@@ -353,7 +353,13 @@ bool cViewDetailEpg::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eDmDetailedEpgIT::year, sStartTime->tm_year + 1900);
     tokenContainer->AddIntToken((int)eDmDetailedEpgIT::daynumeric, sStartTime->tm_mday);
     tokenContainer->AddIntToken((int)eDmDetailedEpgIT::month, sStartTime->tm_mon+1);
-    const cChannel *channel = Channels.GetByChannelID(event->ChannelID());
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    cChannels* channels = &Channels;
+#endif
+    const cChannel *channel = channels->GetByChannelID(event->ChannelID());
     if (channel) {
         tokenContainer->AddStringToken((int)eDmDetailedEpgST::channelname, channel->Name());
         tokenContainer->AddIntToken((int)eDmDetailedEpgIT::channelnumber, channel->Number());
@@ -434,7 +440,13 @@ int cViewDetailEpg::NumReruns(cList<Epgsearch_searchresults_v1_0::cServiceSearch
     for (Epgsearch_searchresults_v1_0::cServiceSearchResult *r = reruns->First(); r && i < maxNumReruns; r = reruns->Next(r)) {
         time_t eventStart = event->StartTime();
         time_t rerunStart = r->event->StartTime();
-        cChannel *channel = Channels.GetByChannelID(r->event->ChannelID(), true, true);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannels* channels = Channels;
+#else
+        cChannels* channels = &Channels;
+#endif
+        const cChannel *channel = channels->GetByChannelID(r->event->ChannelID(), true, true);
         //check for identical event
         if ((event->ChannelID() == r->event->ChannelID()) && (eventStart == rerunStart))
             continue;
@@ -463,7 +475,13 @@ void cViewDetailEpg::SetReruns(cList<Epgsearch_searchresults_v1_0::cServiceSearc
     for (Epgsearch_searchresults_v1_0::cServiceSearchResult *r = reruns->First(); r && i < maxNumReruns; r = reruns->Next(r)) {
         time_t eventStart = event->StartTime();
         time_t rerunStart = r->event->StartTime();
-        cChannel *channel = Channels.GetByChannelID(r->event->ChannelID(), true, true);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannels* channels = Channels;
+#else
+        cChannels* channels = &Channels;
+#endif
+        const cChannel *channel = channels->GetByChannelID(r->event->ChannelID(), true, true);
         //check for identical event
         if ((event->ChannelID() == r->event->ChannelID()) && (eventStart == rerunStart))
             continue;
@@ -792,7 +810,13 @@ void cViewDetailRec::SetRecInfos(void) {
 
     const cRecordingInfo *info = recording->Info();
     if (info) {
-        cChannel *channel = Channels.GetByChannelID(info->ChannelID());
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannels* channels = Channels;
+#else
+        cChannels* channels = &Channels;
+#endif
+        const cChannel *channel = channels->GetByChannelID(info->ChannelID());
         if (channel) {
             tokenContainer->AddStringToken((int)eDmDetailedRecST::recchannelname, channel->Name());
             tokenContainer->AddStringToken((int)eDmDetailedRecST::recchannelid, *channel->GetChannelID().ToString());

@@ -287,18 +287,27 @@ bool cVeDevices::Parse(bool forced) {
         else
             deviceLiveTV = primaryDevice->DeviceNumber();
     }
-    //check currently recording devices
-    for (cTimer *timer = Timers.First(); timer; timer = Timers.Next(timer)) {
-        if (!timer->Recording()) {
-            continue;
-        }
-        if (cRecordControl *RecordControl = cRecordControls::GetRecordControl(timer)) {
-            const cDevice *recDevice = RecordControl->Device();
-            if (recDevice) {
-                mutexDevices.Lock();
-                if (recDevices)
-                    recDevices[recDevice->DeviceNumber()] = true;
-                mutexDevices.Unlock();
+    // check currently recording devices
+    // BLOCK for LOCK_TIMERS_READ scope !!
+    {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_TIMERS_READ;
+        const cTimers* timers = Timers;
+#else
+        const cTimers* timers = &Timers;
+#endif
+        for (const cTimer *timer = timers->First(); timer; timer = timers->Next(timer)) {
+            if (!timer->Recording()) {
+                continue;
+            }
+            if (cRecordControl *RecordControl = cRecordControls::GetRecordControl(timer)) {
+                const cDevice *recDevice = RecordControl->Device();
+                if (recDevice) {
+                    mutexDevices.Lock();
+                    if (recDevices)
+                        recDevices[recDevice->DeviceNumber()] = true;
+                    mutexDevices.Unlock();
+                }
             }
         }
     }

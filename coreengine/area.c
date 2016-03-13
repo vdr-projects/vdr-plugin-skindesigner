@@ -51,36 +51,36 @@ cArea::cArea(const cArea &other) {
     blinking = false;
     scrollFunc = NULL;
 
-    for (cFunction *func = other.functions.First(); func; func = other.functions.Next(func)) {
-        if (cFuncFill *f = dynamic_cast<cFuncFill*>(func)) {
+    for (const cFunction *func = other.functions.First(); func; func = other.functions.Next(func)) {
+        if (cFuncFill *f = dynamic_cast<cFuncFill*>((cFunction*)func)) {
             cFuncFill *fFill = new cFuncFill(*f);
             fFill->SetOwner(this);
             functions.Add(fFill);
-        } else if (cFuncDrawRectangle *f = dynamic_cast<cFuncDrawRectangle*>(func)) {
+        } else if (cFuncDrawRectangle *f = dynamic_cast<cFuncDrawRectangle*>((cFunction*)func)) {
             cFuncDrawRectangle *fDrawRect = new cFuncDrawRectangle(*f);
             fDrawRect->SetOwner(this);
             functions.Add(fDrawRect);
-        } else if (cFuncDrawEllipse *f = dynamic_cast<cFuncDrawEllipse*>(func)) {
+        } else if (cFuncDrawEllipse *f = dynamic_cast<cFuncDrawEllipse*>((cFunction*)func)) {
             cFuncDrawEllipse *fDrawEllipse = new cFuncDrawEllipse(*f);
             fDrawEllipse->SetOwner(this);
             functions.Add(fDrawEllipse);
-        } else if (cFuncDrawSlope *f = dynamic_cast<cFuncDrawSlope*>(func)) {
+        } else if (cFuncDrawSlope *f = dynamic_cast<cFuncDrawSlope*>((cFunction*)func)) {
             cFuncDrawSlope *fDrawSlope = new cFuncDrawSlope(*f);
             fDrawSlope->SetOwner(this);
             functions.Add(fDrawSlope);
-        } else if (cFuncDrawText *f = dynamic_cast<cFuncDrawText*>(func)) {
+        } else if (cFuncDrawText *f = dynamic_cast<cFuncDrawText*>((cFunction*)func)) {
             cFuncDrawText *fDrawText = new cFuncDrawText(*f);
             fDrawText->SetOwner(this);
             functions.Add(fDrawText);
-        } else if (cFuncDrawTextVertical *f = dynamic_cast<cFuncDrawTextVertical*>(func)) {
+        } else if (cFuncDrawTextVertical *f = dynamic_cast<cFuncDrawTextVertical*>((cFunction*)func)) {
             cFuncDrawTextVertical *fDrawTextVertical = new cFuncDrawTextVertical(*f);
             fDrawTextVertical->SetOwner(this);
             functions.Add(fDrawTextVertical);
-        } else if (cFuncDrawTextBox *f = dynamic_cast<cFuncDrawTextBox*>(func)) {
+        } else if (cFuncDrawTextBox *f = dynamic_cast<cFuncDrawTextBox*>((cFunction*)func)) {
             cFuncDrawTextBox *fDrawTextBox = new cFuncDrawTextBox(*f);
             fDrawTextBox->SetOwner(this);
             functions.Add(fDrawTextBox);
-        } else if (cFuncDrawImage *f = dynamic_cast<cFuncDrawImage*>(func)) {
+        } else if (cFuncDrawImage *f = dynamic_cast<cFuncDrawImage*>((cFunction*)func)) {
             cFuncDrawImage *fDrawImage = new cFuncDrawImage(*f);
             fDrawImage->SetOwner(this);
             functions.Add(fDrawImage);
@@ -580,7 +580,7 @@ cAreaContainer::cAreaContainer(void) {
 cAreaContainer::cAreaContainer(const cAreaContainer &other) {
     globals = other.globals;
     attribs = new cAreaContainerAttribs(*other.attribs);
-    for (cArea *area = other.areas.First(); area; area = other.areas.Next(area)) {
+    for (const cArea *area = other.areas.First(); area; area = other.areas.Next(area)) {
         cArea *a = new cArea(*area);
         a->SetAreaContainer(this);
         areas.Add(a);

@@ -8,7 +8,7 @@ class cGlobalSortedTimers : public cVector<const cTimer *> {
     private:
         bool *localTimer;
     public:
-        cGlobalSortedTimers(bool forceRefresh = false);
+        cGlobalSortedTimers(int timerCount, bool forceRefresh = false);
         virtual ~cGlobalSortedTimers(void);
         bool IsRemoteTimer(int i);
         int NumTimerConfilicts(void);

@@ -99,7 +99,7 @@ void cCond::Debug(void) {
     if (compareValue >= 0)
         esyslog("skindesigner:              compare value: %d", compareValue);
     if (compareStrValue)
-        esyslog("skindesigner:              compare string value: %d", compareStrValue);
+        esyslog("skindesigner:              compare string value: %s", compareStrValue);
 }
 
 /******************************************************************
@@ -117,7 +117,7 @@ cCondition::cCondition(const cCondition &other) {
     globals = NULL;
     tokenContainer = NULL;
     loopInfo = NULL;
-    for (cCond *cond = other.conds.First(); cond; cond = other.conds.Next(cond))
+    for (const cCond *cond = other.conds.First(); cond; cond = other.conds.Next(cond))
         conds.Add(new cCond(*cond));
 }
 
@@ -468,7 +468,7 @@ cSummand::cSummand(const cSummand &other) {
     if (other.summand)
         summand = strdup(other.summand);
     positive = other.positive;
-    for (cFactor *fac = other.factors.First(); fac; fac = other.factors.Next(fac)) {
+    for (const cFactor *fac = other.factors.First(); fac; fac = other.factors.Next(fac)) {
         factors.Add(new cFactor(*fac));
     }
 }
@@ -490,13 +490,13 @@ void cSummand::Debug(void) {
         else if (f->type == eFactorType::looptoken)
             esyslog("skindesigner:              LoopToken factor, index %d, %s", f->tokenIndex, link);
         else if (f->type == eFactorType::xref)
-            esyslog("skindesigner:              posx reference factor, %s, %p, %s, result: %f", f->funcRefName, f->funcRef, link, f->funcRef->FuncX());
+            esyslog("skindesigner:              posx reference factor, %s, %p, %s, result: %d", f->funcRefName, f->funcRef, link, f->funcRef->FuncX());
         else if (f->type == eFactorType::yref)
-            esyslog("skindesigner:              posy reference factor, %s, %p, %s, result: %f", f->funcRefName, f->funcRef, link, f->funcRef->FuncY());
+            esyslog("skindesigner:              posy reference factor, %s, %p, %s, result: %d", f->funcRefName, f->funcRef, link, f->funcRef->FuncY());
         else if (f->type == eFactorType::widthref)
-            esyslog("skindesigner:              width reference factor, %s, %p, %s, result: %f", f->funcRefName, f->funcRef, link, f->funcRef->FuncWidth());
+            esyslog("skindesigner:              width reference factor, %s, %p, %s, result: %d", f->funcRefName, f->funcRef, link, f->funcRef->FuncWidth());
         else if (f->type == eFactorType::heightref)
-            esyslog("skindesigner:              height reference factor, %s, %p %s, result: %f", f->funcRefName, f->funcRef, link, f->funcRef->FuncHeight());
+            esyslog("skindesigner:              height reference factor, %s, %p %s, result: %d", f->funcRefName, f->funcRef, link, f->funcRef->FuncHeight());
         else if (f->type == eFactorType::areawidth)
             esyslog("skindesigner:              {areawidth} factor, %s", link);
         else if (f->type == eFactorType::areaheight)
@@ -531,7 +531,7 @@ cNumericExpr::cNumericExpr(const cNumericExpr &other) {
     horizontal = other.horizontal;
     value = other.value;
     dynamic = other.dynamic;
-    for (cSummand *s = other.summands.First(); s; s = other.summands.Next(s)) {
+    for (const cSummand *s = other.summands.First(); s; s = other.summands.Next(s)) {
         summands.Add(new cSummand(*s));
     }
 }
@@ -1079,7 +1079,7 @@ cTextExpr::cTextExpr(const cTextExpr &other) {
     expr = strdup(other.expr);
     tokenContainer = NULL;
     loopInfo = NULL;
-    for (cTextToken* t = other.textTokens.First(); t; t = other.textTokens.Next(t)) {
+    for (const cTextToken* t = other.textTokens.First(); t; t = other.textTokens.Next(t)) {
         textTokens.Add(new cTextToken(*t));
     }
 }

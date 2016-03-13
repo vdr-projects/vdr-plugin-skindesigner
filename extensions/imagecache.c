@@ -56,13 +56,20 @@ void cImageCache::CacheLogo(int width, int height) {
         return;
     if (width == 0 || height == 0)
         return;
-    
+
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    const cChannels* channels = &Channels;
+#endif
+
     int logosCached = 0;     
 
     if (config.numLogosMax && config.numLogosMax < (int)channelLogoCache.size())
         return;
 
-    for (const cChannel *channel = Channels.First(); channel; channel = Channels.Next(channel)) {
+    for (const cChannel *channel = channels->First(); channel; channel = channels->Next(channel)) {
         if (logosCached >= config.numLogosPerSizeInitial)
             break;
         if (channel->GroupSep()) {
@@ -97,7 +104,13 @@ cImage *cImageCache::GetLogo(string channelID, int width, int height) {
         return (cImage*)hit->second;
     } else {
         tChannelID chanID = tChannelID::FromString(channelID.c_str());
-        const cChannel *channel = Channels.GetByChannelID(chanID);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannels* channels = Channels;
+#else
+        cChannels* channels = &Channels;
+#endif
+        const cChannel *channel = channels->GetByChannelID(chanID);
         if (!channel)
             return NULL;
         bool success = LoadLogo(channel);
@@ -151,7 +164,13 @@ cImage *cImageCache::GetSeparatorLogo(string name, int width, int height) {
 
 bool cImageCache::LogoExists(string channelID) {
     tChannelID chanID = tChannelID::FromString(channelID.c_str());
-    const cChannel *channel = Channels.GetByChannelID(chanID);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    cChannels* channels = &Channels;
+#endif
+    const cChannel *channel = channels->GetByChannelID(chanID);
     if (!channel)
         return false;
     string logoLower = StrToLowerCase(channel->Name());

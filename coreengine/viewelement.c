@@ -39,10 +39,10 @@ cViewElement::cViewElement(const cViewElement &other) {
     tokenContainer = NULL;
     attribs = new cViewElementAttribs(*other.attribs);
 
-    for (cAreaNode *node = other.areaNodes.First(); node; node = other.areaNodes.Next(node)) {
-        if (cArea *a = dynamic_cast<cArea*>(node)) {
+    for (const cAreaNode *node = other.areaNodes.First(); node; node = other.areaNodes.Next(node)) {
+        if (cArea *a = dynamic_cast<cArea*>((cAreaNode*)node)) {
             areaNodes.Add(new cArea(*a));
-        } else if (cAreaContainer *ac = dynamic_cast<cAreaContainer*>(node)) {
+        } else if (cAreaContainer *ac = dynamic_cast<cAreaContainer*>((cAreaNode*)node)) {
             areaNodes.Add(new cAreaContainer(*ac));
         } 
     }

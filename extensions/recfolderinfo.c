@@ -13,7 +13,7 @@ private:
   int       _count;
   cString   _latestFileName;
 
-  void UpdateData(cRecording *Recording);
+  void UpdateData(const cRecording *Recording);
   cFolderInfoIntern *FindSubFolder(const char *Name) const;
 
 public:
@@ -24,7 +24,7 @@ public:
   // if "Add", missing folders are created
   cFolderInfoIntern *Find(const char *Name, bool Add);
 
-  void Add(cRecording *Recording);
+  void Add(const cRecording *Recording);
 
   cRecordingsFolderInfo::cFolderInfo *GetInfo(void) const;
 
@@ -44,9 +44,8 @@ cRecordingsFolderInfo::cFolderInfo::cFolderInfo(const char *Name, const char *Fu
 }
 
 
-cRecordingsFolderInfo::cRecordingsFolderInfo(cRecordings &Recordings)
-:_recordings(Recordings)
-,_root(NULL)
+cRecordingsFolderInfo::cRecordingsFolderInfo()
+   : _root(NULL)
 {
   Rebuild();
 }
@@ -59,44 +58,70 @@ cRecordingsFolderInfo::~cRecordingsFolderInfo(void)
 
 void cRecordingsFolderInfo::Rebuild(void)
 {
-  delete _root;
-  _root = new cFolderInfoIntern(NULL, "");
+   cFolderInfoIntern *info;
+   
+   delete _root;
+   _root = new cFolderInfoIntern(NULL, "");
+   
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+   LOCK_RECORDINGS_READ;
+   const cRecordings* recordings = Recordings;
 
-  cThreadLock RecordingsLock(&_recordings);
-  // re-get state with lock held
-  _recordings.StateChanged(_recState);
-  cFolderInfoIntern *info;
-  cString folder;
-  for (cRecording *rec = _recordings.First(); rec; rec = _recordings.Next(rec)) {
-#if APIVERSNUM < 20102
-      //cRecording::Folder() first available since VDR 2.1.2
+   for (const cRecording *rec = recordings->First(); rec; rec = recordings->Next(rec)) 
+   {
+      info = _root->Find(rec->Folder(), true);
+      info->Add(rec);
+   }   
+#else
+   cString folder;
+   cThreadLock RecordingsLock(&Recordings);
+
+   // re-get state with lock held
+
+   Recordings.StateChanged(_recState);
+
+   for (cRecording *rec = Recordings.First(); rec; rec = Recordings.Next(rec)) 
+   {
+#  if APIVERSNUM < 20102
+
       const char *recName = rec->Name();
-      if (const char *s = strrchr(recName, FOLDERDELIMCHAR)) {
+      if (const char *s = strrchr(recName, FOLDERDELIMCHAR)) 
+      {
          folder = recName;
          folder.Truncate(s - recName);
-         }
+      }
       else
          folder = "";
-#else
+#  else
       folder = rec->Folder();
-#endif
+#  endif
       info = _root->Find(*folder, true);
       info->Add(rec);
       }
+#endif
 }
 
 cRecordingsFolderInfo::cFolderInfo  *cRecordingsFolderInfo::Get(const char *Folder)
 {
-  cMutexLock lock(&_rootLock);
-
-  if (_recordings.StateChanged(_recState) || (_root == NULL))
-     Rebuild();
-
-  cFolderInfoIntern *info = _root->Find(Folder, false);
-  if (info == NULL)
-     return NULL;
-
-  return info->GetInfo();
+   cMutexLock lock(&_rootLock);
+   
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+   static cStateKey recordingsKey;
+   const cRecordings* recordings = cRecordings::GetRecordingsRead(recordingsKey);
+   int recStateChanged = recordings != 0;
+   if (recordings) recordingsKey.Remove();
+#else
+   int recStateChanged = Recordings.StateChanged(_recState);
+#endif
+   
+   if (recStateChanged || (_root == NULL))
+      Rebuild();
+   
+   cFolderInfoIntern *info = _root->Find(Folder, false);
+   if (info == NULL)
+      return NULL;
+   
+   return info->GetInfo();
 }
 
 cString cRecordingsFolderInfo::DebugOutput(void) const
@@ -154,7 +179,7 @@ cRecordingsFolderInfo::cFolderInfoIntern *cRecordingsFolderInfo::cFolderInfoInte
   return info;
 }
 
-void cRecordingsFolderInfo::cFolderInfoIntern::UpdateData(cRecording *Recording)
+void cRecordingsFolderInfo::cFolderInfoIntern::UpdateData(const cRecording *Recording)
 {
   // count every recording
   _count++;
@@ -176,7 +201,7 @@ cRecordingsFolderInfo::cFolderInfoIntern *cRecordingsFolderInfo::cFolderInfoInte
   return NULL;
 }
 
-void cRecordingsFolderInfo::cFolderInfoIntern::Add(cRecording *Recording)
+void cRecordingsFolderInfo::cFolderInfoIntern::Add(const cRecording *Recording)
 {
   if (Recording == NULL)
      return;

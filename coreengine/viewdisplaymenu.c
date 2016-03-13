@@ -406,7 +406,12 @@ void cViewMenu::SetChannelHeader(const cEvent *event) {
     if (!event)
         return;
     if (menuChange && menuCat == mcSchedule) {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannel *channel = Channels->GetByChannelID(event->ChannelID());
+#else
         const cChannel *channel = Channels.GetByChannelID(event->ChannelID());
+#endif
         if (channel)
             activeSubview->SetChannel(channel);
     }

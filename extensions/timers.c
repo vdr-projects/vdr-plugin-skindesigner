@@ -6,7 +6,7 @@ static int CompareTimers(const void *a, const void *b) {
     return (*(const cTimer **)a)->Compare(**(const cTimer **)b);
 }
 
-cGlobalSortedTimers::cGlobalSortedTimers(bool forceRefresh) : cVector<const cTimer *>(Timers.Count()) {
+cGlobalSortedTimers::cGlobalSortedTimers(int timerCount, bool forceRefresh) : cVector<const cTimer*>(timerCount) {
     static bool initial = true;
     static cRemoteTimerRefresh *remoteTimerRefresh = NULL;
     localTimer = NULL;
@@ -16,8 +16,16 @@ cGlobalSortedTimers::cGlobalSortedTimers(bool forceRefresh) : cVector<const cTim
     //check if remotetimers plugin is available
     static cPlugin* pRemoteTimers = cPluginManager::GetPlugin("remotetimers");
 
-    cSchedulesLock SchedulesLock;
-    const cSchedules *Schedules = cSchedules::Schedules(SchedulesLock);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_TIMERS_READ;
+    LOCK_SCHEDULES_READ;
+    const cTimers* timers = Timers;
+    const cSchedules* schedules = Schedules;
+#else
+    const cTimers* timers = &Timers;
+    cSchedulesLock schedulesLock;
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
     
     if (pRemoteTimers && initial) {
         cString errorMsg;
@@ -25,7 +33,7 @@ cGlobalSortedTimers::cGlobalSortedTimers(bool forceRefresh) : cVector<const cTim
         initial = false;
     }
 
-    for (cTimer *Timer = Timers.First(); Timer; Timer = Timers.Next(Timer)) {
+    for (const cTimer *Timer = timers->First(); Timer; Timer = timers->Next(Timer)) {
         if (Timer->HasFlags(tfActive))
             Append(Timer);
     }
@@ -34,7 +42,7 @@ cGlobalSortedTimers::cGlobalSortedTimers(bool forceRefresh) : cVector<const cTim
     if (pRemoteTimers) {
         cTimer* remoteTimer = NULL;
         while (pRemoteTimers->Service("RemoteTimers::ForEach-v1.0", &remoteTimer) && remoteTimer != NULL) {
-            remoteTimer->SetEventFromSchedule(Schedules); // make sure the event is current
+            remoteTimer->SetEventFromSchedule(schedules); // make sure the event is current
             if (remoteTimer->HasFlags(tfActive))
                 Append(remoteTimer);
         }
@@ -50,7 +58,7 @@ cGlobalSortedTimers::cGlobalSortedTimers(bool forceRefresh) : cVector<const cTim
                 localTimer[i] = true;
             } else {
                 localTimer[i] = false;
-                for (cTimer *Timer = Timers.First(); Timer; Timer = Timers.Next(Timer)) {
+                for (const cTimer *Timer = timers->First(); Timer; Timer = timers->Next(Timer)) {
                     if (Timer == At(i)) {
                         localTimer[i] = true;
                         break;
@@ -109,13 +117,18 @@ cRemoteTimerRefresh::~cRemoteTimerRefresh(void) {
 }
 
 void cRemoteTimerRefresh::Action(void) {    
-    #define REFESH_INTERVALL_MS 30000
+#define REFESH_INTERVALL_MS 30000
     while (Running()) {
-        cCondWait::SleepMs(REFESH_INTERVALL_MS);      
-        if (!cOsd::IsOpen()) {//make sure that no timer is currently being edited
+        cCondWait::SleepMs(REFESH_INTERVALL_MS);
+        // make sure that no timer is currently being edited
+        if (!cOsd::IsOpen()) {
             cGlobalSortedTimers(true);
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+            LOCK_TIMERS_WRITE;
+            Timers->SetModified();
+#else
             Timers.SetModified();
+#endif
         }
     }
 }
-      

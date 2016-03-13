@@ -351,9 +351,19 @@ void cVeDmTimers::SetTokenContainer(void) {
 bool cVeDmTimers::Parse(bool forced) {
     if (!cViewElement::Parse(forced))
         return false;
-
     tokenContainer->Clear();
-    cGlobalSortedTimers SortedTimers;// local and remote timers
+
+    int timerCount = 0;
+    // BLOCK for LOCK_TIMERS_READ scope !!
+    {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+       LOCK_TIMERS_READ;
+       timerCount = Timers->Count();
+#else
+       timerCount = Timers.Count();
+#endif
+    }
+    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
     int numTimers = SortedTimers.Size();
     tokenContainer->AddIntToken((int)eDMTimersIT::numtimers, numTimers);
     tokenContainer->AddIntToken((int)eDMTimersIT::numtimerconflicts, SortedTimers.NumTimerConfilicts());
@@ -469,8 +479,15 @@ bool cVeDmCurrentschedule::Parse(bool forced) {
 
     cDevice *device = cDevice::PrimaryDevice();
     const cChannel *channel = NULL;
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    cChannels* channels = &Channels;
+#endif
+
     if (!device->Replaying() || device->Transferring()) {
-        channel = Channels.GetByNumber(device->CurrentChannel());
+        channel = channels->GetByNumber(device->CurrentChannel());
     }
     if (channel) {
         ParseFromChannel(channel);
@@ -489,9 +506,17 @@ bool cVeDmCurrentschedule::Parse(bool forced) {
 
 void cVeDmCurrentschedule::ParseFromChannel(const cChannel *channel) {
     const cEvent *event = NULL;
-    cSchedulesLock SchedulesLock;
-    if (const cSchedules *Schedules = cSchedules::Schedules(SchedulesLock))
-        if (const cSchedule *Schedule = Schedules->GetSchedule(channel))
+
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_SCHEDULES_READ;
+    const cSchedules* schedules = Schedules;
+#else
+    cSchedulesLock schedulesLock;
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+
+    if (schedules)
+        if (const cSchedule *Schedule = schedules->GetSchedule(channel))
             event = Schedule->GetPresentEvent();
     if (!event)
         return;
@@ -839,20 +864,37 @@ bool cVeDmLastrecordings::Parse(bool forced) {
         return false;
 
     tokenContainer->Clear();
-    cGlobalSortedTimers SortedTimers;// local and remote timers
-    int numTimers = SortedTimers.Size();
+    int numTimers = 0;
+    // BLOCK for LOCK_TIMERS_READ scope !!
+    {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_TIMERS_READ;
+        numTimers = Timers->Count();
+#else
+        numTimers = Timers.Count();
+#endif
+    }
+   
+    cGlobalSortedTimers SortedTimers(numTimers);  // local and remote timers
     //set number of timers so that it is possible to adapt this viewelement accordingly
-    tokenContainer->AddIntToken((int)eDMLastrecordingsIT::numtimers, numTimers);
+    tokenContainer->AddIntToken((int)eDMLastrecordingsIT::numtimers, SortedTimers.Size());
 
-    list<cRecording*> orderedRecs;
+    list<const cRecording*> orderedRecs;
 
-    for (cRecording *recording = Recordings.First(); recording; recording = Recordings.Next(recording)) {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_RECORDINGS_READ;
+    const cRecordings* recordings = Recordings;
+#else
+    const cRecordings* recordings = &Recordings;
+#endif
+
+    for (const cRecording *recording = recordings->First(); recording; recording = recordings->Next(recording)) {
         if (orderedRecs.size() == 0) {
             orderedRecs.push_back(recording);
             continue;
         }
         bool inserted = false;
-        for (list<cRecording*>::iterator it = orderedRecs.begin(); it != orderedRecs.end(); it++) {
+        for (list<const cRecording*>::iterator it = orderedRecs.begin(); it != orderedRecs.end(); it++) {
             const cRecording *orderedRec = *it;
             if (recording->Start() >= orderedRec->Start()) {
                 orderedRecs.insert(it, recording);
@@ -876,7 +918,7 @@ bool cVeDmLastrecordings::Parse(bool forced) {
     tokenContainer->CreateLoopTokenContainer(&loopInfo);
 
     int i = 0;
-    for (list<cRecording*>::iterator it = orderedRecs.begin(); it != orderedRecs.end(); it++) {
+    for (list<const cRecording*>::iterator it = orderedRecs.begin(); it != orderedRecs.end(); it++) {
         const cRecording *recording = *it;
 #if APIVERSNUM >= 20101
         if (recording->IsInUse()) {
@@ -1000,7 +1042,13 @@ bool cVeDmDetailheaderEpg::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eDmDetailedHeaderEpgIT::year, sStartTime->tm_year + 1900);
     tokenContainer->AddIntToken((int)eDmDetailedHeaderEpgIT::daynumeric, sStartTime->tm_mday);
     tokenContainer->AddIntToken((int)eDmDetailedHeaderEpgIT::month, sStartTime->tm_mon+1);
-    const cChannel *channel = Channels.GetByChannelID(event->ChannelID());
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    cChannels* channels = &Channels;
+#endif
+    const cChannel *channel = channels->GetByChannelID(event->ChannelID());
     if (channel) {
         tokenContainer->AddStringToken((int)eDmDetailedHeaderEpgST::channelname, channel->Name());
         tokenContainer->AddIntToken((int)eDmDetailedHeaderEpgIT::channelnumber, channel->Number());
@@ -1132,7 +1180,13 @@ bool cVeDmDetailheaderRec::Parse(bool forced) {
             tokenContainer->AddIntToken((int)eDmDetailedHeaderRecIT::durationeventhours, duration / 60);
             tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::durationeventminutes, *cString::sprintf("%.2d", duration%60));
         }
-        cChannel *channel = Channels.GetByChannelID(info->ChannelID());
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+        LOCK_CHANNELS_READ;
+        const cChannels* channels = Channels;
+#else
+        cChannels* channels = &Channels;
+#endif
+        const cChannel *channel = channels->GetByChannelID(info->ChannelID());
         if (channel) {
             tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::recchannelname, channel->Name());
             tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::recchannelid, *channel->GetChannelID().ToString());

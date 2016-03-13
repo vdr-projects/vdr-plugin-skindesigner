@@ -123,7 +123,7 @@ public:
     cSDPluginManager *plgManager = NULL;
     cFontManager *fontManager = NULL;
     cImageCache *imgCache = NULL;
-    cRecordingsFolderInfo recFolderInfo(Recordings);
+    cRecordingsFolderInfo recFolderInfo;
 #else
     extern cDesignerConfig config;
     extern cSDPluginManager *plgManager;

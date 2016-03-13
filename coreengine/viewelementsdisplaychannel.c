@@ -91,9 +91,16 @@ void cVeDcChannelGroup::Set(const cChannel *c) {
 }
 
 const char *cVeDcChannelGroup::GetChannelSep(const cChannel *c, bool prev) {
-    const cChannel *sep = prev ? Channels.Prev(c) :
-                                 Channels.Next(c);
-    for (; sep; (prev)?(sep = Channels.Prev(sep)):(sep = Channels.Next(sep))) {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_CHANNELS_READ;
+    const cChannels* channels = Channels;
+#else
+    const cChannels* channels = &Channels;
+#endif
+    const cChannel *sep = prev ? channels->Prev(c) :
+                                 channels->Next(c);
+
+    for (; sep; (prev)?(sep = channels->Prev(sep)):(sep = channels->Next(sep))) {
         if (sep->GroupSep()) {
             return sep->Name();
         }
@@ -169,7 +176,17 @@ void cVeDcEpgInfo::Close(void) {
 
 bool cVeDcEpgInfo::EventHasTimer(const cEvent *e) {
     if (!e) return false;
-    cGlobalSortedTimers SortedTimers;// local and remote timers
+    int timerCount = 0;
+    // BLOCK for LOCK_TIMERS_READ scope !!
+    {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+       LOCK_TIMERS_READ;
+       timerCount = Timers->Count();
+#else
+       timerCount = Timers.Count();
+#endif
+    }
+    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
     bool hasTimer = e->HasTimer();
     for (int i = 0; i < SortedTimers.Size() && !hasTimer; i++) 
         if (const cTimer *Timer = SortedTimers[i]) 
@@ -311,7 +328,17 @@ void cVeDcStatusInfo::Set(const cChannel *c) {
     bool isDolby = c->Dpid(0);
     bool isEncrypted = c->Ca();
     bool isRecording = cRecordControls::Active();
-    cGlobalSortedTimers SortedTimers;// local and remote timers
+    int timerCount = 0;
+    // BLOCK for LOCK_TIMERS_READ scope !!
+    {
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+       LOCK_TIMERS_READ;
+       timerCount = Timers->Count();
+#else
+       timerCount = Timers.Count();
+#endif
+    }
+    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
     for (int i = 0; i < SortedTimers.Size() && !isRecording; i++)
         if (const cTimer *Timer = SortedTimers[i])
             if (Timer->Recording()) 

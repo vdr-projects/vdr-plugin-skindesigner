@@ -9,7 +9,6 @@ public:
   class cFolderInfoIntern;
 
 private:
-  cRecordings        &_recordings;
   int                 _recState;
   cFolderInfoIntern  *_root;
   mutable cMutex      _rootLock;
@@ -28,7 +27,7 @@ public:
     cFolderInfo(const char *Name, const char *FullName, time_t Latest, int Count, const char *LatestFileName);
   };
 
-  cRecordingsFolderInfo(cRecordings &Recordings);
+  cRecordingsFolderInfo();
   ~cRecordingsFolderInfo(void);
 
   // caller must delete the cInfo object!
