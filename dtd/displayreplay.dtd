@@ -3,7 +3,7 @@
 <!ENTITY % functions SYSTEM "functions.dtd">
 
 <!ELEMENT displayreplay (background | backgroundmodeonly |datetime | time | 
-                         scrapercontent | rectitle | recinfo | currenttime | 
+                         scrapercontent | currentweather | rectitle | recinfo | currenttime | 
                          totaltime | endtime | progressbar | cutmarks | controlicons | 
                          controliconsmodeonly | progressmodeonly | jump | message | onpause | 
                          onpausemodeonly | customtokens)*>
@@ -77,6 +77,19 @@
 
 <!ELEMENT scrapercontent (areacontainer|area|areascroll)*>
 <!ATTLIST scrapercontent
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT currentweather (areacontainer|area|areascroll)*>
+<!ATTLIST currentweather
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED

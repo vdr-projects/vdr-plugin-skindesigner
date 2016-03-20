@@ -117,6 +117,7 @@ enum class eVeDisplayReplay {
     datetime,
     time,
     scrapercontent,
+    currentweather,
     rectitle,
     recinfo,
     currenttime,

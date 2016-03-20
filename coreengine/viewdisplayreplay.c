@@ -41,6 +41,7 @@ void cViewReplay::SetViewElements(void) {
     viewElementNames.insert(pair<string, int>("datetime", (int)eVeDisplayReplay::datetime));
     viewElementNames.insert(pair<string, int>("time", (int)eVeDisplayReplay::time));
     viewElementNames.insert(pair<string, int>("scrapercontent", (int)eVeDisplayReplay::scrapercontent));
+    viewElementNames.insert(pair<string, int>("currentweather", (int)eVeDisplayReplay::currentweather));
     viewElementNames.insert(pair<string, int>("rectitle", (int)eVeDisplayReplay::rectitle));
     viewElementNames.insert(pair<string, int>("recinfo", (int)eVeDisplayReplay::recinfo));
     viewElementNames.insert(pair<string, int>("currenttime", (int)eVeDisplayReplay::currenttime));
@@ -275,6 +276,7 @@ void cViewReplay::Flush(void) {
             Render((int)eVeDisplayReplay::rectitle);
             Render((int)eVeDisplayReplay::recinfo);
             Render((int)eVeDisplayReplay::scrapercontent);
+            Render((int)eVeDisplayReplay::currentweather);
             Render((int)eVeDisplayReplay::customtokens);
         } else {
             Render((int)eVeDisplayReplay::backgroundmodeonly);            
