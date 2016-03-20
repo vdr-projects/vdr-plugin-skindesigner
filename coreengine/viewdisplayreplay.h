@@ -23,6 +23,7 @@ private:
     cVeDrOnPause           *veOnPauseModeOnly;
     bool modeOnly;
     time_t lastFlush;
+    time_t lastFlushModeOnly;
     bool message;
     int reclength;
     bool timeShiftActive;

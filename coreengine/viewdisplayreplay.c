@@ -138,6 +138,7 @@ void cViewReplay::ClearVariables(void) {
     cView::ClearVariables();
     modeOnly = false;
     lastFlush = 0;
+    lastFlushModeOnly = 0;
     message = false;
     reclength = -1;
     timeShiftActive = false;
@@ -183,11 +184,6 @@ void cViewReplay::SetCurrent(const char *current) {
     if (veCurrentTime)
         veCurrentTime->Set(current);
     Render((int)eVeDisplayReplay::currenttime);
-    //good place to refresh these viewelements 
-    //since SetCurrent is called every second
-    Render((int)eVeDisplayReplay::datetime);
-    Render((int)eVeDisplayReplay::time);
-    Render((int)eVeDisplayChannel::customtokens);
 }
 
 void cViewReplay::SetTotal(const char *total) {
@@ -285,6 +281,14 @@ void cViewReplay::Flush(void) {
         } 
     }
 
+    time_t now = time(0);
+    if (now != lastFlush) {
+        Render((int)eVeDisplayReplay::datetime);
+        Render((int)eVeDisplayReplay::time);
+        Render((int)eVeDisplayChannel::customtokens);
+        lastFlush = now;
+    }
+
     if (modeOnly) {
         SetProgressModeOnly();
     }
@@ -296,10 +300,10 @@ void cViewReplay::SetProgressModeOnly(void) {
     if (!veProgressModeOnly)
         return;
     time_t now = time(0);
-    if (now == lastFlush) {
+    if (now == lastFlushModeOnly) {
         return;
     } 
-    lastFlush = now;
+    lastFlushModeOnly = now;
 
     cControl *control = cControl::Control();
     if (!control)
