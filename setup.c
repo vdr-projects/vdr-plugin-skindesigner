@@ -360,6 +360,7 @@ void cSkinDesignerSetup::SkinSetup(void) {
 }
 
 void cSkinDesignerSetup::InstallSkins(void) {
+#ifdef USE_SKININSTALLER
     Add(InfoItem(tr("Install new skins")));
 
     config.InitSkinRepoIterator();
@@ -369,6 +370,7 @@ void cSkinDesignerSetup::InstallSkins(void) {
             continue;
         Add(new cSkinMenuItem(repo->Name(), *cString::sprintf("%s %s", tr("Preview Skin"), repo->Name().c_str()), itSkinRepo));
     }
+#endif
 }
 
 // --- cSkinMenuItem -----------------------------------------------------------

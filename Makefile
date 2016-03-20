@@ -4,7 +4,8 @@
 # $Id$ Makefile 1.0 2014/07/24 louis Exp $
 
 # Config
-CONFIG := #-DDOPROFILE #           enable profiling code
+CONFIG := #-DDOPROFILE			# enable profiling code
+CONFIG += -DUSE_SKININSTALLER	# use skin installer in skindesigner setup
 
 # The official name of this plugin.
 PLUGIN = skindesigner
