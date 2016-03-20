@@ -176,6 +176,9 @@ void cLeMenuDefault::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{neutrinoepg}", (int)eLeMenuDefaultIT::neutrinoepg);
     tokenContainer->DefineIntToken("{remotetimers}", (int)eLeMenuDefaultIT::remotetimers);
     tokenContainer->DefineIntToken("{zaphistory}", (int)eLeMenuDefaultIT::zaphistory);
+    tokenContainer->DefineIntToken("{remoteosd}", (int)eLeMenuDefaultIT::remoteosd);
+    tokenContainer->DefineIntToken("{filebrowser}", (int)eLeMenuDefaultIT::filebrowser);
+    tokenContainer->DefineIntToken("{epgsearch}", (int)eLeMenuDefaultIT::epgsearch);
     InheritTokenContainer();
 }
 
@@ -296,6 +299,12 @@ void cLeMenuDefault::SetMenuCategory(void) {
         tokenContainer->AddIntToken((int)eLeMenuDefaultIT::remotetimers, 1);
     } else if (!strcmp(plugName, "zaphistory")) {
         tokenContainer->AddIntToken((int)eLeMenuDefaultIT::zaphistory, 1);
+    } else if (!strcmp(plugName, "remoteosd")) {
+        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::remoteosd, 1);
+    } else if (!strcmp(plugName, "filebrowser")) {
+        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::filebrowser, 1);
+    } else if (!strcmp(plugName, "epgsearch")) {
+        tokenContainer->AddIntToken((int)eLeMenuDefaultIT::epgsearch, 1);
     }
 }
 

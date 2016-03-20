@@ -665,6 +665,9 @@ enum class eLeMenuDefaultIT {
     neutrinoepg,
     remotetimers,
     zaphistory,
+    remoteosd,
+    filebrowser,
+    epgsearch,
     count
 };
 
