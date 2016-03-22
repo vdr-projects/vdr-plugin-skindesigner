@@ -269,6 +269,8 @@ void cViewReplay::ClearOnPause(void) {
 }
 
 void cViewReplay::DelayOnPause(void) {
+    if (!veOnPause)
+        return;
     if (!veOnPause->Started())
         return;
     veOnPause->ResetSleep();
