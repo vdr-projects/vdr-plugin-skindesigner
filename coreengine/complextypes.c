@@ -1220,7 +1220,7 @@ char *cTextExpr::DeterminateText(void) {
                     strcat(retVal, str);
             } else if (t->type == eTexttokenType::inttoken) {
                 int value  = tokenContainer->IntToken(t->tokenIndex);
-                if (value > 0) {
+                if (value >= 0) {
                     cString str = cString::sprintf("%d", value);
                     strcat(retVal, *str);
                 }
