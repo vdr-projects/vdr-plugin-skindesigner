@@ -51,6 +51,7 @@ void cSDDisplayReplay::SetProgress(int Current, int Total) {
         view->SetProgressbar(Current, Total);
         view->SetMarks(marks, Current, Total);
         view->SetEndTime(Current, Total);
+        view->DelayOnPause();
     }
 }
 

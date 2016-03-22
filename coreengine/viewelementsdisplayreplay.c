@@ -601,12 +601,18 @@ bool cVeDrJump::Parse(bool force) {
 * cVeDrOnPause
 ******************************************************************/
 cVeDrOnPause::cVeDrOnPause(void) {
+    started = false;
     actorsIndex = -1;
     recfilename = NULL;
 }
 
 cVeDrOnPause::~cVeDrOnPause(void) {
     free(recfilename);
+}
+
+void cVeDrOnPause::Close(void) {
+    started = false;
+    cViewElement::Close();
 }
 
 void cVeDrOnPause::SetTokenContainer(void) {
@@ -716,6 +722,7 @@ void cVeDrOnPause::Set(const char *recfilename) {
         return;
     free(this->recfilename);
     this->recfilename = strdup(recfilename);
+    started = true;
 }
 
 bool cVeDrOnPause::Parse(bool force) {
@@ -772,6 +779,12 @@ bool cVeDrOnPause::Parse(bool force) {
     SetDirty();
     delete recording;
     return true;
+}
+
+void cVeDrOnPause::ResetSleep(void) {
+    if (!detacher)
+        return;
+    detacher->ResetSleep();
 }
 
 /******************************************************************

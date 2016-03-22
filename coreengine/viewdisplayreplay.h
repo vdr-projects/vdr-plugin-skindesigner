@@ -52,6 +52,7 @@ public:
     void SetMessage(eMessageType type, const char *text);
     void StartOnPause(const char *recfilename);
     void ClearOnPause(void);
+    void DelayOnPause(void);
     void Flush(void);
 };
 

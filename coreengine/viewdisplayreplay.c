@@ -268,6 +268,12 @@ void cViewReplay::ClearOnPause(void) {
     onPause->Close();
 }
 
+void cViewReplay::DelayOnPause(void) {
+    if (!veOnPause->Started())
+        return;
+    veOnPause->ResetSleep();
+}
+
 void cViewReplay::Flush(void) {
     if (init) {
         sdOsd.LockFlush();
@@ -284,7 +290,7 @@ void cViewReplay::Flush(void) {
     }
 
     time_t now = time(0);
-    if (now != lastFlush) {
+    if (!modeOnly && (now != lastFlush)) {
         Render((int)eVeDisplayReplay::datetime);
         Render((int)eVeDisplayReplay::time);
         Render((int)eVeDisplayChannel::customtokens);

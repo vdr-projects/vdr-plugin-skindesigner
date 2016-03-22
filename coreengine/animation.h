@@ -98,6 +98,7 @@ private:
     cShiftable  *shiftable;
     cBlinkable  *blinkable;
     bool waitOnWakeup;
+    bool keepSleeping;
     bool doAnimation;
     bool modeIn;
     int blinkFunc;
@@ -118,6 +119,7 @@ public:
     cAnimation(cBlinkable  *blinkable, int func);
     ~cAnimation(void);
     void WakeUp(void);
+    void ResetSleep(void);
     void Fade(void);
     void Shift(void);
     void Stop(bool deletePixmaps);

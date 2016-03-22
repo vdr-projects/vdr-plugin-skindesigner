@@ -11,6 +11,7 @@ cAnimation::cAnimation(cScrollable *scrollable) : cThread("scroller") {
     this->shiftable = NULL;
     this->blinkable = NULL;
     waitOnWakeup = false;
+    keepSleeping = false;
     doAnimation = true;
     modeIn = false;
     blinkFunc = -1;
@@ -23,6 +24,7 @@ cAnimation::cAnimation(cDetachable *detachable, bool wait, bool animation) : cTh
     this->shiftable = NULL;
     this->blinkable = NULL;
     waitOnWakeup = wait;
+    keepSleeping = false;
     doAnimation = animation;
     modeIn = false;
     blinkFunc = -1;
@@ -35,6 +37,7 @@ cAnimation::cAnimation(cFadable *fadable, bool fadein) : cThread("fadable") {
     this->shiftable = NULL;
     this->blinkable = NULL;
     waitOnWakeup = false;
+    keepSleeping = false;
     doAnimation = true;
     modeIn = fadein;
     blinkFunc = -1;
@@ -47,6 +50,7 @@ cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool s
     this->shiftable = shiftable;
     this->blinkable = NULL;
     waitOnWakeup = false;
+    keepSleeping = false;
     doAnimation = true;
     modeIn = shiftin;
     shiftstart = start;
@@ -61,6 +65,7 @@ cAnimation::cAnimation(cBlinkable *blinkable, int func) : cThread("blinking") {
     this->shiftable = NULL;
     this->blinkable = blinkable;
     waitOnWakeup = false;
+    keepSleeping = false;
     doAnimation = true;
     modeIn = false;
     blinkFunc = func;
@@ -72,6 +77,11 @@ cAnimation::~cAnimation(void) {
 }
 
 void cAnimation::WakeUp(void) {
+    sleepWait.Signal();
+}
+
+void cAnimation::ResetSleep(void) {
+    keepSleeping = true;
     sleepWait.Signal();
 }
 
@@ -100,7 +110,10 @@ void cAnimation::Sleep(int duration) {
     //sleep should wake up itself, so no infinit wait allowed
     if (duration <= 0)
         return;
-    sleepWait.Wait(duration);
+    do {
+        keepSleeping = false;
+        sleepWait.Wait(duration);
+    } while (keepSleeping);
 }
 
 void cAnimation::Wait(void) {

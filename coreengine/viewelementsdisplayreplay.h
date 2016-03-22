@@ -178,15 +178,19 @@ public:
 ******************************************************************/
 class cVeDrOnPause : public cViewElement, public cScrapManager {
 private:
+    bool started;
     int actorsIndex;
     char *recfilename;
 public:
     cVeDrOnPause(void);
     virtual ~cVeDrOnPause(void);
+    void Close(void);
     int Delay(void) { return attribs->Delay() * 1000; };
     void SetTokenContainer(void);
     void Set(const char *recfilename);
     bool Parse(bool forced = false);
+    bool Started(void) { return started; };
+    void ResetSleep(void);
 };
 
 /******************************************************************

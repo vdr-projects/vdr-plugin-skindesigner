@@ -189,10 +189,10 @@
     </onpause>
 
     <onpausemodeonly delay="20" fadetime="{fadetime}">
-        <area x="0" y="0" width="100%" height="100%" layer="7">
+        <area x="0" y="0" width="100%" height="100%" layer="6">
             <fill color="{clrSemiTransBlack}" />
         </area>
-        <area x="0" y="0" width="100%" height="100%" layer="6">
+        <area x="0" y="0" width="100%" height="100%" layer="7">
             <drawtext align="center" valign="center" font="{semibold}" fontsize="25%" color="{clrWhite}" text="{tr(pause)}" />
             <drawimage condition="{isseries}" imagetype="image" path="{seriesbanner1path}" align="center" y="10" width="{areawidth}*0.5" height="{areawidth} * 0.5 * {seriesbanner1height} / {seriesbanner1width}"/>
             <drawimage condition="{ismovie}" imagetype="image" path="{posterpath}" x="10" y="10" width="{areaheight} * 0.4  * {posterwidth} / {posterheight}" height="{areaheight} * 0.4"/>
