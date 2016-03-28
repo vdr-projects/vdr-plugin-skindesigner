@@ -306,13 +306,13 @@ void cViewElement::WakeUp(void) {
 void cViewElement::Close(void) {
     delete detacher;
     detacher = NULL;
+    StopScrolling();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         node->StopBlinkers();
         sdOsd->Lock();
         node->Close();
         sdOsd->Unlock();
     }
-    StopScrolling();
     dirty = true;
     init = true;
     startAnimation = true;
@@ -539,3 +539,4 @@ cPoint cViewElement::ShiftStart(cRect &shiftbox) {
     }
     return start;
 }
+
