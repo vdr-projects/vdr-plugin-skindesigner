@@ -250,7 +250,7 @@ bool cVeDevices::Parse(bool forced) {
         if (light)
             return false;
         //check if drawing is necessary
-        if (lastRefresh - cTimeMs::Now() < 500)
+        if (cTimeMs::Now() - lastRefresh < 500)
             return false;
         bool changed = false;
         for (int i = 0; i < numDevices; i++) {

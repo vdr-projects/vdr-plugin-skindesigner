@@ -27,6 +27,7 @@ protected:
     bool waitOnWakeup;
     bool scrollingStarted;
     bool startAnimation;
+    bool viewAnimated;
     cGlobals *globals;
     cRect container;
     cViewElementAttribs *attribs;
@@ -54,6 +55,7 @@ public:
     bool Detached(void);
     void SetContainer(int x, int y, int width, int height);
     void SetAttributes(vector<stringpair> &attributes);
+    void SetAnimatedView(void) { viewAnimated = true; };
     void AddArea(cAreaNode *area);
     void SetAreaX(int x);
     void SetAreaY(int y);
@@ -84,6 +86,8 @@ public:
     void StartAnimation(void);
     virtual void SetTransparency(int transparency, bool force = false);
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
+    void SetStartShifting(void) { };
+    void SetEndShifting(void) { };
     cRect CoveredArea(void);
     void Flush(void);
     virtual bool Parse(bool forced = false);

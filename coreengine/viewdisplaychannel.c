@@ -174,24 +174,28 @@ void cViewChannel::Flush(void) {
     
     if (!displayChannelGroups) {
         //normal display
-        Render((int)eVeDisplayChannel::channelinfo);
-        Render((int)eVeDisplayChannel::epginfo);
-        Render((int)eVeDisplayChannel::statusinfo);
-        Render((int)eVeDisplayChannel::scrapercontent);
-        Render((int)eVeDisplayChannel::progressbar, channelChange);
-        Render((int)eVeDisplayChannel::screenresolution);
-        Render((int)eVeDisplayChannel::signalquality);
-        Render((int)eVeDisplayChannel::audioinfo);
-        Render((int)eVeDisplayChannel::ecminfo);
-        Render((int)eVeDisplayChannel::devices);
-        Render((int)eVeDisplayChannel::customtokens);
-        Render((int)eVeDisplayChannel::message);
+        if (!shifting) {
+            Render((int)eVeDisplayChannel::channelinfo);
+            Render((int)eVeDisplayChannel::epginfo);
+            Render((int)eVeDisplayChannel::statusinfo);
+            Render((int)eVeDisplayChannel::scrapercontent);
+            Render((int)eVeDisplayChannel::progressbar, channelChange);
+            Render((int)eVeDisplayChannel::screenresolution);
+            Render((int)eVeDisplayChannel::signalquality);
+            Render((int)eVeDisplayChannel::audioinfo);
+            Render((int)eVeDisplayChannel::ecminfo);
+            Render((int)eVeDisplayChannel::devices);
+            Render((int)eVeDisplayChannel::customtokens);
+            Render((int)eVeDisplayChannel::message);
+        }
     } else {
         //channelgroup display
         Render((int)eVeDisplayChannel::channelgroup);
     }
-    Render((int)eVeDisplayChannel::datetime);
-    Render((int)eVeDisplayChannel::time);
+    if (!shifting) {
+        Render((int)eVeDisplayChannel::datetime);
+        Render((int)eVeDisplayChannel::time);
+    }
     channelChange = false;
     cView::Flush();
 }

@@ -14,6 +14,7 @@ cAnimation::cAnimation(cScrollable *scrollable) : cThread("scroller") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = false;
+    doFlush = true;
     blinkFunc = -1;
 }
 
@@ -27,6 +28,7 @@ cAnimation::cAnimation(cDetachable *detachable, bool wait, bool animation) : cTh
     keepSleeping = false;
     doAnimation = animation;
     modeIn = false;
+    doFlush = true;
     blinkFunc = -1;
 }
 
@@ -40,10 +42,11 @@ cAnimation::cAnimation(cFadable *fadable, bool fadein) : cThread("fadable") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = fadein;
+    doFlush = true;
     blinkFunc = -1;
 }
 
-cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool shiftin) : cThread("shiftable") {
+cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool shiftin, bool doFlush) : cThread("shiftable") {
     this->scrollable = NULL;
     this->detachable = NULL;
     this->fadable = NULL;
@@ -55,6 +58,7 @@ cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool s
     modeIn = shiftin;
     shiftstart = start;
     shiftend = end;
+    this->doFlush = doFlush;
     blinkFunc = -1;
 }
 
@@ -68,6 +72,7 @@ cAnimation::cAnimation(cBlinkable *blinkable, int func) : cThread("blinking") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = false;
+    doFlush = true;
     blinkFunc = func;
 }
 
@@ -317,12 +322,14 @@ void cAnimation::Shift(void) {
         if (delay > 0)
             Sleep(delay);
     }
+
+    shiftable->SetStartShifting();
     uint64_t start = cTimeMs::Now();
     while (Running() || !modeIn) {
         uint64_t now = cTimeMs::Now();
         if (Running() || !modeIn)
             shiftable->SetPosition(pos, shiftend);
-        if (Running() || !modeIn)
+        if ((Running() || !modeIn) && doFlush)
             shiftable->Flush();
         int delta = cTimeMs::Now() - now;
         if ((Running()  || !modeIn) && (delta < frametime)) {
@@ -347,7 +354,7 @@ void cAnimation::Shift(void) {
             pos.Set(pos.X() - stepX, pos.Y() - stepY);
         }
     }
-
+    shiftable->SetEndShifting();
 }
 
 void cAnimation::Blink(void) {

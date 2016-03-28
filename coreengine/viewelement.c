@@ -15,6 +15,7 @@ cViewElement::cViewElement(void) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
+    viewAnimated = false;
     globals = NULL;
     tokenContainer = NULL;
     attribs = new cViewElementAttribs((int)eViewElementAttribs::count);
@@ -34,6 +35,7 @@ cViewElement::cViewElement(const cViewElement &other) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
+    viewAnimated = false;
     globals = other.globals;
     container.Set(other.container.X(), other.container.Y(), other.container.Width(), other.container.Height());
     tokenContainer = NULL;
@@ -424,7 +426,7 @@ void cViewElement::StartAnimation(void) {
         SetPosition(start, ref);
         sdOsd->Flush();
         delete shifter;
-        shifter = new cAnimation((cShiftable*)this, start, ref, true);
+        shifter = new cAnimation((cShiftable*)this, start, ref, true, !viewAnimated);
         shifter->Start();
     } else if (FadeTime() > 0) {
         SetTransparency(100);

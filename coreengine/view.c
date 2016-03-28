@@ -12,6 +12,7 @@ cView::cView(void) {
     viewElementsHorizontal = NULL;
     fader = NULL;
     shifter = NULL;
+    shifting = false;
     currentTvFrame = NULL;
     newTvFrame = NULL;
     menuInit = false;
@@ -30,6 +31,7 @@ cView::~cView() {
     free(viewName);
     delete fader;
     delete shifter;
+    shifting = false;
     sdOsd.DeleteOsd();
 }
 
@@ -158,6 +160,8 @@ void cView::PreCache(void) {
     for (int i=0; i < numViewElements; i++) {
         if (!viewElements[i])
             continue;
+        if (FadeTime() > 0 || ShiftTime() > 0)
+            viewElements[i]->SetAnimatedView();
         viewElements[i]->SetContainer(contX, contY, attribs->Width(), attribs->Height());
         viewElements[i]->Cache();
     }
@@ -165,6 +169,8 @@ void cView::PreCache(void) {
         for (int i=0; i < numViewElements; i++) {
             if (!viewElementsHorizontal[i])
                 continue;
+            if (FadeTime() > 0 || ShiftTime() > 0)
+                viewElementsHorizontal[i]->SetAnimatedView();
             viewElementsHorizontal[i]->SetContainer(contX, contY, attribs->Width(), attribs->Height());
             viewElementsHorizontal[i]->Cache();
         }
@@ -240,6 +246,7 @@ void cView::Close(void) {
             continue;
         viewElements[i]->Close();
     }
+    sdOsd.Flush();
     sdOsd.DeleteOsd();
 }
 

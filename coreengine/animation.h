@@ -70,6 +70,8 @@ public:
     virtual int ShiftTime(void) = 0;
     virtual int ShiftMode(void) = 0;
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false) = 0;
+    virtual void SetStartShifting(void) = 0;
+    virtual void SetEndShifting(void) = 0;
     virtual void Flush(void) = 0;
 };
 
@@ -104,6 +106,7 @@ private:
     int blinkFunc;
     cPoint shiftstart;
     cPoint shiftend;
+    bool doFlush;
     void Sleep(int duration);
     void Wait(void);
     void Scroll(void);
@@ -115,7 +118,7 @@ public:
     cAnimation(cScrollable *scrollable);
     cAnimation(cDetachable *detachable, bool wait, bool animation);
     cAnimation(cFadable    *fadable, bool fadein);
-    cAnimation(cShiftable  *shiftable, cPoint &start, cPoint &end, bool shiftin);
+    cAnimation(cShiftable  *shiftable, cPoint &start, cPoint &end, bool shiftin, bool doFlush = true);
     cAnimation(cBlinkable  *blinkable, int func);
     ~cAnimation(void);
     void WakeUp(void);

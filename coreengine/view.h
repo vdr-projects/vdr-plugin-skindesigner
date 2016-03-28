@@ -41,6 +41,7 @@ protected:
     map<string,int> viewElementNames;
     cAnimation *fader;
     cAnimation *shifter;
+    bool shifting;
     cRect tvFrame;
     cRect *currentTvFrame;
     cRect *newTvFrame;
@@ -88,6 +89,8 @@ public:
     int ShiftTime(void);
     int ShiftMode(void);
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
+    void SetStartShifting(void) { shifting = true; };
+    void SetEndShifting(void) { shifting = false; };
 };
 
 #endif //__VIEW_H
