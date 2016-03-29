@@ -113,7 +113,7 @@
     {posterpath}                Full Path of Poster to use in image path attribute
     {posterwidth}               width of poster in pixel
     {posterheight}              height of poster in pixel
-    {hasBanner}                 true if banner is available
+    {hasbanner}                 true if banner is available
     {bannerpath}                Full Path of banner to use in image path attribute
     {bannerwidth}               width of banner in pixel
     {bannerheight}              height of banner in pixel

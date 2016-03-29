@@ -463,7 +463,7 @@ void cVeDmCurrentschedule::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{hasposter}", (int)eScraperPosterBannerIT::hasposter);
     tokenContainer->DefineIntToken("{posterwidth}", (int)eScraperPosterBannerIT::posterwidth);
     tokenContainer->DefineIntToken("{posterheight}", (int)eScraperPosterBannerIT::posterheight);
-    tokenContainer->DefineIntToken("{hasBanner}", (int)eScraperPosterBannerIT::hasbanner);
+    tokenContainer->DefineIntToken("{hasbanner}", (int)eScraperPosterBannerIT::hasbanner);
     tokenContainer->DefineIntToken("{bannerwidth}", (int)eScraperPosterBannerIT::bannerwidth);
     tokenContainer->DefineIntToken("{bannerheight}", (int)eScraperPosterBannerIT::bannerheight);
     InheritTokenContainer();

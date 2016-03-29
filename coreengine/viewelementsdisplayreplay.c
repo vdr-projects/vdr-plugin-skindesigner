@@ -804,10 +804,10 @@ void cVeDrScraperContent::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{mediapath}", (int)eScraperPosterBannerST::mediapath);
     tokenContainer->DefineIntToken("{posterwidth}", (int)eScraperPosterBannerIT::posterwidth);
     tokenContainer->DefineIntToken("{posterheight}", (int)eScraperPosterBannerIT::posterheight);
-    tokenContainer->DefineIntToken("{hasPoster}", (int)eScraperPosterBannerIT::hasposter);
+    tokenContainer->DefineIntToken("{hasposter}", (int)eScraperPosterBannerIT::hasposter);
     tokenContainer->DefineIntToken("{bannerwidth}", (int)eScraperPosterBannerIT::bannerwidth);
     tokenContainer->DefineIntToken("{bannerheight}", (int)eScraperPosterBannerIT::bannerheight);
-    tokenContainer->DefineIntToken("{hasBanner}", (int)eScraperPosterBannerIT::hasbanner);
+    tokenContainer->DefineIntToken("{hasbanner}", (int)eScraperPosterBannerIT::hasbanner);
     tokenContainer->DefineIntToken("{mediawidth}", (int)eScraperPosterBannerIT::mediawidth);
     tokenContainer->DefineIntToken("{mediaheight}", (int)eScraperPosterBannerIT::mediaheight);
     tokenContainer->DefineIntToken("{isbanner}", (int)eScraperPosterBannerIT::isbanner);
