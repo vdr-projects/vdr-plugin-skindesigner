@@ -405,6 +405,7 @@ void cViewMenu::SetMessage(eMessageType type, const char *text) {
 void cViewMenu::SetChannelHeader(const cEvent *event) {
     if (!event)
         return;
+
     if (menuChange && menuCat == mcSchedule) {
 #if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
         LOCK_CHANNELS_READ;
@@ -793,7 +794,8 @@ eMenuOrientation cSubView::MenuOrientation(void) {
 
 void cSubView::SetTitle(const char *title) {
     if (header) {
-        header->SetTitle(title);        
+        header->SetTitle(title);
+        header->ClearChannel();
     }
 }
 

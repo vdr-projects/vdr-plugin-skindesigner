@@ -57,11 +57,20 @@ void cVeDmHeader::SetTitle(const char *title) {
 }
 
 void cVeDmHeader::SetChannel(const cChannel *channel) {
+    ClearChannel();
+    if (!channel)
+        return;
     channelNumber = channel->Number();
-    free(channelName);
-    free(channelId);
     channelName = strdup(channel->Name());
     channelId = strdup(*(channel->GetChannelID().ToString()));
+}
+
+void cVeDmHeader::ClearChannel(void) {
+    channelNumber = 0;
+    free(channelName);
+    channelName = NULL;
+    free(channelId);
+    channelId = NULL;
 }
 
 void cVeDmHeader::Set(eMenuCategory menuCat) {

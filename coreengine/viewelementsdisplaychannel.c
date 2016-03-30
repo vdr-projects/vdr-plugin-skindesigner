@@ -569,6 +569,11 @@ cVeDcScraperContent::cVeDcScraperContent(void) {
 cVeDcScraperContent::~cVeDcScraperContent(void) {
 }
 
+void cVeDcScraperContent::Close(void) {
+    tokenContainer->Clear();
+    cViewElement::Close();
+}
+
 void cVeDcScraperContent::SetTokenContainer(void) {
     tokenContainer = new skindesignerapi::cTokenContainer();
     tokenContainer->DefineStringToken("{posterpath}", (int)eScraperPosterBannerST::posterpath);

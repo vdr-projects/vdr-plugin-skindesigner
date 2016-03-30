@@ -21,6 +21,7 @@ public:
     void SetTokenContainer(void);
     void SetTitle(const char *title);
     void SetChannel(const cChannel *channel);
+    void ClearChannel(void);
     void Set(eMenuCategory menuCat);
     void IsEpgSearchFav(bool isFav) { epgSearchFav = isFav;} ;
 };

@@ -124,6 +124,7 @@ private:
 public:
     cVeDcScraperContent(void);
     virtual ~cVeDcScraperContent(void);
+    void Close(void);
     void SetTokenContainer(void);
     void Set(const cEvent *e);
 };
