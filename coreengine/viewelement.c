@@ -308,6 +308,10 @@ void cViewElement::WakeUp(void) {
 void cViewElement::Close(void) {
     delete detacher;
     detacher = NULL;
+    delete fader;
+    fader = NULL;
+    delete shifter;
+    shifter = NULL;
     StopScrolling();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         node->StopBlinkers();

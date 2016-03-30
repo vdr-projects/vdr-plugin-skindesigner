@@ -557,6 +557,7 @@ void cViewMenu::Close(void) {
     }
     UnScaleTv();
     ClearVariables();
+    sdOsd.Flush();
     sdOsd.DeleteOsd();
 }
 
