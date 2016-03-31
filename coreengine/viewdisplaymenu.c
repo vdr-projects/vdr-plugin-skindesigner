@@ -1084,6 +1084,7 @@ cViewMenuMain::~cViewMenuMain() {
 
 void cViewMenuMain::ClearVariables(void) {
     init = true;
+    lastDrawDynamic = 0;
 }
 
 void cViewMenuMain::SetViewElements(void) {

@@ -205,6 +205,7 @@ void cVeDevices::Init(void) {
 void cVeDevices::Close(void) {
     devices.clear();
     initial = true;
+    lastRefresh = 0;
     numDevices = 0;
     mutexDevices.Lock();
     delete[] lastSignalStrength;

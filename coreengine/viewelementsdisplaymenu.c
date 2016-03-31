@@ -630,6 +630,11 @@ cVeDmSystemload::cVeDmSystemload(void) {
 cVeDmSystemload::~cVeDmSystemload(void) {
 }
 
+void cVeDmSystemload::Close(void) {
+    Reset();
+    cViewElement::Close();
+}
+
 void cVeDmSystemload::SetTokenContainer(void) {
     tokenContainer = new skindesignerapi::cTokenContainer();
     tokenContainer->DefineStringToken("{load}", (int)eDMSystemloadST::load);
@@ -684,6 +689,11 @@ cVeDmSystemmemory::cVeDmSystemmemory(void) {
 cVeDmSystemmemory::~cVeDmSystemmemory(void) {
 }
 
+void cVeDmSystemmemory::Close(void) {
+    Reset();
+    cViewElement::Close();
+}
+
 void cVeDmSystemmemory::SetTokenContainer(void) {
     tokenContainer = new skindesignerapi::cTokenContainer();
     tokenContainer->DefineIntToken("{totalmem}", (int)eDMSystemmemoryIT::totalmem);
@@ -728,6 +738,11 @@ cVeDmTemperatures::cVeDmTemperatures(void) {
 }
 
 cVeDmTemperatures::~cVeDmTemperatures(void) {
+}
+
+void cVeDmTemperatures::Close(void) {
+    Reset();
+    cViewElement::Close();
 }
 
 void cVeDmTemperatures::SetTokenContainer(void) {
@@ -793,6 +808,11 @@ cVeDmVdrstatistics::cVeDmVdrstatistics(void) {
 }
 
 cVeDmVdrstatistics::~cVeDmVdrstatistics(void) {
+}
+
+void cVeDmVdrstatistics::Close(void) {
+    Reset();
+    cViewElement::Close();
 }
 
 void cVeDmVdrstatistics::SetTokenContainer(void) {

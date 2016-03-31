@@ -125,6 +125,7 @@ private:
 public:
     cVeDmSystemload(void);
     virtual ~cVeDmSystemload(void);
+    void Close(void);
     void Reset(void) { lastSystemLoad = -1.0f; }
     void SetTokenContainer(void);
     bool Parse(bool forced = false);
@@ -139,6 +140,7 @@ private:
 public:
     cVeDmSystemmemory(void);
     virtual ~cVeDmSystemmemory(void);
+    void Close(void);
     void Reset(void) { lastMemUsage = -1; }
     void SetTokenContainer(void);
     bool Parse(bool forced = false);
@@ -154,6 +156,7 @@ private:
 public:
     cVeDmTemperatures(void);
     virtual ~cVeDmTemperatures(void);
+    void Close(void);
     void Reset(void) { lastCpuTemp = -1; lastGpuTemp = -1; }
     void SetTokenContainer(void);
     bool Parse(bool forced = false);
@@ -169,6 +172,7 @@ private:
 public:
     cVeDmVdrstatistics(void);
     virtual ~cVeDmVdrstatistics(void);
+    void Close(void);
     void Reset(void) { lastVdrCPU = "undefined"; lastVdrMEM = "undefined"; }
     void SetTokenContainer(void);
     bool Parse(bool forced = false);
