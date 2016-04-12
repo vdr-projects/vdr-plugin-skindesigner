@@ -405,21 +405,37 @@ void cImageImporterJPG::GetImageSize(int &width, int &height) {
 // SVG Template class
 //
 
-cSVGTemplate::cSVGTemplate(string imageName, string templatePath) {
+cSVGTemplate::cSVGTemplate(string imageName, string imagePath, string templatePath) {
     this->imageName = imageName;
+    this->imagePath = imagePath;
     this->templatePath = templatePath;
+    filePath = CreateImagePath();
     startTokenColor = "{sdcol(";
     startTokenOpac = "{sdopac(";
     endToken = ")}";
-    filePath = templatePath;
-    filePath += imageName + ".svg";
 }
 
 cSVGTemplate::~cSVGTemplate(void) {
 }
 
+string cSVGTemplate::CreateImagePath(void) {
+    //check if imageName is a path
+    if (imageName.find("/") != string::npos) {
+        splitstring s(imageName.c_str());
+        vector<string> flds = s.split('/', 1);
+        int num = flds.size() - 1;
+        for (int i=0; i < num; i++) {
+            imagePath = *cString::sprintf("%s/%s", imagePath.c_str(), flds[i].c_str());
+        }
+        imageName = flds[num];
+    }
+    string path = templatePath;
+    path += imagePath + "/" + imageName + ".svg";
+    return path;
+}
+
 bool cSVGTemplate::Exists(void) {
-    return FileExists(templatePath, imageName, "svg");
+    return FileExists(filePath);
 }
 
 void cSVGTemplate::ReadTemplate(void) {
@@ -464,7 +480,7 @@ bool cSVGTemplate::ParseTemplate(void) {
 }
 
 string cSVGTemplate::WriteImage(void) {
-    string tempPath = *cString::sprintf("/tmp/skindesigner/svg/%s/%s/", Setup.OSDSkin, Setup.OSDTheme);
+    string tempPath = *cString::sprintf("/tmp/skindesigner/svg/%s/%s/%s/", Setup.OSDSkin, Setup.OSDTheme, imagePath.c_str());
     CreateFolder(tempPath);
     string fileName = tempPath + imageName + ".svg";
     ofstream tmpimg;

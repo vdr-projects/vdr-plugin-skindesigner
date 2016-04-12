@@ -95,16 +95,18 @@ public:
 class cSVGTemplate {
 private:
     string imageName;
+    string imagePath;
     string templatePath;
     string filePath;
     string startTokenColor;
     string startTokenOpac;
     string endToken;
     vector<string> svgTemplate;
+    string CreateImagePath(void);
     string GetColorName(string line, size_t tokenStart, size_t tokenEnd);
     void ReplaceTokens(string &line, size_t tokenStart, size_t tokenEnd, tColor color);
 public:
-    cSVGTemplate(string imageName, string templatePath);
+    cSVGTemplate(string imageName, string imagePath, string templatePath);
     virtual ~cSVGTemplate(void);
     bool Exists(void);
     void ReadTemplate(void);

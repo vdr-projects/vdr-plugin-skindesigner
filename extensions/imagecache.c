@@ -433,7 +433,7 @@ bool cImageCache::LoadIcon(eImageType type, string name) {
         return LoadImage(*subIconSkinPath, name, "png");
 
     //and finally check if a svg template exists
-    cSVGTemplate svgTemplate(name, svgTemplatePath);
+    cSVGTemplate svgTemplate(name, *subdir, svgTemplatePath);
     if (!svgTemplate.Exists())
         return false;
     svgTemplate.ReadTemplate();
@@ -484,7 +484,7 @@ bool cImageCache::LoadSkinpart(string name) {
         return LoadImage(skinPartsPathSkin.c_str(), name, "png");
 
     //check if a svg template exists
-    cSVGTemplate svgTemplate(name, svgTemplatePath);
+    cSVGTemplate svgTemplate(name, "skinparts", svgTemplatePath);
     if (!svgTemplate.Exists())
         return false;
     svgTemplate.ReadTemplate();
