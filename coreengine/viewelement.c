@@ -268,6 +268,8 @@ bool cViewElement::Execute(void) {
 }
 
 void cViewElement::Clear(bool forceClearBackground) {
+    if (scrollingStarted)
+        StopScrolling();
     tokenContainer->Clear();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         node->StopBlinkers();
