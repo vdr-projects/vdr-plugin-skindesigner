@@ -110,6 +110,7 @@ void cViewChannel::SetChannel(const cChannel *channel, int number) {
     displayChannelGroups = false;
 
     if (veChannelInfo) {
+        veChannelInfo->Clear();
         veChannelInfo->Set(channel, number);
     }
 
