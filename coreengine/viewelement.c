@@ -283,6 +283,10 @@ void cViewElement::Clear(bool forceClearBackground) {
 }
 
 void cViewElement::Hide(void) {
+    delete shifter;
+    shifter = NULL;
+    delete fader;
+    fader = NULL;
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         sdOsd->Lock();
         node->Hide();

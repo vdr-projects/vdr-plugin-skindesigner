@@ -325,6 +325,7 @@ void cAnimation::Shift(void) {
 
     shiftable->SetStartShifting();
     uint64_t start = cTimeMs::Now();
+    bool finished = false;
     while (Running() || !modeIn) {
         uint64_t now = cTimeMs::Now();
         if (Running() || !modeIn)
@@ -336,6 +337,7 @@ void cAnimation::Shift(void) {
             cCondWait::SleepMs(frametime - delta);
         }
         if ((int)(now - start) > shifttime) {
+            finished = true;
             if ((Running() && modeIn) && pos != shiftend) {
                 shiftable->SetPosition(shiftend, shiftend);
                 shiftable->Flush();
@@ -353,6 +355,9 @@ void cAnimation::Shift(void) {
         } else {
             pos.Set(pos.X() - stepX, pos.Y() - stepY);
         }
+    }
+    if (!finished) {
+        shiftable->SetPosition(shiftend, shiftend);
     }
     shiftable->SetEndShifting();
 }
