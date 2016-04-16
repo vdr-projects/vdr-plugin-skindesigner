@@ -360,7 +360,7 @@ void cSkinDesignerSetup::SkinSetup(void) {
 }
 
 void cSkinDesignerSetup::InstallSkins(void) {
-#ifdef USE_SKININSTALLER
+#ifndef DO_NOT_USE_SKININSTALLER
     Add(InfoItem(tr("Install new skins")));
 
     config.InitSkinRepoIterator();

@@ -56,7 +56,7 @@ the library has to be proper installed on your system.
 With a "make install" both the plugin and the library are installed on your 
 system. The destination where the library will be installed can be set with 
 the PREFIX parameter: "PREFIX=/usr make install". Default of PREFIX is
-/usr/local.  
+/usr/local.
 
 After installation check if libskindesignerapi.pc is correctly found in your
 PKG_CONFIG_PATH. Other Plugins using the library issue the following 
@@ -67,6 +67,11 @@ pkg-config --modversion libskindesignerapi
 
 Note that skindesigner itself and all plugins which use libSkindesignerAPI have to
 be build against the same major verison of the library to be compatible.
+
+If you like to disable the possibility to install skins from skindesigner setup
+menu, you can enable the option in the makefile or set the option 
+DO_NOT_USE_SKININSTALLER manually via CPP Flags:
+make CPPFLAGS="-DDO_NOT_USE_SKININSTALLER"
 
 After installation you have to care about the paths for the XML skins and epg images. 
 The following paths can be set at startup:

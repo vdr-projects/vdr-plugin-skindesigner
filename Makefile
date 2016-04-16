@@ -4,8 +4,8 @@
 # $Id$ Makefile 1.0 2014/07/24 louis Exp $
 
 # Config
-CONFIG := #-DDOPROFILE			# enable profiling code
-CONFIG += -DUSE_SKININSTALLER	# use skin installer in skindesigner setup
+CONFIG := #-DDOPROFILE			        # enable profiling code
+CONFIG += #-DDO_NOT_USE_SKININSTALLER	# disable installer in skindesigner setup
 
 # The official name of this plugin.
 PLUGIN = skindesigner
@@ -138,7 +138,7 @@ $(SOFILE): SUB_LIBS = libskindesignerapi/libskindesignerapi.so.$(shell pkg-confi
 ### Implicit rules:
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -std=c++11 -c $(DEFINES) $(SUB_DEFINES) $(INCLUDES) -o $@ $<
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -std=c++11 -c $(DEFINES) $(SUB_DEFINES) $(INCLUDES) -o $@ $<
 
 ### Dependencies:
 

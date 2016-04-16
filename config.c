@@ -47,7 +47,9 @@ void cDesignerConfig::SetPathes(void) {
         epgImagePath = cString::sprintf("%s/epgimages/", cPlugin::CacheDirectory(PLUGIN_NAME_I18N));
 
     dsyslog("skindesigner: using Skin Directory %s", *skinPath);
+#ifndef DO_NOT_USE_SKININSTALLER
     dsyslog("skindesigner: using Installer Skin Directory %s", *installerSkinPath);
+#endif
     dsyslog("skindesigner: using common ChannelLogo Directory %s", *logoPath);
     dsyslog("skindesigner: using EPG Images Directory %s", *epgImagePath);
 
@@ -110,10 +112,13 @@ void cDesignerConfig::ReadSkinFolder(cString &skinFolder, vector<string> *contai
 
 void cDesignerConfig::ReadSkins(void) {
     ReadSkinFolder(skinPath, &deliveredSkins);
+#ifndef DO_NOT_USE_SKININSTALLER
     ReadSkinFolder(installerSkinPath, &installerSkins);
+#endif
     for (vector<string>::iterator it = deliveredSkins.begin(); it != deliveredSkins.end(); it++) {
         skins.push_back(*it);
     }
+#ifndef DO_NOT_USE_SKININSTALLER
     for (vector<string>::iterator it = installerSkins.begin(); it != installerSkins.end(); it++) {
         string instSkin = *it;
         bool found = false;
@@ -126,6 +131,7 @@ void cDesignerConfig::ReadSkins(void) {
         if (!found)
             skins.push_back(instSkin);
     }
+#endif
 }
 
 void cDesignerConfig::ClearSkinSetups(void) {
@@ -335,9 +341,11 @@ void cDesignerConfig::SetSkinSetupParameters(void) {
 }
 
 void cDesignerConfig::ReadSkinRepos(void) {
+#ifndef DO_NOT_USE_SKININSTALLER
     skinRepos.Init(*installerSkinPath);
     skinRepos.Read(*installerSkinPath);
     dsyslog("skindesigner: read %d skinrepositories from %s", skinRepos.Count(), *installerSkinPath);
+#endif
 }
 
 bool cDesignerConfig::CheckVersion(string name, string &neededVersion) {
