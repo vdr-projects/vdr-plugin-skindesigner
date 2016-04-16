@@ -101,7 +101,8 @@ void cDesignerConfig::ReadSkinFolder(cString &skinFolder, vector<string> *contai
     while (dirEntry = readdir(folder)) {
         string dirEntryName = dirEntry->d_name;
         int dirEntryType = dirEntry->d_type;
-        if (!dirEntryName.compare(".") || !dirEntryName.compare("..") || !dirEntryName.compare("skinrepositories") || (dirEntryType != DT_DIR  && dirEntryType != DT_LNK))
+        cString subfolder = cString::sprintf("%s%s", *skinFolder, dirEntryName.c_str());
+        if (!dirEntryName.compare(".") || !dirEntryName.compare("..") || !dirEntryName.compare("skinrepositories") || (dirEntryType != DT_DIR  && dirEntryType != DT_LNK) || !DirectoryOk(*subfolder, false))
             continue;
         container->push_back(dirEntryName);
     }
