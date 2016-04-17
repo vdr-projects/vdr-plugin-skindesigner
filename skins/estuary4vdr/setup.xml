@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE setup SYSTEM "../../dtd/setup.dtd">
+
+<setup>
+    <menu>
+        <parameter type="int" name="fadetime" min="0" max="1000" displaytext="{tr(fadetext)}" helptext="{tr(helpfade)}">0</parameter>
+        <parameter type="int" name="shifttime" min="0" max="1000" displaytext="{tr(shifttext)}" helptext="{tr(helpshift)}">300</parameter>
+        <parameter type="bool" name="scrollepg" displaytext="{tr(scrollepgtext)}" helptext="{tr(helpscrollepg)}">1</parameter>
+        <parameter type="bool" name="showlistnumbers" displaytext="{tr(showlistnumbers)}" helptext="{tr(showlistnumbers)}">0</parameter>
+    </menu>
+
+    <translations>
+        <token name="tr(fadetext)">
+            <trans lang="en_EN">Fade time [ms]</trans>
+            <trans lang="de_DE">Einblendzeit [ms]</trans>
+        </token>
+        <token name="tr(helpfade)">
+            <trans lang="en_EN">Fade time of channel display in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu fade in and out.</trans>
+            <trans lang="de_DE">Einblendzeit der Kanalanzeige in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu ein- und ausgeblendet.</trans>
+        </token>
+        <token name="tr(shifttext)">
+            <trans lang="en_EN">Shift time [ms]</trans>
+            <trans lang="de_DE">Einfahrzeit [ms]</trans>
+        </token>
+        <token name="tr(helpshift)">
+            <trans lang="en_EN">Shift time in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu are shifted in and out from the bottom of the screen. If fadetime is also set to a value larger 0, still shifting is performed.</trans>
+            <trans lang="de_DE">Einfahrzeit in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu vom unteren Rand des Bildschirms herein- und herausgefahren. Falls fadetime ebenfalls auf einen Wert größer 0 gesetzt ist, wird das OSD trotzdem herein- und herausgefahren.</trans>
+        </token>
+        <token name="tr(scrollepgtext)">
+            <trans lang="en_EN">Scroll EPG in channel display</trans>
+            <trans lang="de_DE">EGP in Kanalanzeige scrollen</trans>
+        </token>
+        <token name="tr(helpscrollepg)">
+            <trans lang="en_EN">If set to "yes", EPG text in channel display is scrolling if needed</trans>
+            <trans lang="de_DE">Falls auf "Ja" gesetzt, scrollt der EGP Text in der Kanalanzeige falls notwendig.</trans>
+        </token>
+        <token name="tr(showlistnumbers)">
+            <trans lang="en_EN">Display numbering in main and setup menu</trans>
+            <trans lang="de_DE">Nummerierung im Haupt- und Setup Menü anzeigen</trans>
+        </token>
+    </translations>
+</setup>

@@ -1,0 +1,61 @@
+ <menudefault x="0" y="0" width="100%" height="100%" fadetime="0">
+
+    <background>
+        <area x="0" y="0" width="100%" height="100%" layer="1">
+            <drawimage imagetype="skinpart" x="0" y="0" width="100%" height="100%" path="background_menu" />
+        </area>
+    </background>
+
+    <scrollbar>
+        <area condition="lt({height}, 1000)" x="99%" y="10%" width="{areawidth}*0.01" height="80%" layer="3">
+            <drawrectangle x="0" y="{areaheight} * {offset} / 1000" width="100%" height="{areaheight} * {height} / 1000" color="{progressbar}" />
+        </area>
+    </scrollbar>
+
+    <menuitems x="2%" y="10%" orientation="vertical" width="96%" height="80%" align="center" menuitemwidth="94%" determinatefont="column1" numlistelements="16">
+        <listelement>
+            <area x="0" y="0" width="100%" layer="2">
+                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <!-- Separators -->
+            <area x="1%" condition="{separator}" width="98%" layer="3">
+                <drawtext align="left" valign="center" font="{regular}" fontsize="80%" width="98%" color="{fontdefault}" text="{column1}" />
+            </area>
+            <!-- Setup Menus -->
+            <areascroll condition="not{separator} ++ {setup} ++ {column2set}" scrollelement="column1" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="59%" layer="3">
+                <drawtext condition="not{current}" x="0" width="99%" valign="center" font="{regular}" fontsize="80%" color="{fontdefault}" text="{column1}" />
+                <drawtext condition="{current}" name="column1" x="0" width="99%" valign="center" font="{regular}" fontsize="80%" color="{fontmenuactive}" text="{column1}" />
+            </areascroll>
+            <area x="60%" condition="not{separator} ++ {setup} ++ {column2set}" width="39%" layer="3">
+                <drawtext condition="not{current}" align="right" valign="center" font="{regular}" fontsize="80%" width="99%" color="{fontdefault}" text="{column2}" />
+                <drawtext condition="{current}" align="right" valign="center" font="{regular}" fontsize="80%" width="99%" color="{fontmenuactive}" text="{column2}" />
+            </area>
+            <area x="1%" condition="not{separator} ++ {setup} ++ not{column2set}" width="98%" layer="3">
+                <drawtext condition="not{current}" align="left" valign="center" font="{regular}" fontsize="80%" width="99%" color="{fontdefault}" text="{column1}" />
+                <drawtext condition="{current}" align="left" valign="center" font="{regular}" fontsize="80%" width="99%" color="{fontmenuactive}" text="{column1}" />
+            </area>
+            <!-- Default Menus -->
+            <areascroll condition="not{separator} ++ not{setup}" scrollelement="column1" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="{column1width}" layer="3">
+                <drawtext condition="not{current}" x="{column1x}" width="{column1width}" valign="center" font="{regular}" fontsize="80%" color="{fontdefault}" text="{column1}" />
+                <drawtext condition="{current}" name="column1" x="{column1x}" width="{column1width}" valign="center" font="{regular}" fontsize="80%" color="{fontmenuactive}" text="{column1}" />
+            </areascroll>
+            <area condition="not{current}++not{separator} ++ not{setup}" x="1%" width="100%" layer="4">
+                <drawtext condition="{column2set}" x="{column2x}" valign="center" font="{regular}" fontsize="80%" width="{column2width}" color="{fontdefault}" text="{column2}" />
+                <drawtext condition="{column3set}" x="{column3x}" valign="center" font="{regular}" fontsize="80%" width="{column3width}" color="{fontdefault}" text="{column3}" />
+                <drawtext condition="{column4set}" x="{column4x}" valign="center" font="{regular}" fontsize="80%" width="{column4width}" color="{fontdefault}" text="{column4}" />
+                <drawtext condition="{column5set}" x="{column5x}" valign="center" font="{regular}" fontsize="80%" width="{column5width}" color="{fontdefault}" text="{column5}" />
+                <drawtext condition="{column6set}" x="{column6x}" valign="center" font="{regular}" fontsize="80%" width="{column6width}" color="{fontdefault}" text="{column6}" />
+            </area>
+            <area condition="{current}++not{separator} ++ not{setup}" x="1%" width="100%" layer="4">
+                <drawtext condition="{column2set}" x="{column2x}" valign="center" font="{regular}" fontsize="80%" width="{column2width}" color="{fontmenuactive}" text="{column2}" />
+                <drawtext condition="{column3set}" x="{column3x}" valign="center" font="{regular}" fontsize="80%" width="{column3width}" color="{fontmenuactive}" text="{column3}" />
+                <drawtext condition="{column4set}" x="{column4x}" valign="center" font="{regular}" fontsize="80%" width="{column4width}" color="{fontmenuactive}" text="{column4}" />
+                <drawtext condition="{column5set}" x="{column5x}" valign="center" font="{regular}" fontsize="80%" width="{column5width}" color="{fontmenuactive}" text="{column5}" />
+                <drawtext condition="{column6set}" x="{column6x}" valign="center" font="{regular}" fontsize="80%" width="{column6width}" color="{fontmenuactive}" text="{column6}" />
+            </area>
+        </listelement>
+        
+    </menuitems>
+</menudefault>

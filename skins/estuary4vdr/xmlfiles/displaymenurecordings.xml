@@ -1,0 +1,66 @@
+<menurecordings x="0" y="0" width="100%" height="100%" fadetime="0" scaletvx="39%" scaletvy="8%" scaletvwidth="60%" scaletvheight="60%">
+
+    <menuitems x="2%" y="9%" orientation="vertical" width="98%" height="82%" align="center" numlistelements="12">
+
+        <listelement>
+            <area x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
+                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <!-- recording folder -->
+            <area condition="{folder}" x="1%" width="6%" layer="3">
+                <drawimage condition="not{current}" imagetype="icon" path="ico_recfolder" x="0" width="0.8*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                <drawimage condition="{current}" imagetype="icon" path="ico_recfolder_active" x="0" width="0.8*{areaheight}" height="0.9*{areaheight}" valign="center" />
+            </area>
+            <area condition="{folder}" x="6%" y="50%" width="24%" height="50%" layer="3">
+                <drawtext condition="not{current}" x="0" y="0" font="{regular}" fontsize="80%" color="{fontdefault}" text="({numrecordingsfolder} recordings, {newrecordingsfolder} new)" />
+                <drawtext condition="{current}" x="0" y="0" font="{regular}" fontsize="80%" color="{fontmenuactive}" text="({numrecordingsfolder} recordings, {newrecordingsfolder} new)" />
+            </area>
+
+            <areascroll condition="{folder}" scrollelement="foldertext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="6%" y="0" width="24%" height="50%" layer="3">
+                <drawtext condition="not{current}" x="0" valign="bottom" font="{regular}" fontsize="95%" color="{fontdefault}" text="{name}" />
+                <drawtext condition="{current}" x="0" valign="bottom" font="{regular}" fontsize="95%" color="{fontmenuactive}" text="{name}" />
+            </areascroll>
+            
+            <area condition="not{folder}++not{current}" x="1%" y="0" width="29%" height="50%" layer="3">
+                <drawtext x="0" y="15%" font="{regular}" fontsize="80%" color="{fontdefault}" text="{printf('%02d.%02d.%d', daynumeric, month, year)} {time}" />
+                <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - 2*{areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+            </area>
+            <area condition="not{folder}++{current}" x="1%" y="0" width="29%" height="50%" layer="3">
+                <drawtext x="0" y="15%" font="{regular}" fontsize="80%" color="{fontmenuactive}" text="{printf('%02d.%02d.%d', daynumeric, month, year)} {time}" />
+                <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new_active" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - 2*{areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+            </area>
+            <areascroll condition="not{current}++not{folder}" scrollelement="rectitle" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" y="45%" width="29%" height="50%" layer="3">
+                <drawtext name="rectitle" x="0" width="100%" y="0" font="{regular}" fontsize="100%" color="{fontdefault}" text="{name}" />
+            </areascroll>
+            <areascroll condition="{current}++not{folder}" scrollelement="rectitle" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" y="45%" width="29%" height="50%" layer="3">
+                <drawtext name="rectitle" x="0" width="100%" y="0" font="{regular}" fontsize="100%" color="{fontmenuactive}" text="{name}" />
+            </areascroll>
+        </listelement>
+
+        <currentelement delay="100" fadetime="200">
+            <area condition="{hasposter}" x="39%" y="76%" width="7%" height="22%" layer="3">
+                <drawimage imagetype="image" path="{posterpath}" x="0" valign="center" width="{areawidth}" height="{areawidth} * {posterheight} / {posterwidth}" />
+            </area>
+            <areascroll condition="{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="47%" y="76%" width="49%" height="20%" layer="3">
+                <drawtext name="datetime" x="0" y="0" font="{regular}" width="100%" fontsize="20%" color="{fontdefault}" text="{date} {time}, {duration} min" />
+                <drawtext name="title" x="0" y="{height(datetime)}" font="{regular}" width="100%" fontsize="25%" color="{fontdefault}" text="{epgname}" />
+                <drawtextbox name="shorttext" x="0" y="{posy(title)} + {height(title)}" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} + 10" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+            <areascroll condition="not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="39%" y="76%" width="57%" height="20%" layer="3">
+                <drawtext name="datetime" x="0" y="0" font="{regular}" width="100%" fontsize="20%" color="{fontdefault}" text="{date} {time}, {duration} min" />
+                <drawtext name="title" x="0" y="{height(datetime)}" font="{regular}" width="100%" fontsize="25%" color="{fontdefault}" text="{epgname}" />
+                <drawtextbox name="shorttext" x="0" y="{posy(title)}+{height(title)}" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)} + 10" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+        </currentelement>
+
+    </menuitems>
+
+</menurecordings>
