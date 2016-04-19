@@ -346,6 +346,11 @@ bool cImageCache::MenuIconExists(string name) {
     if (FileExists(*iconSkinPath, name, "png")) {
         return true;
     }
+    //finally check svg templates
+    cString iconTemplatePath = cString::sprintf("%smenuicons/", svgTemplatePath.c_str());
+    if (FileExists(*iconTemplatePath, name, "svg")) {
+        return true;
+    }
     return false;
 }
 
