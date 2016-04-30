@@ -42,10 +42,11 @@ protected:
     int listY;
     int listWidth;
     int listHeight;
+    int listNum;
 public:
     cCurrentElement(void);
     virtual ~cCurrentElement(void) {};
-    void SetListPosition(int x, int y, int width, int height);
+    void SetListPosition(int x, int y, int width, int height, int num);
     void SetListTokens(skindesignerapi::cTokenContainer *tokenContainer);
 };
 

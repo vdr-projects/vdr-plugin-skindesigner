@@ -16,7 +16,7 @@
     </scrollbar>
 
     <tab name="text" x="3%" y="11%" width="95%" height="78%" layer="3" scrollheight="{areaheight}/4">
-        <drawtextbox x="0" y="0" width="100%" font="{regular}" fontsize="5%" color="{fontdefault}" text="{text}" />
+        <drawtextbox x="0" y="0" width="100%" font="{regular}" fontsize="{areaheight}*{detailtextsize}/100" color="{fontdefault}" text="{text}" />
     </tab>
 
 </menudetailedtext>

@@ -78,20 +78,23 @@ cCurrentElement::cCurrentElement(void) {
     listY = 0;
     listWidth = 0;
     listHeight = 0;
+    listNum = 0;
 }
 
-void cCurrentElement::SetListPosition(int x, int y, int width, int height) {
+void cCurrentElement::SetListPosition(int x, int y, int width, int height, int num) {
     listX = x;
     listY = y;
     listWidth = width;
     listHeight = height;
+    listNum = num;
 }
 
 void cCurrentElement::SetListTokens(skindesignerapi::cTokenContainer *tokenContainer) {
-    tokenContainer->AddIntToken(0, listX);
-    tokenContainer->AddIntToken(1, listY);
+    tokenContainer->AddIntToken(0, listX - container.X());
+    tokenContainer->AddIntToken(1, listY - container.Y());
     tokenContainer->AddIntToken(2, listWidth);
     tokenContainer->AddIntToken(3, listHeight);
+    tokenContainer->AddIntToken(4, listNum);
 }
 
 /******************************************************************
@@ -455,7 +458,7 @@ void cLeMenuMain::RenderCurrent(void) {
     if (!currentMain)
         return;
     currentMain->SetText(text);
-    currentMain->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentMain->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentMain->Parse();
 }
 
@@ -500,6 +503,7 @@ void cCeMenuMain::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuMainIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuMainIT::menuitemwidth);
     tokenContainer->DefineIntToken("{menuitemheight}", (int)eCeMenuMainIT::menuitemheight);
+    tokenContainer->DefineIntToken("{numitem}", (int)eCeMenuMainIT::numitem);
     tokenContainer->DefineStringToken("{label}", (int)eCeMenuMainST::label);
     tokenContainer->DefineStringToken("{number}", (int)eCeMenuMainST::number);
     tokenContainer->DefineStringToken("{icon}", (int)eCeMenuMainST::icon);
@@ -563,6 +567,7 @@ void cLeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{daynumeric}", (int)eLeMenuSchedulesIT::daynumeric);
     tokenContainer->DefineIntToken("{month}", (int)eLeMenuSchedulesIT::month);
     tokenContainer->DefineIntToken("{year}", (int)eLeMenuSchedulesIT::year);
+    tokenContainer->DefineIntToken("{istoday}", (int)eLeMenuSchedulesIT::istoday);
     tokenContainer->DefineIntToken("{running}", (int)eLeMenuSchedulesIT::running);
     tokenContainer->DefineIntToken("{elapsed}", (int)eLeMenuSchedulesIT::elapsed);
     tokenContainer->DefineIntToken("{startsin}", (int)eLeMenuSchedulesIT::startsin);
@@ -626,12 +631,14 @@ bool cLeMenuSchedules::Parse(bool forced) {
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::start, *(event->GetTimeString()));
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::stop, *(event->GetEndTimeString()));
             time_t startTime = event->StartTime();
-            struct tm * sStartTime = localtime(&startTime);
+            struct tm *sStartTime = localtime(&startTime);
+            int day = sStartTime->tm_mday;
+            int month = sStartTime->tm_mon;
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::day, *WeekDayName(startTime));
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::date, *ShortDateString(startTime));
             tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::year, sStartTime->tm_year + 1900);
-            tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::daynumeric, sStartTime->tm_mday);
-            tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::month, sStartTime->tm_mon+1);
+            tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::daynumeric, day);
+            tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::month, month + 1);
 
             bool isRunning = false;
             time_t now = time(NULL);
@@ -645,6 +652,8 @@ bool cLeMenuSchedules::Parse(bool forced) {
                 tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::elapsed, 0);
                 tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::startsin, (event->StartTime() - now)/60);
             }
+            struct tm *sNow = localtime(&now);
+            tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::istoday, (day == sNow->tm_mday && month == sNow->tm_mon) ? true : false);
             tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::duration, event->Duration() / 60);
             tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::durationhours, event->Duration() / 3600);
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::durationminutes, *cString::sprintf("%.2d", (event->Duration() / 60)%60));
@@ -676,7 +685,7 @@ void cLeMenuSchedules::RenderCurrent(void) {
         return;
     currentSchedules->Set(event, channel, withDate, timerMatch, menuCat);
     currentSchedules->SetEpgSearchFav(epgSearchFav);
-    currentSchedules->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentSchedules->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentSchedules->Parse();
 }
 
@@ -707,6 +716,7 @@ void cCeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuSchedulesIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuSchedulesIT::menuitemwidth);
     tokenContainer->DefineIntToken("{menuitemheight}", (int)eCeMenuSchedulesIT::menuitemheight);
+    tokenContainer->DefineIntToken("{numitem}", (int)eCeMenuSchedulesIT::numitem);
     tokenContainer->DefineIntToken("{daynumeric}", (int)eCeMenuSchedulesIT::daynumeric);
     tokenContainer->DefineIntToken("{month}", (int)eCeMenuSchedulesIT::month);
     tokenContainer->DefineIntToken("{year}", (int)eCeMenuSchedulesIT::year);
@@ -953,7 +963,7 @@ void cLeMenuChannels::RenderCurrent(void) {
     if (!currentChannel)
         return;
     currentChannel->Set(channel, withProvider);
-    currentChannel->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentChannel->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentChannel->Parse();
 }
 
@@ -998,6 +1008,7 @@ void cCeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuChannelsIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuChannelsIT::menuitemwidth);
     tokenContainer->DefineIntToken("{menuitemheight}", (int)eCeMenuChannelsIT::menuitemheight);
+    tokenContainer->DefineIntToken("{numitem}", (int)eCeMenuChannelsIT::numitem);
     tokenContainer->DefineIntToken("{number}", (int)eCeMenuChannelsIT::number);
     tokenContainer->DefineIntToken("{transponder}", (int)eCeMenuChannelsIT::transponder);
     tokenContainer->DefineIntToken("{frequency}", (int)eCeMenuChannelsIT::frequency);
@@ -1271,7 +1282,7 @@ void cLeMenuTimers::RenderCurrent(void) {
     if (!currentTimer)
         return;
     currentTimer->Set(timer);
-    currentTimer->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentTimer->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentTimer->Parse();
 }
 
@@ -1307,6 +1318,7 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuTimersIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuTimersIT::menuitemwidth);
     tokenContainer->DefineIntToken("{menuitemheight}", (int)eCeMenuTimersIT::menuitemheight);
+    tokenContainer->DefineIntToken("{numitem}", (int)eCeMenuTimersIT::numitem);
     tokenContainer->DefineIntToken("{month}", (int)eCeMenuTimersIT::month);
     tokenContainer->DefineIntToken("{year}", (int)eCeMenuTimersIT::year);
     tokenContainer->DefineIntToken("{channellogoexists}", (int)eCeMenuTimersIT::channellogoexists);
@@ -1602,7 +1614,7 @@ void cLeMenuRecordings::RenderCurrent(void) {
     if (!currentRecording)
         return;
     currentRecording->Set(recording, level, total, New);
-    currentRecording->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentRecording->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentRecording->Parse();
 }
 
@@ -1679,6 +1691,7 @@ void cCeMenuRecordings::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuRecordingsIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuRecordingsIT::menuitemwidth);
     tokenContainer->DefineIntToken("{menuitemheight}", (int)eCeMenuRecordingsIT::menuitemheight);
+    tokenContainer->DefineIntToken("{numitem}", (int)eCeMenuRecordingsIT::numitem);
     tokenContainer->DefineIntToken("{new}", (int)eCeMenuRecordingsIT::isnew);
     tokenContainer->DefineIntToken("{percentseen}", (int)eCeMenuRecordingsIT::percentseen);
     tokenContainer->DefineIntToken("{watched}", (int)eCeMenuRecordingsIT::watched);
@@ -1888,7 +1901,7 @@ void cLeMenuPlugin::RenderCurrent(void) {
     if (!currentPlugin)
         return;
     currentPlugin->Set(tokenContainer);
-    currentPlugin->SetListPosition(container.X(), container.Y(), container.Width(), container.Height());
+    currentPlugin->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentPlugin->Parse();
 }
 

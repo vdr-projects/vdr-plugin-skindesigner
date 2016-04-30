@@ -28,6 +28,7 @@
         {daynumeric}              day as number
         {month}                   month as number
         {year}                    year as number
+        {istoday}                 true if event is at current day
         {running}                 true if event is currently running
         {elapsed}                 elapsed time of event, if not running 0
         {startsin}                minutes till event starts, if running 0

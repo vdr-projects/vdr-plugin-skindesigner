@@ -13,7 +13,7 @@
 <!ELEMENT parameter (#PCDATA)>
 <!ATTLIST parameter
   name NMTOKEN #REQUIRED
-  type (int|bool|string) #REQUIRED
+  type (int|bool|string|separator) #REQUIRED
   min NMTOKEN #IMPLIED
   max NMTOKEN #IMPLIED
   displaytext CDATA #REQUIRED

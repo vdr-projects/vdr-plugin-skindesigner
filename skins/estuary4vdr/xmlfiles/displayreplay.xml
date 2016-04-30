@@ -16,15 +16,15 @@
     </backgroundmodeonly>
 
     <datetime>
-        <area x="75%" y="75%" width="13%" height="5%" layer="2">
-            <drawtext align="right" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{daynameshort} {day}.{monthnameshort}" />
+        <area x="75%" y="75%" width="13%" height="6%" layer="2">
+            <drawtext align="right" y="0" fontsize="{areaheight}*{replaydatetimesize}/100" font="{regular}" color="{fontdefault}" text="{daynameshort} {day}.{monthnameshort}" />
         </area>
     </datetime>
 
     <time>
-        <area x="89%" y="75%" width="11%" height="5%" layer="2">
-            <drawtext name="clock" x="0" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
-            <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{areaheight}/2 -  {height(clocksec)}/2 + {height(clock)}/2 - {height(clocksec)}/2 - 5" fontsize="80%" font="{regular}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
+        <area x="89%" y="75%" width="11%" height="6%" layer="2">
+            <drawtext name="clock" x="0" y="0" fontsize="{areaheight}*{replaydatetimesize}/100" font="{regular}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
+            <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{height(clock)} - {height(clocksec)} - 1" fontsize="{areaheight}*{replaydatetimesize}*0.8/100" font="{regular}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
         </area>
     </time>
 
@@ -38,9 +38,9 @@
     </scrapercontent>
 
     <rectitle>
-        <area x="12%" y="75%" width="63%" height="5%" layer="2">
-            <drawtext name="title" x="0" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{rectitle}" />
-            <drawtext condition="isset{title} ++ isset{recsubtitle}" x="{width(title)}" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text=" - {recsubtitle}" />
+        <area x="12%" y="75%" width="63%" height="6%" layer="2">
+            <drawtext name="title" x="0" y="0" fontsize="{areaheight}*{replaytitlesize}/100" font="{regular}" color="{fontdefault}" text="{rectitle}" />
+            <drawtext condition="isset{title} ++ isset{recsubtitle}" x="{width(title)}" y="0" fontsize="{areaheight}*{replaytitlesize}/100" font="{regular}" color="{fontdefault}" text=" - {recsubtitle}" />
         </area>
     </rectitle>
 
@@ -68,21 +68,21 @@
     </recinfo>
 
     <currenttime>
-        <area x="12%" y="86%" width="15%" height="4%" layer="2">
-            <drawtext x="0" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{reccurrent}" />
+        <area x="12%" y="86%" width="15%" height="5%" layer="2">
+            <drawtext x="0" y="0" fontsize="{areaheight}*{replaycurrenttotaltimesize}/100" font="{regular}" color="{fontdefault}" text="{reccurrent}" />
         </area>
     </currenttime>
 
     <totaltime>
-        <area x="80%" y="86%" width="19%" height="4%" layer="2">
-            <drawtext condition="not{timeshift}" align="right" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{rectotal}" />
-            <drawtext condition="{timeshift}" align="right" valign="center" font="{regular}" fontsize="100%" color="{fontdefault}" text="{timeshifttotal} ({rectotal})" />
+        <area x="80%" y="86%" width="19%" height="5%" layer="2">
+            <drawtext condition="not{timeshift}" align="right" y="0" fontsize="{areaheight}*{replaycurrenttotaltimesize}/100" font="{regular}" color="{fontdefault}" text="{rectotal}" />
+            <drawtext condition="{timeshift}" align="right" y="0" font="{regular}" fontsize="{areaheight}*{replaycurrenttotaltimesize}/100" color="{fontdefault}" text="{timeshifttotal} ({rectotal})" />
         </area>
     </totaltime>
 
     <endtime>
-        <area x="80%" y="90%" width="19%" height="3%" layer="2">
-            <drawtext align="right" valign="center" fontsize="100%" font="{regular}" color="{fontdefault}" text="{tr(end)}: {recend}" />
+        <area x="80%" y="90%" width="19%" height="5%" layer="2">
+            <drawtext align="right" y="0" fontsize="{areaheight}*{replayendtimesize}/100" font="{regular}" color="{fontdefault}" text="{tr(end)}: {recend}" />
         </area>
     </endtime>
 
@@ -176,7 +176,7 @@
             <drawimage condition="{info}" imagetype="icon" path="info" width="{areaheight}*0.8" height="80%" x="5%" valign="center" />
             <drawimage condition="{warning}" imagetype="icon" path="warning" width="{areaheight}*0.8" height="80%" x="5%" valign="center" />
             <drawimage condition="{error}" imagetype="icon" path="error" width="{areaheight}*0.8" height="80%" x="5%" valign="center" />
-            <drawtext align="center" valign="center" fontsize="40%" font="{regular}" color="{fontdefault}" text="{text}" />
+            <drawtext align="center" valign="center" fontsize="{areaheight}*{messagemenusize}/100" font="{regular}" color="{fontdefault}" text="{text}" />
         </area>      
     </message>
 

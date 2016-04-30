@@ -13,6 +13,7 @@ protected:
     cViewListAttribs *attribs;
     cRect container;
     cGlobals *globals;
+    skindesignerapi::cTokenContainer *tokenContainer;
     int numElements;
     eOrientation orientation;
     cViewElement *listElement;
@@ -34,6 +35,7 @@ public:
     void AddCurrentElement(cViewElement *currentElement);
     virtual void PreCache(void);
     int NumItems(void);
+    bool Execute(void);
     eOrientation Orientation(void);
     void Draw(eMenuCategory menuCat);
     void Clear(void);

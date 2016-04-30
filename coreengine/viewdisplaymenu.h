@@ -72,6 +72,7 @@ public:
     void AddSubview(const char *sSubView, cSubView *subView);
     void AddPluginview(cSubView *plugView);
     void SetSubView(eMenuCategory MenuCat);
+    eMenuCategory MenuCat(void) { return menuCat; };
     void SetSortMode(eMenuSortMode sortMode);
     void SetPluginMenu(int plugId, int plugMenuId);
     int NumListItems(void);
@@ -114,8 +115,7 @@ protected:
     int plugId;
     int plugMenuId;
     cViewList *viewList;
-    cViewList *viewListVertical;
-    cViewList *viewListHorizontal;
+    vector<cViewList*> viewLists;
     cViewElement *background;
     cVeDmHeader *header;
     cVeDateTime *datetime;

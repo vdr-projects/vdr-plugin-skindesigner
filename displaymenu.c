@@ -133,18 +133,27 @@ void cSDDisplayMenu::SetScrollbar(int Total, int Offset) {
 }
 
 void cSDDisplayMenu::SetEvent(const cEvent *Event) {
-    if (view)
+    if (view) {
+        if (view->MenuCat() != mcEvent)
+            view->SetSubView(mcEvent);
         view->SetEvent(Event);
+    }
 }
 
 void cSDDisplayMenu::SetRecording(const cRecording *Recording) {
-    if (view)
+    if (view) {
+        if (view->MenuCat() != mcRecordingInfo)
+            view->SetSubView(mcRecordingInfo);
         view->SetRecording(Recording);
+    }
 }
 
 void cSDDisplayMenu::SetText(const char *Text, bool FixedFont) {
-    if (view)
+    if (view) {
+        if (view->MenuCat() != mcText)
+            view->SetSubView(mcText);
         view->SetText(Text);
+    }
 }
 
 bool cSDDisplayMenu::SetPluginText(skindesignerapi::cTokenContainer *tk) {

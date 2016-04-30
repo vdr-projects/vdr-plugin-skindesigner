@@ -9,16 +9,16 @@
                 <drawrectangle condition="{current}" x="15%" y="0" width="85%" height="100%" color="{menubackactive}" />
             </area>
             <area x="0" y="0" width="5%" height="100%" layer="3">
-                <drawimage condition="not{current}" imagetype="menuicon" path="{icon}" align="center" valign="center" width="{areaheight}*0.6" height="{areaheight}*0.6"/>
-                <drawimage condition="{current}" imagetype="menuicon" path="{icon}_active" align="center" valign="center" width="{areaheight}*0.6" height="{areaheight}*0.6"/>
+                <drawimage condition="not{current}" imagetype="menuicon" path="{icon}" align="center" valign="center" width="{areaheight}*{mainiconsize}/100" height="{areaheight}*{mainiconsize}/100"/>
+                <drawimage condition="{current}" imagetype="menuicon" path="{icon}_active" align="center" valign="center" width="{areaheight}*{mainiconsize}/100" height="{areaheight}*{mainiconsize}/100"/>
             </area>
             <areascroll condition="{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="5%" width="25%" layer="4">
-                <drawtext condition="not{current}" x="20" valign="center" font="{regular}" fontsize="60%" color="{fontdefault}" text="{number} {label}" />
-                <drawtext condition="{current}" name="menutext" x="20" valign="center" font="{regular}" fontsize="60%" color="{fontmenuactive}" text="{number} {label}" />
+                <drawtext condition="not{current}" x="20" valign="center" font="{regular}" fontsize="{areaheight}*{setupfontsize}/100" color="{fontdefault}" text="{number} {label}" />
+                <drawtext condition="{current}" name="menutext" x="20" valign="center" font="{regular}" fontsize="{areaheight}*{setupfontsize}/100" color="{fontmenuactive}" text="{number} {label}" />
             </areascroll>
             <areascroll condition="not{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="5%" width="25%" layer="4">
-                <drawtext condition="not{current}" x="20" valign="center" font="{regular}" fontsize="60%" color="{fontdefault}" text="{label}" />
-                <drawtext condition="{current}" name="menutext" x="20" valign="center" font="{regular}" fontsize="60%" color="{fontmenuactive}" text="{label}" />
+                <drawtext condition="not{current}" x="20" valign="center" font="{regular}" fontsize="{areaheight}*{setupfontsize}/100" color="{fontdefault}" text="{label}" />
+                <drawtext condition="{current}" name="menutext" x="20" valign="center" font="{regular}" fontsize="{areaheight}*{setupfontsize}/100" color="{fontmenuactive}" text="{label}" />
             </areascroll>
         </listelement>
         <currentelement delay="100" fadetime="200">

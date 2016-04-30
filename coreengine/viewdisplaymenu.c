@@ -639,40 +639,33 @@ cSubView::cSubView(const char *name) {
     colorbuttons = NULL;
     scrollbar = NULL;
     viewList = NULL;
-    viewListVertical = NULL;
-    viewListHorizontal = NULL;
     SetViewElements();
 }
 
 cSubView::~cSubView(void) {
-    delete viewListHorizontal;
-    delete viewListVertical;
+    for(vector<cViewList*>::iterator it = viewLists.begin(); it != viewLists.end(); it++) {
+        delete (*it);
+    }
 }
 
 void cSubView::SetGlobals(cGlobals *globals) {
     cView::SetGlobals(globals);
-    if (viewListVertical)
-        viewListVertical->SetGlobals(globals);
-    if (viewListHorizontal)
-        viewListHorizontal->SetGlobals(globals);
+    for(vector<cViewList*>::iterator it = viewLists.begin(); it != viewLists.end(); it++) {
+        (*it)->SetGlobals(globals);
+    }
 }
 
 void cSubView::PreCache(void) {
     attribs->SetContainer(container.X(), container.Y(), container.Width(), container.Height());
     attribs->Cache();
+    for(vector<cViewList*>::iterator it = viewLists.begin(); it != viewLists.end(); it++) {
+        cViewList *vl = (*it);
+        vl->SetPlugId(plugId);
+        vl->SetPlugMenuId(plugMenuId);
+        vl->SetContainer(attribs->X(), attribs->Y(), attribs->Width(), attribs->Height());
+        vl->PreCache();
+    }
     cView::PreCache();
-    if (viewListVertical) {
-        viewListVertical->SetPlugId(plugId);
-        viewListVertical->SetPlugMenuId(plugMenuId);
-        viewListVertical->SetContainer(attribs->X(), attribs->Y(), attribs->Width(), attribs->Height());
-        viewListVertical->PreCache();        
-    }
-    if (viewListHorizontal) {
-        viewListHorizontal->SetPlugId(plugId);
-        viewListHorizontal->SetPlugMenuId(plugMenuId);
-        viewListHorizontal->SetContainer(attribs->X(), attribs->Y(), attribs->Width(), attribs->Height());
-        viewListHorizontal->PreCache();        
-    }
 }
 
 bool cSubView::ViewElementSet(int ve) {
@@ -769,14 +762,7 @@ void cSubView::SetViewElementHorizontal(eVeDisplayMenu ve, cViewElement *viewEle
 }
 
 void cSubView::AddViewList(cViewList *viewList) {
-    eOrientation orientation = viewList->Orientation();
-    if (orientation == eOrientation::vertical) {
-        viewListVertical = viewList;
-    } else if (orientation == eOrientation::horizontal) {
-        viewListHorizontal = viewList;
-    } else {
-        viewListVertical = viewList;        
-    }
+    viewLists.push_back(viewList);
 }
 
 int cSubView::NumListItems(void) {
@@ -987,11 +973,17 @@ void cSubView::SetViewElementObjects(void) {
     else if (viewElements[(int)eVeDisplayMenu::scrollbar])
         scrollbar = dynamic_cast<cVeDmScrollbar*>(viewElements[(int)eVeDisplayMenu::scrollbar]);
 
-
-    if (attribs->Orientation() == eOrientation::horizontal)
-        viewList = viewListHorizontal;
-    else
-        viewList = viewListVertical;
+    //set appropriate viewlist, orientation and condition have to be considered
+    for(vector<cViewList*>::iterator it = viewLists.begin(); it != viewLists.end(); it++) {
+        cViewList *vl = (*it);
+        if (vl->Orientation() == orientation && vl->Execute()) {
+            viewList = vl;
+            break;
+        }
+    }
+    if (!viewList && viewLists.size() > 0) {
+        viewList = viewLists.front();
+    }
 }
 
 void cSubView::SetViewElements(void) {

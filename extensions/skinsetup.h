@@ -16,6 +16,7 @@ enum eSetupParameterType {
     sptInt,
     sptBool,
     sptString,
+    sptSeparator,
     sptUnknown
 };
 

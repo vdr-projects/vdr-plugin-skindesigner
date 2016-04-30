@@ -33,6 +33,9 @@ void cSkinSetupParameter::Debug(void) {
         sType = "int";
     else if (type == sptString)
         sType = "string";
+    else if (type == sptSeparator)
+        sType = "separator";
+
     dsyslog("skindesigner: name \"%s\", type %s, displayText \"%s\", Value: %d", name.c_str(), sType.c_str(), displayText.c_str(), value);
     if (type == sptInt)
         dsyslog("skindesigner: min %d, max %d", min, max);
@@ -224,7 +227,7 @@ void cSkinSetup::SubMenuDone(void) {
 }
 
 void cSkinSetup::SetParameter(string type, string name, string displayText, string helpText, string min, string max, string value, string options) {
-    if (!type.size() || !name.size() || !displayText.size() || !value.size()) {
+    if (!type.size() || !name.size() || !displayText.size()) {
         esyslog("skindesigner: invalid setup parameter for skin %s", skin.c_str());
         return;
     }
@@ -235,6 +238,8 @@ void cSkinSetup::SetParameter(string type, string name, string displayText, stri
         paramType = sptBool;
     } else if (!type.compare("string")) {
         paramType = sptString;
+    } else if (!type.compare("separator")) {
+        paramType = sptSeparator;
     }
     if (paramType == sptUnknown) {
         esyslog("skindesigner: invalid setup parameter for skin %s", skin.c_str());
@@ -266,7 +271,7 @@ void cSkinSetup::AddToGlobals(cGlobals *globals) {
             globals->AddString(param->name, value);
             string intName = "index" + param->name;
             globals->AddInt(intName, param->value);
-        } else {
+        } else if (param->type == sptInt || param->type == sptBool) {
             globals->AddInt(param->name, param->value);
         }
     }

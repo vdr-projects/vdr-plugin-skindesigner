@@ -497,6 +497,10 @@ void cSkindesignerSkinSetup::Set(void) {
             Add(new cMenuEditBoolItem(param->displayText.c_str(), &param->value));
         } else if (param->type == sptString) {
             Add(new cMenuEditStraItem(param->displayText.c_str(), &param->value, param->numOptions, param->optionsTranslated));
+        } else if (param->type == sptSeparator) {
+            cOsdItem *item = new cOsdItem(param->displayText.c_str());
+            item->SetSelectable(false);
+            Add(item);            
         }
         helpTexts.push_back(param->helpText);
     }

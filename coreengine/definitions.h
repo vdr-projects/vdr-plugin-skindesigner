@@ -698,6 +698,7 @@ enum class eCeMenuMainIT {
     menuitemy,
     menuitemwidth,
     menuitemheight,
+    numitem,
     count
 };
 
@@ -721,6 +722,7 @@ enum class eLeMenuSchedulesIT {
     daynumeric,
     month,
     year,
+    istoday,
     running,
     elapsed,
     startsin,
@@ -766,6 +768,7 @@ enum class eCeMenuSchedulesIT {
     menuitemy,
     menuitemwidth,
     menuitemheight,
+    numitem,
     daynumeric,
     month,
     year,
@@ -851,6 +854,7 @@ enum class eCeMenuChannelsIT {
     menuitemy,
     menuitemwidth,
     menuitemheight,
+    numitem,
     number,
     transponder,
     frequency,
@@ -937,6 +941,7 @@ enum class eCeMenuTimersIT {
     menuitemy,
     menuitemwidth,
     menuitemheight,
+    numitem,
     month,
     year,
     channellogoexists,
@@ -1015,6 +1020,7 @@ enum class eCeMenuRecordingsIT {
     menuitemy,
     menuitemwidth,
     menuitemheight,
+    numitem,
     isnew,
     percentseen,
     watched,

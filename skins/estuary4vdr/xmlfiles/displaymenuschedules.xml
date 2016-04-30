@@ -2,13 +2,13 @@
 
     <header>
         <area x="1%" y="0" width="60%" height="7%" layer="2">
-            <drawtext condition="{whatsonnow}||{whatsonnext}||{whatsonfavorites}" x="0" valign="center" font="{regular}" fontsize="100%" color="{fontdefault}" text="{title}" />
+            <drawtext condition="{whatsonnow}||{whatsonnext}||{whatsonfavorites}" x="0" valign="center" font="{regular}" fontsize="{areaheight}*{headerfontsize}/100" color="{fontdefault}" text="{title}" />
             <drawimage name="logo" condition="{whatson}" imagetype="channellogo" path="{channelid}" x="0" width="8%" height="100%" valign="center" />
-            <drawtext condition="{whatson}" x="{posx(logo)} + {width(logo)}+20" valign="center" font="{regular}" fontsize="80%" color="{fontdefault}" text="{channelnumber} - {channelname}" />
+            <drawtext condition="{whatson}" x="{posx(logo)} + {width(logo)}+20" valign="center" font="{regular}" fontsize="{areaheight}*{headerfontsize}/100" color="{fontdefault}" text="{channelnumber} - {channelname}" />
         </area>
     </header>
 
-    <menuitems x="2%" y="9%" orientation="vertical" width="98%" height="82%" align="center" numlistelements="12">
+    <menuitems x="2%" y="9%" orientation="vertical" width="98%" height="82%" align="center" numlistelements="{numitemsschedueles}">
         <listelement>
             <!-- background and progressbar -->
             <area x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
@@ -29,68 +29,72 @@
             </area>
             <!-- day or channel separator -->
             <area condition="{separator}" x="1%" width="{areawidth}*0.295" layer="3">
-                <drawtext x="0" valign="center" font="{regular}" fontsize="60%" color="{fontdefault}" text="{title}" />
-            </area>      
+                <drawtext x="0" valign="center" font="{regular}" fontsize="{areaheight}*{schedulesseparator}/100" color="{fontdefault}" text="{title}" />
+            </area>
             <!-- element whatson -->
             <area condition="not{separator}++{whatson}++not{current}" x="1%" width="{areawidth}*0.295" layer="3">
-                <drawtext x="0" y="8%" font="{regular}" fontsize="35%" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext condition="{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext condition="not{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatson}++not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="{areawidth}*0.295" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontdefault}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontdefault}" text="{title}" />
             </areascroll>
             <area condition="not{separator}++{whatson}++{current}" x="1%" width="{areawidth}*0.295" layer="3">
-                <drawtext x="0" y="8%" font="{regular}" fontsize="35%" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext condition="{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext condition="not{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatson}++{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="{areawidth}*0.295" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontmenuactive}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontmenuactive}" text="{title}" />
             </areascroll>
             <!-- element whatsonnow -->
             <area condition="not{separator}++{whatsonnow}" x="1%" width="6%" layer="3">
                 <drawimage name="logo" imagetype="channellogo" path="{channelid}" width="90%" height="90%" align="center" valign="center" />
             </area>
             <area condition="not{separator}++{whatsonnow}++not{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonnow}++not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontdefault}" text="{title}" />
+                <drawtext name="menutext" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontdefault}" text="{title}" />
             </areascroll>
             <area condition="not{separator}++{whatsonnow}++{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonnow}++{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontmenuactive}" text="{title}" />
+                <drawtext name="menutext" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontmenuactive}" text="{title}" />
             </areascroll>
            <!-- element whatsonnext -->
             <area condition="not{separator}++{whatsonnext}" x="1%" width="6%" layer="3">
                 <drawimage name="logo" imagetype="channellogo" path="{channelid}" width="90%" height="90%" align="center" valign="center" />
             </area>
             <area condition="not{separator}++{whatsonnext}++not{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonnext}++not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontdefault}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontdefault}" text="{title}" />
             </areascroll>
             <area condition="not{separator}++{whatsonnext}++{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonnext}++{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontmenuactive}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontmenuactive}" text="{title}" />
             </areascroll>
            <!-- element whatsonfavorites -->
             <area condition="not{separator}++{whatsonfavorites}" x="1%" width="6%" layer="3">
                 <drawimage name="logo" imagetype="channellogo" path="{channelid}" width="90%" height="90%" align="center" valign="center" />
             </area>
             <area condition="not{separator}++{whatsonfavorites}++not{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext condition="{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{start} - {stop}" />
+                <drawtext condition="not{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonfavorites}++not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontdefault}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontdefault}" text="{title}" />
             </areascroll>
             <area condition="not{separator}++{whatsonfavorites}++{current}" x="8%" width="22%" layer="3">
-                <drawtext x="0" y="5%" font="{regular}" fontsize="35%" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext condition="{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{start} - {stop}" />
+                <drawtext condition="not{istoday}" x="0" y="{areaheight}*{schedulesposydate}/100" font="{regular}" fontsize="{areaheight}*{schedulessizedate}/100" color="{fontmenuactive}" text="{day} {daynumeric}.{month} {start} - {stop}" />
             </area>
             <areascroll condition="not{separator}++{whatsonfavorites}++{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="8%" width="22%" layer="3">
-                <drawtext name="menutext" x="0" y="40%" font="{regular}" fontsize="50%" color="{fontmenuactive}" text="{title}" />
+                <drawtext name="menutext" x="0" y="{areaheight}*{schedulesposytitle}/100" font="{regular}" fontsize="{areaheight}*{schedulessizetitle}/100" color="{fontmenuactive}" text="{title}" />
             </areascroll>
         </listelement>
         <currentelement delay="100" fadetime="200">
@@ -98,14 +102,14 @@
                 <drawimage imagetype="image" path="{posterpath}" x="0" valign="center" width="{areawidth}" height="{areawidth} * {posterheight} / {posterwidth}" />
             </area>
             <areascroll condition="{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="47%" y="76%" width="49%" height="20%" layer="3">
-                <drawtext x="0" y="0" font="{regular}" width="100%" fontsize="20%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop} {title}" />
-                <drawtextbox name="shorttext" x="0" y="21%" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{regular}" fontsize="15%" color="{fontdefault}" text="{description}" />
+                <drawtext x="0" y="0" font="{regular}" width="100%" fontsize="{areaheight}*{schedulessizecurrenttitle}/100" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop} {title}" />
+                <drawtextbox name="shorttext" x="0" y="21%" width="100%" font="{regular}" fontsize="{areaheight}*{schedulessizecurrenttitle}/100" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{regular}" fontsize="{areaheight}*{schedulessizecurrenttext}/100" color="{fontdefault}" text="{description}" />
             </areascroll>
             <areascroll condition="not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="39%" y="76%" width="57%" height="20%" layer="3">
-                <drawtext x="0" y="0" font="{regular}" width="100%" fontsize="20%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop} {title}" />
-                <drawtextbox name="shorttext" x="0" y="21%" width="100%" font="{regular}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{regular}" fontsize="15%" color="{fontdefault}" text="{description}" />
+                <drawtext x="0" y="0" font="{regular}" width="100%" fontsize="{areaheight}*{schedulessizecurrenttitle}/100" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop} {title}" />
+                <drawtextbox name="shorttext" x="0" y="21%" width="100%" font="{regular}" fontsize="{areaheight}*{schedulessizecurrenttitle}/100" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{regular}" fontsize="{areaheight}*{schedulessizecurrenttext}/100" color="{fontdefault}" text="{description}" />
             </areascroll>
         </currentelement>
     </menuitems>

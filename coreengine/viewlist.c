@@ -24,6 +24,7 @@ cViewList::~cViewList(void) {
         }
     }
     delete[] listElements;
+    delete tokenContainer;
 }
 
 void cViewList::SetGlobals(cGlobals *globals) {
@@ -127,6 +128,9 @@ void cViewList::AddCurrentElement(cViewElement *currentElement) {
 }
 
 void cViewList::PreCache(void) {
+    tokenContainer = new skindesignerapi::cTokenContainer();
+    tokenContainer->CreateContainers();
+    attribs->SetTokenContainer(tokenContainer);
     attribs->SetContainer(container.X(), container.Y(), container.Width(), container.Height());
     attribs->SetGlobals(globals);
     attribs->Cache();
@@ -162,6 +166,10 @@ void cViewList::PreCache(void) {
 
 int cViewList::NumItems(void) {
     return numElements;
+}
+
+bool cViewList::Execute(void) {
+    return attribs->DoExecute();
 }
 
 eOrientation cViewList::Orientation(void) {
@@ -219,6 +227,8 @@ void cViewList::SetTransparency(int transparency) {
 }
 
 void cViewList::Debug(void) {
+    esyslog("skindesigner: --- debug viewlist");
+    attribs->Debug();
 }
 
 /******************************************************************
