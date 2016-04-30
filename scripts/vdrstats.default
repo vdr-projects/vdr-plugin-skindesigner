@@ -7,11 +7,8 @@ OUTPUTFLDR="/tmp/skindesigner/"
 mkdir -p ${OUTPUTFLDR}
 
 # there can be 2 files, vdrcpu and vdrmem
-
 rm -f ${OUTPUTFLDR}/vdrcpu ${OUTPUTFLDR}/vdrmem
 
-# vdr cpu usage, is 10th element in "top" list
-top -n 1 | grep " vdr " | awk -F " " '{ print $10;}' > ${OUTPUTFLDR}/vdrcpu
-
-# vdr memory usage, is 11th element in "top" list
-top -n 1 | grep " vdr " | awk -F " " '{ print $11;}' > ${OUTPUTFLDR}/vdrmem
+read vdr_cpu vdr_mem  < <(ps -C vdr -o %cpu=,%mem= | sort | tail -n1)
+echo $vdr_cpu > ${OUTPUTFLDR}/vdrcpu
+echo $vdr_mem > ${OUTPUTFLDR}/vdrmem
