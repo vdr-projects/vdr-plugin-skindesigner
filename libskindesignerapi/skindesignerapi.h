@@ -47,7 +47,7 @@ public:
     virtual void TabDown(int viewId) = 0;
     virtual void DisplayTabs(int viewId) = 0;
     virtual void ClearTab(int viewId) = 0;
-    virtual void Flush(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
     virtual bool ChannelLogoExists(string channelId) = 0;
     virtual string GetEpgImagePath(void) = 0;
 };

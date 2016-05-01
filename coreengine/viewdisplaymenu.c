@@ -566,7 +566,7 @@ void cViewMenu::Clear(void) {
     activeSubview->ClearViewList();
 }
 
-void cViewMenu::Flush(void) {
+void cViewMenu::Flush(bool animFlush) {
     if (init) {
         sdOsd.LockFlush();
     }
@@ -591,7 +591,7 @@ void cViewMenu::Flush(void) {
         detailViewInit = false;
     }
     activeSubview->DrawDynamicVEs();
-    cView::Flush();
+    cView::Flush(animFlush);
 }
 
 void cViewMenu::SetTransparency(int transparency, bool forceDetached) {

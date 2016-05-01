@@ -166,7 +166,7 @@ void cViewChannel::SetMessage(eMessageType type, const char *text) {
     }
 }
 
-void cViewChannel::Flush(void) {
+void cViewChannel::Flush(bool animFlush) {
     if (init) {
         sdOsd.LockFlush();
         Render((int)eVeDisplayChannel::background);
@@ -198,6 +198,6 @@ void cViewChannel::Flush(void) {
         Render((int)eVeDisplayChannel::time);
     }
     channelChange = false;
-    cView::Flush();
+    cView::Flush(animFlush);
 }
 

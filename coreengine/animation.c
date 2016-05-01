@@ -14,7 +14,6 @@ cAnimation::cAnimation(cScrollable *scrollable) : cThread("scroller") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = false;
-    doFlush = true;
     blinkFunc = -1;
 }
 
@@ -28,7 +27,6 @@ cAnimation::cAnimation(cDetachable *detachable, bool wait, bool animation) : cTh
     keepSleeping = false;
     doAnimation = animation;
     modeIn = false;
-    doFlush = true;
     blinkFunc = -1;
 }
 
@@ -42,11 +40,10 @@ cAnimation::cAnimation(cFadable *fadable, bool fadein) : cThread("fadable") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = fadein;
-    doFlush = true;
     blinkFunc = -1;
 }
 
-cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool shiftin, bool doFlush) : cThread("shiftable") {
+cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool shiftin) : cThread("shiftable") {
     this->scrollable = NULL;
     this->detachable = NULL;
     this->fadable = NULL;
@@ -58,7 +55,6 @@ cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool s
     modeIn = shiftin;
     shiftstart = start;
     shiftend = end;
-    this->doFlush = doFlush;
     blinkFunc = -1;
 }
 
@@ -72,7 +68,6 @@ cAnimation::cAnimation(cBlinkable *blinkable, int func) : cThread("blinking") {
     keepSleeping = false;
     doAnimation = true;
     modeIn = false;
-    doFlush = true;
     blinkFunc = func;
 }
 
@@ -100,14 +95,19 @@ void cAnimation::Stop(bool deletePixmaps) {
 void cAnimation::Action(void) {
     if (scrollable) {
         Scroll();
+        scrollable->UnregisterAnimation();
     } else if (detachable) {
         Detach();
     } else if (fadable) {
         Fade();
+        fadable->UnregisterAnimation();
     } else if (shiftable) {
         Shift();
+        shiftable->UnregisterAnimation();
     } else if (blinkable) {
+        blinkable->RegisterAnimation();
         Blink();
+        blinkable->UnregisterAnimation();
     }
 }
 
@@ -129,7 +129,8 @@ void cAnimation::Wait(void) {
 void cAnimation::Scroll(void) {
     int delay = scrollable->ScrollDelay();
     Sleep(delay);
-    if (!Running()) return;    
+    scrollable->RegisterAnimation();
+    if (!Running()) return;
     
     eOrientation orientation = scrollable->ScrollOrientation();
     int scrollTotal = 0;
@@ -200,7 +201,7 @@ void cAnimation::Scroll(void) {
         scrollable->SetDrawPort(drawPortPoint);
 
         if (!Running()) return;
-        scrollable->Flush();
+        scrollable->Flush(true);
 
         if (orientation == eOrientation::horizontal && !carriageReturn && (drawPortX == 0)) {
             scrollDelta *= -1;
@@ -229,7 +230,7 @@ void cAnimation::Detach(void) {
     detachable->RenderDetached();
     if (!Running()) return;
     if (!doAnimation)
-        detachable->Flush();
+        detachable->Flush(false);
     if (!Running()) return;
     if (doAnimation) {
         detachable->StartAnimation();        
@@ -253,12 +254,13 @@ void cAnimation::Fade(void) {
         if (delay > 0)
             Sleep(delay);
     }
+    fadable->RegisterAnimation();
     while (Running() || !modeIn) {
         uint64_t now = cTimeMs::Now();
         if (Running() || !modeIn)
             fadable->SetTransparency(transparency, !modeIn);
         if (Running() || !modeIn)
-            fadable->Flush();
+            fadable->Flush(true);
         int delta = cTimeMs::Now() - now;
         if ((Running()  || !modeIn) && (delta < frametime)) {
             Sleep(frametime - delta);
@@ -266,10 +268,10 @@ void cAnimation::Fade(void) {
         if ((int)(now - start) > fadetime) {
             if ((Running() && modeIn) && transparency > 0) {
                 fadable->SetTransparency(0);
-                fadable->Flush();
+                fadable->Flush(true);
             } else if (!modeIn && transparency < 100) {
                 fadable->SetTransparency(100, true);
-                fadable->Flush();                
+                fadable->Flush(true);                
             } 
             break;
         }
@@ -322,7 +324,7 @@ void cAnimation::Shift(void) {
         if (delay > 0)
             Sleep(delay);
     }
-
+    shiftable->RegisterAnimation();
     shiftable->SetStartShifting();
     uint64_t start = cTimeMs::Now();
     bool finished = false;
@@ -330,8 +332,8 @@ void cAnimation::Shift(void) {
         uint64_t now = cTimeMs::Now();
         if (Running() || !modeIn)
             shiftable->SetPosition(pos, shiftend);
-        if ((Running() || !modeIn) && doFlush)
-            shiftable->Flush();
+        if (Running() || !modeIn)
+            shiftable->Flush(true);
         int delta = cTimeMs::Now() - now;
         if ((Running()  || !modeIn) && (delta < frametime)) {
             cCondWait::SleepMs(frametime - delta);
@@ -340,7 +342,7 @@ void cAnimation::Shift(void) {
             finished = true;
             if ((Running() && modeIn) && pos != shiftend) {
                 shiftable->SetPosition(shiftend, shiftend);
-                shiftable->Flush();
+                shiftable->Flush(true);
             }
             break;
         }
@@ -370,7 +372,7 @@ void cAnimation::Blink(void) {
         if (Running())
             blinkable->DoBlink(blinkFunc, blinkOn);
         if (Running())
-            blinkable->Flush();  
+            blinkable->Flush(true);  
         blinkOn = !blinkOn;
     }
 }

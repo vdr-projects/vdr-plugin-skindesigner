@@ -25,7 +25,7 @@ public:
     void SetChannel(const cChannel *channel, int number);
     void SetEvents(const cEvent *present, const cEvent *following);
     void SetMessage(eMessageType type, const char *text);
-    void Flush(void);
+    void Flush(bool animFlush);
 };
 
 #endif //__VIEWDISPLAYCHANNEL_H

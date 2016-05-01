@@ -165,7 +165,7 @@ bool cSDDisplayMenu::SetPluginText(skindesignerapi::cTokenContainer *tk) {
 
 void cSDDisplayMenu::Flush(void) {
     if (view)
-        view->Flush();
+        view->Flush(false);
 }
 
 void cSDDisplayMenu::SetCurrentRecording(void) {

@@ -78,7 +78,7 @@ void cSDDisplayReplay::SetMessage(eMessageType Type, const char *Text) {
 void cSDDisplayReplay::Flush(void) {
     if (!ok)
         return;
-    view->Flush();
+    view->Flush(false);
 }
 
 void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {

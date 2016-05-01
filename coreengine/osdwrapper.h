@@ -9,6 +9,9 @@ private:
     cOsd *osd;
     cMutex mutex;
     bool flushLocked;
+    int animsRunning;
+    int animsFlushed;
+    cMutex animsRunningMutex;
 public:
     cSdOsd(void);
     virtual ~cSdOsd(void);
@@ -20,6 +23,9 @@ public:
     void DeleteOsd(void);
     cPixmap *CreatePixmap(int layer, cRect &viewPort, cRect &drawPort);
     void DestroyPixmap(cPixmap *pix);
+    void AddAnimation(void);
+    void RemoveAnimation(void);
+    void AnimatedFlush(void);
     void Flush(void);
 };
 

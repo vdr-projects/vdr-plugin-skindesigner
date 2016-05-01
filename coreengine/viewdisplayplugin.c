@@ -352,13 +352,13 @@ void cViewPlugin::ClearTab(int viewId) {
     tab->Clear(); 
 }
 
-void cViewPlugin::Flush(void) {
+void cViewPlugin::Flush(bool animFlush) {
     if (viewChanged) {
         viewChanged = false;
         newTvFrame = views[newViewId]->GetTvFrame();
         menuInit = true;
     }
-    cView::Flush();
+    cView::Flush(animFlush);
 }
 
 bool cViewPlugin::ChannelLogoExists(string channelId) {

@@ -15,7 +15,6 @@ cViewElement::cViewElement(void) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
-    viewAnimated = false;
     globals = NULL;
     tokenContainer = NULL;
     attribs = new cViewElementAttribs((int)eViewElementAttribs::count);
@@ -35,7 +34,6 @@ cViewElement::cViewElement(const cViewElement &other) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
-    viewAnimated = false;
     globals = other.globals;
     container.Set(other.container.X(), other.container.Y(), other.container.Width(), other.container.Height());
     tokenContainer = NULL;
@@ -436,7 +434,7 @@ void cViewElement::StartAnimation(void) {
         SetPosition(start, ref);
         sdOsd->Flush();
         delete shifter;
-        shifter = new cAnimation((cShiftable*)this, start, ref, true, !viewAnimated);
+        shifter = new cAnimation((cShiftable*)this, start, ref, true);
         shifter->Start();
     } else if (FadeTime() > 0) {
         SetTransparency(100);
@@ -471,8 +469,19 @@ cRect cViewElement::CoveredArea(void) {
     return unionArea;
 }
 
-void cViewElement::Flush(void) {
-    sdOsd->Flush();
+void cViewElement::RegisterAnimation(void) {
+    sdOsd->AddAnimation();
+}
+
+void cViewElement::UnregisterAnimation(void) {
+    sdOsd->RemoveAnimation();    
+}
+
+void cViewElement::Flush(bool animFlush) {
+    if (animFlush)
+        sdOsd->AnimatedFlush();
+    else
+        sdOsd->Flush();
 }
 
 bool cViewElement::Parse(bool forced) { 

@@ -3,7 +3,7 @@
 NAME = skindesignerapi
 LIBNAME = lib$(NAME)
 MAJOR = 0
-MINOR = 1.0
+MINOR = 1.1
 VERSION = $(MAJOR).$(MINOR)
  
 SONAME = $(LIBNAME).so.$(MAJOR)

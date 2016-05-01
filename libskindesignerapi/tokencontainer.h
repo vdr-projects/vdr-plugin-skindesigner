@@ -22,7 +22,7 @@ private:
     //token containers
     char **stringTokens;
     int *intTokens;
-    vector<char***>loopTokens;
+    vector<char***> loopTokens;
     //mapping id --> name
     string *stNames;
     string *itNames;

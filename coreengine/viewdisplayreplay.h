@@ -53,7 +53,7 @@ public:
     void StartOnPause(const char *recfilename);
     void ClearOnPause(void);
     void DelayOnPause(void);
-    void Flush(void);
+    void Flush(bool animFlush);
 };
 
 #endif //__VIEWDISPLAYREPLAY_H1

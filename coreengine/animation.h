@@ -24,7 +24,9 @@ public:
     virtual void StartScrolling(void) = 0;
     virtual void StopScrolling(void) = 0;
     virtual void SetDrawPort(cPoint &point) = 0;
-    virtual void Flush(void) = 0;
+    virtual void RegisterAnimation(void) = 0;
+    virtual void UnregisterAnimation(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
 };
 
 /******************************************************************
@@ -39,7 +41,9 @@ public:
     virtual void ParseDetached(void) = 0;
     virtual void RenderDetached(void) = 0;
     virtual void StartAnimation(void) = 0;
-    virtual void Flush(void) = 0;
+    virtual void RegisterAnimation(void) = 0;
+    virtual void UnregisterAnimation(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
 };
 
 /******************************************************************
@@ -54,7 +58,9 @@ public:
     virtual int Delay(void) = 0;
     virtual int FadeTime(void) = 0;
     virtual void SetTransparency(int transparency, bool force = false) = 0;
-    virtual void Flush(void) = 0;
+    virtual void RegisterAnimation(void) = 0;
+    virtual void UnregisterAnimation(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
 };
 
 /******************************************************************
@@ -72,7 +78,9 @@ public:
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false) = 0;
     virtual void SetStartShifting(void) = 0;
     virtual void SetEndShifting(void) = 0;
-    virtual void Flush(void) = 0;
+    virtual void RegisterAnimation(void) = 0;
+    virtual void UnregisterAnimation(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
 };
 
 /******************************************************************
@@ -85,7 +93,9 @@ protected:
 public:
     virtual int BlinkFreq(int func) = 0;
     virtual void DoBlink(int func, bool on) = 0;
-    virtual void Flush(void) = 0;
+    virtual void RegisterAnimation(void) = 0;
+    virtual void UnregisterAnimation(void) = 0;
+    virtual void Flush(bool animFlush) = 0;
 };
 
 /******************************************************************
@@ -106,7 +116,6 @@ private:
     int blinkFunc;
     cPoint shiftstart;
     cPoint shiftend;
-    bool doFlush;
     void Sleep(int duration);
     void Wait(void);
     void Scroll(void);
@@ -118,7 +127,7 @@ public:
     cAnimation(cScrollable *scrollable);
     cAnimation(cDetachable *detachable, bool wait, bool animation);
     cAnimation(cFadable    *fadable, bool fadein);
-    cAnimation(cShiftable  *shiftable, cPoint &start, cPoint &end, bool shiftin, bool doFlush = true);
+    cAnimation(cShiftable  *shiftable, cPoint &start, cPoint &end, bool shiftin);
     cAnimation(cBlinkable  *blinkable, int func);
     ~cAnimation(void);
     void WakeUp(void);

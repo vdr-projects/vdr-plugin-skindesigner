@@ -78,7 +78,7 @@ public:
     void Clear(int ve, bool forceClearBackground = false);
     void Render(int ve, bool force = false);
     virtual void Close(void);
-    virtual void Flush(void);
+    virtual void Flush(bool animFlush);
     virtual void Debug(void);
     bool Detached(void) { return false; };
     int Delay(void) { return 0; };
@@ -91,6 +91,8 @@ public:
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
     void SetStartShifting(void) { shifting = true; };
     void SetEndShifting(void) { shifting = false; };
+    void RegisterAnimation(void);
+    void UnregisterAnimation(void);
 };
 
 #endif //__VIEW_H

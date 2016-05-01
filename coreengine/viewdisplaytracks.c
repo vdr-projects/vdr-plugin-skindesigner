@@ -107,7 +107,7 @@ void cViewTracks::SetCurrentTrack(int index) {
     change = true;
 }
 
-void cViewTracks::Flush(void) {
+void cViewTracks::Flush(bool animFlush) {
     if (init) {
         sdOsd.LockFlush();
         Render((int)eVeDisplayTracks::background);
@@ -118,5 +118,5 @@ void cViewTracks::Flush(void) {
             viewList->Draw();
         change = false;
     }
-    cView::Flush();
+    cView::Flush(animFlush);
 }

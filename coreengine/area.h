@@ -133,9 +133,11 @@ public:
     void DoBlink(int func, bool on);
     void StopBlinkers(void);
     //Common
+    void RegisterAnimation(void);
+    void UnregisterAnimation(void);
     const char *Name(void) { return attribs->Name(); };
     bool BackgroundArea(void) { return attribs->BackgroundArea(); };
-    void Flush(void);
+    void Flush(bool animFlush);
     void Debug(bool full = false);
 };
 

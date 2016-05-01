@@ -491,8 +491,11 @@ void cArea::Debug(bool full) {
     }
 }
 
-void cArea::Flush(void) {
-    sdOsd->Flush();
+void cArea::Flush(bool animFlush) {
+    if (animFlush)
+        sdOsd->AnimatedFlush();
+    else
+        sdOsd->Flush();
 }
 /******************************************************************
 * Private Functions
@@ -568,6 +571,14 @@ void cArea::StartBlinkers(void) {
 void cArea::StopBlinkers(void) {
     blinking = false;
     blinkers.Clear();
+}
+
+void cArea::RegisterAnimation(void) {
+    sdOsd->AddAnimation();
+}
+
+void cArea::UnregisterAnimation(void) {
+    sdOsd->RemoveAnimation();
 }
 
 /******************************************************************

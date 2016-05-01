@@ -276,7 +276,7 @@ void cViewReplay::DelayOnPause(void) {
     veOnPause->ResetSleep();
 }
 
-void cViewReplay::Flush(void) {
+void cViewReplay::Flush(bool animFlush) {
     if (init) {
         sdOsd.LockFlush();
         if (!modeOnly) {
@@ -303,7 +303,7 @@ void cViewReplay::Flush(void) {
         SetProgressModeOnly();
     }
 
-    cView::Flush();
+    cView::Flush(animFlush);
 }
 
 void cViewReplay::SetProgressModeOnly(void) {

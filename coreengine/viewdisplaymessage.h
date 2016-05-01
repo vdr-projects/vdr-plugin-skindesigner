@@ -13,7 +13,7 @@ public:
     cViewMessage(void);
     virtual ~cViewMessage(void);
     void SetMessage(eMessageType type, const char *text);
-    void Flush(void);
+    void Flush(bool animFlush);
 };
 
 #endif //__VIEWDISPLAYMESSAGE_H
