@@ -1122,14 +1122,18 @@ bool cCeMenuChannels::Parse(bool forced) {
     if (schedule) {
         for (const cEvent *e = schedule->GetPresentEvent(); e; e = schedule->Events()->Next(e)) {
             eventsAvailable++;
-            if (eventsAvailable == 10)
+            if (eventsAvailable == 12)
                 break;
         }
     }
+    eventsAvailable -= 2;
+    if (eventsAvailable < 0)
+        eventsAvailable = 0;
+
     loopInfo.push_back(eventsAvailable);
     tokenContainer->CreateLoopTokenContainer(&loopInfo);        
 
-    if (schedule) {
+    if (schedule && eventsAvailable > 0) {
         int num = 0;
         for (const cEvent *e = schedule->GetPresentEvent(); e; e = schedule->Events()->Next(e)) {
             if (num < 2) {

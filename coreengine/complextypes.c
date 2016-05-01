@@ -562,9 +562,7 @@ bool cNumericExpr::CacheStatic(void) {
     expr = ReplacePercentValue(expr);
     //replace {areawidth} and {areaheight}
     if (container->Width() >= 0) {
-        //esyslog("skindesigner: replacing areawidth %s", expr);
         expr = ReplaceTokens(expr, "{areawidth}", container->Width());
-        //esyslog("skindesigner: replaced areawidth %s", expr);
     }
     if (container->Height() >= 0)
         expr = ReplaceTokens(expr, "{areaheight}", container->Height());

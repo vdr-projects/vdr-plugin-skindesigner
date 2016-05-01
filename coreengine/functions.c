@@ -1228,11 +1228,14 @@ void cFuncLoop::Render(cPixmap *p, int x0, int y0, int cw, int rh) {
         return;
     }
     int numRows = tokenContainer->NumLoops(loopIndex);
+    if (numRows < 1)
+        return;
     int columnWidth = GetValue((int)eLoopAttribs::columnwidth);
     int rowHeight = GetValue((int)eLoopAttribs::rowheight);
     int maxItems = GetValue((int)eLoopAttribs::maxitems);
     eOrientation orientation = (eOrientation)GetValue((int)eLoopAttribs::orientation);
     eOverflowType overflow = (eOverflowType)GetValue((int)eLoopAttribs::overflow);
+
     int loopWidth = Width();
     if (loopWidth <= 0)
         loopWidth = container.Width();
@@ -1300,6 +1303,9 @@ int cFuncLoop::FuncWidth(void) {
         return 0;
     }
     int numLoops = tokenContainer->NumLoops(loopIndex);
+    if (numLoops < 1)
+        return 0;
+
     int columnWidth = GetValue((int)eLoopAttribs::columnwidth);
     if (columnWidth <=0)
         columnWidth = ColumnWidth();
@@ -1321,6 +1327,9 @@ int cFuncLoop::FuncHeight(void) {
         return 0;
     }
     int numLoops = tokenContainer->NumLoops(loopIndex);
+    if (numLoops < 1)
+        return 0;
+
     int rowHeight = GetValue((int)eLoopAttribs::rowheight);
     if (rowHeight <=0)
         rowHeight = RowHeight();
