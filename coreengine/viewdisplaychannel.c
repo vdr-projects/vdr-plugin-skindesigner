@@ -68,6 +68,7 @@ void cViewChannel::SetViewElementObjects(void) {
         else if (dynamic_cast<cVeDcEpgInfo*>(viewElements[i])) 
         {
             veEpgInfo = dynamic_cast<cVeDcEpgInfo*>(viewElements[i]);
+            veEpgInfo->SetGlobalTimers(&globalTimers);
         }
         else if (dynamic_cast<cVeDcProgressBar*>(viewElements[i])) 
         {
@@ -76,6 +77,7 @@ void cViewChannel::SetViewElementObjects(void) {
         else if (dynamic_cast<cVeDcStatusInfo*>(viewElements[i])) 
         {
             veStatusInfo = dynamic_cast<cVeDcStatusInfo*>(viewElements[i]);
+            veStatusInfo->SetGlobalTimers(&globalTimers);
         }
         else if (dynamic_cast<cVeDcScraperContent*>(viewElements[i])) 
         {
@@ -102,6 +104,7 @@ void cViewChannel::ClearVariables(void) {
     displayChannelGroups = false;
     if (veCustomTokens)
         veCustomTokens->Reset();
+    globalTimers.ClearTimers();
 }
 
 void cViewChannel::SetChannel(const cChannel *channel, int number) {
@@ -141,6 +144,9 @@ void cViewChannel::SetChannel(const cChannel *channel, int number) {
 }
 
 void cViewChannel::SetEvents(const cEvent *present, const cEvent *following) {
+    if (init) {
+        globalTimers.LoadTimers();
+    }
     Clear((int)eVeDisplayChannel::epginfo);
     Clear((int)eVeDisplayChannel::progressbar);
     Clear((int)eVeDisplayChannel::scrapercontent);

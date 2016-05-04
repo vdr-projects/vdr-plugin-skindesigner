@@ -1,8 +1,8 @@
 #include "viewelementsdisplaymenu.h"
 #include "../config.h"
 #include <vdr/videodir.h>
-#include "../extensions/timers.h"
 #include "../extensions/helpers.h"
+#include "../extensions/globaltimers.h"
 #include <sys/sysinfo.h>
 #include <fstream>
 #include <iostream>
@@ -336,6 +336,7 @@ void cVeDmTimers::SetTokenContainer(void) {
     tokenContainer->DefineLoopToken("{timers[channelid]}", (int)eDMTimersLT::channelid);
     tokenContainer->DefineLoopToken("{timers[channellogoexists]}", (int)eDMTimersLT::channellogoexists);
     tokenContainer->DefineLoopToken("{timers[isremotetimer]}", (int)eDMTimersLT::isremotetimer);
+    tokenContainer->DefineLoopToken("{timers[remotehost]}", (int)eDMTimersLT::remotehost);
     tokenContainer->DefineIntToken("{numtimers}", (int)eDMTimersIT::numtimers);
     tokenContainer->DefineIntToken("{numtimerconflicts}", (int)eDMTimersIT::numtimerconflicts);
     tokenContainer->DefineIntToken("{timer1exists}", (int)eDMTimersIT::timer1exists);
@@ -361,21 +362,15 @@ bool cVeDmTimers::Parse(bool forced) {
     if (!cViewElement::Parse(forced))
         return false;
     tokenContainer->Clear();
+    
+    cGlobalTimers globalTimers;
+    globalTimers.LoadTimers();
+    globalTimers.SortTimers();
+    globalTimers.MarkLocalTimers();
 
-    int timerCount = 0;
-    // BLOCK for LOCK_TIMERS_READ scope !!
-    {
-#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
-       LOCK_TIMERS_READ;
-       timerCount = Timers->Count();
-#else
-       timerCount = Timers.Count();
-#endif
-    }
-    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
-    int numTimers = SortedTimers.Size();
+    int numTimers = globalTimers.Size();
     tokenContainer->AddIntToken((int)eDMTimersIT::numtimers, numTimers);
-    tokenContainer->AddIntToken((int)eDMTimersIT::numtimerconflicts, SortedTimers.NumTimerConfilicts());
+    tokenContainer->AddIntToken((int)eDMTimersIT::numtimerconflicts, globalTimers.NumTimerConfilicts());
     for (int i=0; i<15; i++) {
         if (i < numTimers) {
             tokenContainer->AddIntToken(i+2, true);
@@ -391,8 +386,9 @@ bool cVeDmTimers::Parse(bool forced) {
     for (int i = 0; i < numTimers; i++) {
         if (i >=15)
             break;
-        const cTimer *Timer = SortedTimers[i];
-        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::isremotetimer, SortedTimers.IsRemoteTimer(i) ? "1" : "0");
+        const cTimer *Timer = globalTimers[i];
+        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::isremotetimer, globalTimers.IsRemoteTimer(i) ? "1" : "0");
+        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::remotehost, globalTimers.RemoteHost(i));
         const cEvent *event = Timer->Event();
         if (event) {
             tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::title, event->Title());
@@ -434,8 +430,8 @@ bool cVeDmTimers::Parse(bool forced) {
                 timerDate = cString::sprintf("VPS %s", *timerDate);
         }
         tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::datetime, *timerDate);
-        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::isremotetimer, SortedTimers.IsRemoteTimer(i) ? "1" : "0");
     }
+
     SetDirty();
     return true;
 }
@@ -893,20 +889,12 @@ bool cVeDmLastrecordings::Parse(bool forced) {
         return false;
 
     tokenContainer->Clear();
-    int numTimers = 0;
-    // BLOCK for LOCK_TIMERS_READ scope !!
-    {
-#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
-        LOCK_TIMERS_READ;
-        numTimers = Timers->Count();
-#else
-        numTimers = Timers.Count();
-#endif
-    }
-   
-    cGlobalSortedTimers SortedTimers(numTimers);  // local and remote timers
+
+    cGlobalTimers globalTimers;
+    globalTimers.LoadTimers();
+    
     //set number of timers so that it is possible to adapt this viewelement accordingly
-    tokenContainer->AddIntToken((int)eDMLastrecordingsIT::numtimers, SortedTimers.Size());
+    tokenContainer->AddIntToken((int)eDMLastrecordingsIT::numtimers, globalTimers.Size());
 
     list<const cRecording*> orderedRecs;
 
@@ -980,6 +968,7 @@ bool cVeDmLastrecordings::Parse(bool forced) {
         if (i == MAX_RECORDINGS)
             break;
     }
+
     SetDirty();
     return true;
 }

@@ -13,6 +13,7 @@
 #include "designer.h"
 #include "setup.h"
 #include "libskindesignerapi/skindesignerapi.h"
+#include "extensions/globaltimers.h"
 
 #if defined(APIVERSNUM) && APIVERSNUM < 20200
 #error "VDR-2.2.0 API version or greater is required!"
@@ -111,6 +112,7 @@ bool cPluginSkinDesigner::Initialize(void) {
 bool cPluginSkinDesigner::Start(void) {
     cXmlParser::InitLibXML();
     cImageImporterSVG::InitLibRSVG();
+    cGlobalTimers::StartRefreshThread();
     bool trueColorAvailable = true;
     
     if (!cOsdProvider::SupportsTrueColor()) {
@@ -164,6 +166,7 @@ void cPluginSkinDesigner::Stop(void) {
     delete fontManager;
     delete plgManager;
     cXmlParser::CleanupLibXML();
+    cGlobalTimers::StopRefreshThread();
 }
 
 void cPluginSkinDesigner::Housekeeping(void) {

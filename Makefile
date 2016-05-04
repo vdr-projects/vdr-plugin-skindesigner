@@ -70,6 +70,7 @@ OBJS = $(PLUGIN).o \
        extensions/cairoimage.o \
        extensions/curlfuncs.o \
        extensions/fontmanager.o \
+       extensions/globaltimers.o \
        extensions/imagecache.o \
        extensions/helpers.o \
        extensions/imageloader.o \
@@ -80,7 +81,6 @@ OBJS = $(PLUGIN).o \
        extensions/skinsetup.o \
        extensions/skinrepo.o \
        extensions/extrecinfo.o \
-       extensions/timers.o \
        coreengine/animation.o \
        coreengine/attribute.o \
        coreengine/attributes.o \

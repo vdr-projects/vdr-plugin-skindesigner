@@ -15,7 +15,8 @@
     {timers[channelnumber]}      number of channel
     {timers[channelid]}          ChannelID of channel
     {timers[channellogoexists]}  true if channel logo exists
-    {timers[isremotetimer]}      true if timer is a remote timer from remotetimers plugin
+    {timers[isremotetimer]}      true if timer is a remote timer from remotetimers or epg2vdr plugin
+    {timers[remotehost]}         name of host on which timer is set. only for epg2vdr timers available
     -->
     <timers>
     </timers>

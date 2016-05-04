@@ -2,6 +2,7 @@
 #define __VIEWDISPLAYCHANNEL_H
 
 #include "view.h"
+#include "../extensions/globaltimers.h"
 
 class cViewChannel : public cView {
 private:
@@ -16,6 +17,7 @@ private:
     cVeDcEcmInfo           *veEcmInfo;
     bool channelChange;
     bool displayChannelGroups;
+    cGlobalTimers globalTimers;
     void SetViewElements(void);
     void ClearVariables(void);
     void SetViewElementObjects(void);

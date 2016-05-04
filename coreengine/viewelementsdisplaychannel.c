@@ -1,7 +1,6 @@
 #include "viewelementsdisplaychannel.h"
 #include "../config.h"
 #include "../extensions/helpers.h"
-#include "../extensions/timers.h"
 #include "../services/scraper2vdr.h"
 
 /******************************************************************
@@ -111,6 +110,7 @@ const char *cVeDcChannelGroup::GetChannelSep(const cChannel *c, bool prev) {
 * cVeDcEpgInfo
 ******************************************************************/
 cVeDcEpgInfo::cVeDcEpgInfo(void) {
+    globalTimers = NULL; 
 }
 
 cVeDcEpgInfo::~cVeDcEpgInfo(void) {
@@ -176,24 +176,14 @@ void cVeDcEpgInfo::Close(void) {
 
 bool cVeDcEpgInfo::EventHasTimer(const cEvent *e) {
     if (!e) return false;
-    int timerCount = 0;
-    // BLOCK for LOCK_TIMERS_READ scope !!
-    {
-#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
-       LOCK_TIMERS_READ;
-       timerCount = Timers->Count();
-#else
-       timerCount = Timers.Count();
-#endif
-    }
-    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
     bool hasTimer = e->HasTimer();
-    for (int i = 0; i < SortedTimers.Size() && !hasTimer; i++) 
-        if (const cTimer *Timer = SortedTimers[i]) 
+    for (int i = 0; i < globalTimers->Size() && !hasTimer; i++) 
+        if (const cTimer *Timer = globalTimers->At(i)) 
             if (Timer->Channel()->GetChannelID() == e->ChannelID()) 
                 if (const cEvent *timerEvent = Timer->Event())
                     if (e->EventID() == timerEvent->EventID())
                         hasTimer = true;
+
     return hasTimer;
 }
 
@@ -328,19 +318,9 @@ void cVeDcStatusInfo::Set(const cChannel *c) {
     bool isDolby = c->Dpid(0);
     bool isEncrypted = c->Ca();
     bool isRecording = cRecordControls::Active();
-    int timerCount = 0;
-    // BLOCK for LOCK_TIMERS_READ scope !!
-    {
-#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
-       LOCK_TIMERS_READ;
-       timerCount = Timers->Count();
-#else
-       timerCount = Timers.Count();
-#endif
-    }
-    cGlobalSortedTimers SortedTimers(timerCount); // local and remote timers
-    for (int i = 0; i < SortedTimers.Size() && !isRecording; i++)
-        if (const cTimer *Timer = SortedTimers[i])
+
+    for (int i = 0; i < globalTimers->Size() && !isRecording; i++)
+        if (const cTimer *Timer = globalTimers->At(i))
             if (Timer->Recording()) 
                 isRecording = true;
 

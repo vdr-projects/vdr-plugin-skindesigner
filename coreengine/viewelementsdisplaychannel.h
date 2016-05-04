@@ -3,6 +3,7 @@
 
 #include "viewelement.h"
 #include "../extensions/scrapmanager.h"
+#include "../extensions/globaltimers.h"
 #include "../services/dvbapi.h"
 
 /******************************************************************
@@ -33,10 +34,12 @@ public:
 ******************************************************************/
 class cVeDcEpgInfo : public cViewElement {
 private:
+    cGlobalTimers *globalTimers;
     bool EventHasTimer(const cEvent *e);
 public:
     cVeDcEpgInfo(void);
     virtual ~cVeDcEpgInfo(void);
+    void SetGlobalTimers(cGlobalTimers *globalTimers) { this->globalTimers = globalTimers; };
     void SetTokenContainer(void);
     void Set(const cEvent *p, const cEvent *f);
     void Close(void);
@@ -63,10 +66,12 @@ public:
 ******************************************************************/
 class cVeDcStatusInfo : public cViewElement {
 private:
+    cGlobalTimers *globalTimers;
     bool CheckMails(void);
 public:
     cVeDcStatusInfo(void);
     virtual ~cVeDcStatusInfo(void);
+    void SetGlobalTimers(cGlobalTimers *globalTimers) { this->globalTimers = globalTimers; };
     void SetTokenContainer(void);
     void Set(const cChannel *c);
 };

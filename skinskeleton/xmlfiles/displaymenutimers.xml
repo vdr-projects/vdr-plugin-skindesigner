@@ -23,6 +23,12 @@
         {flagvps}           true if timer uses VPS
         {flagrecording}     true if is recording currently
         {flagpending}       true if timer is pending
+        {isremote}          true if timer is a epg2vdr remote timer
+        {vdrname}           name of vdr on which epg2vdr timer is located
+        {isvdrrunning}      true if vdr on which epg2vdr timer is located is running
+        {action}            action of epg2vdr timer
+        {state}             state of epg2vdr timer
+        {stateinfo}         stateinfo of epg2vdr timer
         -->
         <listelement>
         </listelement>

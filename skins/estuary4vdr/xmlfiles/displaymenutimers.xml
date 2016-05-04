@@ -31,6 +31,8 @@
                 <drawimage condition="{current}++not{flagactive}++not{flagrecording}" imagetype="icon" path="ico_no_active" align="right" width="{areaheight}" height="{areaheight}" valign="center" />
                 <drawimage condition="not{current}++{flagrecording}" imagetype="icon" path="ico_recording" align="right" width="{areaheight}" height="{areaheight}" valign="center" />
                 <drawimage condition="{current}++{flagrecording}" imagetype="icon" path="ico_recording_active" align="right" width="{areaheight}" height="{areaheight}" valign="center" />
+                <drawimage condition="{current}++{isremote}" imagetype="icon" path="ico_remotetimer_active" x="{areawidth} - 2*{areaheight} - 10" width="{areaheight}" height="{areaheight}" valign="center" />
+                <drawimage condition="not{current}++{isremote}" imagetype="icon" path="ico_remotetimer" x="{areawidth} - 2*{areaheight} - 10" width="{areaheight}" height="{areaheight}" valign="center" />
             </area>
         </listelement>
         <currentelement delay="100" fadetime="200">

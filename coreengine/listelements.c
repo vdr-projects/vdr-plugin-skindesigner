@@ -1,5 +1,6 @@
 #include "listelements.h"
 #include "../config.h"
+#include "../services/epgtimer.h"
 #include <sstream>
 #include <algorithm>
 
@@ -1181,6 +1182,10 @@ void cLeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{eventtitle}", (int)eLeMenuTimersST::eventtitle);
     tokenContainer->DefineStringToken("{eventstart}", (int)eLeMenuTimersST::eventstart);
     tokenContainer->DefineStringToken("{eventstop}", (int)eLeMenuTimersST::eventstop);
+    tokenContainer->DefineStringToken("{state}", (int)eLeMenuTimersST::state);
+    tokenContainer->DefineStringToken("{stateinfo}", (int)eLeMenuTimersST::stateinfo);
+    tokenContainer->DefineStringToken("{action}", (int)eLeMenuTimersST::action);
+    tokenContainer->DefineStringToken("{vdrname}", (int)eLeMenuTimersST::vdrname);
     tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeMenuTimersIT::nummenuitem);
     tokenContainer->DefineIntToken("{current}", (int)eLeMenuTimersIT::current);
     tokenContainer->DefineIntToken("{separator}", (int)eLeMenuTimersIT::separator);
@@ -1193,6 +1198,8 @@ void cLeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{flagvps}", (int)eLeMenuTimersIT::flagvps);
     tokenContainer->DefineIntToken("{flagrecording}", (int)eLeMenuTimersIT::flagrecording);
     tokenContainer->DefineIntToken("{flagpending}", (int)eLeMenuTimersIT::flagpending);
+    tokenContainer->DefineIntToken("{isvdrrunning}", (int)eLeMenuTimersIT::isvdrrunning);
+    tokenContainer->DefineIntToken("{isremote}", (int)eLeMenuTimersIT::isremote);
     InheritTokenContainer();    
 }
 
@@ -1279,6 +1286,21 @@ bool cLeMenuTimers::Parse(bool forced) {
         tokenContainer->AddStringToken((int)eLeMenuTimersST::eventstart, *event->GetTimeString());
         tokenContainer->AddStringToken((int)eLeMenuTimersST::eventstop, *event->GetEndTimeString());
     }
+
+    cEpgTimer_Interface_V1* epgTimer;
+    if (epgTimer = dynamic_cast<cEpgTimer_Interface_V1*>((cTimer*)timer)) {
+        tokenContainer->AddIntToken((int)eLeMenuTimersIT::isvdrrunning, epgTimer->isVdrRunning());
+        tokenContainer->AddIntToken((int)eLeMenuTimersIT::isremote, epgTimer->isRemote());
+        stringstream state;
+        state << epgTimer->State();
+        tokenContainer->AddStringToken((int)eLeMenuTimersST::state, state.str().c_str());
+        tokenContainer->AddStringToken((int)eLeMenuTimersST::stateinfo, epgTimer->StateInfo());
+        tokenContainer->AddStringToken((int)eLeMenuTimersST::vdrname, epgTimer->VdrName());
+        stringstream action;
+        action << epgTimer->Action();
+        tokenContainer->AddStringToken((int)eLeMenuTimersST::action, action.str().c_str());
+    }
+
     return true;
 }
 
@@ -1318,6 +1340,10 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{eventdescription}", (int)eCeMenuTimersST::eventdescription);
     tokenContainer->DefineStringToken("{posterpath}", (int)eCeMenuTimersST::posterpath);
     tokenContainer->DefineStringToken("{bannerpath}", (int)eCeMenuTimersST::bannerpath);
+    tokenContainer->DefineStringToken("{state}", (int)eCeMenuTimersST::state);
+    tokenContainer->DefineStringToken("{stateinfo}", (int)eCeMenuTimersST::stateinfo);
+    tokenContainer->DefineStringToken("{action}", (int)eCeMenuTimersST::action);
+    tokenContainer->DefineStringToken("{vdrname}", (int)eCeMenuTimersST::vdrname);
     tokenContainer->DefineIntToken("{menuitemx}", (int)eCeMenuTimersIT::menuitemx);
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuTimersIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuTimersIT::menuitemwidth);
@@ -1338,6 +1364,8 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{hasbanner}", (int)eCeMenuTimersIT::hasbanner);
     tokenContainer->DefineIntToken("{bannerwidth}", (int)eCeMenuTimersIT::bannerwidth);
     tokenContainer->DefineIntToken("{bannerheight}", (int)eCeMenuTimersIT::bannerheight);
+    tokenContainer->DefineIntToken("{isvdrrunning}", (int)eCeMenuTimersIT::isvdrrunning);
+    tokenContainer->DefineIntToken("{isremote}", (int)eCeMenuTimersIT::isremote);
     InheritTokenContainer();
 }
 
@@ -1423,6 +1451,21 @@ bool cCeMenuTimers::Parse(bool forced) {
         if (LoadFullScrapInfo(event, NULL))
             SetScraperPosterBannerTimer(tokenContainer);
     }
+
+    cEpgTimer_Interface_V1* epgTimer;
+    if (epgTimer = dynamic_cast<cEpgTimer_Interface_V1*>((cTimer*)timer)) {
+        tokenContainer->AddIntToken((int)eCeMenuTimersIT::isvdrrunning, epgTimer->isVdrRunning());
+        tokenContainer->AddIntToken((int)eCeMenuTimersIT::isremote, epgTimer->isRemote());
+        stringstream state;
+        state << epgTimer->State();
+        tokenContainer->AddStringToken((int)eCeMenuTimersST::state, state.str().c_str());
+        tokenContainer->AddStringToken((int)eCeMenuTimersST::stateinfo, epgTimer->StateInfo());
+        tokenContainer->AddStringToken((int)eCeMenuTimersST::vdrname, epgTimer->VdrName());
+        stringstream action;
+        action << epgTimer->Action();
+        tokenContainer->AddStringToken((int)eCeMenuTimersST::action, action.str().c_str());
+    }
+
     return true;
 }
 

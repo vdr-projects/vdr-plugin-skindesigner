@@ -504,6 +504,7 @@ enum class eDMTimersLT {
     channelid,
     channellogoexists,
     isremotetimer,
+    remotehost,
     count
 };
 
@@ -898,6 +899,10 @@ enum class eLeMenuTimersST {
     eventtitle,
     eventstart,
     eventstop,
+    state,
+    stateinfo,
+    action,
+    vdrname,
     count
 };
 
@@ -914,6 +919,8 @@ enum class eLeMenuTimersIT {
     flagvps,
     flagrecording,
     flagpending,
+    isvdrrunning,
+    isremote,
     count
 };
 
@@ -933,6 +940,10 @@ enum class eCeMenuTimersST {
     eventdescription,
     posterpath,
     bannerpath,
+    state,
+    stateinfo,
+    action,
+    vdrname,
     count
 };
 
@@ -957,6 +968,8 @@ enum class eCeMenuTimersIT {
     hasbanner,
     bannerwidth,
     bannerheight,
+    isvdrrunning,
+    isremote,
     count
 };
 
