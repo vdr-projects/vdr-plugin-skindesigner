@@ -2,6 +2,7 @@
 #include "../config.h"
 #include "../extensions/helpers.h"
 #include "../services/scraper2vdr.h"
+#include "../services/epgtimer.h"
 
 /******************************************************************
 * cVeDcChannelInfo
@@ -323,6 +324,10 @@ void cVeDcStatusInfo::Set(const cChannel *c) {
         if (const cTimer *Timer = globalTimers->At(i))
             if (Timer->Recording()) 
                 isRecording = true;
+            else if (cEpgTimer_Interface_V1* epgTimer = dynamic_cast<cEpgTimer_Interface_V1*>((cTimer*)Timer)) {
+	        if (epgTimer->State() == 'R')
+		    isRecording = true;
+	    }
 
     tokenContainer->AddIntToken((int)eDCStatusInfoIT::isRadio, isRadio);
     tokenContainer->AddIntToken((int)eDCStatusInfoIT::hasVT, hasVT);
