@@ -3,6 +3,7 @@
 #include <vdr/videodir.h>
 #include "../extensions/helpers.h"
 #include "../extensions/globaltimers.h"
+#include "../services/epgtimer.h"
 #include <sys/sysinfo.h>
 #include <fstream>
 #include <iostream>
@@ -408,10 +409,17 @@ bool cVeDmTimers::Parse(bool forced) {
             tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::channelid, *channelID);
             tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::channellogoexists, imgCache->LogoExists(*channelID) ? "1" : "0");
         }
-        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::recording, Timer->Recording() ? "1" : "0");
+        bool isRecording = Timer->Recording();
+        if (!isRecording) {
+             if (cEpgTimer_Interface_V1* epgTimer = dynamic_cast<cEpgTimer_Interface_V1*>((cTimer*)Timer)) {
+                 if (epgTimer->State() == 'R')
+		     isRecording = true;
+	     }
+        }
+        tokenContainer->AddLoopToken(timerIndex, i, (int)eDMTimersLT::recording, isRecording ? "1" : "0");
 
         cString timerDate("");
-        if (Timer->Recording()) {
+        if (isRecording) {
             timerDate = cString::sprintf("-%s", *TimeString(Timer->StopTime()));
         } else {
             time_t Now = time(NULL);
