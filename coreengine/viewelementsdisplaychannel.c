@@ -320,14 +320,16 @@ void cVeDcStatusInfo::Set(const cChannel *c) {
     bool isEncrypted = c->Ca();
     bool isRecording = cRecordControls::Active();
 
-    for (int i = 0; i < globalTimers->Size() && !isRecording; i++)
-        if (const cTimer *Timer = globalTimers->At(i))
+    for (int i = 0; i < globalTimers->Size() && !isRecording; i++) {
+        if (const cTimer *Timer = globalTimers->At(i)) {
             if (Timer->Recording()) 
                 isRecording = true;
             else if (cEpgTimer_Interface_V1* epgTimer = dynamic_cast<cEpgTimer_Interface_V1*>((cTimer*)Timer)) {
-	        if (epgTimer->State() == 'R')
-		    isRecording = true;
-	    }
+                if (epgTimer->State() == 'R')
+                    isRecording = true;
+            }
+        }
+    }
 
     tokenContainer->AddIntToken((int)eDCStatusInfoIT::isRadio, isRadio);
     tokenContainer->AddIntToken((int)eDCStatusInfoIT::hasVT, hasVT);

@@ -104,10 +104,15 @@ void cViewChannel::ClearVariables(void) {
     displayChannelGroups = false;
     if (veCustomTokens)
         veCustomTokens->Reset();
+    timersLoaded = false;
     globalTimers.ClearTimers();
 }
 
 void cViewChannel::SetChannel(const cChannel *channel, int number) {
+    if (!timersLoaded) {
+        timersLoaded = true;
+        globalTimers.LoadTimers();
+    }
     channelChange = true;
     bool wasChannelGroups = displayChannelGroups;
     displayChannelGroups = false;
@@ -144,7 +149,8 @@ void cViewChannel::SetChannel(const cChannel *channel, int number) {
 }
 
 void cViewChannel::SetEvents(const cEvent *present, const cEvent *following) {
-    if (init) {
+    if (!timersLoaded) {
+        timersLoaded = true;
         globalTimers.LoadTimers();
     }
     Clear((int)eVeDisplayChannel::epginfo);

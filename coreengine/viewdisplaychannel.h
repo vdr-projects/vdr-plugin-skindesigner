@@ -17,6 +17,7 @@ private:
     cVeDcEcmInfo           *veEcmInfo;
     bool channelChange;
     bool displayChannelGroups;
+    bool timersLoaded;
     cGlobalTimers globalTimers;
     void SetViewElements(void);
     void ClearVariables(void);
