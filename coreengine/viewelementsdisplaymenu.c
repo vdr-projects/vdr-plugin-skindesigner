@@ -950,12 +950,23 @@ bool cVeDmLastrecordings::Parse(bool forced) {
             continue;
         }
 #endif
-        string recFullPath = recording->Name() ? recording->Name() : "";
         string recName = "";
-        string recPath = "";
-        RecName(recFullPath, recName, recPath);
+        string recSeriesName = "";
+        const cRecordingInfo *recInfo = recording->Info();
+        if (recInfo) {
+            recName = recInfo->Title() ? recInfo->Title() : "";
+            if (recInfo->Title() && recInfo->ShortText()) {
+                stringstream ss;
+                ss << recInfo->Title() << " - " << recInfo->ShortText();
+                recSeriesName = ss.str();
+            }
+        } else {
+            string recPath = recording->Name() ? recording->Name() : "";
+            RecName(recPath, recName);
+        }
+        if (recName.size() == 0)
+            recName = recording->Name() ? recording->Name() : "";
         cString recDuration = cString::sprintf("%d", recording->LengthInSeconds()/60);
-
         string posterPath = "";
         int posterWidth = 0;
         int posterHeight = 0;
@@ -963,7 +974,7 @@ bool cVeDmLastrecordings::Parse(bool forced) {
         RecPoster(recording, posterWidth, posterHeight, posterPath, hasPoster);
 
         tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::name, recName.c_str());
-        tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::seriesname, recPath.c_str());
+        tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::seriesname, recSeriesName.c_str());
         tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::date, *ShortDateString(recording->Start()));
         tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::time, *TimeString(recording->Start()));
         tokenContainer->AddLoopToken(recIndex, i, (int)eDMLastrecordingsLT::duration, *recDuration);
@@ -981,7 +992,7 @@ bool cVeDmLastrecordings::Parse(bool forced) {
     return true;
 }
 
-void cVeDmLastrecordings::RecName(string &path, string &name, string &folder) {
+void cVeDmLastrecordings::RecName(string &path, string &name) {
     size_t delim = path.find_last_of('~');
     if (delim == string::npos) {
         name = path;
@@ -994,12 +1005,6 @@ void cVeDmLastrecordings::RecName(string &path, string &name, string &folder) {
     if (name.find('%') == 0) {
         name = name.substr(1);
     }
-    folder = path.substr(0, delim);
-    size_t delim2 = folder.find_last_of('~');
-    if (delim2 == string::npos) {
-        return;
-    }
-    folder = folder.substr(delim2+1);
 }
 /******************************************************************
 * cVeDmDetailheaderEpg

@@ -38,10 +38,14 @@
         <area condition="{numtimers}" x="2%" y="78%" width="28%" height="14%" layer="3">
             <loop name="timers" x="5" y="3" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/3" overflow="cut">
                 <drawimage cache="true" name="logo" imagetype="channellogo" path="{timers[channelid]}" width="{columnwidth}*0.15" height="{rowheight}*0.75" x="10" valign="center" />
-                <drawtext  name="datetime" x="{posx(logo)} + {width(logo)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[datetime]}" />
-                <drawimage condition="{timers[isremotetimer]}" name="remotetimericon" imagetype="icon" path="ico_remotetimer" width="{rowheight}*0.4" height="{rowheight}*0.4" x="{posx(datetime)} + {width(datetime)} + 10" y="0" />
-                <drawtext  condition="{timers[isremotetimer]}" x="{posx(remotetimericon)} + {width(remotetimericon)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[remotehost]}" />
-                <drawtext x="{posx(logo)} + {width(logo)} + 10" y="{rowheight}*0.35" width="{columnwidth} - {posx(logo)} - {width(logo)} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{fontdefault}" text="{timers[title]}" />
+                <drawtext condition="not{timers[recording]}" name="datetime" x="{posx(logo)} + {width(logo)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[datetime]}" />
+                <drawimage condition="not{timers[recording]}++{timers[isremotetimer]}" name="remotetimericon" imagetype="icon" path="ico_remotetimer" width="{rowheight}*0.4" height="{rowheight}*0.4" x="{posx(datetime)} + {width(datetime)} + 10" y="0" />
+                <drawtext  condition="not{timers[recording]}++{timers[isremotetimer]}" x="{posx(remotetimericon)} + {width(remotetimericon)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[remotehost]}" />
+                <drawtext condition="{timers[recording]}" name="datetimeactive" x="{posx(logo)} + {width(logo)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{icontextalert}" text="{timers[datetime]}" />
+                <drawimage condition="{timers[recording]}++{timers[isremotetimer]}" name="remotetimericonactive" imagetype="icon" path="ico_remotetimer" width="{rowheight}*0.4" height="{rowheight}*0.4" x="{posx(datetimeactive)} + {width(datetimeactive)} + 10" y="0" />
+                <drawtext  condition="{timers[recording]}++{timers[isremotetimer]}" x="{posx(remotetimericonactive)} + {width(remotetimericonactive)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[remotehost]}" />
+                <drawtext condition="not{timers[recording]}" x="{posx(logo)} + {width(logo)} + 10" y="{rowheight}*0.35" width="{columnwidth} - {posx(logo)} - {width(logo)} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{fontdefault}" text="{timers[title]}" />
+                <drawtext condition="{timers[recording]}" x="{posx(logo)} + {width(logo)} + 10" y="{rowheight}*0.35" width="{columnwidth} - {posx(logo)} - {width(logo)} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{icontextalert}" text="{timers[title]}" />
             </loop>
         </area>
     </timers>

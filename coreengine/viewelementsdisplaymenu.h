@@ -184,7 +184,7 @@ public:
 class cVeDmLastrecordings : public cViewElement, public cScrapManager {
 private:
     int recIndex;
-    void RecName(string &path, string &name, string &folder);
+    void RecName(string &path, string &name);
 public:
     cVeDmLastrecordings(void);
     virtual ~cVeDmLastrecordings(void);
