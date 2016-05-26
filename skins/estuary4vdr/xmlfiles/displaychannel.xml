@@ -161,7 +161,7 @@
             <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="{zapdetaildescfs}*{areaheight}/100" color="{fontdefault}" text="{currentdescription}" />
         </areascroll>
         <area condition="{ismovie}" x="52%" y="7%" width="41%" height="30%" layer="1">
-            <drawimage imagetype="image" path="{seriesposter1path}" align="center" valign="center" width="100%" height="100%" />
+            <drawimage imagetype="image" path="{posterpath}" align="center" valign="center" width="100%" height="100%" />
         </area>
         <area condition="{isseries}" x="52%" y="7%" width="41%" height="30%" layer="1">
             <drawimage imagetype="image" path="{seriesbanner1path}" align="center" valign="center" width="100%" height="100%" />
@@ -198,7 +198,7 @@
                 <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
             </area>
             <area x="1%" width="25%" layer="5">
-                <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
+                <drawimage name="logo" imagetype="channellogo" path="{channelid}" align="center" width="80%" height="80%" valign="center" />
             </area>
             <area condition="not{current}" x="26%" width="73%" layer="4">
                 <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontdefault}" text="{number} {name}" />
@@ -275,7 +275,7 @@
                 <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
             </area>
             <area x="1%" width="25%" layer="3">
-                <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
+                <drawimage name="logo" imagetype="channellogo" path="{channelid}" align="center" width="80%" height="80%" valign="center" />
             </area>
             <area condition="not{current}" x="26%" width="73%" layer="3">
                 <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontdefault}" text="{number} {name}" />
@@ -291,7 +291,7 @@
     </groupchannellist>
 
     <groupchannellistdetail fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="40%" starty="6%">
-        <area x="2%" y="6%" width="38%" height="88%" layer="1">
+        <area x="2%" y="6%" width="39%" height="88%" layer="1">
             <fill color="{channelback}" />
         </area>
         <area x="4%" y="6%" width="36%" height="5%" layer="2">
