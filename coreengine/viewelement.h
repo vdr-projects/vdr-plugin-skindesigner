@@ -27,9 +27,12 @@ protected:
     bool waitOnWakeup;
     bool scrollingStarted;
     bool startAnimation;
+    bool restartAnimation;
     cGlobals *globals;
     cRect container;
     cViewElementAttribs *attribs;
+    vector<int> clearOnDisplay;
+    bool clearAll;
     cList<cAreaNode> areaNodes;
     skindesignerapi::cTokenContainer *tokenContainer;
     cList<cAnimation> scrollers;
@@ -74,6 +77,11 @@ public:
     void StopScrolling(bool deletePixmaps = true);
     eOrientation Orientation(void) { return attribs->Orientation(); };
     virtual int Delay(void) { return attribs->Delay(); };
+    const char *ClearOnDisplay(void) { return attribs->ClearOnDisplay(); };
+    void SetClearOnDisplay(vector<int> clearOnDisplay) { this->clearOnDisplay = clearOnDisplay; };
+    vector<int> GetClearOnDisplay(void) { return clearOnDisplay; };
+    void SetClearAll(void) { clearAll = true; };
+    bool DoClearAll(void) { return clearAll; };
     void ParseDetached(void);
     void RenderDetached(void);
     bool Shifting(void);
@@ -82,6 +90,7 @@ public:
     int ShiftTime(void);
     int ShiftMode(void);
     void StartAnimation(void);
+    void SetRestartAnimation(void) { restartAnimation = true; };
     virtual void SetTransparency(int transparency, bool force = false);
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
     void SetStartShifting(void) { };

@@ -26,6 +26,7 @@ using namespace std;
 class cView : public cFadable, public cShiftable {
 private:
     void DoScaleTv(const cRect *frame);
+    void SetClearOnDisplay(int ve, const char *clearOnDisplay);
 protected:
     cSdOsd sdOsd;
     cViewAttribs *attribs;
@@ -76,13 +77,16 @@ public:
     //View API
     virtual bool Init(void);
     void Clear(int ve, bool forceClearBackground = false);
+    void SetDirty(int ve);
     void Render(int ve, bool force = false);
+    void Hide(int ve);
+    void Show(int ve);
     virtual void Close(void);
     virtual void Flush(bool animFlush);
     virtual void Debug(void);
+    //Fadable
     bool Detached(void) { return false; };
     int Delay(void) { return 0; };
-    //Fadable
     int FadeTime(void);
     virtual void SetTransparency(int transparency, bool force = false);
     //Shiftable

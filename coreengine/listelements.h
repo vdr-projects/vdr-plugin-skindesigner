@@ -339,4 +339,35 @@ public:
     bool Parse(bool forced = true);
 };
 
+/******************************************************************
+* cLeChannelList
+******************************************************************/
+class cLeChannelList : public cListElement {
+private:
+    const cChannel *channel;
+public:
+    cLeChannelList(void);
+    cLeChannelList(const cLeChannelList &other);
+    virtual ~cLeChannelList(void);
+    void SetTokenContainer(void);
+    void Set(const cChannel *channel);
+    bool Parse(bool forced = true);
+};
+
+/******************************************************************
+* cLeGroupList
+******************************************************************/
+class cLeGroupList : public cListElement {
+private:
+    const char *group;
+    int numChannels;
+public:
+    cLeGroupList(void);
+    cLeGroupList(const cLeGroupList &other);
+    virtual ~cLeGroupList(void);
+    void SetTokenContainer(void);
+    void Set(const char *group, int numChannels);
+    bool Parse(bool forced = true);
+};
+
 #endif //__LISTELEMENTS_H

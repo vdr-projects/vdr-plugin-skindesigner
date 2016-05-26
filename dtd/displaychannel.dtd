@@ -4,7 +4,10 @@
 
 <!ELEMENT displaychannel (background | channelinfo | epginfo | progressbar | progressbarback |  
                           statusinfo | audioinfo | ecminfo | screenresolution | channelgroup | 
-                          signalquality | signalqualityback | devices | currentweather | scrapercontent |  
+                          signalquality | signalqualityback | devices | currentweather | 
+                          scrapercontent | channelhints | channeldetail | channellistdetail | 
+                          channellistback | channellist | grouplistback | grouplist | 
+                          groupchannellistback | groupchannellist | groupchannellistdetail | 
                           datetime | time | message | customtokens)* >
 <!ATTLIST displaychannel
   x CDATA #REQUIRED
@@ -209,6 +212,159 @@
 
 <!ELEMENT scrapercontent (areacontainer|area|areascroll)*>
 <!ATTLIST scrapercontent
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT channelhints (areacontainer|area|areascroll)*>
+<!ATTLIST channelhints
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT channeldetail (areacontainer|area|areascroll)*>
+<!ATTLIST channeldetail
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+  clearondisplay CDATA #IMPLIED
+>
+
+<!ELEMENT channellistback (areacontainer|area|areascroll)*>
+<!ATTLIST channellistback
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+  clearondisplay CDATA #IMPLIED
+>
+
+<!ELEMENT grouplistback (areacontainer|area|areascroll)*>
+<!ATTLIST grouplistback
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+  clearondisplay CDATA #IMPLIED
+>
+
+<!ELEMENT groupchannellistback (areacontainer|area|areascroll)*>
+<!ATTLIST groupchannellistback
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT channellist (listelement)>
+<!ATTLIST channellist
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED
+  width CDATA #REQUIRED
+  height CDATA #REQUIRED
+  align (left|top|center|bottom|right) #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  numlistelements CDATA #REQUIRED
+  orientation CDATA #REQUIRED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT grouplist (listelement)>
+<!ATTLIST grouplist
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED
+  width CDATA #REQUIRED
+  height CDATA #REQUIRED
+  align (left|top|center|bottom|right) #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  numlistelements CDATA #REQUIRED
+  orientation CDATA #REQUIRED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT groupchannellist (listelement)>
+<!ATTLIST groupchannellist
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED
+  width CDATA #REQUIRED
+  height CDATA #REQUIRED
+  align (left|top|center|bottom|right) #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  numlistelements CDATA #REQUIRED
+  orientation CDATA #REQUIRED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT listelement (areacontainer|area|areascroll)*>
+<!ATTLIST listelement
+  debug CDATA #IMPLIED
+>
+
+<!ELEMENT channellistdetail (areacontainer|area|areascroll)*>
+<!ATTLIST channellistdetail
+  delay CDATA #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
+  debug CDATA #IMPLIED
+  condition CDATA #IMPLIED
+>
+
+<!ELEMENT groupchannellistdetail (areacontainer|area|areascroll)*>
+<!ATTLIST groupchannellistdetail
   delay CDATA #IMPLIED
   fadetime CDATA #IMPLIED
   shifttime CDATA #IMPLIED

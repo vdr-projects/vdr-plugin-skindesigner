@@ -15,9 +15,11 @@ cViewElement::cViewElement(void) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
+    restartAnimation = false;
     globals = NULL;
     tokenContainer = NULL;
     attribs = new cViewElementAttribs((int)eViewElementAttribs::count);
+    clearAll = false;
     detacher = NULL;
     fader = NULL;
     shifter = NULL;
@@ -34,10 +36,12 @@ cViewElement::cViewElement(const cViewElement &other) {
     detached = false;
     waitOnWakeup = true;
     startAnimation = true;
+    restartAnimation = false;
     globals = other.globals;
     container.Set(other.container.X(), other.container.Y(), other.container.Width(), other.container.Height());
     tokenContainer = NULL;
     attribs = new cViewElementAttribs(*other.attribs);
+    clearAll = false;
 
     for (const cAreaNode *node = other.areaNodes.First(); node; node = other.areaNodes.Next(node)) {
         if (cArea *a = dynamic_cast<cArea*>((cAreaNode*)node)) {
@@ -101,6 +105,20 @@ cViewElement *cViewElement::CreateViewElement(const char *name, const char *view
         e = new cVeDcSignalQuality();
     else if (!strcmp(name, "scrapercontent") && !strcmp(viewname, "displaychannel"))
         e = new cVeDcScraperContent();
+    else if (!strcmp(name, "channelhints"))
+        e = new cVeDcChannelHints();
+    else if (!strcmp(name, "channeldetail"))
+        e = new cVeDcChannelDetail();
+    else if (!strcmp(name, "channellistback"))
+        e = new cViewElement();
+    else if (!strcmp(name, "grouplistback"))
+        e = new cViewElement();
+    else if (!strcmp(name, "groupchannellistback"))
+        e = new cViewElement();
+    else if (!strcmp(name, "channellistdetail"))
+        e = new cVeDcChannelListDetail();
+    else if (!strcmp(name, "groupchannellistdetail"))
+        e = new cVeDcGroupChannelListDetail();
     else if (!strcmp(name, "ecminfo"))
         e = new cVeDcEcmInfo();
     
@@ -326,6 +344,7 @@ void cViewElement::Close(void) {
     dirty = true;
     init = true;
     startAnimation = true;
+    restartAnimation = false;
     drawn = false;
     scrollingStarted = false;
     blocked = false;
@@ -378,8 +397,9 @@ void cViewElement::Render(void) {
     }
     dirty = false;
     drawn = true;
-    if (startAnimation) {
+    if (startAnimation || restartAnimation) {
         startAnimation = false;
+        restartAnimation = false;
         StartAnimation();
     }
 }

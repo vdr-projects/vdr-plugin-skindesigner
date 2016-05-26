@@ -14,6 +14,34 @@
             <parameter type="int" name="startstopfontsize" min="0" max="100" displaytext="{tr(startstopfontsize)}">40</parameter>
             <parameter type="int" name="channelnamefontsize" min="0" max="100" displaytext="{tr(channelnamefontsize)}">75</parameter>
             <parameter type="bool" name="scrollepg" displaytext="{tr(scrollepgtext)}">1</parameter>
+            <parameter type="separator" name="sepzapcockpit" displaytext="{tr(sepzapcockpit)}"/>
+            <parameter type="int" name="fadetimezapcockpit" displaytext="{tr(fadetimezapcockpit)}">0</parameter>
+            <parameter type="int" name="shifttimezapcockpit" displaytext="{tr(shifttimezapcockpit)}">200</parameter>
+            <parameter type="separator" name="sepzapcockpitdetail" displaytext="{tr(sepzapcockpitdetail)}"/>
+            <parameter type="int" name="zapdetaildatetimefs" min="0" max="100" displaytext="{tr(zapdetaildatetimefs)}">80</parameter>
+            <parameter type="int" name="zapdetailheaderfs" min="0" max="100" displaytext="{tr(zapdetailheaderfs)}">80</parameter>
+            <parameter type="int" name="zapdetailshorttextfs" min="0" max="100" displaytext="{tr(zapdetailshorttextfs)}">80</parameter>
+            <parameter type="int" name="zapdetaildescfs" min="0" max="100" displaytext="{tr(zapdetaildescfs)}">6</parameter>
+            <parameter type="separator" name="sepzapcockpitcl" displaytext="{tr(sepzapcockpitcl)}"/>
+            <parameter type="int" name="zapclchannelfs" min="0" max="100" displaytext="{tr(zapclchannelfs)}">38</parameter>
+            <parameter type="int" name="zapclchannely" min="0" max="100" displaytext="{tr(zapclchannely)}">3</parameter>
+            <parameter type="int" name="zapclpresentfs" min="0" max="100" displaytext="{tr(zapclpresentfs)}">38</parameter>
+            <parameter type="int" name="zapclpresenty" min="0" max="100" displaytext="{tr(zapclpresenty)}">35</parameter>
+            <parameter type="int" name="zapclnextfs" min="0" max="100" displaytext="{tr(zapclnextfs)}">28</parameter>
+            <parameter type="int" name="zapclnexty" min="0" max="100" displaytext="{tr(zapclnexty)}">70</parameter>
+            <parameter type="int" name="zapcldetaildatetimefs" min="0" max="100" displaytext="{tr(zapcldetaildatetimefs)}">80</parameter>
+            <parameter type="int" name="zapcldetailheaderfs" min="0" max="100" displaytext="{tr(zapcldetailheaderfs)}">80</parameter>
+            <parameter type="int" name="zapcldetailshorttextfs" min="0" max="100" displaytext="{tr(zapcldetailshorttextfs)}">80</parameter>
+            <parameter type="int" name="zapcldetaildescfs" min="0" max="100" displaytext="{tr(zapcldetaildescfs)}">4</parameter>
+            <parameter type="separator" name="sepzapcockpitgl" displaytext="{tr(sepzapcockpitgl)}"/>
+            <parameter type="int" name="zapglgroupfs" min="0" max="100" displaytext="{tr(zapglgroupfs)}">40</parameter>
+            <parameter type="int" name="zapgcldetaildatetimefs" min="0" max="100" displaytext="{tr(zapgcldetaildatetimefs)}">80</parameter>
+            <parameter type="int" name="zapgcldetailheaderfs" min="0" max="100" displaytext="{tr(zapgcldetailheaderfs)}">80</parameter>
+            <parameter type="int" name="zapgcldetailshorttextfs" min="0" max="100" displaytext="{tr(zapgcldetailshorttextfs)}">80</parameter>
+            <parameter type="int" name="zapgcldetaildescfs" min="0" max="100" displaytext="{tr(zapgcldetaildescfs)}">4</parameter>
+            <parameter type="separator" name="sepzapcockpitchannelhint" displaytext="{tr(sepzapcockpitchannelhint)}"/>
+            <parameter type="int" name="zapchannelhintsheight" min="0" max="100" displaytext="{tr(zapchannelhintsheight)}">30</parameter>
+            <parameter type="int" name="zapchannelhintswidth" min="0" max="100" displaytext="{tr(zapchannelhintswidth)}">30</parameter>
         </submenu>
         <submenu name="subdisplayreplay" displaytext="{tr(subdisplayreplay)}">
             <parameter type="int" name="replaytitlesize" min="0" max="100" displaytext="{tr(replaytitlesize)}">80</parameter>
@@ -241,6 +269,118 @@
         <token name="tr(scrollepgtext)">
             <trans lang="en_EN">Scroll EPG</trans>
             <trans lang="de_DE">EGP scrollen</trans>
+        </token>
+        <token name="tr(sepzapcockpit)">
+            <trans lang="en_EN">Settings Zapcockpit</trans>
+            <trans lang="de_DE">Einstellungen Zapcockpit</trans>
+        </token>
+        <token name="tr(sepzapcockpitdetail)">
+            <trans lang="en_EN">Settings Zapcockpit detail view</trans>
+            <trans lang="de_DE">Einstellungen Zapcockpit Detailansicht</trans>
+        </token>
+        <token name="tr(sepzapcockpitcl)">
+            <trans lang="en_EN">Settings Zapcockpit channel list</trans>
+            <trans lang="de_DE">Einstellungen Zapcockpit Kanalliste</trans>
+        </token>
+        <token name="tr(sepzapcockpitgl)">
+            <trans lang="en_EN">Settings Zapcockpit channel groups list</trans>
+            <trans lang="de_DE">Einstellungen Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(sepzapcockpitchannelhint)">
+            <trans lang="en_EN">Settings Zapcockpit channel hints</trans>
+            <trans lang="de_DE">Einstellungen Zapcockpit Kanal Hinweise</trans>
+        </token>
+        <token name="tr(fadetimezapcockpit)">
+            <trans lang="en_EN">Fade time for zapcockpit elements [ms]</trans>
+            <trans lang="de_DE">Einblendzeit für Zapcockpit Elemente [ms]</trans>
+        </token>
+        <token name="tr(shifttimezapcockpit)">
+            <trans lang="en_EN">Shift time for zapcockpit elements [ms]</trans>
+            <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
+        </token>
+        <token name="tr(zapclchannelfs)">
+            <trans lang="en_EN">Font size channel</trans>
+            <trans lang="de_DE">Schriftgröße Kanal</trans>
+        </token>
+        <token name="tr(zapclchannely)">
+            <trans lang="en_EN">Vertical position channel</trans>
+            <trans lang="de_DE">Vertikale Position Kanal</trans>
+        </token>
+        <token name="tr(zapclpresentfs)">
+            <trans lang="en_EN">Font size present event</trans>
+            <trans lang="de_DE">Schriftgröße aktuelle Sendung</trans>
+        </token>
+        <token name="tr(zapclpresenty)">
+            <trans lang="en_EN">Vertical position present event</trans>
+            <trans lang="de_DE">Vertikale Position aktuelle Sendung</trans>
+        </token>
+        <token name="tr(zapclnextfs)">
+            <trans lang="en_EN">Font size next event</trans>
+            <trans lang="de_DE">Schriftgröße nächste Sendung</trans>
+        </token>
+        <token name="tr(zapclnexty)">
+            <trans lang="en_EN">Vertical position next event</trans>
+            <trans lang="de_DE">Vertikale Position nächste Sendung</trans>
+        </token>
+        <token name="tr(zapglgroupfs)">
+            <trans lang="en_EN">Font size groups in channel group list</trans>
+            <trans lang="de_DE">Schriftgröße Gruppe in Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(zapdetaildatetimefs)">
+            <trans lang="en_EN">Font size time</trans>
+            <trans lang="de_DE">Schriftgröße Zeit</trans>
+        </token>
+        <token name="tr(zapdetailheaderfs)">
+            <trans lang="en_EN">Font size title</trans>
+            <trans lang="de_DE">Schriftgröße Titel</trans>
+        </token>
+        <token name="tr(zapdetailshorttextfs)">
+            <trans lang="en_EN">Font size short text</trans>
+            <trans lang="de_DE">Schriftgröße Kurztext</trans>
+        </token>
+        <token name="tr(zapdetaildescfs)">
+            <trans lang="en_EN">Font size description</trans>
+            <trans lang="de_DE">Schriftgröße Beschreibung</trans>
+        </token>
+        <token name="tr(zapcldetaildatetimefs)">
+            <trans lang="en_EN">Font size time in channel list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Zeit in Detailansicht Kanalliste</trans>
+        </token>
+        <token name="tr(zapcldetailheaderfs)">
+            <trans lang="en_EN">Font size title in channel list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Titel in Detailansicht Kanalliste</trans>
+        </token>
+        <token name="tr(zapcldetailshorttextfs)">
+            <trans lang="en_EN">Font size short text in channel list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Kurztext in Detailansicht Kanalliste</trans>
+        </token>
+        <token name="tr(zapcldetaildescfs)">
+            <trans lang="en_EN">Font size description in channel list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Beschreibung in Detailansicht Kanalliste</trans>
+        </token>
+        <token name="tr(zapgcldetaildatetimefs)">
+            <trans lang="en_EN">Font size time in channel group list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Zeit in Detailansicht Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(zapgcldetailheaderfs)">
+            <trans lang="en_EN">Font size title in channel group list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Titel in Detailansicht Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(zapgcldetailshorttextfs)">
+            <trans lang="en_EN">Font size short text in channel group list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Kurztext in Detailansicht Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(zapgcldetaildescfs)">
+            <trans lang="en_EN">Font size description in channel group list detail view</trans>
+            <trans lang="de_DE">Schriftgröße Beschreibung in Detailansicht Kanalgruppen Liste</trans>
+        </token>
+        <token name="tr(zapchannelhintsheight)">
+            <trans lang="en_EN">Height channel hints (% of screen height)</trans>
+            <trans lang="de_DE">Höhe Kanal Hinweise (% der Bildschirmhöhe)</trans>
+        </token>
+        <token name="tr(zapchannelhintswidth)">
+            <trans lang="en_EN">Width channel hints (% of screen width)</trans>
+            <trans lang="de_DE">Breite Kanal Hinweise (% der Bildschirmbreite)</trans>
         </token>
         <!-- recording display -->
         <token name="tr(replaytitlesize)">

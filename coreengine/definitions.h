@@ -45,6 +45,13 @@ enum class eVeDisplayChannel {
     signalquality,
     scrapercontent,
     ecminfo,
+    channelhints,
+    channeldetail,
+    channellistback,
+    channellistdetail,
+    grouplistback,
+    groupchannellistback,
+    groupchannellistdetail,
     count
 };
 /******************************************************************
@@ -276,6 +283,101 @@ enum class eScraperPosterBannerIT {
     count
 };
 
+enum class eScraperST {
+    movietitle = 0,
+    movieoriginalTitle,
+    movietagline,
+    movieoverview,
+    moviegenres,
+    moviehomepage,
+    moviereleasedate,
+    moviepopularity,
+    movievoteaverage,
+    posterpath,
+    fanartpath,
+    moviecollectionName,
+    collectionposterpath,
+    collectionfanartpath,
+    seriesname,
+    seriesoverview,
+    seriesfirstaired,
+    seriesnetwork,
+    seriesgenre,
+    seriesrating,
+    seriesstatus,
+    episodetitle,
+    episodefirstaired,
+    episodegueststars,
+    episodeoverview,
+    episoderating,
+    episodeimagepath,
+    seasonposterpath,
+    seriesposter1path,
+    seriesposter2path,
+    seriesposter3path,
+    seriesfanart1path,
+    seriesfanart2path,
+    seriesfanart3path,
+    seriesbanner1path,
+    seriesbanner2path,
+    seriesbanner3path,
+    count
+};
+
+enum class eScraperIT {
+    ismovie = 0,
+    moviebudget,
+    movierevenue,
+    movieadult,
+    movieruntime,
+    isseries,
+    posterwidth,
+    posterheight,
+    fanartwidth,
+    fanartheight,
+    movieiscollection,
+    collectionposterwidth,
+    collectionposterheight,
+    collectionfanartwidth,
+    collectionfanartheight,
+    epgpicavailable,
+    episodenumber,
+    episodeseason,
+    episodeimagewidth,
+    episodeimageheight,
+    seasonposterwidth,
+    seasonposterheight,
+    seriesposter1width,
+    seriesposter1height,
+    seriesposter2width,
+    seriesposter2height,
+    seriesposter3width,
+    seriesposter3height,
+    seriesfanart1width,
+    seriesfanart1height,
+    seriesfanart2width,
+    seriesfanart2height,
+    seriesfanart3width,
+    seriesfanart3height,
+    seriesbanner1width,
+    seriesbanner1height,
+    seriesbanner2width,
+    seriesbanner2height,
+    seriesbanner3width,
+    seriesbanner3height,
+    count
+};
+
+enum class eScraperLT {
+    //actors
+    name = 0,
+    role,
+    thumb,
+    thumbwidth,
+    thumbheight,
+    count
+};
+
 /******************************************************************
 * Tokens displaychannel viewelements
 *******************************************************************/
@@ -417,6 +519,46 @@ enum class eDCSignalQualityIT {
     count
 };
 
+enum class eDCChannelHintsIT {
+    numhints = 0,
+    count
+};
+
+enum class eDCChannelHintsLT {
+    channelnumber = 0,
+    channelname,
+    channelid,
+    channellogoexists,
+    count
+};
+
+enum class eDCChannelDetailST {
+    channelname = (int)eScraperST::count,
+    currenttitle,
+    currentshorttext,
+    currentdescription,
+    currentstart,
+    currentstop,
+    currentdurationminutes,
+    nexttitle,
+    nextshorttext,
+    nextdescription,
+    nextstart,
+    nextstop,
+    nextdurationminutes,
+    count
+};
+
+enum class eDCChannelDetailIT {
+    channelnumber = (int)eScraperIT::count,
+    currentduration,
+    currentdurationhours,
+    currentelapsed,
+    currentremaining,
+    nextduration,
+    nextdurationhours,
+    count
+};
 /******************************************************************
 * Tokens displaymenu viewelements
 *******************************************************************/
@@ -601,7 +743,7 @@ enum class eDMTemperaturesIT {
 };
 
 /******************************************************************
-* Tokens displaymenu listelements
+* Tokens listelements
 *******************************************************************/
 enum class eLeMenuDefaultST {
     column1 = 0,
@@ -1057,6 +1199,39 @@ enum class eCeMenuRecordingsIT {
     count
 };
 
+enum class eLeChannelListST {
+    name = 0,
+    channelid,
+    presenteventtitle,
+    presenteventstart,
+    presenteventstop,
+    nexteventtitle,
+    nexteventstart,
+    nexteventstop,
+    count
+};
+
+enum class eLeChannelListIT {
+    nummenuitem = 0,
+    current,
+    number,
+    channellogoexists,
+    presenteventelapsed,
+    presenteventremaining,
+    count
+};
+
+enum class eLeGroupListST {
+    groupname = 0,
+    count
+};
+
+enum class eLeGroupListIT {
+    nummenuitem = 0,
+    current,
+    numchannels,
+    count
+};
 /******************************************************************
 * Tokens displaymenu detailed views
 *******************************************************************/
@@ -1148,101 +1323,6 @@ enum class eDmTabsST {
 enum class eDmTabsLT {
     title = 0,
     current,
-    count
-};
-
-enum class eScraperST {
-    movietitle = 0,
-    movieoriginalTitle,
-    movietagline,
-    movieoverview,
-    moviegenres,
-    moviehomepage,
-    moviereleasedate,
-    moviepopularity,
-    movievoteaverage,
-    posterpath,
-    fanartpath,
-    moviecollectionName,
-    collectionposterpath,
-    collectionfanartpath,
-    seriesname,
-    seriesoverview,
-    seriesfirstaired,
-    seriesnetwork,
-    seriesgenre,
-    seriesrating,
-    seriesstatus,
-    episodetitle,
-    episodefirstaired,
-    episodegueststars,
-    episodeoverview,
-    episoderating,
-    episodeimagepath,
-    seasonposterpath,
-    seriesposter1path,
-    seriesposter2path,
-    seriesposter3path,
-    seriesfanart1path,
-    seriesfanart2path,
-    seriesfanart3path,
-    seriesbanner1path,
-    seriesbanner2path,
-    seriesbanner3path,
-    count
-};
-
-enum class eScraperIT {
-    ismovie = 0,
-    moviebudget,
-    movierevenue,
-    movieadult,
-    movieruntime,
-    isseries,
-    posterwidth,
-    posterheight,
-    fanartwidth,
-    fanartheight,
-    movieiscollection,
-    collectionposterwidth,
-    collectionposterheight,
-    collectionfanartwidth,
-    collectionfanartheight,
-    epgpicavailable,
-    episodenumber,
-    episodeseason,
-    episodeimagewidth,
-    episodeimageheight,
-    seasonposterwidth,
-    seasonposterheight,
-    seriesposter1width,
-    seriesposter1height,
-    seriesposter2width,
-    seriesposter2height,
-    seriesposter3width,
-    seriesposter3height,
-    seriesfanart1width,
-    seriesfanart1height,
-    seriesfanart2width,
-    seriesfanart2height,
-    seriesfanart3width,
-    seriesfanart3height,
-    seriesbanner1width,
-    seriesbanner1height,
-    seriesbanner2width,
-    seriesbanner2height,
-    seriesbanner3width,
-    seriesbanner3height,
-    count
-};
-
-enum class eScraperLT {
-    //actors
-    name = 0,
-    role,
-    thumb,
-    thumbwidth,
-    thumbheight,
     count
 };
 
@@ -1567,6 +1647,7 @@ enum class eViewElementAttribs {
     mode,
     orientation,
     name,
+    clearondisplay,
     count
 };
 
@@ -1576,6 +1657,12 @@ enum class eViewListAttribs {
     determinatefont,
     numlistelements, 
     orientation,
+    fadetime,
+    shifttime, 
+    shifttype,
+    shiftmode,
+    startx,
+    starty,
     condition,
     count
 };

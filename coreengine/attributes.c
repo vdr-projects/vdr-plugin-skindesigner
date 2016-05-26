@@ -126,15 +126,18 @@ void cViewAttribs::SetOrientationDynamic(int id, const char *val) {
 ***************************************************************************/
 cViewElementAttribs::cViewElementAttribs(int numAttributes) : cAttributes(numAttributes) {
     name = NULL;
+    clearOnDisplay = NULL;
     SetAttributesDefs();
 }
 
 cViewElementAttribs::cViewElementAttribs(const cViewElementAttribs &other) : cAttributes(other) {
     name = NULL;
+    clearOnDisplay = NULL;
 }
 
 cViewElementAttribs::~cViewElementAttribs(void) {
     free(name);
+    free(clearOnDisplay);
 }
 
 void cViewElementAttribs::Set(vector<stringpair> &attributes) {
@@ -158,6 +161,8 @@ void cViewElementAttribs::Set(vector<stringpair> &attributes) {
             SetOrientation(id, attVal);
         } else if (IdEqual(id, (int)eViewElementAttribs::name)) {
             name = strdup(attVal);
+        } else if (IdEqual(id, (int)eViewElementAttribs::clearondisplay)) {
+            clearOnDisplay = strdup(attVal);
         } else {
             attribCtors[id] = new cNumericExpr(attVal);
             if (id == (int)eViewElementAttribs::starty + (int)eCommonAttribs::count) {
@@ -178,6 +183,7 @@ void cViewElementAttribs::SetAttributesDefs(void) {
     attribIDs.insert(pair<string, int>("orientation", (int)eViewElementAttribs::orientation));
     attribIDs.insert(pair<string, int>("mode", (int)eViewElementAttribs::mode));
     attribIDs.insert(pair<string, int>("name", (int)eViewElementAttribs::name));
+    attribIDs.insert(pair<string, int>("clearondisplay", (int)eViewElementAttribs::clearondisplay));
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::delay, "delay"));
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::fadetime, "fadetime"));
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::shifttime, "shifttime"));
@@ -188,6 +194,7 @@ void cViewElementAttribs::SetAttributesDefs(void) {
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::orientation, "orientation"));
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::mode, "mode"));
     attribNames.insert(pair<int, string>((int)eViewElementAttribs::name, "name"));
+    attribNames.insert(pair<int, string>((int)eViewElementAttribs::clearondisplay, "clearondisplay"));
 }
 
 eOrientation cViewElementAttribs::Orientation(void) {
@@ -233,6 +240,10 @@ void cViewListAttribs::Set(vector<stringpair> &attributes) {
             determinateFont = strdup(attVal);
         } else if (IdEqual(id, (int)eViewListAttribs::orientation)) {
             SetOrientation(id, attVal);
+        } else if (IdEqual(id, (int)eViewListAttribs::shifttype)) {
+            SetShiftType(id, attVal);
+        } else if (IdEqual(id, (int)eViewListAttribs::shiftmode)) {
+            SetShiftMode(id, attVal);
         } else {
             attribCtors[id] = new cNumericExpr(attVal);
         }
@@ -271,12 +282,24 @@ void cViewListAttribs::SetAttributesDefs(void) {
     attribIDs.insert(pair<string, int>("determinatefont", (int)eViewListAttribs::determinatefont));
     attribIDs.insert(pair<string, int>("numlistelements", (int)eViewListAttribs::numlistelements));
     attribIDs.insert(pair<string, int>("orientation", (int)eViewListAttribs::orientation));
+    attribIDs.insert(pair<string, int>("fadetime", (int)eViewListAttribs::fadetime));
+    attribIDs.insert(pair<string, int>("shifttime", (int)eViewListAttribs::shifttime));
+    attribIDs.insert(pair<string, int>("shifttype", (int)eViewListAttribs::shifttype));
+    attribIDs.insert(pair<string, int>("shiftmode", (int)eViewListAttribs::shiftmode));
+    attribIDs.insert(pair<string, int>("startx", (int)eViewListAttribs::startx));
+    attribIDs.insert(pair<string, int>("starty", (int)eViewListAttribs::starty));
     attribIDs.insert(pair<string, int>("condition", (int)eViewListAttribs::condition));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::align, "align"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::menuitemwidth, "menuitemwidth"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::determinatefont, "determinatefont"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::numlistelements, "numlistelements"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::orientation, "orientation"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::fadetime, "fadetime"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::shifttime, "shifttime"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::shifttype, "shifttype"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::shiftmode, "shiftmode"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::startx, "startx"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::starty, "starty"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::condition, "condition"));
 }
 

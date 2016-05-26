@@ -425,8 +425,14 @@ void cArea::SetViewPort(cRect &vp) {
 void cArea::SetPosition(cPoint &pos, cPoint &ref) {
     if (!pix)
         return;
-    int x = (attribs->X() - ref.X()) + pos.X();
-    int y = (attribs->Y() - ref.Y()) + pos.Y();
+    int x0 = attribs->X() == -1 ? 0 : attribs->X();
+    int y0 = attribs->Y() == -1 ? 0 : attribs->Y();    
+    int x = (x0 - ref.X()) + pos.X();
+    int y = (y0 - ref.Y()) + pos.Y();
+/* Enable for xineliboutput OSD Bug
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
+*/
     pix->SetViewPort(cRect(x, y, pix->ViewPort().Width(), pix->ViewPort().Height()));
 }
 
@@ -518,7 +524,7 @@ void cArea::CreatePixmap(cRect drawPort) {
     }
 
     int layer = attribs->Layer();
-    cRect viewPort(attribs->X(), attribs->Y(), attribs->Width(), attribs->Height());
+    cRect viewPort(attribs->X() == -1 ? 0 : attribs->X(), attribs->Y() == -1 ? 0 : attribs->Y(), attribs->Width(), attribs->Height());
     pix = sdOsd->CreatePixmap(layer, viewPort, drawPort);
     if (pix)
         pix->Clear();

@@ -150,4 +150,53 @@ public:
     bool Parse(bool forced = false);
 };
 
+/******************************************************************
+* cVeDcChannelHints
+******************************************************************/
+class cVeDcChannelHints : public cViewElement {
+private:
+    const cChannel **hints;
+    int numHints;
+    int current;
+    int hintsIndex;
+    bool active;
+public:
+    cVeDcChannelHints(void);
+    virtual ~cVeDcChannelHints(void);
+    void Close(void);
+    void SetTokenContainer(void);
+    void SetNumHints(int num);
+    void SetHint(const cChannel *c);
+    bool Parse(bool forced = false);
+    bool Active(void) { return active; };
+};
+
+
+/******************************************************************
+* cVeDcChannelDetail
+******************************************************************/
+class cVeDcChannelDetail : public cViewElement, public cScrapManager {
+private:
+    const cChannel *channel;
+    int actorsIndex;
+public:
+    cVeDcChannelDetail(void);
+    virtual ~cVeDcChannelDetail(void);
+    void Close(void);
+    void SetTokenContainer(void);
+    void Set(const cChannel *c);
+    bool Parse(bool forced = false);
+};
+
+class cVeDcChannelListDetail : public cVeDcChannelDetail {
+public:
+    cVeDcChannelListDetail(void) {};
+    virtual ~cVeDcChannelListDetail(void) {};
+};
+
+class cVeDcGroupChannelListDetail : public cVeDcChannelDetail {
+public:
+    cVeDcGroupChannelListDetail(void) {};
+    virtual ~cVeDcGroupChannelListDetail(void) {};
+};
 #endif //__VIEWELEMENTSDC_H

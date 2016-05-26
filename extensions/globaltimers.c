@@ -26,7 +26,6 @@ cGlobalTimers::~cGlobalTimers(void) {
 }
 
 void cGlobalTimers::LoadTimers(void) {
-    uint64_t start = cTimeMs::Now();
     isEpg2VdrTimers = false;
     bool epg2vdrOk = false;
     if (pEpg2Vdr) {
@@ -38,7 +37,6 @@ void cGlobalTimers::LoadTimers(void) {
             SetRemoteTimers(initial);
         }        
     }
-    esyslog("skindesigner: loaded %d timers, needed %d ms", Size(), cTimeMs::Now() - start);
     initial = false;
 }
 

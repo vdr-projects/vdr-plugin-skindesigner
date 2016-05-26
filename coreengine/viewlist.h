@@ -6,7 +6,7 @@
 #include "listelements.h"
 #include "area.h"
 
-class cViewList {
+class cViewList : public cFadable, public cShiftable {
 protected:
     int plugId;
     int plugMenuId;
@@ -19,7 +19,10 @@ protected:
     cViewElement *listElement;
     cViewElement *currentElement;
     cListElement **listElements;
+    cAnimation *fader;
+    cAnimation *shifter;
     virtual void Prepare(int start, int step) {};
+    cPoint ShiftStart(cRect &shiftbox);
 public:
     cViewList(void);
     virtual ~cViewList(void);
@@ -40,7 +43,22 @@ public:
     void Draw(eMenuCategory menuCat);
     void Clear(void);
     virtual void Close(void);
-    void SetTransparency(int transparency);
+    //Fadable
+    bool Detached(void) { return false; };
+    int Delay(void) { return 0; };
+    int FadeTime(void) { return attribs->FadeTime(); };
+    void SetTransparency(int transparency, bool force = false);
+    //Shiftable
+    int ShiftTime(void) { return attribs->ShiftTime(); };
+    int ShiftMode(void) { return attribs->ShiftMode(); };
+    void SetPosition(cPoint &position, cPoint &reference, bool force = false);
+    void SetStartShifting(void) { };
+    void SetEndShifting(void) { };
+    void RegisterAnimation(void);
+    void UnregisterAnimation(void);
+    cRect CoveredArea(void);
+    void StartAnimation(void);
+    void Flush(bool animFlush);
     void Debug(void);
 };
 
@@ -153,5 +171,27 @@ public:
     void SetTracks(const char * const *tracks);
     void SetCurrentTrack(int index);
     void Draw(void);
+};
+
+class cViewListChannelList : public cViewList {
+private:
+    cLeChannelList **listChannelList;
+protected:
+    void Prepare(int start, int step);
+public:
+    cViewListChannelList(void);
+    virtual ~cViewListChannelList(void);
+    void Set(const cChannel *channel, int index, bool current);
+};
+
+class cViewListGroupList : public cViewList {
+private:
+    cLeGroupList **listGroupList;
+protected:
+    void Prepare(int start, int step);
+public:
+    cViewListGroupList(void);
+    virtual ~cViewListGroupList(void);
+    void Set(const char *group, int numChannels, int index, bool current);
 };
 #endif //__VIEWLIST_H

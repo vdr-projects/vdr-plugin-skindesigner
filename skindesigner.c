@@ -20,7 +20,7 @@
 #endif
 
 
-static const char *VERSION        = "1.0.3";
+static const char *VERSION        = "1.0.2";
 static const char *DESCRIPTION    = trNOOP("Skin Designer");
 
 class cPluginSkinDesigner : public cPlugin, public skindesignerapi::SkindesignerAPI {
@@ -158,6 +158,9 @@ bool cPluginSkinDesigner::Start(void) {
     if (!skinAvailable) {
         esyslog("skindesigner: no skins found! Using default Skin LCARS!");
     }
+#ifdef USE_ZAPCOCKPIT
+    dsyslog("skindesigner: zapcockpit patch available");
+#endif
     return true;
 }
 

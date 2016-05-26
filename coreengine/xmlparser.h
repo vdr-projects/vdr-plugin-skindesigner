@@ -29,7 +29,7 @@ private:
     bool ParseSubView(string name);
     void ParseViewElement(string name, cView *subView = NULL);
     void ParsePluginViewElement(bool isScrollbar = false, bool isTabLabels = false);
-    void ParseViewList(cView *subView = NULL);
+    void ParseViewList(cView *subView = NULL, const char *listName = NULL);
     void ParseViewTab(cView *subView);
     void ParseViewTabPlugin(void);
     void ParseGrid(void);

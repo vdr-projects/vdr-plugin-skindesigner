@@ -9,6 +9,8 @@ cViewList::cViewList(void) {
     listElements = NULL;
     plugId = -1;
     plugMenuId = -1;
+    fader = NULL;
+    shifter = NULL;
 }
 
 cViewList::~cViewList(void) {
@@ -25,6 +27,8 @@ cViewList::~cViewList(void) {
     }
     delete[] listElements;
     delete tokenContainer;
+    delete fader;
+    delete shifter;
 }
 
 void cViewList::SetGlobals(cGlobals *globals) {
@@ -66,6 +70,12 @@ cViewList *cViewList::CreateViewList(const char *name) {
         l = new cViewListAudioTracks();
     else if (startswith(name, "menuplugin"))
         l = new cViewListPlugin();
+    else if (startswith(name, "channellist"))
+        l = new cViewListChannelList();
+    else if (startswith(name, "grouplist"))
+        l = new cViewListGroupList();
+    else if (startswith(name, "groupchannellist"))
+        l = new cViewListChannelList();
     else
         esyslog("skindesigner: unknown viewlist %s", name);
     return l;
@@ -91,6 +101,12 @@ cViewElement *cViewList::CreateListElement(const char *name) {
         le = new cLeAudioTracks();
     else if (startswith(name, "menuplugin"))
         le = new cLeMenuPlugin();
+    else if (startswith(name, "channellist"))
+        le = new cLeChannelList();
+    else if (startswith(name, "grouplist"))
+        le = new cLeGroupList();
+    else if (startswith(name, "groupchannellist"))
+        le = new cLeChannelList();
     else
         esyslog("skindesigner: unknown viewlist %s", name);
     return le;
@@ -207,21 +223,85 @@ void cViewList::Clear(void) {
 }
 
 void cViewList::Close(void) {
+    delete fader;
+    fader = NULL;
+    delete shifter;
+    shifter = NULL;
     if (!listElements)
         return;
     for (int i = 0; i < numElements; i++) {
         listElements[i]->StopBlinking();
         listElements[i]->StopScrolling();
     }
-    for (int i = 0; i < numElements; i++) {
+    for (int i = 0; i < numElements; i++)
         listElements[i]->Close();
+}
+
+void cViewList::SetTransparency(int transparency, bool force) {
+    for (int i = 0; i < numElements; i++) {
+        if (listElements[i])
+            listElements[i]->SetTransparency(transparency, force);
     }
 }
 
-void cViewList::SetTransparency(int transparency) {
+cRect cViewList::CoveredArea(void) {
+    cRect unionArea;
+    for (int i = 0; i < numElements; i++) {
+        if (listElements[i])
+            unionArea.Combine(listElements[i]->CoveredArea());
+    }
+    return unionArea;
+}
+
+void cViewList::SetPosition(cPoint &position, cPoint &reference, bool force) {
+    for (int i = 0; i < numElements; i++) {
+        if (listElements[i])
+            listElements[i]->SetPosition(position, reference, force);
+    }
+}
+
+void cViewList::RegisterAnimation(void) {
+   for (int i = 0; i < numElements; i++) {
+        if (listElements[i]) {
+            listElements[i]->RegisterAnimation();
+            break;
+        }
+    } 
+}
+
+void cViewList::UnregisterAnimation(void) {
+   for (int i = 0; i < numElements; i++) {
+        if (listElements[i]) {
+            listElements[i]->UnregisterAnimation();
+            break;
+        }
+    }
+}
+
+void cViewList::StartAnimation(void) {
+    if (ShiftTime() > 0) {
+        cRect shiftbox = CoveredArea();
+        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
+        cPoint start = ShiftStart(shiftbox);
+        SetPosition(start, ref);
+        Flush(false);
+        delete shifter;
+        shifter = new cAnimation((cShiftable*)this, start, ref, true);
+        shifter->Start();
+    } else if (FadeTime() > 0) {
+        SetTransparency(100);
+        Flush(false);
+        delete fader;
+        fader = new cAnimation((cFadable*)this, true);
+        fader->Start();
+    }
+}
+
+void cViewList::Flush(bool animFlush) {
     for (int i = 0; i < numElements; i++) {
         if (listElements[i]) {
-            listElements[i]->SetTransparency(transparency);
+            listElements[i]->Flush(animFlush);
+            break;
         }
     }
 }
@@ -229,6 +309,27 @@ void cViewList::SetTransparency(int transparency) {
 void cViewList::Debug(void) {
     esyslog("skindesigner: --- debug viewlist");
     attribs->Debug();
+}
+
+cPoint cViewList::ShiftStart(cRect &shiftbox) {
+    eShiftType type = (eShiftType)attribs->ShiftType();
+    cPoint start;
+    if (type == eShiftType::none) {
+        start = attribs->ShiftStartpoint();
+    } else if (type == eShiftType::left) {
+        start.SetX(-shiftbox.Width());
+        start.SetY(shiftbox.Y());
+    } else if (type == eShiftType::right) {
+        start.SetX(cOsd::OsdWidth());
+        start.SetY(shiftbox.Y());        
+    } else if (type == eShiftType::top) {
+        start.SetX(shiftbox.X());
+        start.SetY(-shiftbox.Height());        
+    } else if (type == eShiftType::bottom) {
+        start.SetX(shiftbox.X());
+        start.SetY(cOsd::OsdHeight());
+    }
+    return start;
 }
 
 /******************************************************************
@@ -926,4 +1027,118 @@ void cViewListAudioTracks::Draw(void) {
             listAudioTracks[i]->Render();
         }
     }
+}
+
+/******************************************************************
+* cViewListChannelList
+******************************************************************/
+cViewListChannelList::cViewListChannelList(void) {
+    listChannelList = NULL;
+}
+
+cViewListChannelList::~cViewListChannelList(void) {
+    delete[] listChannelList;
+}
+
+void cViewListChannelList::Prepare(int start, int step) {
+    if (!listElement)
+        return;
+
+    cLeChannelList *tpl = dynamic_cast<cLeChannelList*>(listElement);
+    if (!tpl) return;
+
+    listChannelList = new cLeChannelList*[numElements];
+    listElements = new cListElement*[numElements];
+    int pos = start;
+
+    for (int i = 0; i < numElements; i++) {
+        listChannelList[i] = new cLeChannelList(*tpl);
+        listElements[i] = listChannelList[i];
+        listChannelList[i]->SetNumber(i);
+        listChannelList[i]->SetTokenContainer();
+        int x, y, width, height;
+        if (orientation == eOrientation::vertical) {
+            x = attribs->X();
+            y = pos;
+            width = attribs->Width();
+            height = step;
+            listChannelList[i]->SetAreaHeight(height);
+        } else {
+            x = pos;
+            y = attribs->Y();
+            width = step;
+            height = attribs->Height();
+            listChannelList[i]->SetAreaWidth(width);
+        }
+        listChannelList[i]->SetContainer(x, y, width, height);
+        listChannelList[i]->Cache();
+        pos += step;
+    }
+}
+
+void cViewListChannelList::Set(const cChannel *channel, int index, bool current) {
+    if (index < 0 || index  >= numElements)
+        return;
+    if (!current)
+        listChannelList[index]->StopScrolling();
+    listChannelList[index]->SetCurrent(current);
+    listChannelList[index]->SetSelectable(true);
+    listChannelList[index]->Set(channel);
+}
+
+/******************************************************************
+* cViewListGroupList
+******************************************************************/
+cViewListGroupList::cViewListGroupList(void) {
+    listGroupList = NULL;
+}
+
+cViewListGroupList::~cViewListGroupList(void) {
+    delete[] listGroupList;
+}
+
+void cViewListGroupList::Prepare(int start, int step) {
+    if (!listElement)
+        return;
+
+    cLeGroupList *tpl = dynamic_cast<cLeGroupList*>(listElement);
+    if (!tpl) return;
+
+    listGroupList = new cLeGroupList*[numElements];
+    listElements = new cListElement*[numElements];
+    int pos = start;
+
+    for (int i = 0; i < numElements; i++) {
+        listGroupList[i] = new cLeGroupList(*tpl);
+        listElements[i] = listGroupList[i];
+        listGroupList[i]->SetNumber(i);
+        listGroupList[i]->SetTokenContainer();
+        int x, y, width, height;
+        if (orientation == eOrientation::vertical) {
+            x = attribs->X();
+            y = pos;
+            width = attribs->Width();
+            height = step;
+            listGroupList[i]->SetAreaHeight(height);
+        } else {
+            x = pos;
+            y = attribs->Y();
+            width = step;
+            height = attribs->Height();
+            listGroupList[i]->SetAreaWidth(width);
+        }
+        listGroupList[i]->SetContainer(x, y, width, height);
+        listGroupList[i]->Cache();
+        pos += step;
+    }
+}
+
+void cViewListGroupList::Set(const char *group, int numChannels, int index, bool current) {
+    if (index < 0 || index  >= numElements)
+        return;
+    if (!current)
+        listGroupList[index]->StopScrolling();
+    listGroupList[index]->SetCurrent(current);
+    listGroupList[index]->SetSelectable(true);
+    listGroupList[index]->Set(group, numChannels);
 }

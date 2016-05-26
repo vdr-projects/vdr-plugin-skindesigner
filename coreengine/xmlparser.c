@@ -40,6 +40,7 @@ bool cXmlParser::ParseView(void) {
     view->SetAttributes(rootAttribs);
 
     cViewMenu *menuView = dynamic_cast<cViewMenu*>(view);
+    cViewChannel *channelView = dynamic_cast<cViewChannel*>(view);
     cViewTracks *tracksView = dynamic_cast<cViewTracks*>(view);
 
     if (!LevelDown())
@@ -48,6 +49,13 @@ bool cXmlParser::ParseView(void) {
     do {
         if (view->ValidViewElement(NodeName())) {
             ParseViewElement(NodeName());
+        } else if (channelView) {
+            if (view->ValidViewList(NodeName())) {
+                ParseViewList(NULL, NodeName());
+            } else {
+                esyslog("skindesigner: unknown node %s", NodeName());
+                return false;                
+            }
         } else if (menuView) {
             if (menuView->ValidSubView(NodeName())) {
                 ParseSubView(NodeName());
@@ -334,7 +342,7 @@ void cXmlParser::ParsePluginViewElement(bool isScrollbar, bool isTabLabels) {
     }
 }
 
-void cXmlParser::ParseViewList(cView *subView) {
+void cXmlParser::ParseViewList(cView *subView, const char *listName) {
     if (!view)
         return;
 
@@ -345,7 +353,11 @@ void cXmlParser::ParseViewList(cView *subView) {
         name = view->GetViewName();
 
     vector<stringpair> attribs = ParseAttributes();
-    cViewList *viewList = cViewList::CreateViewList(name);
+    cViewList *viewList = NULL;
+    if (!listName)
+        viewList = cViewList::CreateViewList(name);
+    else
+        viewList = cViewList::CreateViewList(listName);
     viewList->SetAttributes(attribs);
 
     if (!LevelDown())
@@ -353,7 +365,11 @@ void cXmlParser::ParseViewList(cView *subView) {
 
     do {
         if (CheckNodeName("currentelement")) {
-            cViewElement *currentElement = cViewList::CreateCurrentElement(name);
+            cViewElement *currentElement = NULL;
+            if (!listName)
+                currentElement = cViewList::CreateCurrentElement(name);
+            else
+                currentElement = cViewList::CreateCurrentElement(listName);
             currentElement->SetOsd(sdOsd);
             vector<stringpair> attribsList = ParseAttributes();
             currentElement->SetAttributes(attribsList);
@@ -375,7 +391,11 @@ void cXmlParser::ParseViewList(cView *subView) {
             LevelUp();
             viewList->AddCurrentElement(currentElement);
         } else if (CheckNodeName("listelement")) {
-            cViewElement *listElement = cViewList::CreateListElement(name);
+            cViewElement *listElement = NULL;
+            if (!listName)
+                listElement = cViewList::CreateListElement(name);
+            else
+                listElement = cViewList::CreateListElement(listName);
             listElement->SetOsd(sdOsd);
             vector<stringpair> attribsList = ParseAttributes();
             listElement->SetAttributes(attribsList);            
@@ -402,8 +422,12 @@ void cXmlParser::ParseViewList(cView *subView) {
     
     if (subView)
         subView->AddViewList(viewList);
-    else
-        view->AddViewList(viewList);
+    else if (listName) {
+        cViewChannel *channelView = dynamic_cast<cViewChannel*>(view);
+        channelView->AddChannelViewList(listName, viewList);
+    } else {
+        view->AddViewList(viewList);        
+    }
     
 }
 

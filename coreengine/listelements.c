@@ -2021,3 +2021,130 @@ bool cLeAudioTracks::Parse(bool forced) {
     tokenContainer->AddStringToken((int)eLeDisplayTracksST::title, text);
     return true;
 }
+
+/******************************************************************
+* cLeChannelList
+******************************************************************/
+cLeChannelList::cLeChannelList(void) {
+    channel = NULL;
+}
+
+cLeChannelList::cLeChannelList(const cLeChannelList &other) : cListElement(other) {
+    channel = NULL;
+}
+
+cLeChannelList::~cLeChannelList(void) {
+}
+
+void cLeChannelList::SetTokenContainer(void) {
+    tokenContainer = new skindesignerapi::cTokenContainer();
+    tokenContainer->DefineStringToken("{name}", (int)eLeChannelListST::name);
+    tokenContainer->DefineStringToken("{channelid}", (int)eLeChannelListST::channelid);
+    tokenContainer->DefineStringToken("{presenteventtitle}", (int)eLeChannelListST::presenteventtitle);
+    tokenContainer->DefineStringToken("{presenteventstart}", (int)eLeChannelListST::presenteventstart);
+    tokenContainer->DefineStringToken("{presenteventstop}", (int)eLeChannelListST::presenteventstop);
+    tokenContainer->DefineStringToken("{nexteventtitle}", (int)eLeChannelListST::nexteventtitle);
+    tokenContainer->DefineStringToken("{nexteventstart}", (int)eLeChannelListST::nexteventstart);
+    tokenContainer->DefineStringToken("{nexteventstop}", (int)eLeChannelListST::nexteventstop);
+    tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeChannelListIT::nummenuitem);
+    tokenContainer->DefineIntToken("{current}", (int)eLeChannelListIT::current);
+    tokenContainer->DefineIntToken("{number}", (int)eLeChannelListIT::number);
+    tokenContainer->DefineIntToken("{channellogoexists}", (int)eLeChannelListIT::channellogoexists);
+    tokenContainer->DefineIntToken("{presenteventelapsed}", (int)eLeChannelListIT::presenteventelapsed);
+    tokenContainer->DefineIntToken("{presenteventremaining}", (int)eLeChannelListIT::presenteventremaining);
+    InheritTokenContainer();    
+}
+
+void cLeChannelList::Set(const cChannel *channel) {
+    dirty = true;
+    this->channel = channel;
+}
+
+bool cLeChannelList::Parse(bool forced) {
+    if (!cViewElement::Parse(forced))
+        return false;
+    if (!dirty)
+        return false;
+    tokenContainer->Clear();
+    tokenContainer->AddIntToken((int)eLeChannelListIT::nummenuitem, num);
+    tokenContainer->AddIntToken((int)eLeChannelListIT::current, current);
+    tokenContainer->AddIntToken((int)eLeChannelListIT::number, channel->Number());
+    tokenContainer->AddStringToken((int)eLeChannelListST::name, channel->Name());
+    cString channelID = channel->GetChannelID().ToString();
+    tokenContainer->AddStringToken((int)eLeChannelListST::channelid, *channelID);
+    tokenContainer->AddIntToken((int)eLeChannelListIT::channellogoexists, imgCache->LogoExists(*channelID));
+
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_SCHEDULES_READ;
+    const cSchedules* schedules = Schedules;
+#else
+    cSchedulesLock schedulesLock;
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+    const cSchedule *schedule = schedules->GetSchedule(channel);
+    if (schedule) {
+        const cEvent *presentEvent = schedule->GetPresentEvent();
+        if (presentEvent) {
+            tokenContainer->AddStringToken((int)eLeChannelListST::presenteventtitle, presentEvent->Title());
+            tokenContainer->AddStringToken((int)eLeChannelListST::presenteventstart, *presentEvent->GetTimeString());
+            tokenContainer->AddStringToken((int)eLeChannelListST::presenteventstop, *presentEvent->GetEndTimeString());
+            tokenContainer->AddIntToken((int)eLeChannelListIT::presenteventelapsed, (time(0) - presentEvent->StartTime())/60);
+            tokenContainer->AddIntToken((int)eLeChannelListIT::presenteventremaining, presentEvent->Duration()/60 - (time(0) - presentEvent->StartTime())/60);
+        }
+        const cList<cEvent> *events = schedule->Events();
+        if (events && presentEvent) {
+            const cEvent *nextEvent = events->Next(presentEvent);
+            if (nextEvent) {
+                tokenContainer->AddStringToken((int)eLeChannelListST::nexteventtitle, nextEvent->Title());
+                tokenContainer->AddStringToken((int)eLeChannelListST::nexteventstart, *nextEvent->GetTimeString());
+                tokenContainer->AddStringToken((int)eLeChannelListST::nexteventstop, *nextEvent->GetEndTimeString());
+            }
+        }
+    }
+    
+    return true;
+}
+
+/******************************************************************
+* cLeGroupList
+******************************************************************/
+cLeGroupList::cLeGroupList(void) {
+    group = NULL;
+    numChannels = 0;
+}
+
+cLeGroupList::cLeGroupList(const cLeGroupList &other) : cListElement(other) {
+    group = NULL;
+    numChannels = 0;
+}
+
+cLeGroupList::~cLeGroupList(void) {
+}
+
+void cLeGroupList::SetTokenContainer(void) {
+    tokenContainer = new skindesignerapi::cTokenContainer();
+    tokenContainer->DefineStringToken("{groupname}", (int)eLeGroupListST::groupname);
+    tokenContainer->DefineIntToken("{numchannels}", (int)eLeGroupListIT::numchannels);
+    tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeGroupListIT::nummenuitem);
+    tokenContainer->DefineIntToken("{current}", (int)eLeGroupListIT::current);
+    InheritTokenContainer();    
+}
+
+void cLeGroupList::Set(const char *group, int numChannels) {
+    dirty = true;
+    this->group = group;
+    this->numChannels = numChannels;
+}
+
+bool cLeGroupList::Parse(bool forced) {
+    if (!cViewElement::Parse(forced))
+        return false;
+    if (!dirty)
+        return false;
+    tokenContainer->Clear();
+    tokenContainer->AddIntToken((int)eLeGroupListIT::nummenuitem, num);
+    tokenContainer->AddIntToken((int)eLeGroupListIT::current, current);
+    tokenContainer->AddIntToken((int)eLeGroupListIT::numchannels, numChannels);
+    tokenContainer->AddStringToken((int)eLeGroupListST::groupname, group);
+    return true;
+}

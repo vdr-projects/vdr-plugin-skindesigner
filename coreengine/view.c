@@ -141,6 +141,12 @@ bool cView::ValidViewElement(const char *viewElement) {
 bool cView::ValidViewList(const char *viewList) {
     if (!strcmp(viewList, "menuitems"))
         return true;
+    else if (!strcmp(viewList, "channellist"))
+        return true;
+    else if (!strcmp(viewList, "grouplist"))
+        return true;
+    else if (!strcmp(viewList, "groupchannellist"))
+        return true;
     return false;
 }
 
@@ -162,6 +168,8 @@ void cView::PreCache(void) {
             continue;
         viewElements[i]->SetContainer(contX, contY, attribs->Width(), attribs->Height());
         viewElements[i]->Cache();
+        if (const char *clearOnDisplay = viewElements[i]->ClearOnDisplay())
+            SetClearOnDisplay(i, clearOnDisplay);
     }
     if (viewElementsHorizontal) {   
         for (int i=0; i < numViewElements; i++) {
@@ -209,11 +217,30 @@ void cView::Clear(int ve, bool forceClearBackground) {
     viewElements[ve]->Clear(forceClearBackground);
 }
 
+void cView::SetDirty(int ve) {
+    if (!viewElements[ve])
+        return;
+    viewElements[ve]->SetDirty();
+    viewElements[ve]->SetRestartAnimation();
+}
+
 void cView::Render(int ve, bool force) {
     if (!viewElements[ve])
         return;
     if (viewElements[ve]->Parse(force))
         viewElements[ve]->Render();
+}
+
+void cView::Hide(int ve) {
+    if (!viewElements[ve])
+        return;
+    viewElements[ve]->Hide();
+}
+
+void cView::Show(int ve) {
+    if (!viewElements[ve])
+        return;
+    viewElements[ve]->Show();
 }
 
 void cView::Close(void) {
@@ -435,3 +462,20 @@ void cView::DoScaleTv(const cRect *frame) {
         }
     }
 }
+
+void cView::SetClearOnDisplay(int ve, const char *clearOnDisplay) {
+    if (!strcmp(clearOnDisplay, "all")) {
+        viewElements[ve]->SetClearAll();
+        return;
+    }
+    vector<int> clearVEs;
+    for (map<string,int>::iterator it = viewElementNames.begin(); it != viewElementNames.end(); it++) {
+        string name = it->first;
+        int id = it->second;
+        if (strstr(clearOnDisplay, name.c_str())) {
+            clearVEs.push_back(id);
+        }
+    }
+    viewElements[ve]->SetClearOnDisplay(clearVEs);
+}
+

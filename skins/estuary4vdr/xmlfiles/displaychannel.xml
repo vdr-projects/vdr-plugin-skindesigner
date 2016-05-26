@@ -132,6 +132,182 @@
         </area>
     </scrapercontent>
 
+    <channelhints>
+        <area background="true" x="0" y="{areaheight}*0.75 - {numhints}*{areaheight}*{zapchannelhintsheight}/1000 + 1" width="{zapchannelhintswidth}*{areawidth}/100" height="{numhints}*{areaheight}*{zapchannelhintsheight}/1000" layer="1">
+            <fill color="{channelback}" />
+        </area>
+        <area x="0" y="{areaheight}*0.75 - {numhints}*{areaheight}*{zapchannelhintsheight}/1000" width="{zapchannelhintswidth}*{areawidth}/100" height="{numhints}*{areaheight}*{zapchannelhintsheight}/1000" layer="2">        
+            <loop name="hints" x="2%" y="0" width="96%%" orientation="vertical" columnwidth="100%" rowheight="{areaheight}/{numhints}" overflow="cut" >
+                <drawimage condition="{hints[channellogoexists]}" imagetype="channellogo" path="{hints[channelid]}" width="{rowheight}*1.5" height="{rowheight}" x="0" valign="center" />
+                <drawtext x="{rowheight}*2" valign="center" width="{columnwidth} - {rowheight}*2.5" font="{regular}" fontsize="{rowheight}*0.8" color="{fontdefault}" text="{hints[channelnumber]}: {hints[channelname]}" />
+            </loop>
+        </area>
+    </channelhints>
+
+    <channeldetail clearondisplay="scrapercontent">
+        <area background="true" x="5%" y="5%" width="90%" height="65%" layer="1">
+            <fill color="{channelback}" />
+        </area>
+        <area x="7%" y="7%" width="41%" height="5%" layer="2">
+            <drawtext x="0" valign="center" fontsize="{zapdetaildatetimefs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+        </area>
+        <areascroll condition="{ismovie}||{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="10%" width="41%" height="7%" layer="3">
+            <drawtext name="title" x="0" valign="center" fontsize="{zapdetailheaderfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+        </areascroll>
+        <areascroll condition="{ismovie}||{isseries}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="15%" width="41%" height="6%" layer="3">
+            <drawtext name="shorttext" x="0" valign="center" fontsize="{zapdetailshorttextfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+        </areascroll>
+        <areascroll condition="{ismovie}||{isseries}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="21%" width="41%" height="47%" layer="2">
+            <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="{zapdetaildescfs}*{areaheight}/100" color="{fontdefault}" text="{currentdescription}" />
+        </areascroll>
+        <area condition="{ismovie}" x="52%" y="7%" width="41%" height="30%" layer="1">
+            <drawimage imagetype="image" path="{seriesposter1path}" align="center" valign="center" width="100%" height="100%" />
+        </area>
+        <area condition="{isseries}" x="52%" y="7%" width="41%" height="30%" layer="1">
+            <drawimage imagetype="image" path="{seriesbanner1path}" align="center" valign="center" width="100%" height="100%" />
+        </area>
+        <areascroll condition="{ismovie}||{isseries}" orientation="vertical" scrollelement="actors" mode="forthandback" delay="5000" scrollspeed="medium" x="52%" y="39%" width="41%" height="30%" layer="2">
+            <loop name="actors" x="0" y="0" width="100%" orientation="horizontal" columnwidth="{areawidth}/5" rowheight="{areawidth}/5*1.5" overflow="linewrap" >
+                <drawimage name="thumb" imagetype="image" path="{actors[thumb]}" x="10" y="0" width="{columnwidth}-20" height="{columnwidth} * {actors[thumbheight]} / {actors[thumbwidth]} - 40 * {actors[thumbheight]} / {actors[thumbwidth]}"/>
+                <drawtext align="center" y="{height(thumb)} + 10" width="{columnwidth}" name="actorname" font="{regular}" fontsize="6%" color="{fontdefault}" text="{actors[name]}" />
+                <drawtext align="center" y="{height(thumb)} + 10 + {height(actorname)}" width="{columnwidth}" font="{regular}" fontsize="6%" color="{fontdefault}" text="{actors[role]}" />
+            </loop>
+        </areascroll>
+        <areascroll condition="not{ismovie}++not{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="10%" width="86%" height="7%" layer="3">
+            <drawtext name="title" x="0" valign="center" fontsize="{zapdetailheaderfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+        </areascroll>
+        <areascroll condition="not{ismovie}++not{isseries}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="15%" width="86%" height="6%" layer="3">
+            <drawtext name="shorttext" x="0" valign="center" fontsize="{zapdetailshorttextfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+        </areascroll>
+        <areascroll condition="not{ismovie}++not{isseries}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="21%" width="86%" height="47%" layer="2">
+            <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="{zapdetaildescfs}*{areaheight}/100" color="{fontdefault}" text="{currentdescription}" />
+        </areascroll>
+    </channeldetail>
+
+    <channellistback clearondisplay="all" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
+        <area x="0" y="0" width="30%" height="100%" layer="3">
+            <fill color="{channelback}" />
+        </area>
+    </channellistback>
+    
+    <channellist x="0" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="16" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
+        <listelement>
+            <area x="0" width="100%" layer="4">
+                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area x="1%" width="25%" layer="5">
+                <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
+            </area>
+            <area condition="not{current}" x="26%" width="73%" layer="4">
+                <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontdefault}" text="{number} {name}" />
+                <drawtext x="0" y="{zapclpresenty}*{areaheight}/100" font="{regular}" fontsize="{zapclpresentfs}*{areaheight}/100" color="{fontdefault}" text="+{presenteventremaining}min: {presenteventtitle}" />
+                <drawtext x="0" y="{zapclnexty}*{areaheight}/100" font="{regular}" fontsize="{zapclnextfs}*{areaheight}/100" color="{fontdefault}" text="{nexteventstart} {nexteventstop}: {nexteventtitle}" />
+            </area>
+            <area condition="{current}" x="26%" width="73%" layer="4">
+                <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontmenuactive}" text="{number} {name}" />
+                <drawtext x="0" y="{zapclpresenty}*{areaheight}/100" font="{regular}" fontsize="{zapclpresentfs}*{areaheight}/100" color="{fontmenuactive}" text="+{presenteventremaining}min: {presenteventtitle}" />
+                <drawtext x="0" y="{zapclnexty}*{areaheight}/100" font="{regular}" fontsize="{zapclnextfs}*{areaheight}/100" color="{fontmenuactive}" text="{nexteventstart} {nexteventstop}: {nexteventtitle}" />
+            </area>
+        </listelement>
+    </channellist>
+
+    <channellistdetail fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="{areawidth}*0.3 - {areawidth}*0.6" starty="5%">
+        <area x="30%" y="5%" width="66%" height="90%" layer="1">
+            <fill color="{channelback}" />
+        </area>
+        <area x="32%" y="6%" width="62%" height="5%" layer="2">
+            <drawtext x="0" valign="center" fontsize="{zapcldetaildatetimefs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+        </area>
+        <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="10%" width="62%" height="7%" layer="3">
+            <drawtext name="title" x="0" valign="center" fontsize="{zapcldetailheaderfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+        </areascroll>
+        <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="16%" width="62%" height="6%" layer="3">
+            <drawtext name="shorttext" x="0" valign="center" fontsize="{zapcldetailshorttextfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+        </areascroll>
+        <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="32%" y="22%" width="62%" height="71%" layer="2">
+            <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="{zapcldetaildescfs}*{areaheight}/100" color="{fontdefault}" text="{currentdescription}" />
+        </areascroll>
+    </channellistdetail>
+
+    <grouplistback fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right" clearondisplay="all">
+        <area x="70%" y="0" width="30%" height="100%" layer="4">
+            <fill color="{channelback}" />
+        </area>
+    </grouplistback>
+
+    <grouplist x="70%" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="12" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right">
+        <listelement>
+            <area x="0" width="100%" layer="5">
+                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area x="0" width="24%" layer="5">
+                <drawimage condition="not{current}" imagetype="icon" path="folder" align="center" valign="center" width="90%" height="90%" />
+                <drawimage condition="{current}" imagetype="icon" path="folder_active" align="center" valign="center" width="90%" height="90%" />
+            </area>
+            <area x="0" width="24%" layer="6">
+                <drawtext condition="not{current}" align="center" y="38%" fontsize="40%" font="{regular}" color="{fontdefault}" text="{numchannels}" />
+                <drawtext condition="{current}" align="center" y="38%" fontsize="40%" font="{regular}" color="{fontmenuactive}" text="{numchannels}" />
+            </area>
+            <areascroll condition="not{current}" scrollelement="groupname" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="25%" width="74%" layer="5">
+                <drawtext name="groupname" x="0" valign="center" fontsize="{zapglgroupfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{groupname}" />
+            </areascroll>
+            <areascroll condition="{current}" scrollelement="groupname" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="25%" width="74%" layer="5">
+                <drawtext name="groupname" x="0" valign="center" fontsize="{zapglgroupfs}*{areaheight}/100" font="{regular}" color="{fontmenuactive}" text="{groupname}" />
+            </areascroll>
+        </listelement>
+    </grouplist>
+
+    <groupchannellistback fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="70%" starty="3%">
+        <area x="40%" y="3%" width="30%" height="94%" layer="1">
+            <fill color="{channelback}" />
+        </area>
+    </groupchannellistback>
+
+    <groupchannellist x="40%" y="3%" orientation="vertical" width="30%" height="94%" align="center" numlistelements="14" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="70%" starty="3%">
+        <listelement>
+            <area x="0" width="100%" layer="2">
+                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area x="1%" width="25%" layer="3">
+                <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
+            </area>
+            <area condition="not{current}" x="26%" width="73%" layer="3">
+                <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontdefault}" text="{number} {name}" />
+                <drawtext x="0" y="{zapclpresenty}*{areaheight}/100" font="{regular}" fontsize="{zapclpresentfs}*{areaheight}/100" color="{fontdefault}" text="+{presenteventremaining}min: {presenteventtitle}" />
+                <drawtext x="0" y="{zapclnexty}*{areaheight}/100" font="{regular}" fontsize="{zapclnextfs}*{areaheight}/100" color="{fontdefault}" text="{nexteventstart} {nexteventstop}: {nexteventtitle}" />
+            </area>
+            <area condition="{current}" x="26%" width="73%" layer="3">
+                <drawtext x="0" y="{zapclchannely}*{areaheight}/100" font="{regular}" fontsize="{zapclchannelfs}*{areaheight}/100" color="{fontmenuactive}" text="{number} {name}" />
+                <drawtext x="0" y="{zapclpresenty}*{areaheight}/100" font="{regular}" fontsize="{zapclpresentfs}*{areaheight}/100" color="{fontmenuactive}" text="+{presenteventremaining}min: {presenteventtitle}" />
+                <drawtext x="0" y="{zapclnexty}*{areaheight}/100" font="{regular}" fontsize="{zapclnextfs}*{areaheight}/100" color="{fontmenuactive}" text="{nexteventstart} {nexteventstop}: {nexteventtitle}" />
+            </area>
+        </listelement>
+    </groupchannellist>
+
+    <groupchannellistdetail fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="40%" starty="6%">
+        <area x="2%" y="6%" width="38%" height="88%" layer="1">
+            <fill color="{channelback}" />
+        </area>
+        <area x="4%" y="6%" width="36%" height="5%" layer="2">
+            <drawtext x="0" valign="center" fontsize="{zapgcldetaildatetimefs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+        </area>
+        <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="10%" width="36%" height="7%" layer="3">
+            <drawtext name="title" x="0" valign="center" fontsize="{zapgcldetailheaderfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+        </areascroll>
+        <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="16%" width="36%" height="6%" layer="3">
+            <drawtext name="shorttext" x="0" valign="center" fontsize="{zapgcldetailshorttextfs}*{areaheight}/100" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+        </areascroll>
+        <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="4%" y="22%" width="36%" height="70%" layer="2">
+            <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="{zapgcldetaildescfs}*{areaheight}/100" color="{fontdefault}" text="{currentdescription}" />
+        </areascroll>
+    </groupchannellistdetail>
+
     <time>
         <area x="80%" y="80%" width="20%" height="15%" layer="2">
             <drawtext name="clock" x="11%" valign="center" fontsize="70%" font="{digital}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />

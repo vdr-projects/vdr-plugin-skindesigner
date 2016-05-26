@@ -30,6 +30,7 @@ public:
 class cViewElementAttribs : public cAttributes {
 private:
     char *name;
+    char *clearOnDisplay;
     void SetAttributesDefs(void);
 public:
     cViewElementAttribs(int numAttributes);
@@ -45,6 +46,7 @@ public:
     int ShiftType(void) { return GetValue((int)eViewElementAttribs::shifttype); };
     int ShiftMode(void) { return GetValue((int)eViewElementAttribs::shiftmode); };
     const char *Name(void) { return name; };
+    const char *ClearOnDisplay(void) { return clearOnDisplay; };
     void Debug(void);
 };
 /******************************************************************
@@ -63,6 +65,11 @@ public:
     const char *DeterminateFont(void);
     eAlign Align(void);
     eOrientation Orientation(void);
+    int FadeTime(void) { return GetValue((int)eViewListAttribs::fadetime); };
+    int ShiftTime(void) { return GetValue((int)eViewListAttribs::shifttime); };
+    cPoint ShiftStartpoint(void) { return cPoint(GetValue((int)eViewListAttribs::startx), GetValue((int)eViewListAttribs::starty)); };
+    int ShiftType(void) { return GetValue((int)eViewListAttribs::shifttype); };
+    int ShiftMode(void) { return GetValue((int)eViewListAttribs::shiftmode); };
     void Debug(void);
 };
 /******************************************************************

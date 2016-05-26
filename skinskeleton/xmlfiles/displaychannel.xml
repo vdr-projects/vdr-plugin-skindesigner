@@ -181,6 +181,195 @@
     <scrapercontent>
     </scrapercontent>
 
+    <!-- Available Variables channelhints:
+    {numhints}                          number of hints to display
+    {hints[]}                           array with available channel hints
+    {hints[channelnumber]}              number of current channel
+    {hints[channelname]}                name of current channel
+    {hints[channelid]}                  id of current channel
+    {hints[channellogoexists]}          true if channel logo exists
+    -->
+    <channelhints>
+    </channelhints>
+
+    <!-- Available Variables channeldetail:
+    {channelname}                       name of current channel
+    {channelnumber}                     number of current channel
+    {currenttitle}                      title of current event
+    {currentshorttext}                  short text of current event
+    {currentdescription}                description of current event
+    {currentstart}                      start time of current event in hh:mm
+    {currentstop}                       end time of current event in hh:mm
+    {currentduration}                   duration of current Schedule in min
+    {currentdurationhours}              duration, full hours
+    {currentdurationminutes}            duration, rest of minutes
+    {currentelapsed}                    elapsed time of current Schedule in min
+    {currentremaining}                  remaining time of current Schedule in min
+    {nexttitle}                         title of next event
+    {nextshorttext}                     short text of next event
+    {nextdescription}                   description of next event
+    {nextstart}                         start time of next event in hh:mm
+    {nextstop}                          end time of next event in hh:mm
+    {nextduration}                      duration of next Schedule in min
+    {nextdurationhours}                 duration, full hours
+    {nextdurationminutes}               duration, rest of minutes
+
+    {ismovie}                 true if current event is scraped as a movie
+    Available variables for movies:
+    {movietitle}              movie title from themoviedb
+    {movieoriginalTitle}      movie original title from themoviedb
+    {movietagline}            movie tagline from themoviedb
+    {movieoverview}           movie overview from themoviedb
+    {movieadult}              true if movie is rated as adult
+    {moviebudget}             movie budget from themoviedb in $
+    {movierevenue}            movie revenue from themoviedb in $
+    {moviegenres}             movie genres from themoviedb
+    {moviehomepage}           movie homepage from themoviedb
+    {moviereleasedate}        movie release date from themoviedb
+    {movieruntime}            movie runtime from themoviedb
+    {moviepopularity}         movie popularity from themoviedb
+    {movievoteaverage}        movie vote average from themoviedb
+    {posterwidth}             width of scraped poster
+    {posterheight}            height of scraped poster
+    {posterpath}              absolute path of scraped poster
+    {fanartwidth}             width of scraped fanart
+    {fanartheight}            height of scraped fanart
+    {fanartpath}              absolute path of scraped fanart
+    {movieiscollection}       true if movie is part of a collection
+    {moviecollectionName}     name of movie collection
+    {collectionposterwidth}   width of scraped collection poster
+    {collectionposterheight}  height of scraped collection poster
+    {collectionposterpath}    absolute path of scraped collection poster
+    {collectionfanartwidth}   width of scraped collection fanart
+    {collectionfanartheight}  height of scraped collection fanart
+    {collectionfanartpath}    absolute path of scraped collection fanart
+    {actors[]}                array with movie actors
+    {actors[name]}            real name of actor
+    {actors[role]}            actor role
+    {actors[thumb]}           absolute path of scraped actor thumb
+    {actors[thumbwidth]}      width of scraped actor thumb
+    {actors[thumbheight]}     height of scraped actor thumb
+
+    {isseries}                true if current event is scraped as a series
+    Available variables for series:
+    {seriesname}              name of series
+    {seriesoverview}          series overview
+    {seriesfirstaired}        first aired date 
+    {seriesnetwork}           network which produces series
+    {seriesgenre}             series genre
+    {seriesrating}            series thetvdb rating
+    {seriesstatus}            status of series (running / finished)
+    {episodetitle}            title of episode
+    {episodenumber}           number of episode
+    {episodeseason}           season of episode
+    {episodefirstaired}       first aired date of episode
+    {episodegueststars}       guest stars of episode
+    {episodeoverview}         episode overview
+    {episoderating}           user rating for episode
+    {episodeimagewidth}       episode image width
+    {episodeimageheight}      episode image height
+    {episodeimagepath}        episode image path
+    {seasonposterwidth}       episode season poster width
+    {seasonposterheight}      episode season poster height
+    {seasonposterpath}        episode season poster path
+    {seriesposter1width}      width of 1st poster
+    {seriesposter1height}     height of 1st poster
+    {seriesposter1path}       path of 1st poster
+    {seriesposter2width}      width of 2nd poster
+    {seriesposter2height}     height of 2nd poster
+    {seriesposter2path}       path of 2nd poster
+    {seriesposter3width}      width of 3rd poster
+    {seriesposter3height}     height of 3rd poster
+    {seriesposter3path}       path of 3rd poster
+    {seriesfanart1width}      width of 1st fanart
+    {seriesfanart1height}     height of 1st fanart
+    {seriesfanart1path}       path of 1st fanart
+    {seriesfanart2width}      width of 2nd fanart
+    {seriesfanart2height}     height of 2nd fanart
+    {seriesfanart2path}       path of 2nd fanart
+    {seriesfanart3width}      width of 3rd fanart
+    {seriesfanart3height}     height of 3rd fanart
+    {seriesfanart3path}       path of 3rd fanart
+    {seriesbanner1width}      width of 1st banner
+    {seriesbanner1height}     height of 1st banner
+    {seriesbanner1path}       path of 1st banner
+    {seriesbanner2width}      width of 2nd banner
+    {seriesbanner2height}     height of 2nd banner
+    {seriesbanner2path}       path of 2nd banner
+    {seriesbanner3width}      width of 3rd banner
+    {seriesbanner3height}     height of 3rd banner
+    {seriesbanner3path}       path of 3rd fanart
+    {actors[]}                array with movie actors
+    {actors[name]}            real name of actor
+    {actors[role]}            actor role
+    {actors[thumb]}           absolute path of scraped actor thumb
+    {actors[thumbwidth]}      width of scraped actor thumb
+    {actors[thumbheight]}     height of scraped actor thumb
+    -->
+    <channeldetail>
+    </channeldetail>
+
+    <!-- Available Variables channellistback:
+    -->
+    <channellistback>
+    </channellistback>
+
+    <!-- Available Variables channellist:
+    {nummenuitem}               number in list of currently displayed channellist item
+    {current}                   true if currently displayed item is active
+    {name}                      name of channel
+    {number}                    number of channel
+    {channelid}                 if of channel
+    {channellogoexists}         true if channel logo exists
+    {presenteventtitle}         title of present event
+    {presenteventstart}         start of present event in hh:mm
+    {presenteventstop}          end of present event in hh:mm
+    {presenteventelapsed}       elapsed minutes of present event
+    {presenteventremaining}     remaining minutes of present event
+    {nexteventtitle}            title of next event
+    {nexteventstart}            start time of next event in hh:mm
+    {nexteventstop}             end time of next event in hh:mm
+    -->
+    <channellist>
+    </channellist>
+
+    <!-- Available Variables channellistdetail:
+    see <channeldetail> tokens
+    -->
+    <channellistdetail>
+    </channellistdetail>
+
+    <!-- Available Variables grouplistback:
+    -->
+    <grouplistback>
+    </grouplistback>
+
+    <!-- Available Variables grouplist:
+    {nummenuitem}               number in list of currently displayed channelgrouplist item
+    {current}                   true if currently displayed item is active
+    {groupname}                 name of displayed channel group
+    {numchannels}               number of channels in channel group
+    -->
+    <grouplist>
+    </grouplist>
+
+    <!-- Available Variables groupchannellistback:
+    -->
+    <groupchannellistback>
+    </groupchannellistback>
+
+    <!-- Available Variables groupchannellist:
+    see <channellist> tokens
+    -->
+    <groupchannellist>
+    </groupchannellist>
+
+    <!-- Available Variables groupchannellistdetail:
+    see <channeldetail> tokens
+    -->
+    <groupchannellistdetail>
+    </groupchannellistdetail>
+
     <!-- Available Variables datetime:
     {time}                              time in hh:mm
     {day}                               day in digits

@@ -676,3 +676,261 @@ bool cVeDcEcmInfo::CompareECMInfos(sDVBAPIEcmInfo *ecmInfo) {
         return false;
     return true;
 }
+
+/******************************************************************
+* cVeDcChannelHints
+******************************************************************/
+cVeDcChannelHints::cVeDcChannelHints(void) {
+    hints = NULL;
+    numHints = 0;
+    current = 0;
+    hintsIndex = -1;
+    active = false;
+}
+
+cVeDcChannelHints::~cVeDcChannelHints(void) {
+    delete[] hints;
+}
+
+void cVeDcChannelHints::Close(void) {
+    cViewElement::Close();
+}
+
+void cVeDcChannelHints::SetTokenContainer(void) {
+    tokenContainer = new skindesignerapi::cTokenContainer();
+    tokenContainer->DefineIntToken("{numhints}", (int)eDCChannelHintsIT::numhints);
+    tokenContainer->DefineLoopToken("{hints[channelnumber]}", (int)eDCChannelHintsLT::channelnumber);
+    tokenContainer->DefineLoopToken("{hints[channelname]}", (int)eDCChannelHintsLT::channelname);
+    tokenContainer->DefineLoopToken("{hints[channelid]}", (int)eDCChannelHintsLT::channelid);
+    tokenContainer->DefineLoopToken("{hints[channellogoexists]}", (int)eDCChannelHintsLT::channellogoexists);
+    hintsIndex = tokenContainer->LoopIndex("hints");
+    InheritTokenContainer();
+}
+
+void cVeDcChannelHints::SetNumHints(int num) {
+    delete[] hints;
+    numHints = num;
+    hints = new const cChannel*[num];
+    current = 0;
+    active = true;
+    SetDirty();
+}
+
+
+void cVeDcChannelHints::SetHint(const cChannel *c) {
+    hints[current++] = c;
+}
+
+bool cVeDcChannelHints::Parse(bool forced) {
+    if (!cViewElement::Parse(forced))
+        return false;
+    if (!Dirty())
+        return false;
+    if (!hints)
+        return false;
+    tokenContainer->Clear();
+    tokenContainer->AddIntToken((int)eDCChannelHintsIT::numhints, numHints);
+    
+    vector<int> loopInfo;
+    loopInfo.push_back(numHints);
+    tokenContainer->CreateLoopTokenContainer(&loopInfo);
+
+    for (int i=0; i < numHints; i++) {
+        if (hints[i]) {
+            tokenContainer->AddLoopToken(hintsIndex, i, (int)eDCChannelHintsLT::channelnumber, *cString::sprintf("%d", hints[i]->Number()));
+            tokenContainer->AddLoopToken(hintsIndex, i, (int)eDCChannelHintsLT::channelname, hints[i]->Name());
+            cString channelID = hints[i]->GetChannelID().ToString();
+            tokenContainer->AddLoopToken(hintsIndex, i, (int)eDCChannelHintsLT::channelid, *channelID);
+            bool logoExists = imgCache->LogoExists(*channelID);
+            tokenContainer->AddLoopToken(hintsIndex, i, (int)eDCChannelHintsLT::channellogoexists, *cString::sprintf("%d", logoExists ? 1 : 0));
+        }
+    }
+    return true;
+}
+
+/******************************************************************
+* cVeDcChannelDetail
+******************************************************************/
+cVeDcChannelDetail::cVeDcChannelDetail(void) {
+    channel = NULL;
+}
+
+cVeDcChannelDetail::~cVeDcChannelDetail(void) {
+    channel = NULL;
+}
+
+void cVeDcChannelDetail::Close(void) {
+    channel = NULL;
+    cViewElement::Close();
+}
+
+void cVeDcChannelDetail::SetTokenContainer(void) {
+    tokenContainer = new skindesignerapi::cTokenContainer();
+    tokenContainer->DefineStringToken("{channelname}", (int)eDCChannelDetailST::channelname);
+    tokenContainer->DefineStringToken("{currenttitle}", (int)eDCChannelDetailST::currenttitle);
+    tokenContainer->DefineStringToken("{currentshorttext}", (int)eDCChannelDetailST::currentshorttext);
+    tokenContainer->DefineStringToken("{currentdescription}", (int)eDCChannelDetailST::currentdescription);
+    tokenContainer->DefineStringToken("{currentstart}", (int)eDCChannelDetailST::currentstart);
+    tokenContainer->DefineStringToken("{currentstop}", (int)eDCChannelDetailST::currentstop);
+    tokenContainer->DefineStringToken("{currentdurationminutes}", (int)eDCChannelDetailST::currentdurationminutes);
+    tokenContainer->DefineStringToken("{nexttitle}", (int)eDCChannelDetailST::nexttitle);
+    tokenContainer->DefineStringToken("{nextshorttext}", (int)eDCChannelDetailST::nextshorttext);
+    tokenContainer->DefineStringToken("{nextdescription}", (int)eDCChannelDetailST::nextdescription);
+    tokenContainer->DefineStringToken("{nextstart}", (int)eDCChannelDetailST::nextstart);
+    tokenContainer->DefineStringToken("{nextstop}", (int)eDCChannelDetailST::nextstop);
+    tokenContainer->DefineStringToken("{nextdurationminutes}", (int)eDCChannelDetailST::nextdurationminutes);
+    tokenContainer->DefineIntToken("{channelnumber}", (int)eDCChannelDetailIT::channelnumber);
+    tokenContainer->DefineIntToken("{currentduration}", (int)eDCChannelDetailIT::currentduration);
+    tokenContainer->DefineIntToken("{currentdurationhours}", (int)eDCChannelDetailIT::currentdurationhours);
+    tokenContainer->DefineIntToken("{currentelapsed}", (int)eDCChannelDetailIT::currentelapsed);
+    tokenContainer->DefineIntToken("{currentremaining}", (int)eDCChannelDetailIT::currentremaining);
+    tokenContainer->DefineIntToken("{nextduration}", (int)eDCChannelDetailIT::nextduration);
+    tokenContainer->DefineIntToken("{nextdurationhours}", (int)eDCChannelDetailIT::nextdurationhours);
+    tokenContainer->DefineStringToken("{movietitle}", (int)eScraperST::movietitle);
+    tokenContainer->DefineStringToken("{movieoriginalTitle}", (int)eScraperST::movieoriginalTitle);
+    tokenContainer->DefineStringToken("{movietagline}", (int)eScraperST::movietagline);
+    tokenContainer->DefineStringToken("{movieoverview}", (int)eScraperST::movieoverview);
+    tokenContainer->DefineStringToken("{moviegenres}", (int)eScraperST::moviegenres);
+    tokenContainer->DefineStringToken("{moviehomepage}", (int)eScraperST::moviehomepage);
+    tokenContainer->DefineStringToken("{moviereleasedate}", (int)eScraperST::moviereleasedate);
+    tokenContainer->DefineStringToken("{moviepopularity}", (int)eScraperST::moviepopularity);
+    tokenContainer->DefineStringToken("{movievoteaverage}", (int)eScraperST::movievoteaverage);
+    tokenContainer->DefineStringToken("{posterpath}", (int)eScraperST::posterpath);
+    tokenContainer->DefineStringToken("{fanartpath}", (int)eScraperST::fanartpath);
+    tokenContainer->DefineStringToken("{moviecollectionName}", (int)eScraperST::moviecollectionName);
+    tokenContainer->DefineStringToken("{collectionposterpath}", (int)eScraperST::collectionposterpath);
+    tokenContainer->DefineStringToken("{collectionfanartpath}", (int)eScraperST::collectionfanartpath);
+    tokenContainer->DefineStringToken("{seriesname}", (int)eScraperST::seriesname);
+    tokenContainer->DefineStringToken("{seriesoverview}", (int)eScraperST::seriesoverview);
+    tokenContainer->DefineStringToken("{seriesfirstaired}", (int)eScraperST::seriesfirstaired);
+    tokenContainer->DefineStringToken("{seriesnetwork}", (int)eScraperST::seriesnetwork);
+    tokenContainer->DefineStringToken("{seriesgenre}", (int)eScraperST::seriesgenre);
+    tokenContainer->DefineStringToken("{seriesrating}", (int)eScraperST::seriesrating);
+    tokenContainer->DefineStringToken("{seriesstatus}", (int)eScraperST::seriesstatus);
+    tokenContainer->DefineStringToken("{episodetitle}", (int)eScraperST::episodetitle);
+    tokenContainer->DefineStringToken("{episodefirstaired}", (int)eScraperST::episodefirstaired);
+    tokenContainer->DefineStringToken("{episodegueststars}", (int)eScraperST::episodegueststars);
+    tokenContainer->DefineStringToken("{episodeoverview}", (int)eScraperST::episodeoverview);
+    tokenContainer->DefineStringToken("{episoderating}", (int)eScraperST::episoderating);
+    tokenContainer->DefineStringToken("{episodeimagepath}", (int)eScraperST::episodeimagepath);
+    tokenContainer->DefineStringToken("{seasonposterpath}", (int)eScraperST::seasonposterpath);
+    tokenContainer->DefineStringToken("{seriesposter1path}", (int)eScraperST::seriesposter1path);
+    tokenContainer->DefineStringToken("{seriesposter2path}", (int)eScraperST::seriesposter2path);
+    tokenContainer->DefineStringToken("{seriesposter3path}", (int)eScraperST::seriesposter3path);
+    tokenContainer->DefineStringToken("{seriesfanart1path}", (int)eScraperST::seriesfanart1path);
+    tokenContainer->DefineStringToken("{seriesfanart2path}", (int)eScraperST::seriesfanart2path);
+    tokenContainer->DefineStringToken("{seriesfanart3path}", (int)eScraperST::seriesfanart3path);
+    tokenContainer->DefineStringToken("{seriesbanner1path}", (int)eScraperST::seriesbanner1path);
+    tokenContainer->DefineStringToken("{seriesbanner2path}", (int)eScraperST::seriesbanner2path);
+    tokenContainer->DefineStringToken("{seriesbanner3path}", (int)eScraperST::seriesbanner3path);
+    tokenContainer->DefineIntToken("{ismovie}", (int)eScraperIT::ismovie);
+    tokenContainer->DefineIntToken("{moviebudget}", (int)eScraperIT::moviebudget);
+    tokenContainer->DefineIntToken("{movierevenue}", (int)eScraperIT::movierevenue);
+    tokenContainer->DefineIntToken("{movieadult}", (int)eScraperIT::movieadult);
+    tokenContainer->DefineIntToken("{movieruntime}", (int)eScraperIT::movieruntime);
+    tokenContainer->DefineIntToken("{isseries}", (int)eScraperIT::isseries);
+    tokenContainer->DefineIntToken("{posterwidth}", (int)eScraperIT::posterwidth);
+    tokenContainer->DefineIntToken("{posterheight}", (int)eScraperIT::posterheight);
+    tokenContainer->DefineIntToken("{fanartwidth}", (int)eScraperIT::fanartwidth);
+    tokenContainer->DefineIntToken("{fanartheight}", (int)eScraperIT::fanartheight);
+    tokenContainer->DefineIntToken("{movieiscollection}", (int)eScraperIT::movieiscollection);
+    tokenContainer->DefineIntToken("{collectionposterwidth}", (int)eScraperIT::collectionposterwidth);
+    tokenContainer->DefineIntToken("{collectionposterheight}", (int)eScraperIT::collectionposterheight);
+    tokenContainer->DefineIntToken("{collectionfanartwidth}", (int)eScraperIT::collectionfanartwidth);
+    tokenContainer->DefineIntToken("{collectionfanartheight}", (int)eScraperIT::collectionfanartheight);
+    tokenContainer->DefineIntToken("{epgpicavailable}", (int)eScraperIT::epgpicavailable);
+    tokenContainer->DefineIntToken("{episodenumber}", (int)eScraperIT::episodenumber);
+    tokenContainer->DefineIntToken("{episodeseason}", (int)eScraperIT::episodeseason);
+    tokenContainer->DefineIntToken("{episodeimagewidth}", (int)eScraperIT::episodeimagewidth);
+    tokenContainer->DefineIntToken("{episodeimageheight}", (int)eScraperIT::episodeimageheight);
+    tokenContainer->DefineIntToken("{seasonposterwidth}", (int)eScraperIT::seasonposterwidth);
+    tokenContainer->DefineIntToken("{seasonposterheight}", (int)eScraperIT::seasonposterheight);
+    tokenContainer->DefineIntToken("{seriesposter1width}", (int)eScraperIT::seriesposter1width);
+    tokenContainer->DefineIntToken("{seriesposter1height}", (int)eScraperIT::seriesposter1height);
+    tokenContainer->DefineIntToken("{seriesposter2width}", (int)eScraperIT::seriesposter2width);
+    tokenContainer->DefineIntToken("{seriesposter2height}", (int)eScraperIT::seriesposter2height);
+    tokenContainer->DefineIntToken("{seriesposter3width}", (int)eScraperIT::seriesposter3width);
+    tokenContainer->DefineIntToken("{seriesposter3height}", (int)eScraperIT::seriesposter3height);
+    tokenContainer->DefineIntToken("{seriesfanart1width}", (int)eScraperIT::seriesfanart1width);
+    tokenContainer->DefineIntToken("{seriesfanart1height}", (int)eScraperIT::seriesfanart1height);
+    tokenContainer->DefineIntToken("{seriesfanart2width}", (int)eScraperIT::seriesfanart2width);
+    tokenContainer->DefineIntToken("{seriesfanart2height}", (int)eScraperIT::seriesfanart2height);
+    tokenContainer->DefineIntToken("{seriesfanart3width}", (int)eScraperIT::seriesfanart3width);
+    tokenContainer->DefineIntToken("{seriesfanart3height}", (int)eScraperIT::seriesfanart3height);
+    tokenContainer->DefineIntToken("{seriesbanner1width}", (int)eScraperIT::seriesbanner1width);
+    tokenContainer->DefineIntToken("{seriesbanner1height}", (int)eScraperIT::seriesbanner1height);
+    tokenContainer->DefineIntToken("{seriesbanner2width}", (int)eScraperIT::seriesbanner2width);
+    tokenContainer->DefineIntToken("{seriesbanner2height}", (int)eScraperIT::seriesbanner2height);
+    tokenContainer->DefineIntToken("{seriesbanner3width}", (int)eScraperIT::seriesbanner3width);
+    tokenContainer->DefineIntToken("{seriesbanner3height}", (int)eScraperIT::seriesbanner3height);
+    tokenContainer->DefineLoopToken("{actors[name]}", (int)eScraperLT::name);
+    tokenContainer->DefineLoopToken("{actors[role]}", (int)eScraperLT::role);
+    tokenContainer->DefineLoopToken("{actors[thumb]}", (int)eScraperLT::thumb);
+    tokenContainer->DefineLoopToken("{actors[thumbwidth]}", (int)eScraperLT::thumbwidth);
+    tokenContainer->DefineLoopToken("{actors[thumbheight]}", (int)eScraperLT::thumbheight);
+    actorsIndex = tokenContainer->LoopIndex("actors");
+    InheritTokenContainer();
+}
+
+void cVeDcChannelDetail::Set(const cChannel *c) {
+    channel = c;
+}
+
+bool cVeDcChannelDetail::Parse(bool forced) {
+    if (!cViewElement::Parse(forced))
+        return false;
+    if (!channel)
+        return false;
+
+    SetDirty();
+    tokenContainer->Clear();
+    tokenContainer->AddIntToken((int)eDCChannelDetailIT::channelnumber, channel->Number());
+    tokenContainer->AddStringToken((int)eDCChannelDetailST::channelname, channel->Name());
+
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+    LOCK_SCHEDULES_READ;
+    const cSchedules* schedules = Schedules;
+#else
+    cSchedulesLock schedulesLock;
+    const cSchedules* schedules = (cSchedules*)cSchedules::Schedules(schedulesLock);
+#endif
+    const cSchedule *schedule = schedules->GetSchedule(channel);
+    if (schedule) {
+        const cEvent *presentEvent = schedule->GetPresentEvent();
+        if (presentEvent) {
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currenttitle, presentEvent->Title());
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currentshorttext, presentEvent->ShortText());
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currentdescription, presentEvent->Description());
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currentstart, *presentEvent->GetTimeString());
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currentstop, *presentEvent->GetEndTimeString());
+            tokenContainer->AddIntToken((int)eDCChannelDetailIT::currentduration, presentEvent->Duration()/60);
+            tokenContainer->AddIntToken((int)eDCChannelDetailIT::currentelapsed, (time(0) - presentEvent->StartTime())/60);
+            tokenContainer->AddIntToken((int)eDCChannelDetailIT::currentremaining, presentEvent->Duration()/60 - (time(0) - presentEvent->StartTime())/60);
+            tokenContainer->AddIntToken((int)eDCChannelDetailIT::currentdurationhours, presentEvent->Duration() / 3600);
+            tokenContainer->AddStringToken((int)eDCChannelDetailST::currentdurationminutes, *cString::sprintf("%.2d", (presentEvent->Duration() / 60)%60));
+            vector<int> loopInfo;
+            bool scrapInfoAvailable = LoadFullScrapInfo(presentEvent, NULL);
+            int numActors = NumActors();
+            loopInfo.push_back(numActors);
+            tokenContainer->CreateLoopTokenContainer(&loopInfo);
+            if (scrapInfoAvailable) {
+                SetFullScrapInfo(tokenContainer, actorsIndex);
+            }
+        }
+        const cList<cEvent> *events = schedule->Events();
+        if (events && presentEvent) {
+            const cEvent *nextEvent = events->Next(presentEvent);
+            if (nextEvent) {
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nexttitle, nextEvent->Title());
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nextshorttext, nextEvent->ShortText());
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nextdescription, nextEvent->Description());
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nextstart, *nextEvent->GetTimeString());
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nextstop, *nextEvent->GetEndTimeString());
+                tokenContainer->AddIntToken((int)eDCChannelDetailIT::nextduration, nextEvent->Duration() / 60);
+                tokenContainer->AddIntToken((int)eDCChannelDetailIT::nextdurationhours, nextEvent->Duration() / 3600);
+                tokenContainer->AddStringToken((int)eDCChannelDetailST::nextdurationminutes, *cString::sprintf("%.2d", (nextEvent->Duration() / 60)%60));
+            }
+        }
+    }
+    return true;
+}
