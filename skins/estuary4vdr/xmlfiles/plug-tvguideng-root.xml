@@ -300,7 +300,7 @@
             <drawtext align="right" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{dayname} {day}. {monthnameshort}" />
         </area>
         <area x="87%" y="0" width="13%" height="7%" layer="2">
-            <drawimage imagetype="icon" x="0" valign="center" width="{areaheight}*0.5" height="{areaheight}0.5" path="clock" />
+            <drawimage imagetype="icon" x="0" valign="center" width="{areaheight}*0.5" height="{areaheight}*0.5" path="clock" />
             <drawtext name="clock" x="25%" valign="center" fontsize="80%" font="{digital}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
             <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{areaheight}/2 -  {height(clocksec)}/2 + {height(clock)}/2 - {height(clocksec)}/2 - 3" fontsize="60%" font="{digital}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
         </area>
@@ -311,7 +311,7 @@
             <drawtext align="right" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{dayname} {day}. {monthnameshort}" />
         </area>
         <area x="87%" y="0" width="13%" height="7%" layer="2">
-            <drawimage imagetype="icon" x="0" valign="center" width="{areaheight}*0.5" height="{areaheight}0.5" path="clock" />
+            <drawimage imagetype="icon" x="0" valign="center" width="{areaheight}*0.5" height="{areaheight}*0.5" path="clock" />
             <drawtext name="clock" x="25%" valign="center" fontsize="80%" font="{digital}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
             <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{areaheight}/2 -  {height(clocksec)}/2 + {height(clock)}/2 - {height(clocksec)}/2 - 3" fontsize="60%" font="{digital}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
         </area>
