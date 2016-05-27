@@ -937,6 +937,7 @@ void cViewListAudioTracks::PreCache(void) {
 
 void cViewListAudioTracks::SetNumtracks(int numTracks) {
     this->numTracks = numTracks;
+    this->numElements = numTracks;
     tokenContainer->Clear();
     tokenContainer->AddIntToken(0, numTracks);
 }

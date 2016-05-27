@@ -110,11 +110,15 @@ void cViewTracks::SetCurrentTrack(int index) {
 void cViewTracks::Flush(bool animFlush) {
     if (init) {
         sdOsd.LockFlush();
+        if (viewList) {
+            viewList->Draw();
+            viewList->StartAnimation();
+        }
         Render((int)eVeDisplayTracks::background);
     }
     if (change) {
         Render((int)eVeDisplayTracks::header);
-        if (viewList)
+        if (viewList && !init)
             viewList->Draw();
         change = false;
     }

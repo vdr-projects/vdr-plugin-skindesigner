@@ -40,6 +40,12 @@
   width CDATA #REQUIRED
   height CDATA #REQUIRED
   align (left|top|center|bottom|right) #IMPLIED
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
+  shifttype CDATA #IMPLIED
+  shiftmode CDATA #IMPLIED
+  startx CDATA #IMPLIED
+  starty CDATA #IMPLIED
   menuitemwidth CDATA #IMPLIED
   numlistelements CDATA #REQUIRED
   orientation CDATA #REQUIRED

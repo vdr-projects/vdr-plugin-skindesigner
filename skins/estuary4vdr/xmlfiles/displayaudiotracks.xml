@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE displayaudiotracks SYSTEM "../../../dtd/displayaudiotracks.dtd">
 
-<displayaudiotracks x="35%" y="0" width="30%" height="100%" fadetime="0">
+<displayaudiotracks x="35%" y="0" width="30%" height="100%" fadetime="{fadetime}" shifttime="{shifttime}" shiftmode="slowed" shifttype="bottom">
     <background>
         <area x="0" y="{areaheight} - {numtracks} * {areaheight} / 15 - {areaheight} / 15" width="100%" height="{areaheight} / 15 + {areaheight} / 15 * {numtracks}" layer="1">
             <fill color="{replayback}" />
@@ -18,7 +18,7 @@
         </area>
     </header>
 
-    <menuitems x="0" y="{areaheight} - {numelements} * {areaheight} / 15" orientation="vertical" width="100%" height="{numelements} * {areaheight} / 15" align="top" numlistelements="{numelements}">
+    <menuitems x="0" y="{areaheight} - {numelements} * {areaheight} / 15" orientation="vertical" width="100%" height="{numelements} * {areaheight} / 15" align="top" numlistelements="{numelements}" fadetime="{fadetime}" shifttime="{shifttime}" shiftmode="slowed" shifttype="bottom">
         <listelement>
             <!-- Background -->
             <area x="1%" width="98%" layer="2">
