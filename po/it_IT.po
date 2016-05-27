@@ -69,7 +69,7 @@ msgstr "o maggiore"
 msgid "needed"
 msgstr "necessario"
 
-msgid "No Git Repsoitory available"
+msgid "No Git Repository available"
 msgstr "Nessun Git Repository disponibile"
 
 msgid "Skin is running and can't be deleted"
@@ -164,6 +164,9 @@ msgstr "Anteprima Skin"
 
 msgid "Help"
 msgstr "Aiuto"
+
+msgid "Preview"
+msgstr ""
 
 msgid "Author"
 msgstr "Autore"

@@ -158,531 +158,660 @@
         <token name="tr(subdisplaychannel)">
             <trans lang="en_EN">Channel switching</trans>
             <trans lang="de_DE">Kanäle umschalten</trans>
+            <trans lang="fi_FI">Kanavan vaihto</trans>
         </token>
         <token name="tr(subdisplayreplay)">
             <trans lang="en_EN">Replay of recording</trans>
             <trans lang="de_DE">Wiedergabe einer Aufnahme</trans>
+            <trans lang="fi_FI">Tallenteiden poisto</trans>
         </token>
         <token name="tr(submessages)">
             <trans lang="en_EN">Messages</trans>
             <trans lang="de_DE">Nachrichten</trans>
+            <trans lang="fi_FI">Viestit</trans>
         </token>
         <token name="tr(submenucommon)">
             <trans lang="en_EN">Common menu settings</trans>
             <trans lang="de_DE">Allgemeine Menü Einstellungen</trans>
+            <trans lang="fi_FI">Yleiset valikkoasetukset</trans>
         </token>
         <token name="tr(submainmenu)">
             <trans lang="en_EN">Main and Setup Menu</trans>
             <trans lang="de_DE">Haupt- und Setup Menü</trans>
+            <trans lang="fi_FI">Päävalikko ja asetukset</trans>
         </token>
         <token name="tr(subschedulesmenu)">
             <trans lang="en_EN">Schedules Menu</trans>
             <trans lang="de_DE">Programm Menü</trans>
+            <trans lang="fi_FI">Ohjelmaopas</trans>
         </token>
         <token name="tr(subchannelsmenu)">
             <trans lang="en_EN">Channel Menu</trans>
             <trans lang="de_DE">Kanal Menü</trans>
+            <trans lang="fi_FI">Kanavavalikko</trans>
         </token>
         <token name="tr(subtimersmenu)">
             <trans lang="en_EN">Timer Menu</trans>
             <trans lang="de_DE">Timer Menü</trans>
+            <trans lang="fi_FI">Ajastinvalikko</trans>
         </token>
         <token name="tr(subrecordings)">
             <trans lang="en_EN">Recordings Menu</trans>
             <trans lang="de_DE">Aufzeichnungsmenü</trans>
+            <trans lang="fi_FI">Tallennevalikko</trans>
         </token>
         <token name="tr(subdetailmenu)">
             <trans lang="en_EN">Detailed Views (EPG, Rec, text)</trans>
             <trans lang="de_DE">Detailansichten (EPG, Aufzeichnungen, Text)</trans>
+            <trans lang="fi_FI">Lisätietonäkymät (EPG, tallenteet, teksti)</trans>
         </token>
         <!-- separators -->
         <token name="tr(seplistelement)">
             <trans lang="en_EN">Settings menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen Menü [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Asetukset valikolle [% valikkorivin korkeudesta]</trans>
         </token>
         <token name="tr(recsepnarrow)">
             <trans lang="en_EN">Settings narrow menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen schmales Menü [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Asetukset kapealle valikolle [% valikkorivin korkeudesta]</trans>
         </token>
         <token name="tr(recsepwide)">
             <trans lang="en_EN">Settings wide menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen breites Menü [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Asetukset leveälle valikolle [% valikkorivin korkeudesta]</trans>
         </token>
         <token name="tr(sepcurrent)">
             <trans lang="en_EN">Settings current element [% of box height]</trans>
             <trans lang="de_DE">Einstellungen aktuelles Element [% der Box Höhe]</trans>
+            <trans lang="fi_FI">Asetukset aktiiviselle elementille [% korkeudesta]</trans>
         </token>
         <token name="tr(tvghorsepgrid)">
             <trans lang="en_EN">Settings epg grids horizontal display [% of grid height]</trans>
             <trans lang="de_DE">Einstellungen EPG Grids horizontale Anzeige [% der Grid Höhe]</trans>
+            <trans lang="fi_FI">Asetukset vaakaruudukolle [% ruudukon korkeudesta]</trans>
         </token>
         <token name="tr(tvgversepgrid)">
             <trans lang="en_EN">Settings epg grids vertical display [% of grid width]</trans>
             <trans lang="de_DE">Einstellungen EPG Grids vertikale Anzeige [% der Grid Breite]</trans>
+            <trans lang="fi_FI">Asetukset pystyruudukolle [% ruudukon leveydestä]</trans>
         </token>
         <!-- common texts -->
         <token name="tr(fadetext)">
             <trans lang="en_EN">Fade time [ms]</trans>
             <trans lang="de_DE">Einblendzeit [ms]</trans>
+            <trans lang="fi_FI">Häivytyksen kesto [ms]</trans>
         </token>
         <token name="tr(helpfade)">
             <trans lang="en_EN">Fade time of channel display in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu fade in and out.</trans>
             <trans lang="de_DE">Einblendzeit der Kanalanzeige in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu ein- und ausgeblendet.</trans>
+            <trans lang="fi_FI">Häivytyksen kesto millisekunteina. Nollasta eriävä arvo aktivoi valikkojen häivytyksen.</trans>
         </token>
         <token name="tr(shifttext)">
             <trans lang="en_EN">Shift time [ms]</trans>
             <trans lang="de_DE">Einfahrzeit [ms]</trans>
+            <trans lang="fi_FI">Liukuman kesto [ms]</trans>
         </token>
         <token name="tr(helpshift)">
             <trans lang="en_EN">Shift time in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu are shifted in and out from the bottom of the screen. If fadetime is also set to a value larger 0, still shifting is performed.</trans>
             <trans lang="de_DE">Einfahrzeit in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu vom unteren Rand des Bildschirms herein- und herausgefahren. Falls fadetime ebenfalls auf einen Wert größer 0 gesetzt ist, wird das OSD trotzdem herein- und herausgefahren.</trans>
+            <trans lang="fi_FI">Liukuman kesto millisekunteina. Nollasta eriävä arvo aktivoi valikkojen transitioefektit riippumatta häivytyksen kestosta.</trans>
         </token>
         <!-- displaychannel -->
         <token name="tr(epgtextposy)">
             <trans lang="en_EN">Vertical position EPG titel</trans>
             <trans lang="de_DE">Vertikale Position EPG Titel</trans>
+            <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
         </token>
         <token name="tr(epgtextfontsize)">
             <trans lang="en_EN">Font size EPG titel</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(epgtextfontsizelarge)">
             <trans lang="en_EN">Font size EPG titel w.o. shorttext</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel ohne Kurztext</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle ilman kuvausta</trans>
         </token>
         <token name="tr(epgsubtextposy)">
             <trans lang="en_EN">Vertical position EPG shorttext</trans>
             <trans lang="de_DE">Vertikale Position EPG Kurztext</trans>
+            <trans lang="fi_FI">Pystysijainti lyhyelle kuvaukselle</trans>
         </token>
         <token name="tr(epgsubtextfontsize)">
             <trans lang="en_EN">Font size EPG shorttext</trans>
             <trans lang="de_DE">Schriftgröße EPG Kurztext</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko lyhyelle kuvaukselle</trans>
         </token>
         <token name="tr(startstopfontsize)">
             <trans lang="en_EN">Font size start and stop time</trans>
             <trans lang="de_DE">Schriftgröße Start- und Endezeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko aloitus- ja lopetusajalle</trans>
         </token>
         <token name="tr(channelnamefontsize)">
             <trans lang="en_EN">Font size channel name</trans>
             <trans lang="de_DE">Schriftgröße Kanalname</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kanavanimelle</trans>
         </token>
         <token name="tr(scrollepgtext)">
             <trans lang="en_EN">Scroll EPG</trans>
             <trans lang="de_DE">EGP scrollen</trans>
+            <trans lang="fi_FI">Vieritä ohjelmaopasta</trans>
         </token>
         <token name="tr(sepzapcockpit)">
             <trans lang="en_EN">Settings Zapcockpit</trans>
             <trans lang="de_DE">Einstellungen Zapcockpit</trans>
+            <trans lang="fi_FI">Zapcockpit-asetukset</trans>
         </token>
         <token name="tr(sepzapcockpitdetail)">
             <trans lang="en_EN">Settings Zapcockpit detail view</trans>
             <trans lang="de_DE">Einstellungen Zapcockpit Detailansicht</trans>
+            <trans lang="fi_FI">Zapcockpit-asetukset lisätietonäkymälle</trans>
         </token>
         <token name="tr(sepzapcockpitcl)">
             <trans lang="en_EN">Settings Zapcockpit channel list</trans>
             <trans lang="de_DE">Einstellungen Zapcockpit Kanalliste</trans>
+            <trans lang="fi_FI">Zapcockpit-asetukset kanavalistalle</trans>
         </token>
         <token name="tr(sepzapcockpitgl)">
             <trans lang="en_EN">Settings Zapcockpit channel groups list</trans>
             <trans lang="de_DE">Einstellungen Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Zapcockpit-asetukset kanavaryhmälistalle</trans>
         </token>
         <token name="tr(sepzapcockpitchannelhint)">
             <trans lang="en_EN">Settings Zapcockpit channel hints</trans>
             <trans lang="de_DE">Einstellungen Zapcockpit Kanal Hinweise</trans>
+            <trans lang="fi_FI">Zapcockpit-asetukset kanavavihjeille</trans>
         </token>
         <token name="tr(fadetimezapcockpit)">
             <trans lang="en_EN">Fade time for zapcockpit elements [ms]</trans>
             <trans lang="de_DE">Einblendzeit für Zapcockpit Elemente [ms]</trans>
+            <trans lang="fi_FI">Häivytyksen kesto elementeille [ms]</trans>
         </token>
         <token name="tr(shifttimezapcockpit)">
             <trans lang="en_EN">Shift time for zapcockpit elements [ms]</trans>
             <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
+            <trans lang="fi_FI">Liukuman kesto elementeille [ms]</trans>
         </token>
         <token name="tr(zapclchannelfs)">
             <trans lang="en_EN">Font size channel</trans>
             <trans lang="de_DE">Schriftgröße Kanal</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kanavalle</trans>
         </token>
         <token name="tr(zapclchannely)">
             <trans lang="en_EN">Vertical position channel</trans>
             <trans lang="de_DE">Vertikale Position Kanal</trans>
+            <trans lang="fi_FI">Pystysijainti kanavalle</trans>
         </token>
         <token name="tr(zapclpresentfs)">
             <trans lang="en_EN">Font size present event</trans>
             <trans lang="de_DE">Schriftgröße aktuelle Sendung</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nykyiselle ohjelmalle</trans>
         </token>
         <token name="tr(zapclpresenty)">
             <trans lang="en_EN">Vertical position present event</trans>
             <trans lang="de_DE">Vertikale Position aktuelle Sendung</trans>
+            <trans lang="fi_FI">Pystysijainti nykyiselle ohjelmalle</trans>
         </token>
         <token name="tr(zapclnextfs)">
             <trans lang="en_EN">Font size next event</trans>
             <trans lang="de_DE">Schriftgröße nächste Sendung</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko seuraavalle ohjelmalle</trans>
         </token>
         <token name="tr(zapclnexty)">
             <trans lang="en_EN">Vertical position next event</trans>
             <trans lang="de_DE">Vertikale Position nächste Sendung</trans>
+            <trans lang="fi_FI">Pystysijainti seuraavalle ohjelmalle</trans>
         </token>
         <token name="tr(zapglgroupfs)">
             <trans lang="en_EN">Font size groups in channel group list</trans>
             <trans lang="de_DE">Schriftgröße Gruppe in Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko ryhmille</trans>
         </token>
         <token name="tr(zapdetaildatetimefs)">
             <trans lang="en_EN">Font size time</trans>
             <trans lang="de_DE">Schriftgröße Zeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajalle</trans>
         </token>
         <token name="tr(zapdetailheaderfs)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(zapdetailshorttextfs)">
             <trans lang="en_EN">Font size short text</trans>
             <trans lang="de_DE">Schriftgröße Kurztext</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko lyhyelle kuvaukselle</trans>
         </token>
         <token name="tr(zapdetaildescfs)">
             <trans lang="en_EN">Font size description</trans>
             <trans lang="de_DE">Schriftgröße Beschreibung</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <token name="tr(zapcldetaildatetimefs)">
             <trans lang="en_EN">Font size time in channel list detail view</trans>
             <trans lang="de_DE">Schriftgröße Zeit in Detailansicht Kanalliste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajalle lisätiedoissa</trans>
         </token>
         <token name="tr(zapcldetailheaderfs)">
             <trans lang="en_EN">Font size title in channel list detail view</trans>
             <trans lang="de_DE">Schriftgröße Titel in Detailansicht Kanalliste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle lisätiedoissa</trans>
         </token>
         <token name="tr(zapcldetailshorttextfs)">
             <trans lang="en_EN">Font size short text in channel list detail view</trans>
             <trans lang="de_DE">Schriftgröße Kurztext in Detailansicht Kanalliste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko lyhyelle kuvaukselle lisätiedoissa</trans>
         </token>
         <token name="tr(zapcldetaildescfs)">
             <trans lang="en_EN">Font size description in channel list detail view</trans>
             <trans lang="de_DE">Schriftgröße Beschreibung in Detailansicht Kanalliste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle lisätiedoissa</trans>
         </token>
         <token name="tr(zapgcldetaildatetimefs)">
             <trans lang="en_EN">Font size time in channel group list detail view</trans>
             <trans lang="de_DE">Schriftgröße Zeit in Detailansicht Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajalle lisätiedoissa</trans>
         </token>
         <token name="tr(zapgcldetailheaderfs)">
             <trans lang="en_EN">Font size title in channel group list detail view</trans>
             <trans lang="de_DE">Schriftgröße Titel in Detailansicht Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle lisätiedoissa</trans>
         </token>
         <token name="tr(zapgcldetailshorttextfs)">
             <trans lang="en_EN">Font size short text in channel group list detail view</trans>
             <trans lang="de_DE">Schriftgröße Kurztext in Detailansicht Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko lyhyelle kuvaukselle lisätiedoissa</trans>
         </token>
         <token name="tr(zapgcldetaildescfs)">
             <trans lang="en_EN">Font size description in channel group list detail view</trans>
             <trans lang="de_DE">Schriftgröße Beschreibung in Detailansicht Kanalgruppen Liste</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle lisätiedoissa</trans>
         </token>
         <token name="tr(zapchannelhintsheight)">
             <trans lang="en_EN">Height channel hints (% of screen height)</trans>
             <trans lang="de_DE">Höhe Kanal Hinweise (% der Bildschirmhöhe)</trans>
+            <trans lang="fi_FI">Korkeus (% näytön korkeudesta)</trans>
         </token>
         <token name="tr(zapchannelhintswidth)">
             <trans lang="en_EN">Width channel hints (% of screen width)</trans>
             <trans lang="de_DE">Breite Kanal Hinweise (% der Bildschirmbreite)</trans>
+            <trans lang="fi_FI">Leveys (% näytön leveydestä)</trans>
         </token>
         <!-- recording display -->
         <token name="tr(replaytitlesize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(replaydatetimesize)">
             <trans lang="en_EN">Font size date and time</trans>
             <trans lang="de_DE">Schriftgröße Datum und Uhrzeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päiväykselle ja kellonajalle</trans>
         </token>
         <token name="tr(replaycurrenttotaltimesize)">
             <trans lang="en_EN">Font size current and total time</trans>
             <trans lang="de_DE">Schriftgröße aktuelle und gesamte Zeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nykyhetkelle ja kestolle</trans>
         </token>
         <token name="tr(replayendtimesize)">
             <trans lang="en_EN">Font size end time</trans>
             <trans lang="de_DE">Schriftgröße Ende Zeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko lopetusajalle</trans>
         </token>
         <!-- messages -->
         <token name="tr(messagesize)">
             <trans lang="en_EN">Font size messages</trans>
             <trans lang="de_DE">Schriftgröße Nachrichten</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko</trans>
         </token>
         <token name="tr(messagemenusize)">
             <trans lang="en_EN">Font size messages in menus</trans>
             <trans lang="de_DE">Schriftgröße Nachrichten in Menüs</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko valikoissa</trans>
         </token>
         <!-- menu common -->
         <token name="tr(headerfontsize)">
             <trans lang="en_EN">Font size header</trans>
             <trans lang="de_DE">Schriftgröße Header</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko otsikkopalkille</trans>
         </token>
         <token name="tr(headerdatefontsize)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päiväykselle</trans>
         </token>
         <token name="tr(headertimefontsize)">
             <trans lang="en_EN">Font size time</trans>
             <trans lang="de_DE">Schriftgröße Uhrzeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajalle</trans>
         </token>
         <token name="tr(headertimefontsizesmall)">
             <trans lang="en_EN">Font size time seconds</trans>
             <trans lang="de_DE">Schriftgröße Uhrzeit Sekunden</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajan sekunneille</trans>
         </token>
         <token name="tr(buttonfontsize)">
             <trans lang="en_EN">Font size color buttons</trans>
             <trans lang="de_DE">Schriftgröße Farbbuttons</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko väripainikkeille</trans>
         </token>
         <token name="tr(numitemsdefault)">
             <trans lang="en_EN">Number of menu items in default lists</trans>
             <trans lang="de_DE">Anzahl Menüelemente Standardlisten</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
         </token>
         <token name="tr(defaultitemfontsize)">
             <trans lang="en_EN">Font size default menu item</trans>
             <trans lang="de_DE">Schriftgröße Standard Listenelement</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko valikkoriville</trans>
         </token>
         <!-- menu main and setup -->
         <token name="tr(showlistnumbers)">
             <trans lang="en_EN">Display numbering of list elements</trans>
             <trans lang="de_DE">Nummerierung der Listenelemente anzeigen</trans>
+            <trans lang="fi_FI">Näytä numeroinnit valikkoriveillä</trans>
         </token>
         <token name="tr(numitemsmain)">
             <trans lang="en_EN">Number of main menu items</trans>
             <trans lang="de_DE">Anzahl Hauptmenüelemente</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä päämenussa</trans>
         </token>
         <token name="tr(mainfontsize)">
             <trans lang="en_EN">Font size main menu [% of listelement height]</trans>
             <trans lang="de_DE">Schriftgröße Hauptmenü [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päävalikossa [% rivin korkeudesta]</trans>
         </token>
         <token name="tr(setupfontsize)">
             <trans lang="en_EN">Font size setup menu [% of listelement height]</trans>
             <trans lang="de_DE">Schriftgröße Setup Menü [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko asetuksissa [% rivin korkeudesta]</trans>
         </token>
         <token name="tr(mainiconsize)">
             <trans lang="en_EN">Icon size [% of listelement height]</trans>
             <trans lang="de_DE">Icon Größe [% der Listenelement Höhe]</trans>
+            <trans lang="fi_FI">Ikonien koko [% rivin korkeudesta]</trans>
         </token>
         <!-- menu schedules -->
         <token name="tr(numitemsschedueles)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
         </token>
         <token name="tr(schedulesposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
+            <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
         </token>
         <token name="tr(schedulessizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
         </token>
         <token name="tr(schedulesposytitle)">
             <trans lang="en_EN">Vertical position epg title</trans>
             <trans lang="de_DE">Vertikale Position EPG Titel</trans>
+            <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
         </token>
         <token name="tr(schedulessizetitle)">
             <trans lang="en_EN">Font size epg title</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(schedulesseparator)">
             <trans lang="en_EN">Day Separators</trans>
             <trans lang="de_DE">Tagesseparatoren</trans>
+            <trans lang="fi_FI">Päivämääräerottimet</trans>
         </token>
         <token name="tr(schedulessizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(schedulessizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <!-- menu channels -->
         <token name="tr(numitemschannels)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
         </token>
         <token name="tr(channelsposydate)">
             <trans lang="en_EN">Vertical position schedule</trans>
             <trans lang="de_DE">Vertikale Position Programm</trans>
+            <trans lang="fi_FI">Pystysijainti ohjelmalle</trans>
         </token>
         <token name="tr(channelssizedate)">
             <trans lang="en_EN">Font size schedule</trans>
             <trans lang="de_DE">Schriftgröße Programm</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko ohjelmalle</trans>
         </token>
         <token name="tr(channelsposytitle)">
             <trans lang="en_EN">Vertical position channel name</trans>
             <trans lang="de_DE">Vertikale Position Kanalname</trans>
+            <trans lang="fi_FI">Pystysijainti kanavan nimelle</trans>
         </token>
         <token name="tr(channelssizetitle)">
             <trans lang="en_EN">Font size channel name</trans>
             <trans lang="de_DE">Schriftgröße Kanalname</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kanavanimelle</trans>
         </token>
         <token name="tr(channelsseparator)">
             <trans lang="en_EN">Channel Separators</trans>
             <trans lang="de_DE">Kanalseparatoren</trans>
+            <trans lang="fi_FI">Kanavaerottimet</trans>
         </token>
         <token name="tr(channelssizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(channelssizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <!-- menu timers -->
         <token name="tr(numitemstimers)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
         </token>
         <token name="tr(timersposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
+            <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
         </token>
         <token name="tr(timerssizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
         </token>
         <token name="tr(timersposytitle)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
+            <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
         </token>
         <token name="tr(timerssizetitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(timerssizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(timerssizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <!-- menu recordings -->
         <token name="tr(recmenustyle)">
             <trans lang="en_EN">Style of Recordings Menu</trans>
             <trans lang="de_DE">Darstellung des Aufzeichnungsmenüs</trans>
+            <trans lang="fi_FI">Tallennevalikon tyyli</trans>
         </token>
         <token name="tr(menu1)">
             <trans lang="en_EN">Narrow</trans>
             <trans lang="de_DE">Schmal</trans>
+            <trans lang="fi_FI">kapea</trans>
         </token>
         <token name="tr(menu2)">
             <trans lang="en_EN">Wide</trans>
             <trans lang="de_DE">Breit</trans>
+            <trans lang="fi_FI">leveä</trans>
         </token>
         <token name="tr(numitemsrecnarrow)">
             <trans lang="en_EN">Number of menu items in narrow menu</trans>
             <trans lang="de_DE">Anzahl Menüelemente im schmalen Menü</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä kapeassa</trans>
         </token>
         <token name="tr(numitemsrecwide)">
             <trans lang="en_EN">Number of menu items in wide menu</trans>
             <trans lang="de_DE">Anzahl Menüelemente im breiten Menü</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä leveässä</trans>
         </token>
         <token name="tr(recposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
+            <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
         </token>
         <token name="tr(recsizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
         </token>
         <token name="tr(recposytitle)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
+            <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
         </token>
         <token name="tr(recsizetitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
-        </token>
+             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+       </token>
         <token name="tr(recposyfoldertitle)">
             <trans lang="en_EN">Vertical position folder name</trans>
             <trans lang="de_DE">Vertikale Position Ordner Name</trans>
+            <trans lang="fi_FI">Pystysijainti kansion nimelle</trans>
         </token>
         <token name="tr(recsizefoldertitle)">
             <trans lang="en_EN">Font size folder name</trans>
             <trans lang="de_DE">Schriftgröße Ordner Name</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kansion nimelle</trans>
         </token>
         <token name="tr(recposyfolderstats)">
             <trans lang="en_EN">Vertical position folder content</trans>
             <trans lang="de_DE">Vertikale Position Ordner Inhalt</trans>
+            <trans lang="fi_FI">Pystysijainti kansion sisällölle</trans>
         </token>
         <token name="tr(recsizefolderstats)">
             <trans lang="en_EN">Font size folder content</trans>
             <trans lang="de_DE">Schriftgröße Ordner Inhalt</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kansion sisällölle</trans>
         </token>
         <token name="tr(recsizewide)">
             <trans lang="en_EN">Font size wide menu</trans>
             <trans lang="de_DE">Schriftgröße breites Menü</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko</trans>
         </token>
         <token name="tr(recshowcurrent)">
             <trans lang="en_EN">Show info for selected list element</trans>
             <trans lang="de_DE">Infos für das ausgewählte Listenelement anzeigen</trans>
+            <trans lang="fi_FI">Näytä lisätiedot aktiiviselta valikkoriviltä</trans>
         </token>
         <token name="tr(recsizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(recsizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <!-- detailed views -->
         <token name="tr(detailheaderdateposy)">
             <trans lang="en_EN">Vertical position header date</trans>
             <trans lang="de_DE">Vertikale Position Header Datum</trans>
+            <trans lang="fi_FI">Pystysijainti otsikon päiväykselle</trans>
         </token>
         <token name="tr(detailheaderdatesize)">
             <trans lang="en_EN">Font size header date</trans>
             <trans lang="de_DE">Schriftgröße Header Datum</trans>
+            <trans lang="fi_FI">Kirjasinkoko otsikon päiväykselle</trans>
         </token>
         <token name="tr(detailheadertitleposy)">
             <trans lang="en_EN">Vertical position header title</trans>
             <trans lang="de_DE">Vertikale Position Header Titel</trans>
+            <trans lang="fi_FI">Pystysijainti otsikon nimikkeelle</trans>
         </token>
         <token name="tr(detailheadertitlesize)">
             <trans lang="en_EN">Font size header title</trans>
             <trans lang="de_DE">Schriftgröße Header Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko otsikon nimikkeelle</trans>
         </token>
         <token name="tr(detailtextheadersize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(detailtextsize)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
         <token name="tr(detailactors)">
             <trans lang="en_EN">Font size actors</trans>
             <trans lang="de_DE">Schriftgröße Schauspieler</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko näyttelijöille</trans>
         </token>
         <token name="tr(tablabels)">
             <trans lang="en_EN">Font size tab labels</trans>
             <trans lang="de_DE">Schriftgröße Tab Beschriftungen</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko välisivun nimelle</trans>
         </token>
         <!-- TVGuideNG -->
         <token name="tr(tvgshowtime)">
             <trans lang="en_EN">Display time in epg grid</trans>
             <trans lang="de_DE">Zeit in EPG Grid anzeigen</trans>
+            <trans lang="fi_FI">Näytä kellonaika ruudukossa</trans>
         </token>
         <token name="tr(tvggriddateposy)">
             <trans lang="en_EN">Vertical position time</trans>
             <trans lang="de_DE">Vertikale Position Zeit</trans>
+            <trans lang="fi_FI">Pystysijainti kellonajalle</trans>
         </token>
         <token name="tr(tvggriddatesize)">
             <trans lang="en_EN">Font size time</trans>
             <trans lang="de_DE">Schriftgröße Zeit</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kellonajalle</trans>
         </token>
         <token name="tr(tvggridtitleposy)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
+            <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
         </token>
         <token name="tr(tvggridtitlesize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(tvgcurrenttitlesize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
         </token>
         <token name="tr(tvgcurrenttextsize)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
         </token>
     </translations>
 </setup>

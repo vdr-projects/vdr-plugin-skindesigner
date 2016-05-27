@@ -69,7 +69,7 @@ msgstr "oder höher"
 msgid "needed"
 msgstr "benötigt"
 
-msgid "No Git Repsoitory available"
+msgid "No Git Repository available"
 msgstr "Kein Git Repository verfügbar"
 
 msgid "Skin is running and can't be deleted"
@@ -165,6 +165,9 @@ msgstr "Skin Vorschau"
 msgid "Help"
 msgstr "Hilfe"
 
+msgid "Preview"
+msgstr ""
+
 msgid "Author"
 msgstr "Autor"
 
@@ -173,4 +176,3 @@ msgstr "Benutze Schriftarten"
 
 msgid "Supported Plugins"
 msgstr "Unterstützte Plugins"
-

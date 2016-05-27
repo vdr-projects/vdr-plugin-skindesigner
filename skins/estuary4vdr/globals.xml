@@ -21,274 +21,337 @@
         <token name="tr(reruns)">
             <trans lang="en_EN">Reruns</trans>
             <trans lang="de_DE">Wiederholungen</trans>
+            <trans lang="fi_FI">Uusinnat</trans>
         </token>
         <token name="tr(rerunsof)">
             <trans lang="en_EN">Reruns of</trans>
             <trans lang="de_DE">Wiederholungen von</trans>
+            <trans lang="fi_FI">Uusinnat:</trans>
         </token>
         <token name="tr(actors)">
             <trans lang="en_EN">Actors</trans>
             <trans lang="de_DE">Schauspieler</trans>
+            <trans lang="fi_FI">Näyttelijät</trans>
         </token>
         <token name="tr(episode)">
             <trans lang="en_EN">Episode</trans>
             <trans lang="de_DE">Folge</trans>
+            <trans lang="fi_FI">Jakso</trans>
         </token>
         <token name="tr(season)">
             <trans lang="en_EN">Season</trans>
             <trans lang="de_DE">Staffel</trans>
+            <trans lang="fi_FI">Kausi</trans>
         </token>
         <token name="tr(gueststars)">
             <trans lang="en_EN">Guest Stars</trans>
             <trans lang="de_DE">Gaststars</trans>
+            <trans lang="fi_FI">Vierailevat tähdet</trans>
         </token>
         <token name="tr(seriesfirstaired)">
             <trans lang="en_EN">Series First Aired</trans>
             <trans lang="de_DE">Erstausstrahlung der Serie</trans>
+            <trans lang="fi_FI">Sarjan ensiesitys</trans>
         </token>
         <token name="tr(episodefirstaired)">
             <trans lang="en_EN">Episode First Aired</trans>
             <trans lang="de_DE">Erstausstrahlung der Episode</trans>
+            <trans lang="fi_FI">Jakson ensiesitys</trans>
         </token>
         <token name="tr(network)">
             <trans lang="en_EN">Network</trans>
             <trans lang="de_DE">TV Station</trans>
+            <trans lang="fi_FI">TV-kanava</trans>
         </token>
         <token name="tr(genre)">
             <trans lang="en_EN">Genre</trans>
             <trans lang="de_DE">Genre</trans>
+            <trans lang="fi_FI">Genre</trans>
         </token>
         <token name="tr(status)">
             <trans lang="en_EN">Status</trans>
             <trans lang="de_DE">Status</trans>
+            <trans lang="fi_FI">Status</trans>
         </token>
         <token name="tr(rating)">
             <trans lang="en_EN">Rating</trans>
             <trans lang="de_DE">Bewertung</trans>
+            <trans lang="fi_FI">Luokitus</trans>
         </token>
         <token name="tr(episoderating)">
             <trans lang="en_EN">Episode Rating</trans>
             <trans lang="de_DE">Bewertung der Folge</trans>
+            <trans lang="fi_FI">Jakson luokitus</trans>
         </token>
         <token name="tr(recinfo)">
             <trans lang="en_EN">Recording Information</trans>
             <trans lang="de_DE">Aufnahme Informationen</trans>
+            <trans lang="fi_FI">Tallenteen tiedot</trans>
         </token>
         <token name="tr(seriesgalery)">
             <trans lang="en_EN">Series Galery</trans>
             <trans lang="de_DE">Serien Galerie</trans>
+            <trans lang="fi_FI">Sarjagalleria</trans>
         </token>
         <token name="tr(moviegalery)">
             <trans lang="en_EN">Movie Galery</trans>
             <trans lang="de_DE">Spielfilm Galerie</trans>
+            <trans lang="fi_FI">Elokuvagalleria</trans>
         </token>
         <token name="tr(originaltitle)">
             <trans lang="en_EN">Original Title</trans>
             <trans lang="de_DE">Originaltitel</trans>
+            <trans lang="fi_FI">Alkuperäinen nimike</trans>
         </token>
         <token name="tr(budget)">
             <trans lang="en_EN">Budget</trans>
             <trans lang="de_DE">Budget</trans>
+            <trans lang="fi_FI">Budjetti</trans>
         </token>
         <token name="tr(revenue)">
             <trans lang="en_EN">Revenue</trans>
             <trans lang="de_DE">Einnahmen</trans>
+            <trans lang="fi_FI">Tuotto</trans>
         </token>
         <token name="tr(adult)">
             <trans lang="en_EN">Adult</trans>
             <trans lang="de_DE">Nur für Erwachsene</trans>
+            <trans lang="fi_FI">Vain aikuisille</trans>
         </token>
         <token name="tr(releasedate)">
             <trans lang="en_EN">Release Date</trans>
             <trans lang="de_DE">Erscheinungsdatum</trans>
+            <trans lang="fi_FI">Julkaisupäivämäärä</trans>
         </token>
         <token name="tr(runtime)">
             <trans lang="en_EN">Runtime</trans>
             <trans lang="de_DE">Laufzeit</trans>
+            <trans lang="fi_FI">Kesto</trans>
         </token>
         <token name="tr(popularity)">
             <trans lang="en_EN">Popularity</trans>
             <trans lang="de_DE">Popularität</trans>
+            <trans lang="fi_FI">Suosio</trans>
         </token>
         <token name="tr(voteaverage)">
             <trans lang="en_EN">Vote Average</trans>
             <trans lang="de_DE">Durchschnittliche Wertung</trans>
+            <trans lang="fi_FI">Keskimääräinen arvosana</trans>
         </token>
         <token name="tr(homepage)">
             <trans lang="en_EN">Homepage</trans>
             <trans lang="de_DE">Homepage</trans>
+            <trans lang="fi_FI">Kotisivu</trans>
         </token>
         <token name="tr(recsize)">
             <trans lang="en_EN">Recording size</trans>
             <trans lang="de_DE">Größe der Aufnahme</trans>
+            <trans lang="fi_FI">Tallenteen koko</trans>
         </token>
         <token name="tr(recsizecutted)">
             <trans lang="en_EN">Cutted Recording Size</trans>
             <trans lang="de_DE">Größe der geschnittenen Aufnahme</trans>
+            <trans lang="fi_FI">Leikatun tallenteen koko</trans>
         </token>
         <token name="tr(reclength)">
             <trans lang="en_EN">Recording Length</trans>
             <trans lang="de_DE">Länge der Aufnahme</trans>
+            <trans lang="fi_FI">Tallenteen pituus</trans>
         </token>
         <token name="tr(reclengthcutted)">
             <trans lang="en_EN">Cutted Recording Length</trans>
             <trans lang="de_DE">Länge der geschnittenen Aufnahme</trans>
+            <trans lang="fi_FI">Leikatun tallenteen pituus</trans>
         </token>
         <token name="tr(bitrate)">
             <trans lang="en_EN">Bit Rate</trans>
             <trans lang="de_DE">Bitrate</trans>
+            <trans lang="fi_FI">Bittinopeus</trans>
         </token>
         <token name="tr(format)">
             <trans lang="en_EN">Format</trans>
             <trans lang="de_DE">Format</trans>
+            <trans lang="fi_FI">Formaatti</trans>
         </token>
         <token name="tr(searchtimer)">
             <trans lang="en_EN">Searchtimer</trans>
             <trans lang="de_DE">Suchtimer</trans>
+            <trans lang="fi_FI">Hakuajastin</trans>
         </token>
         <token name="tr(end)">
             <trans lang="en_EN">end</trans>
             <trans lang="de_DE">Ende</trans>
+            <trans lang="fi_FI">Loppu</trans>
         </token>
         <token name="tr(activetimers)">
             <trans lang="en_EN">active timers</trans>
             <trans lang="de_DE">aktive Timer</trans>
+            <trans lang="fi_FI">aktiivista ajastinta</trans>
         </token>
         <token name="tr(activetimer)">
             <trans lang="en_EN">active timer</trans>
             <trans lang="de_DE">aktiver Timer</trans>
+            <trans lang="fi_FI">aktiivinen ajastin</trans>
         </token>
         <token name="tr(lastrecs)">
             <trans lang="en_EN">last recordings</trans>
             <trans lang="de_DE">Neueste Aufnahmen</trans>
+            <trans lang="fi_FI">Uusimmat tallenteet</trans>
         </token>
         <token name="tr(sysinfo)">
             <trans lang="en_EN">system information</trans>
             <trans lang="de_DE">System Informationen</trans>
+            <trans lang="fi_FI">Järjestelmätiedot</trans>
         </token>
         <token name="tr(disc)">
             <trans lang="en_EN">disc</trans>
             <trans lang="de_DE">HDD</trans>
+            <trans lang="fi_FI">levy</trans>
         </token>
         <token name="tr(free)">
             <trans lang="en_EN">free</trans>
             <trans lang="de_DE">frei</trans>
+            <trans lang="fi_FI">vapaana</trans>
         </token>
         <token name="tr(load)">
             <trans lang="en_EN">load</trans>
             <trans lang="de_DE">load</trans>
+            <trans lang="fi_FI">kuorma</trans>
         </token>
         <token name="tr(vdrcpu)">
             <trans lang="en_EN">VDR CPU</trans>
             <trans lang="de_DE">VDR CPU</trans>
+            <trans lang="fi_FI">VDR CPU</trans>
         </token>
         <token name="tr(volume)">
             <trans lang="en_EN">Volume</trans>
             <trans lang="de_DE">Lautstärke</trans>
+            <trans lang="fi_FI">Äänenvoimakkuus</trans>
         </token>
         <token name="tr(temp)">
             <trans lang="en_EN">Temperature</trans>
             <trans lang="de_DE">Temperatur</trans>
+            <trans lang="fi_FI">Lämpötila</trans>
         </token>
         <token name="tr(apparenttemp)">
             <trans lang="en_EN">Felt Temperature</trans>
             <trans lang="de_DE">Gefühlte Temperatur</trans>
+            <trans lang="fi_FI">Koettu lämpötila</trans>
         </token>
         <token name="tr(todaymin)">
             <trans lang="en_EN">minimum today</trans>
             <trans lang="de_DE">heutiges Minimum</trans>
+            <trans lang="fi_FI"></trans>
         </token>
         <token name="tr(todaymax)">
             <trans lang="en_EN">maximum today</trans>
             <trans lang="de_DE">heutiges Maximum</trans>
+            <trans lang="fi_FI"></trans>
         </token>
         <token name="tr(precipitationprobability)">
             <trans lang="en_EN">Precipitation Prob.</trans>
             <trans lang="de_DE">Regenwahrsch.</trans>
+            <trans lang="fi_FI">Sateen todennäköisyys</trans>
         </token>
         <token name="tr(precipitationintensity)">
             <trans lang="en_EN">Precipitation Intensity</trans>
             <trans lang="de_DE">Regenmenge</trans>
+            <trans lang="fi_FI">Sademäärä</trans>
         </token>
         <token name="tr(humidity)">
             <trans lang="en_EN">Humidity</trans>
             <trans lang="de_DE">Luftfeuchtigkeit</trans>
-        </token>
-        <token name="tr(apparenttemp)">
-            <trans lang="en_EN">Felt Temperature</trans>
-            <trans lang="de_DE">Gefühlte Temperatur</trans>
+            <trans lang="fi_FI">Ilmankosteus</trans>
         </token>
         <token name="tr(windbearing)">
             <trans lang="en_EN">Wind Bearing</trans>
             <trans lang="de_DE">Windrichtung</trans>
+            <trans lang="fi_FI">Tuulen suunta</trans>
         </token>
         <token name="tr(windspeed)">
             <trans lang="en_EN">Wind Speed</trans>
             <trans lang="de_DE">Windgeschwindigkeit</trans>
+            <trans lang="fi_FI">Tuulen nopeus</trans>
         </token>
         <token name="tr(cloudcover)">
             <trans lang="en_EN">Cloud Cover</trans>
             <trans lang="de_DE">Bewölkung</trans>
+            <trans lang="fi_FI">Pilvipeitto</trans>
         </token>
         <token name="tr(pressure)">
             <trans lang="en_EN">Pressure</trans>
             <trans lang="de_DE">Luftdruck</trans>
+            <trans lang="fi_FI">Ilmanpaine</trans>
         </token>
         <token name="tr(ozone)">
             <trans lang="en_EN">Ozone</trans>
             <trans lang="de_DE">Ozon</trans>
+            <trans lang="fi_FI">Otsooni</trans>
         </token>
         <token name="tr(visibility)">
             <trans lang="en_EN">visibility</trans>
             <trans lang="de_DE">Sicht</trans>
+            <trans lang="fi_FI">Näkyvyys</trans>
         </token>
         <token name="tr(conditions)">
             <trans lang="en_EN">Weather Conditions</trans>
             <trans lang="de_DE">Wetterlage</trans>
+            <trans lang="fi_FI">Säätila</trans>
         </token>
         <token name="tr(from)">
             <trans lang="en_EN">from</trans>
             <trans lang="de_DE">aus</trans>
+            <trans lang="fi_FI">alkaen</trans>
         </token>
         <token name="tr(felt)">
             <trans lang="en_EN">felt</trans>
             <trans lang="de_DE">gefühlt</trans>
+            <trans lang="fi_FI">tuntuu</trans>
         </token>
         <token name="tr(min)">
             <trans lang="en_EN">min</trans>
             <trans lang="de_DE">min</trans>
+            <trans lang="fi_FI">min</trans>
         </token>
         <token name="tr(max)">
             <trans lang="en_EN">max</trans>
             <trans lang="de_DE">max</trans>
+            <trans lang="fi_FI">max</trans>
         </token>
        <token name="tr(for)">
             <trans lang="en_EN">for</trans>
             <trans lang="de_DE">für</trans>
+            <trans lang="fi_FI"></trans>
         </token>
         <token name="tr(endsat)">
             <trans lang="en_EN">ends at</trans>
             <trans lang="de_DE">endet um</trans>
+            <trans lang="fi_FI">loppuen</trans>
         </token>
         <token name="tr(author)">
             <trans lang="en_EN">Author</trans>
             <trans lang="de_DE">Autor</trans>
+            <trans lang="fi_FI">Tekijä</trans>
         </token>
         <token name="tr(supportedplugins)">
             <trans lang="en_EN">Supported Plugins</trans>
             <trans lang="de_DE">Unterstützte Plugins</trans>
+            <trans lang="fi_FI">Tuetut laajennokset</trans>
         </token>
         <token name="tr(usedfonts)">
             <trans lang="en_EN">Used Fonts</trans>
             <trans lang="de_DE">Benutzte Schriftarten</trans>
+            <trans lang="fi_FI">Käytetyt kirjasimet</trans>
         </token>
         <token name="tr(installed)">
             <trans lang="en_EN">installled</trans>
             <trans lang="de_DE">installiert</trans>
+            <trans lang="fi_FI">asennettu</trans>
         </token>
         <token name="tr(notinstalled)">
             <trans lang="en_EN">NOT installled</trans>
             <trans lang="de_DE">NICHT installiert</trans>
+            <trans lang="fi_FI">ei asennettu</trans>
         </token>
     </translations>
 

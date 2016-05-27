@@ -16,28 +16,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Skin successfully installed"
-msgstr ""
+msgstr "Ulkoasun asennus onnistui"
 
 msgid "Skin NOT successfully installed"
-msgstr ""
+msgstr "Ulkoasun asennus epäonnistui"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Aikakatkaisu"
 
 msgid "Installing Skin"
-msgstr ""
+msgstr "Asennetaan ulkoasua"
 
 msgid "sec"
-msgstr ""
+msgstr "s"
 
 msgid "Skin successfully updated"
-msgstr ""
+msgstr "Ulkoasu päivitetty onnistuneesti"
 
 msgid "Skin already up to date"
-msgstr ""
+msgstr "Ulkoasu on ajantasalla"
 
 msgid "Updating Skin from Git"
-msgstr ""
+msgstr "Päivitetään ulkoasua git-projektista"
 
 msgid "after one another"
 msgstr "yksi kerrallaan"
@@ -46,52 +46,52 @@ msgid "at one go"
 msgstr "kaikki kerralla"
 
 msgid "Downloading Skin Screenshots..."
-msgstr ""
+msgstr "Ladataan kuvakaappauksia ulkoasusta..."
 
 msgid "Install Skin"
-msgstr ""
+msgstr "Asenna ulkoasu"
 
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 msgid "Delete Skin"
-msgstr ""
+msgstr "Poista ulkoasu"
 
 msgid "Skin Designer"
-msgstr "Skin Designer -ulkoasu"
+msgstr "Skin Designer -ulkoasut"
 
 msgid "version"
-msgstr ""
+msgstr "versio"
 
 msgid "or higher"
-msgstr ""
+msgstr "tai uudempi"
 
 msgid "needed"
-msgstr ""
+msgstr "vaaditaan"
 
-msgid "No Git Repsoitory available"
-msgstr ""
+msgid "No Git Repository available"
+msgstr "Git-projekti ei käytettävissä"
 
 msgid "Skin is running and can't be deleted"
-msgstr ""
+msgstr "Käytössä olevaa ulkoasua ei voida poistaa"
 
 msgid "Really delete skin"
-msgstr ""
+msgstr "Poistetaanko ulkoasu"
 
 msgid "Skin deleted"
-msgstr ""
+msgstr "Ulkoasu poistettu"
 
 msgid "Plugin Setup"
 msgstr "Yleiset"
 
 msgid "Maximum number of custom tokens"
-msgstr ""
+msgstr "Mukautettujen tokenien maksimimäärä"
 
 msgid "Reruns"
 msgstr "Uusinnat"
 
 msgid "Maximum number of reruns to display"
-msgstr "Maksimissaan näytettävät uusinnat"
+msgstr "Näytettävien uusintojen maksimimäärä"
 
 msgid "Minimum timely distance of rerun (in hours)"
 msgstr "Minimikesto uusintojen välillä [h]"
@@ -103,22 +103,22 @@ msgid "no limit"
 msgstr "ei rajoitusta"
 
 msgid "Image Loading"
-msgstr "Kuvat"
+msgstr "Kuvien lataus"
 
 msgid "Debug Image Loading"
 msgstr "Debuggaa kuvien latausta"
 
 msgid "Cache icons, skinparts and logos at start"
-msgstr ""
+msgstr "Täytä välimuisti käynnistyessä"
 
 msgid "Limit Channel Logo Cache"
 msgstr "Rajoita kanavalogojen välimuistia"
 
 msgid "Number to cache initially (per size)"
-msgstr "Oletuksena välimuistissa pidettävät logot"
+msgstr "Oletuksena välimuistissa pidettävät kuvat"
 
 msgid "Number to cache in maximum"
-msgstr "Maksimissaan välimuistissa pidettävät logot"
+msgstr "Maksimissaan välimuistissa pidettävät kuvat"
 
 msgid "Cache Statistics"
 msgstr "Välimuisti"
@@ -133,13 +133,13 @@ msgid "size"
 msgstr "koko"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "int. memory"
-msgstr ""
+msgstr "sisäinen muisti"
 
 msgid "high level memory"
-msgstr ""
+msgstr "korkean tason muisti"
 
 msgid "logos"
 msgstr "logo(a)"
@@ -157,25 +157,22 @@ msgid "has no setup"
 msgstr "ei asetuksia"
 
 msgid "Install new skins"
-msgstr ""
+msgstr "Asenna uusia ulkoasuja"
 
 msgid "Preview Skin"
-msgstr ""
+msgstr "Esikatsele ulkoasu"
 
 msgid "Help"
-msgstr ""
+msgstr "Opaste"
+
+msgid "Preview"
+msgstr "Esikatsele"
 
 msgid "Author"
-msgstr ""
+msgstr "Tekijä"
 
 msgid "Used Fonts"
-msgstr ""
+msgstr "Käytetyt kirjasimet"
 
 msgid "Supported Plugins"
-msgstr ""
-
-#~ msgid "byte"
-#~ msgstr "tavu(a)"
-
-#~ msgid "Menu Item display method"
-#~ msgstr "Valikkorivien esitystapa"
+msgstr "Tuetut laajennokset"

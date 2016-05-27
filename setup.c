@@ -231,7 +231,7 @@ eOSState cSkinDesignerSetup::ProcessKey(eKeys Key) {
                     }                    
                     Skins.Message(mtStatus, *cString::sprintf("%s ...", tr("Updating Skin from Git")));
                 } else {
-                    Skins.Message(mtStatus, tr("No Git Repsoitory available"));
+                    Skins.Message(mtStatus, tr("No Git Repository available"));
                 }
             }
         }
@@ -441,7 +441,7 @@ eOSState cSkindesignerSkinSetup::ProcessKey(eKeys Key) {
                     }
                     Skins.Message(mtStatus, *cString::sprintf("%s ...", tr("Updating Skin from Git")));
                 } else {
-                    Skins.Message(mtStatus, tr("No Git Repsoitory available"));
+                    Skins.Message(mtStatus, tr("No Git Repository available"));
                 }
                 break;
             }
@@ -528,7 +528,7 @@ void cSkindesignerSkinSetup::ShowButtons(int current, bool force) {
 // --- cSkindesignerSkinPreview -----------------------------------------------------------
 
 cSkindesignerSkinPreview::cSkindesignerSkinPreview(string skin, skindesignerapi::cPluginStructure *plugStruct)  : 
-cSkindesignerOsdMenu(plugStruct, *cString::sprintf("%s: %s \"%s\"", trVDR("Preview"), tr("Skin"), skin.c_str())) {
+cSkindesignerOsdMenu(plugStruct, *cString::sprintf("%s: %s \"%s\"", tr("Preview"), tr("Skin"), skin.c_str())) {
     currentSkin = skin;
     FirstCallCleared();
     Set();
