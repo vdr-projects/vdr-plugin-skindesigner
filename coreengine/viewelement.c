@@ -299,10 +299,7 @@ void cViewElement::Clear(bool forceClearBackground) {
 }
 
 void cViewElement::Hide(void) {
-    delete shifter;
-    shifter = NULL;
-    delete fader;
-    fader = NULL;
+    StopAnimation();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         sdOsd->Lock();
         node->Hide();
@@ -328,12 +325,7 @@ void cViewElement::WakeUp(void) {
 }
 
 void cViewElement::Close(void) {
-    delete detacher;
-    detacher = NULL;
-    delete fader;
-    fader = NULL;
-    delete shifter;
-    shifter = NULL;
+    StopAnimation();
     StopScrolling();
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         node->StopBlinkers();
@@ -581,3 +573,11 @@ cPoint cViewElement::ShiftStart(cRect &shiftbox) {
     return start;
 }
 
+void cViewElement::StopAnimation(void) {
+    delete detacher;
+    detacher = NULL;
+    delete shifter;
+    shifter = NULL;
+    delete fader;
+    fader = NULL;
+}

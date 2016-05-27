@@ -224,11 +224,11 @@ void cAnimation::Detach(void) {
         if (delay > 0)
             Sleep(delay);
     }
-    if (!Running()) return;
+    //if (!Running()) return;
     detachable->ParseDetached();
-    if (!Running()) return;
+    //if (!Running()) return;
     detachable->RenderDetached();
-    if (!Running()) return;
+    //if (!Running()) return;
     if (!doAnimation)
         detachable->Flush(false);
     if (!Running()) return;

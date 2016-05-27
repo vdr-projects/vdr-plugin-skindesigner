@@ -43,6 +43,7 @@ protected:
     void InheritTokenContainerDeep(void);
     virtual bool DoScroll(void) { return true; };
     cPoint ShiftStart(cRect &shiftbox);
+    void StopAnimation(void);
 public:
     cViewElement(void);
     cViewElement(const cViewElement &other);
