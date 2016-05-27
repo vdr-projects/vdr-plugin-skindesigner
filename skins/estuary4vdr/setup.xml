@@ -159,144 +159,172 @@
             <trans lang="en_EN">Channel switching</trans>
             <trans lang="de_DE">Kanäle umschalten</trans>
             <trans lang="fi_FI">Kanavan vaihto</trans>
+            <trans lang="hu_HU">Csatorna váltáskor</trans>
         </token>
         <token name="tr(subdisplayreplay)">
             <trans lang="en_EN">Replay of recording</trans>
             <trans lang="de_DE">Wiedergabe einer Aufnahme</trans>
             <trans lang="fi_FI">Tallenteiden poisto</trans>
+            <trans lang="hu_HU">A felvétel újrajátszása</trans>
         </token>
         <token name="tr(submessages)">
             <trans lang="en_EN">Messages</trans>
             <trans lang="de_DE">Nachrichten</trans>
             <trans lang="fi_FI">Viestit</trans>
+            <trans lang="hu_HU">Üzenetek</trans>
         </token>
         <token name="tr(submenucommon)">
             <trans lang="en_EN">Common menu settings</trans>
             <trans lang="de_DE">Allgemeine Menü Einstellungen</trans>
             <trans lang="fi_FI">Yleiset valikkoasetukset</trans>
+            <trans lang="hu_HU">Közös menübeállítások</trans>
         </token>
         <token name="tr(submainmenu)">
             <trans lang="en_EN">Main and Setup Menu</trans>
             <trans lang="de_DE">Haupt- und Setup Menü</trans>
             <trans lang="fi_FI">Päävalikko ja asetukset</trans>
+            <trans lang="hu_HU">Fő és Beállítás Menü</trans>
         </token>
         <token name="tr(subschedulesmenu)">
             <trans lang="en_EN">Schedules Menu</trans>
             <trans lang="de_DE">Programm Menü</trans>
             <trans lang="fi_FI">Ohjelmaopas</trans>
+            <trans lang="hu_HU">Műsorújság Menü</trans>
         </token>
         <token name="tr(subchannelsmenu)">
             <trans lang="en_EN">Channel Menu</trans>
             <trans lang="de_DE">Kanal Menü</trans>
             <trans lang="fi_FI">Kanavavalikko</trans>
+            <trans lang="hu_HU">Csatorna Menü</trans>
         </token>
         <token name="tr(subtimersmenu)">
             <trans lang="en_EN">Timer Menu</trans>
             <trans lang="de_DE">Timer Menü</trans>
             <trans lang="fi_FI">Ajastinvalikko</trans>
+            <trans lang="hu_HU">Időzítő Menü</trans>
         </token>
         <token name="tr(subrecordings)">
             <trans lang="en_EN">Recordings Menu</trans>
             <trans lang="de_DE">Aufzeichnungsmenü</trans>
             <trans lang="fi_FI">Tallennevalikko</trans>
+            <trans lang="hu_HU">Felvételek Menü</trans>
         </token>
         <token name="tr(subdetailmenu)">
             <trans lang="en_EN">Detailed Views (EPG, Rec, text)</trans>
             <trans lang="de_DE">Detailansichten (EPG, Aufzeichnungen, Text)</trans>
             <trans lang="fi_FI">Lisätietonäkymät (EPG, tallenteet, teksti)</trans>
+            <trans lang="hu_HU">Részletes nézetek (EPG, Felvételek, Szöveg)</trans>
         </token>
         <!-- separators -->
         <token name="tr(seplistelement)">
             <trans lang="en_EN">Settings menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Asetukset valikolle [% valikkorivin korkeudesta]</trans>
+            <trans lang="hu_HU">Beállítások menü [% a listaelemmagasság]</trans>
         </token>
         <token name="tr(recsepnarrow)">
             <trans lang="en_EN">Settings narrow menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen schmales Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Asetukset kapealle valikolle [% valikkorivin korkeudesta]</trans>
+            <trans lang="hu_HU">A beállítások menüt szűkítenek [% a listaelemmagasság]</trans>
         </token>
         <token name="tr(recsepwide)">
             <trans lang="en_EN">Settings wide menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen breites Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Asetukset leveälle valikolle [% valikkorivin korkeudesta]</trans>
+            <trans lang="hu_HU">Beállítások széles menü [% a listaelemmagasság]</trans>
         </token>
         <token name="tr(sepcurrent)">
             <trans lang="en_EN">Settings current element [% of box height]</trans>
             <trans lang="de_DE">Einstellungen aktuelles Element [% der Box Höhe]</trans>
             <trans lang="fi_FI">Asetukset aktiiviselle elementille [% korkeudesta]</trans>
+            <trans lang="hu_HU">Beállítások aktuális elem [% a dobozmagasság]</trans>
         </token>
         <token name="tr(tvghorsepgrid)">
             <trans lang="en_EN">Settings epg grids horizontal display [% of grid height]</trans>
             <trans lang="de_DE">Einstellungen EPG Grids horizontale Anzeige [% der Grid Höhe]</trans>
             <trans lang="fi_FI">Asetukset vaakaruudukolle [% ruudukon korkeudesta]</trans>
+            <trans lang="hu_HU">Beállítások EPG rácshálók vízszintes kijelzése [% rácsmagasság]</trans>
         </token>
         <token name="tr(tvgversepgrid)">
             <trans lang="en_EN">Settings epg grids vertical display [% of grid width]</trans>
             <trans lang="de_DE">Einstellungen EPG Grids vertikale Anzeige [% der Grid Breite]</trans>
             <trans lang="fi_FI">Asetukset pystyruudukolle [% ruudukon leveydestä]</trans>
+            <trans lang="hu_HU">Beállítások EPG rácshálók függőleges kijelzése [% rácsszélesség]</trans>
         </token>
         <!-- common texts -->
         <token name="tr(fadetext)">
             <trans lang="en_EN">Fade time [ms]</trans>
             <trans lang="de_DE">Einblendzeit [ms]</trans>
             <trans lang="fi_FI">Häivytyksen kesto [ms]</trans>
+            <trans lang="hu_HU">Elhalványulás ideje [ms]</trans>
         </token>
         <token name="tr(helpfade)">
             <trans lang="en_EN">Fade time of channel display in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu fade in and out.</trans>
             <trans lang="de_DE">Einblendzeit der Kanalanzeige in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu ein- und ausgeblendet.</trans>
             <trans lang="fi_FI">Häivytyksen kesto millisekunteina. Nollasta eriävä arvo aktivoi valikkojen häivytyksen.</trans>
+            <trans lang="hu_HU">A csatorna kijelzés elhalványulás ms-ben. Ha ez az érték be van beállítva, hogy az érték > 0, az összes OSD elemek mellett a VDR menüt és elhalványulnak.</trans>
         </token>
         <token name="tr(shifttext)">
             <trans lang="en_EN">Shift time [ms]</trans>
             <trans lang="de_DE">Einfahrzeit [ms]</trans>
             <trans lang="fi_FI">Liukuman kesto [ms]</trans>
+            <trans lang="hu_HU">Késleltetés ideje [ms]</trans>
         </token>
         <token name="tr(helpshift)">
             <trans lang="en_EN">Shift time in ms. If this is set to a value larger 0 all OSD elements beside the VDR menu are shifted in and out from the bottom of the screen. If fadetime is also set to a value larger 0, still shifting is performed.</trans>
             <trans lang="de_DE">Einfahrzeit in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, werden alle OSD Elemente ausser dem VDR Menu vom unteren Rand des Bildschirms herein- und herausgefahren. Falls fadetime ebenfalls auf einen Wert größer 0 gesetzt ist, wird das OSD trotzdem herein- und herausgefahren.</trans>
             <trans lang="fi_FI">Liukuman kesto millisekunteina. Nollasta eriävä arvo aktivoi valikkojen transitioefektit riippumatta häivytyksen kestosta.</trans>
+            <trans lang="hu_HU">Késleltetés idő ms-ben. Ha ez be van állítva, hogy az érték > 0, az összes OSD elemek mellett a VDR menü eltolódik, és ki a képernyő alján. Ha fadetime is ennek az értéke nagyobb 0, mindig eltolásával végezzük.</trans>
         </token>
         <!-- displaychannel -->
         <token name="tr(epgtextposy)">
             <trans lang="en_EN">Vertical position EPG titel</trans>
             <trans lang="de_DE">Vertikale Position EPG Titel</trans>
             <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
+            <trans lang="hu_HU">EPG Cím Függőleges Pozíció</trans>
         </token>
         <token name="tr(epgtextfontsize)">
             <trans lang="en_EN">Font size EPG titel</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">EPG Cím Betűmérete</trans>
         </token>
         <token name="tr(epgtextfontsizelarge)">
             <trans lang="en_EN">Font size EPG titel w.o. shorttext</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel ohne Kurztext</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle ilman kuvausta</trans>
+            <trans lang="hu_HU">EPG Cím Betűmérete leírás nélkül</trans>
         </token>
         <token name="tr(epgsubtextposy)">
             <trans lang="en_EN">Vertical position EPG shorttext</trans>
             <trans lang="de_DE">Vertikale Position EPG Kurztext</trans>
             <trans lang="fi_FI">Pystysijainti lyhyelle kuvaukselle</trans>
+            <trans lang="hu_HU">EPG Leírás Függőleges Pozíció</trans>
         </token>
         <token name="tr(epgsubtextfontsize)">
             <trans lang="en_EN">Font size EPG shorttext</trans>
             <trans lang="de_DE">Schriftgröße EPG Kurztext</trans>
             <trans lang="fi_FI">Kirjasintyypin koko lyhyelle kuvaukselle</trans>
+            <trans lang="hu_HU">EPG Leírás Betűmérete</trans>
         </token>
         <token name="tr(startstopfontsize)">
             <trans lang="en_EN">Font size start and stop time</trans>
             <trans lang="de_DE">Schriftgröße Start- und Endezeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko aloitus- ja lopetusajalle</trans>
+            <trans lang="hu_HU">Betűméret kezdés és megállásidő</trans>
         </token>
         <token name="tr(channelnamefontsize)">
             <trans lang="en_EN">Font size channel name</trans>
             <trans lang="de_DE">Schriftgröße Kanalname</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kanavanimelle</trans>
+            <trans lang="hu_HU">Betűméret csatornanév</trans>
         </token>
         <token name="tr(scrollepgtext)">
             <trans lang="en_EN">Scroll EPG</trans>
             <trans lang="de_DE">EGP scrollen</trans>
             <trans lang="fi_FI">Vieritä ohjelmaopasta</trans>
+            <trans lang="hu_HU">EPG görgetés</trans>
         </token>
         <token name="tr(sepzapcockpit)">
             <trans lang="en_EN">Settings Zapcockpit</trans>
@@ -443,375 +471,448 @@
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(replaydatetimesize)">
             <trans lang="en_EN">Font size date and time</trans>
             <trans lang="de_DE">Schriftgröße Datum und Uhrzeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päiväykselle ja kellonajalle</trans>
+            <trans lang="hu_HU">Betűméret dátum és idő</trans>
         </token>
         <token name="tr(replaycurrenttotaltimesize)">
             <trans lang="en_EN">Font size current and total time</trans>
             <trans lang="de_DE">Schriftgröße aktuelle und gesamte Zeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nykyhetkelle ja kestolle</trans>
+            <trans lang="hu_HU">Betűméret jelenlegi és teljes idő</trans>
         </token>
         <token name="tr(replayendtimesize)">
             <trans lang="en_EN">Font size end time</trans>
             <trans lang="de_DE">Schriftgröße Ende Zeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko lopetusajalle</trans>
+            <trans lang="hu_HU">Betűméret befejezési idő</trans>
         </token>
         <!-- messages -->
         <token name="tr(messagesize)">
             <trans lang="en_EN">Font size messages</trans>
             <trans lang="de_DE">Schriftgröße Nachrichten</trans>
             <trans lang="fi_FI">Kirjasintyypin koko</trans>
+            <trans lang="hu_HU">Betűméret üzenetek</trans>
         </token>
         <token name="tr(messagemenusize)">
             <trans lang="en_EN">Font size messages in menus</trans>
             <trans lang="de_DE">Schriftgröße Nachrichten in Menüs</trans>
             <trans lang="fi_FI">Kirjasintyypin koko valikoissa</trans>
+            <trans lang="hu_HU">Betűméret üzenetek menükben</trans>
         </token>
         <!-- menu common -->
         <token name="tr(headerfontsize)">
             <trans lang="en_EN">Font size header</trans>
             <trans lang="de_DE">Schriftgröße Header</trans>
             <trans lang="fi_FI">Kirjasintyypin koko otsikkopalkille</trans>
+            <trans lang="hu_HU">Betűméret fejléc</trans>
         </token>
         <token name="tr(headerdatefontsize)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päiväykselle</trans>
+            <trans lang="hu_HU">Betűméret dátum</trans>
         </token>
         <token name="tr(headertimefontsize)">
             <trans lang="en_EN">Font size time</trans>
             <trans lang="de_DE">Schriftgröße Uhrzeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kellonajalle</trans>
+            <trans lang="hu_HU">Betűméret idő</trans>
         </token>
         <token name="tr(headertimefontsizesmall)">
             <trans lang="en_EN">Font size time seconds</trans>
             <trans lang="de_DE">Schriftgröße Uhrzeit Sekunden</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kellonajan sekunneille</trans>
+            <trans lang="hu_HU">Betűméret idő másodperc</trans>
         </token>
         <token name="tr(buttonfontsize)">
             <trans lang="en_EN">Font size color buttons</trans>
             <trans lang="de_DE">Schriftgröße Farbbuttons</trans>
             <trans lang="fi_FI">Kirjasintyypin koko väripainikkeille</trans>
+            <trans lang="hu_HU">Betűméret színes gombok</trans>
         </token>
         <token name="tr(numitemsdefault)">
             <trans lang="en_EN">Number of menu items in default lists</trans>
             <trans lang="de_DE">Anzahl Menüelemente Standardlisten</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
+            <trans lang="hu_HU">Alapértelmezett listákban levő menüpontok száma</trans>
         </token>
         <token name="tr(defaultitemfontsize)">
             <trans lang="en_EN">Font size default menu item</trans>
             <trans lang="de_DE">Schriftgröße Standard Listenelement</trans>
             <trans lang="fi_FI">Kirjasintyypin koko valikkoriville</trans>
+            <trans lang="hu_HU">Betűméret Alapértelmezett Menüpont</trans>
         </token>
         <!-- menu main and setup -->
         <token name="tr(showlistnumbers)">
             <trans lang="en_EN">Display numbering of list elements</trans>
             <trans lang="de_DE">Nummerierung der Listenelemente anzeigen</trans>
             <trans lang="fi_FI">Näytä numeroinnit valikkoriveillä</trans>
+            <trans lang="hu_HU">A listaelemek kijelzőszámozása</trans>
         </token>
         <token name="tr(numitemsmain)">
             <trans lang="en_EN">Number of main menu items</trans>
             <trans lang="de_DE">Anzahl Hauptmenüelemente</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä päämenussa</trans>
+            <trans lang="hu_HU">A főmenü tételek száma</trans>
         </token>
         <token name="tr(mainfontsize)">
             <trans lang="en_EN">Font size main menu [% of listelement height]</trans>
             <trans lang="de_DE">Schriftgröße Hauptmenü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päävalikossa [% rivin korkeudesta]</trans>
+            <trans lang="hu_HU">Betűméret főmenü [% a listaelemmagasság]</trans>
         </token>
         <token name="tr(setupfontsize)">
             <trans lang="en_EN">Font size setup menu [% of listelement height]</trans>
             <trans lang="de_DE">Schriftgröße Setup Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Kirjasintyypin koko asetuksissa [% rivin korkeudesta]</trans>
+            <trans lang="hu_HU">Betűméret beállítás menü [% a listaelemmagasság]</trans>
         </token>
         <token name="tr(mainiconsize)">
             <trans lang="en_EN">Icon size [% of listelement height]</trans>
             <trans lang="de_DE">Icon Größe [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Ikonien koko [% rivin korkeudesta]</trans>
+            <trans lang="hu_HU">Ikon mérete [% a listaelemmagasság]</trans>
         </token>
         <!-- menu schedules -->
         <token name="tr(numitemsschedueles)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
+            <trans lang="hu_HU">A menüpontok száma</trans>
         </token>
         <token name="tr(schedulesposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
             <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
+            <trans lang="hu_HU">Függőleges pozíció dátum</trans>
         </token>
         <token name="tr(schedulessizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
+            <trans lang="hu_HU">Betűméret dátum</trans>
         </token>
         <token name="tr(schedulesposytitle)">
             <trans lang="en_EN">Vertical position epg title</trans>
             <trans lang="de_DE">Vertikale Position EPG Titel</trans>
             <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció EPG cím</trans>
         </token>
         <token name="tr(schedulessizetitle)">
             <trans lang="en_EN">Font size epg title</trans>
             <trans lang="de_DE">Schriftgröße EPG Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret EPG cím</trans>
         </token>
         <token name="tr(schedulesseparator)">
             <trans lang="en_EN">Day Separators</trans>
             <trans lang="de_DE">Tagesseparatoren</trans>
             <trans lang="fi_FI">Päivämääräerottimet</trans>
+            <trans lang="hu_HU">Nappali elválasztók</trans>
         </token>
         <token name="tr(schedulessizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(schedulessizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
         <!-- menu channels -->
         <token name="tr(numitemschannels)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
+            <trans lang="hu_HU">A menüpontok száma</trans>
         </token>
         <token name="tr(channelsposydate)">
             <trans lang="en_EN">Vertical position schedule</trans>
             <trans lang="de_DE">Vertikale Position Programm</trans>
             <trans lang="fi_FI">Pystysijainti ohjelmalle</trans>
+            <trans lang="hu_HU">Függőleges pozíció műsorújság</trans>
         </token>
         <token name="tr(channelssizedate)">
             <trans lang="en_EN">Font size schedule</trans>
             <trans lang="de_DE">Schriftgröße Programm</trans>
             <trans lang="fi_FI">Kirjasintyypin koko ohjelmalle</trans>
+            <trans lang="hu_HU">Betűméret műsorújság</trans>
         </token>
         <token name="tr(channelsposytitle)">
             <trans lang="en_EN">Vertical position channel name</trans>
             <trans lang="de_DE">Vertikale Position Kanalname</trans>
             <trans lang="fi_FI">Pystysijainti kanavan nimelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció csatornanév</trans>
         </token>
         <token name="tr(channelssizetitle)">
             <trans lang="en_EN">Font size channel name</trans>
             <trans lang="de_DE">Schriftgröße Kanalname</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kanavanimelle</trans>
+            <trans lang="hu_HU">Betűméret csatornanév</trans>
         </token>
         <token name="tr(channelsseparator)">
             <trans lang="en_EN">Channel Separators</trans>
             <trans lang="de_DE">Kanalseparatoren</trans>
             <trans lang="fi_FI">Kanavaerottimet</trans>
+            <trans lang="hu_HU">Csatorna Elválasztók</trans>
         </token>
         <token name="tr(channelssizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(channelssizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
         <!-- menu timers -->
         <token name="tr(numitemstimers)">
             <trans lang="en_EN">Number of menu items</trans>
             <trans lang="de_DE">Anzahl Menüelemente</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
+            <trans lang="hu_HU">A menüpontok száma</trans>
         </token>
         <token name="tr(timersposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
             <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
+            <trans lang="hu_HU">Függőleges pozíció dátum</trans>
         </token>
         <token name="tr(timerssizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
+            <trans lang="hu_HU">Betűméret dátum</trans>
         </token>
         <token name="tr(timersposytitle)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
             <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció cím</trans>
         </token>
         <token name="tr(timerssizetitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(timerssizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(timerssizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
         <!-- menu recordings -->
         <token name="tr(recmenustyle)">
             <trans lang="en_EN">Style of Recordings Menu</trans>
             <trans lang="de_DE">Darstellung des Aufzeichnungsmenüs</trans>
             <trans lang="fi_FI">Tallennevalikon tyyli</trans>
+            <trans lang="hu_HU">A felvételek stílusa menü</trans>
         </token>
         <token name="tr(menu1)">
             <trans lang="en_EN">Narrow</trans>
             <trans lang="de_DE">Schmal</trans>
             <trans lang="fi_FI">kapea</trans>
+            <trans lang="hu_HU">Keskeny</trans>
         </token>
         <token name="tr(menu2)">
             <trans lang="en_EN">Wide</trans>
             <trans lang="de_DE">Breit</trans>
             <trans lang="fi_FI">leveä</trans>
+            <trans lang="hu_HU">Széles</trans>
         </token>
         <token name="tr(numitemsrecnarrow)">
             <trans lang="en_EN">Number of menu items in narrow menu</trans>
             <trans lang="de_DE">Anzahl Menüelemente im schmalen Menü</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä kapeassa</trans>
+            <trans lang="hu_HU">Keskeny menüben levő menüpontok száma</trans>
         </token>
         <token name="tr(numitemsrecwide)">
             <trans lang="en_EN">Number of menu items in wide menu</trans>
             <trans lang="de_DE">Anzahl Menüelemente im breiten Menü</trans>
             <trans lang="fi_FI">Valikkorivien lukumäärä leveässä</trans>
+            <trans lang="hu_HU">Széles menüben levő menüpontok száma</trans>
         </token>
         <token name="tr(recposydate)">
             <trans lang="en_EN">Vertical position date</trans>
             <trans lang="de_DE">Vertikale Position Datum</trans>
             <trans lang="fi_FI">Pystysijainti päivämäärälle</trans>
+            <trans lang="hu_HU">Függőleges pozíció dátum</trans>
         </token>
         <token name="tr(recsizedate)">
             <trans lang="en_EN">Font size date</trans>
             <trans lang="de_DE">Schriftgröße Datum</trans>
             <trans lang="fi_FI">Kirjasintyypin koko päivämäärälle</trans>
+            <trans lang="hu_HU">Betűméret dátum</trans>
         </token>
         <token name="tr(recposytitle)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
             <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció cím</trans>
         </token>
         <token name="tr(recsizetitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
-             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
        </token>
         <token name="tr(recposyfoldertitle)">
             <trans lang="en_EN">Vertical position folder name</trans>
             <trans lang="de_DE">Vertikale Position Ordner Name</trans>
             <trans lang="fi_FI">Pystysijainti kansion nimelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció mappa neve</trans>
         </token>
         <token name="tr(recsizefoldertitle)">
             <trans lang="en_EN">Font size folder name</trans>
             <trans lang="de_DE">Schriftgröße Ordner Name</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kansion nimelle</trans>
+            <trans lang="hu_HU">Betűméret mappa neve</trans>
         </token>
         <token name="tr(recposyfolderstats)">
             <trans lang="en_EN">Vertical position folder content</trans>
             <trans lang="de_DE">Vertikale Position Ordner Inhalt</trans>
             <trans lang="fi_FI">Pystysijainti kansion sisällölle</trans>
+            <trans lang="hu_HU">Függőleges pozíció mappa tartalmának</trans>
         </token>
         <token name="tr(recsizefolderstats)">
             <trans lang="en_EN">Font size folder content</trans>
             <trans lang="de_DE">Schriftgröße Ordner Inhalt</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kansion sisällölle</trans>
+            <trans lang="hu_HU">Betűméret mappa tartalmának</trans>
         </token>
         <token name="tr(recsizewide)">
             <trans lang="en_EN">Font size wide menu</trans>
             <trans lang="de_DE">Schriftgröße breites Menü</trans>
             <trans lang="fi_FI">Kirjasintyypin koko</trans>
+            <trans lang="hu_HU">Betűméret széles menü</trans>
         </token>
         <token name="tr(recshowcurrent)">
             <trans lang="en_EN">Show info for selected list element</trans>
             <trans lang="de_DE">Infos für das ausgewählte Listenelement anzeigen</trans>
             <trans lang="fi_FI">Näytä lisätiedot aktiiviselta valikkoriviltä</trans>
+            <trans lang="hu_HU">Információ megjelenítése a kiválasztott lista elemén</trans>
         </token>
         <token name="tr(recsizecurrenttitle)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(recsizecurrenttext)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
         <!-- detailed views -->
         <token name="tr(detailheaderdateposy)">
             <trans lang="en_EN">Vertical position header date</trans>
             <trans lang="de_DE">Vertikale Position Header Datum</trans>
             <trans lang="fi_FI">Pystysijainti otsikon päiväykselle</trans>
+            <trans lang="hu_HU">Függőleges pozíció fejléc dátum</trans>
         </token>
         <token name="tr(detailheaderdatesize)">
             <trans lang="en_EN">Font size header date</trans>
             <trans lang="de_DE">Schriftgröße Header Datum</trans>
             <trans lang="fi_FI">Kirjasinkoko otsikon päiväykselle</trans>
+            <trans lang="hu_HU">Betűméret fejléc dátum</trans>
         </token>
         <token name="tr(detailheadertitleposy)">
             <trans lang="en_EN">Vertical position header title</trans>
             <trans lang="de_DE">Vertikale Position Header Titel</trans>
             <trans lang="fi_FI">Pystysijainti otsikon nimikkeelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció fejléc cím</trans>
         </token>
         <token name="tr(detailheadertitlesize)">
             <trans lang="en_EN">Font size header title</trans>
             <trans lang="de_DE">Schriftgröße Header Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko otsikon nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret fejléc cím</trans>
         </token>
         <token name="tr(detailtextheadersize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(detailtextsize)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
         <token name="tr(detailactors)">
             <trans lang="en_EN">Font size actors</trans>
             <trans lang="de_DE">Schriftgröße Schauspieler</trans>
             <trans lang="fi_FI">Kirjasintyypin koko näyttelijöille</trans>
+            <trans lang="hu_HU">Betűméret szereplők</trans>
         </token>
         <token name="tr(tablabels)">
             <trans lang="en_EN">Font size tab labels</trans>
             <trans lang="de_DE">Schriftgröße Tab Beschriftungen</trans>
             <trans lang="fi_FI">Kirjasintyypin koko välisivun nimelle</trans>
+            <trans lang="hu_HU">Betűméret fül címkék</trans>
         </token>
         <!-- TVGuideNG -->
         <token name="tr(tvgshowtime)">
             <trans lang="en_EN">Display time in epg grid</trans>
             <trans lang="de_DE">Zeit in EPG Grid anzeigen</trans>
             <trans lang="fi_FI">Näytä kellonaika ruudukossa</trans>
+            <trans lang="hu_HU">Idő megjelenítése EPG rácson</trans>
         </token>
         <token name="tr(tvggriddateposy)">
             <trans lang="en_EN">Vertical position time</trans>
             <trans lang="de_DE">Vertikale Position Zeit</trans>
             <trans lang="fi_FI">Pystysijainti kellonajalle</trans>
+            <trans lang="hu_HU">Függőleges pozíció idő</trans>
         </token>
         <token name="tr(tvggriddatesize)">
             <trans lang="en_EN">Font size time</trans>
             <trans lang="de_DE">Schriftgröße Zeit</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kellonajalle</trans>
+            <trans lang="hu_HU">Betűméret idő</trans>
         </token>
         <token name="tr(tvggridtitleposy)">
             <trans lang="en_EN">Vertical position title</trans>
             <trans lang="de_DE">Vertikale Position Titel</trans>
             <trans lang="fi_FI">Pystysijainti nimikkeelle</trans>
+            <trans lang="hu_HU">Függőleges pozíció cím</trans>
         </token>
         <token name="tr(tvggridtitlesize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(tvgcurrenttitlesize)">
             <trans lang="en_EN">Font size title</trans>
             <trans lang="de_DE">Schriftgröße Titel</trans>
             <trans lang="fi_FI">Kirjasintyypin koko nimikkeelle</trans>
+            <trans lang="hu_HU">Betűméret cím</trans>
         </token>
         <token name="tr(tvgcurrenttextsize)">
             <trans lang="en_EN">Font size text</trans>
             <trans lang="de_DE">Schriftgröße Text</trans>
             <trans lang="fi_FI">Kirjasintyypin koko kuvaukselle</trans>
+            <trans lang="hu_HU">Betűméret szöveg</trans>
         </token>
     </translations>
 </setup>
