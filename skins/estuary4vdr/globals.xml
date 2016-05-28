@@ -285,13 +285,13 @@
         <token name="tr(todaymin)">
             <trans lang="en_EN">minimum today</trans>
             <trans lang="de_DE">heutiges Minimum</trans>
-            <trans lang="fi_FI"></trans>
+            <trans lang="fi_FI">alin tänään</trans>
             <trans lang="hu_HU">mai minimum</trans>
         </token>
         <token name="tr(todaymax)">
             <trans lang="en_EN">maximum today</trans>
             <trans lang="de_DE">heutiges Maximum</trans>
-            <trans lang="fi_FI"></trans>
+            <trans lang="fi_FI">ylin tänään</trans>
             <trans lang="hu_HU">mai maximum</trans>
         </token>
         <token name="tr(precipitationprobability)">
@@ -381,7 +381,7 @@
        <token name="tr(for)">
             <trans lang="en_EN">for</trans>
             <trans lang="de_DE">für</trans>
-            <trans lang="fi_FI"></trans>
+            <trans lang="fi_FI">:</trans>
             <trans lang="hu_HU">mert</trans>
         </token>
         <token name="tr(endsat)">

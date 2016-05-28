@@ -360,7 +360,7 @@
        <token name="tr(for)">
             <trans lang="en_EN">for</trans>
             <trans lang="de_DE">für</trans>
-            <trans lang="fi_FI"></trans>
+            <trans lang="fi_FI">:</trans>
             <trans lang="hu_HU">for</trans>
         </token>
         <token name="tr(endsat)">
