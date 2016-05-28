@@ -165,7 +165,7 @@ void cViewList::PreCache(void) {
         step = width / numElements;
     }
 
-    int start = 0;
+    int start = y;
     if (align == eAlign::center) {
         if (orientation == eOrientation::vertical) {
             start = y + (height - numElements * step) / 2;
