@@ -26,15 +26,15 @@
             </area>
             <!-- Setup Menus -->
             <areacontainer condition="not{separator} ++ {setup}">
-                <areascroll condition="{column2set}" scrollelement="column1" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="1%" width="59%" layer="3">
+                <area condition="{column2set}" x="1%" width="69%" layer="3">
                     <drawtext condition="not{current}" x="0" width="99%" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" color="{fontdefault}" text="{column1}" />
                     <drawtext condition="{current}" name="column1" x="0" width="99%" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" color="{fontmenuactive}" text="{column1}" />
-                </areascroll>
-                <area x="60%" condition="{column2set}" width="39%" layer="3">
+                </area>
+                <area condition="{column2set}" x="70%" width="29%" layer="3">
                     <drawtext condition="not{current}" align="right" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" width="99%" color="{fontdefault}" text="{column2}" />
                     <drawtext condition="{current}" align="right" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" width="99%" color="{fontmenuactive}" text="{column2}" />
                 </area>
-                <area x="1%" condition="not{column2set}" width="98%" layer="3">
+                <area condition="not{column2set}" x="1%" width="98%" layer="3">
                     <drawtext condition="not{current}" align="left" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" width="99%" color="{fontdefault}" text="{column1}" />
                     <drawtext condition="{current}" align="left" valign="center" font="{regular}" fontsize="{areaheight}*{defaultitemfontsize}/100" width="99%" color="{fontmenuactive}" text="{column1}" />
                 </area>
