@@ -1,7 +1,7 @@
 diff -Naur vdr-2.2.0/config.c vdr-2.2.0_zapcockpit/config.c
 --- vdr-2.2.0/config.c	2015-02-10 13:24:13.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/config.c	2016-05-26 07:29:05.736117301 +0200
-@@ -414,6 +414,10 @@
++++ vdr-2.2.0_zapcockpit/config.c	2016-05-29 10:19:47.824125112 +0200
+@@ -414,6 +414,11 @@
    SVDRPTimeout = 300;
    ZapTimeout = 3;
    ChannelEntryTimeout = 1000;
@@ -9,35 +9,38 @@ diff -Naur vdr-2.2.0/config.c vdr-2.2.0_zapcockpit/config.c
 +  ZapcockpitUseHints = 1;
 +  ZapcockpitUseInfo = 1;
 +  ZapcockpitHideLastGroup = 0;
++  ZapcockpitShowAllChannels = 0;
    RcRepeatDelay = 300;
    RcRepeatDelta = 100;
    DefaultPriority = 50;
-@@ -636,6 +640,10 @@
+@@ -636,6 +641,11 @@
    else if (!strcasecmp(Name, "SVDRPTimeout"))        SVDRPTimeout       = atoi(Value);
    else if (!strcasecmp(Name, "ZapTimeout"))          ZapTimeout         = atoi(Value);
    else if (!strcasecmp(Name, "ChannelEntryTimeout")) ChannelEntryTimeout= atoi(Value);
 +  else if (!strcasecmp(Name, "ZapcockpitUseGroups")) ZapcockpitUseGroups= atoi(Value);
 +  else if (!strcasecmp(Name, "ZapcockpitUseHints"))  ZapcockpitUseHints = atoi(Value);
 +  else if (!strcasecmp(Name, "ZapcockpitUseInfo"))   ZapcockpitUseInfo  = atoi(Value);
-+  else if (!strcasecmp(Name, "ZapcockpitHideLastGroup")) ZapcockpitHideLastGroup = atoi(Value);
++  else if (!strcasecmp(Name, "ZapcockpitHideLastGroup"))   ZapcockpitHideLastGroup   = atoi(Value);
++  else if (!strcasecmp(Name, "ZapcockpitShowAllChannels")) ZapcockpitShowAllChannels = atoi(Value);
    else if (!strcasecmp(Name, "RcRepeatDelay"))       RcRepeatDelay      = atoi(Value);
    else if (!strcasecmp(Name, "RcRepeatDelta"))       RcRepeatDelta      = atoi(Value);
    else if (!strcasecmp(Name, "DefaultPriority"))     DefaultPriority    = atoi(Value);
-@@ -762,6 +770,10 @@
+@@ -762,6 +772,11 @@
    Store("SVDRPTimeout",       SVDRPTimeout);
    Store("ZapTimeout",         ZapTimeout);
    Store("ChannelEntryTimeout",ChannelEntryTimeout);
 +  Store("ZapcockpitUseGroups",ZapcockpitUseGroups);
 +  Store("ZapcockpitUseHints", ZapcockpitUseHints);
 +  Store("ZapcockpitUseInfo",  ZapcockpitUseInfo);
-+  Store("ZapcockpitHideLastGroup", ZapcockpitHideLastGroup);
++  Store("ZapcockpitHideLastGroup",   ZapcockpitHideLastGroup);
++  Store("ZapcockpitShowAllChannels", ZapcockpitShowAllChannels);
    Store("RcRepeatDelay",      RcRepeatDelay);
    Store("RcRepeatDelta",      RcRepeatDelta);
    Store("DefaultPriority",    DefaultPriority);
 diff -Naur vdr-2.2.0/config.h vdr-2.2.0_zapcockpit/config.h
 --- vdr-2.2.0/config.h	2015-02-13 16:39:08.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/config.h	2016-05-26 07:29:05.708117300 +0200
-@@ -290,6 +290,10 @@
++++ vdr-2.2.0_zapcockpit/config.h	2016-05-29 10:18:02.140106749 +0200
+@@ -290,6 +290,11 @@
    int SVDRPTimeout;
    int ZapTimeout;
    int ChannelEntryTimeout;
@@ -45,13 +48,14 @@ diff -Naur vdr-2.2.0/config.h vdr-2.2.0_zapcockpit/config.h
 +  int ZapcockpitUseHints;
 +  int ZapcockpitUseInfo;
 +  int ZapcockpitHideLastGroup;
++  int ZapcockpitShowAllChannels;
    int RcRepeatDelay;
    int RcRepeatDelta;
    int DefaultPriority, DefaultLifetime;
 diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 --- vdr-2.2.0/menu.c	2015-02-10 13:37:06.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/menu.c	2016-05-26 07:29:05.880117306 +0200
-@@ -3759,6 +3759,10 @@
++++ vdr-2.2.0_zapcockpit/menu.c	2016-05-29 10:33:18.502497774 +0200
+@@ -3759,6 +3759,11 @@
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$SVDRP timeout (s)"),          &data.SVDRPTimeout));
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Zap timeout (s)"),            &data.ZapTimeout));
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Channel entry timeout (ms)"), &data.ChannelEntryTimeout, 0));
@@ -59,10 +63,11 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +  Add(new cMenuEditBoolItem( tr("Setup.Miscellaneous$Zapcockpit: Use extended channel group display"), &data.ZapcockpitUseGroups));
 +  Add(new cMenuEditBoolItem( tr("Setup.Miscellaneous$Zapcockpit: Use channel hints"), &data.ZapcockpitUseHints));
 +  Add(new cMenuEditBoolItem( tr("Setup.Miscellaneous$Zapcockpit: Hide last channel group"), &data.ZapcockpitHideLastGroup));
++  Add(new cMenuEditBoolItem( tr("Setup.Miscellaneous$Zapcockpit: Show \"All Channels\" Item in Group List"), &data.ZapcockpitShowAllChannels));
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Remote control repeat delay (ms)"), &data.RcRepeatDelay, 0));
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Remote control repeat delta (ms)"), &data.RcRepeatDelta, 0));
    Add(new cMenuEditChanItem(tr("Setup.Miscellaneous$Initial channel"),            &data.InitialChannel, tr("Setup.Miscellaneous$as before")));
-@@ -4207,7 +4211,7 @@
+@@ -4207,7 +4212,7 @@
    lastTime.Set();
  }
  
@@ -71,7 +76,7 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
  :cOsdObject(true)
  {
    currentDisplayChannel = this;
-@@ -4220,7 +4224,8 @@
+@@ -4220,7 +4225,8 @@
    displayChannel = Skins.Current()->DisplayChannel(withInfo);
    positioner = NULL;
    channel = Channels.GetByNumber(cDevice::CurrentChannel());
@@ -81,15 +86,23 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
  }
  
  cDisplayChannel::~cDisplayChannel()
-@@ -4461,6 +4466,700 @@
+@@ -4461,6 +4467,784 @@
    return osEnd;
  }
  
++// --- cGroupListItem -------------------------------------------------------
++const char *cGroupListItem::GroupName(void) { 
++  if (channel)
++     return channel->Name();
++  return tr("Setup.Miscellaneous$All Channels"); 
++}
++
 +// --- cDisplayChannelExtended -------------------------------------------------------
 +cDisplayChannelExtended::cDisplayChannelExtended(int Number, bool Switched)
 +:cDisplayChannel(Number, Switched)
 +{
 +  state = esDefault;
++  keyRightOpensChannellist = -1;
 +  numItemsChannel = 0;
 +  currentChannel = -1;
 +  startChannel = -1;
@@ -102,6 +115,7 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +:cDisplayChannel(FirstKey, false)
 +{
 +  state = esInit;
++  keyRightOpensChannellist = -1;
 +  numItemsChannel = 0;
 +  currentChannel = -1;
 +  startChannel = -1;
@@ -155,6 +169,8 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +            break;
 +     }
 +    }
++  if (state == esClose)
++     return osEnd;
 +  //in extended state, no timeout
 +  if (state != esDefault) 
 +     lastTime.Set();
@@ -201,9 +217,11 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +
 +bool cDisplayChannelExtended::StateInit(int key, cSkinDisplayChannelExtended *dcExt)
 +{
++  if (keyRightOpensChannellist == -1)
++    keyRightOpensChannellist = dcExt->KeyRightOpensChannellist() ? 1 : 0;
++
 +  bool keyHandeled = false;
 +  switch (key) {
-+    //left openes groups list
 +    case kLeft|k_Repeat:  case kLeft:
 +    case kPrev|k_Repeat:  case kPrev: {
 +         if (!Setup.ZapcockpitUseGroups)
@@ -211,12 +229,16 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         cOsdProvider::OsdSizeChanged(osdState); // just to get the current state
 +         DisplayChannel();
 +         DisplayInfo();
-+         InitGroupList(dcExt);
-+         state = esGroupsList;
++         if (keyRightOpensChannellist) {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++         } else {
++            InitChannelList(dcExt);
++            state = esChannelList;
++            }
 +         keyHandeled = true;
 +         break;
 +    }
-+    //right openes channels list
 +    case kRight|k_Repeat: case kRight:
 +    case kNext|k_Repeat:  case kNext: {
 +         if (!Setup.ZapcockpitUseGroups)
@@ -224,8 +246,13 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         cOsdProvider::OsdSizeChanged(osdState); // just to get the current state
 +         DisplayChannel();
 +         DisplayInfo();
-+         InitChannelList(dcExt);
-+         state = esChannelList;
++         if (keyRightOpensChannellist) {
++            InitChannelList(dcExt);
++            state = esChannelList;
++         } else {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++            }
 +         keyHandeled = true;
 +         break;
 +         }
@@ -240,6 +267,8 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +
 +bool cDisplayChannelExtended::StateDefault(int key, cSkinDisplayChannelExtended *dcExt)
 +{
++  if (keyRightOpensChannellist == -1)
++    keyRightOpensChannellist = dcExt->KeyRightOpensChannellist() ? 1 : 0;
 +  bool keyHandeled = false;
 +  switch (key) {
 +    //2nd ok opens extended info for current channel
@@ -252,23 +281,31 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         keyHandeled = true;
 +         break;
 +         }
-+    //left openes groups list
 +    case kLeft|k_Repeat:  case kLeft:
 +    case kPrev|k_Repeat:  case kPrev: {
 +         if (!Setup.ZapcockpitUseGroups)
 +            return false;
-+         InitGroupList(dcExt);
-+         state = esGroupsList;
++         if (keyRightOpensChannellist) {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++         } else {
++            InitChannelList(dcExt);
++            state = esChannelList;
++            }
 +         keyHandeled = true;
 +         break;
 +         }
-+    //right openes channels list
 +    case kRight|k_Repeat: case kRight:
 +    case kNext|k_Repeat:  case kNext: {
 +         if (!Setup.ZapcockpitUseGroups)
 +            return false;
-+         InitChannelList(dcExt);
-+         state = esChannelList;
++         if (keyRightOpensChannellist) {
++            InitChannelList(dcExt);
++            state = esChannelList;
++         } else {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++            }
 +         keyHandeled = true;
 +         break;
 +         }
@@ -301,23 +338,31 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         dcExt->SetViewType(dcDefault);
 +         state = esDefault;
 +         break;
-+    //left openes groups list
 +    case kLeft|k_Repeat:  case kLeft:
 +    case kPrev|k_Repeat:  case kPrev: {
 +         if (!Setup.ZapcockpitUseGroups)
 +            return false;
-+         InitGroupList(dcExt);
-+         state = esGroupsList;
++         if (keyRightOpensChannellist) {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++         } else {
++            InitChannelList(dcExt);
++            state = esChannelList;
++            }
 +         keyHandeled = true;
 +         break;
 +         }
-+    //right openes channels list
 +    case kRight|k_Repeat: case kRight:
 +    case kNext|k_Repeat:  case kNext: {
 +         if (!Setup.ZapcockpitUseGroups)
 +            return false;
-+         InitChannelList(dcExt);
-+         state = esChannelList;
++         if (keyRightOpensChannellist) {
++            InitChannelList(dcExt);
++            state = esChannelList;
++         } else {
++            InitGroupList(dcExt);
++            state = esGroupsList;
++            }
 +         keyHandeled = true;
 +         break;
 +         }
@@ -353,32 +398,32 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         CursorDown(dcExt);
 +         keyHandeled = true;
 +         break;
-+    //left closes channel list
 +    case kLeft|k_Repeat: case kLeft: {
-+         if (state == esChannelList) {
-+            keyHandeled = true;
-+            dcExt->SetViewType(dcDefault);
-+            state = esDefault;
-+         } else if (state == esChannelListInfo) {
-+            keyHandeled = true;
-+            dcExt->SetViewType(dcChannelList);            
-+            state = esChannelList;
-+            }
-+         break; }
++         keyHandeled = true;
++         if (keyRightOpensChannellist) {
++           if (state == esChannelList) {
++              state = esClose;
++           } else if (state == esChannelListInfo) {
++              dcExt->SetViewType(dcChannelList);            
++              state = esChannelList;
++              }
++         } else
++            ShowChannellistInfo(dcExt, dcChannelListInfo);
++         break;
++         }
 +    //right shows extended info of currently selected channel
 +    case kRight|k_Repeat: case kRight: {
 +         keyHandeled = true;
-+         if (state != esChannelList)
-+            break;
-+         cChannelListItem *li = channellist.Get(currentChannel);
-+         if (li) {
-+            const cChannel *selected = li->Channel();
-+            if (selected) {
-+               dcExt->SetViewType(dcChannelListInfo);
-+               dcExt->SetChannelInfo(selected);
-+               state = esChannelListInfo;
-+               }
-+            }
++         if (keyRightOpensChannellist)
++            ShowChannellistInfo(dcExt, dcChannelListInfo);
++         else {
++           if (state == esChannelList) {
++              state = esClose;
++           } else if (state == esChannelListInfo) {
++              dcExt->SetViewType(dcChannelList);            
++              state = esChannelList;
++              }
++           }
 +         break;
 +         }
 +    default:
@@ -413,17 +458,22 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         dcExt->SetViewType(dcGroupsList);
 +         keyHandeled = true;
 +         break;
-+    //left shows channel list of selected group
 +    case kLeft|k_Repeat: case kLeft:
-+         state = esGroupsChannelList;
-+         InitGroupChannelList(dcExt);
 +         keyHandeled = true;
++         if (keyRightOpensChannellist) {
++            state = esGroupsChannelList;
++            InitGroupChannelList(dcExt);
++         } else
++            state = esClose;
 +         break;
-+    //right closes group list
 +    case kRight|k_Repeat: case kRight:
 +         keyHandeled = true;
-+         dcExt->SetViewType(dcDefault);
-+         state = esDefault;
++         if (keyRightOpensChannellist)
++            state = esClose;
++         else {
++            state = esGroupsChannelList;
++            InitGroupChannelList(dcExt);
++            }
 +         break;
 +    default:
 +         break;
@@ -457,39 +507,56 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +         CursorDown(dcExt);
 +         keyHandeled = true;
 +         break;
-+    //left shows extended info of currently selected channel
 +    case kLeft|k_Repeat: case kLeft: {
 +         keyHandeled = true;
-+         if (state != esGroupsChannelList)
-+            break;
-+         cChannelListItem *li = channellist.Get(currentChannel);
-+         if (li) {
-+            const cChannel *selected = li->Channel();
-+            if (selected) {
-+               dcExt->SetViewType(dcGroupsChannelListInfo);
-+               dcExt->SetChannelInfo(selected);
-+               state = esGroupsChannelListInfo;
++         if (keyRightOpensChannellist)
++            ShowChannellistInfo(dcExt, dcGroupsChannelListInfo);
++         else {
++            if (state == esGroupsChannelList) {
++               state = esGroupsList;
++               dcExt->SetViewType(dcGroupsList);
++            } else if (state == esGroupsChannelListInfo) {
++               state = esGroupsChannelList;
++               dcExt->SetViewType(dcGroupsChannelList);            
 +               }
 +            }
 +         break;
 +         }
-+    //right closes channel list or channel info
 +    case kRight|k_Repeat: case kRight: {
-+         if (state == esGroupsChannelList) {
-+            state = esGroupsList;
-+            dcExt->SetViewType(dcGroupsList);
-+            keyHandeled = true;
-+         } else if (state == esGroupsChannelListInfo) {
-+            state = esGroupsChannelList;
-+            dcExt->SetViewType(dcGroupsChannelList);            
-+            keyHandeled = true;
-+            }
++         keyHandeled = true;
++         if (keyRightOpensChannellist) {
++            if (state == esGroupsChannelList) {
++               state = esGroupsList;
++               dcExt->SetViewType(dcGroupsList);
++            } else if (state == esGroupsChannelListInfo) {
++               state = esGroupsChannelList;
++               dcExt->SetViewType(dcGroupsChannelList);
++               }
++         } else
++            ShowChannellistInfo(dcExt, dcGroupsChannelListInfo);
 +         break;
 +         }
 +    default:
 +         break;
 +    }
 +  return keyHandeled;
++}
++
++void cDisplayChannelExtended::ShowChannellistInfo(cSkinDisplayChannelExtended *dcExt, eDisplaychannelView newViewType) {
++  if (newViewType == dcChannelListInfo && state != esChannelList)
++     return;
++  if (newViewType == dcGroupsChannelListInfo && state != esGroupsChannelList)
++     return;
++
++  cChannelListItem *li = channellist.Get(currentChannel);
++  if (li) {
++     const cChannel *selected = li->Channel();
++     if (selected) {
++        dcExt->SetViewType(newViewType);
++        dcExt->SetChannelInfo(selected);
++        state = (newViewType == dcChannelListInfo) ? esChannelListInfo : esGroupsChannelListInfo;
++        }
++     }
 +}
 +
 +void cDisplayChannelExtended::InitChannelList(cSkinDisplayChannelExtended *dcExt)
@@ -551,6 +618,25 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +void cDisplayChannelExtended::SetGroupList(void)
 +{
 +  grouplist.Clear();
++  if (Setup.ZapcockpitShowAllChannels) {
++     cGroupListItem *allChannels = new cGroupListItem(NULL);
++     int totalNumChannels = 0;
++     cChannel *lastSep = NULL;
++     if (Setup.ZapcockpitHideLastGroup)
++        lastSep = LastChannelSep();
++     for (cChannel *c = Channels.First(); c; c = Channels.Next(c)) {
++        if (c->GroupSep()) {
++           if (Setup.ZapcockpitHideLastGroup && c == lastSep)
++              break;
++           else
++              continue;
++         }
++         totalNumChannels++;
++      }
++     allChannels->SetNumChannels(totalNumChannels);
++     grouplist.Add(allChannels);
++     }
++
 +  cChannel *lastSep = NULL;
 +  if (Setup.ZapcockpitHideLastGroup)
 +     lastSep = LastChannelSep();
@@ -611,8 +697,11 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
 +  if (!curGroup)
 +     return;
 +  cChannel *curChannel = curGroup->Channel();
-+  if (!curChannel)
-+     return;
++  if (!curChannel) {
++     if (Setup.ZapcockpitShowAllChannels)
++        SetChannelList();
++     return;    
++     }
 +  channellist.Clear();
 +  for (cChannel *c = dynamic_cast<cChannel*>(curChannel->Next()); c; c = Channels.Next(c)) {
 +      if (c->GroupSep())
@@ -784,8 +873,8 @@ diff -Naur vdr-2.2.0/menu.c vdr-2.2.0_zapcockpit/menu.c
  #define VOLUMETIMEOUT 1000 //ms
 diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
 --- vdr-2.2.0/menu.h	2015-02-06 10:47:30.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/menu.h	2016-05-26 07:29:05.680117299 +0200
-@@ -115,30 +115,99 @@
++++ vdr-2.2.0_zapcockpit/menu.h	2016-05-29 10:20:44.602884721 +0200
+@@ -115,30 +115,102 @@
  
  class cDisplayChannel : public cOsdObject {
  private:
@@ -830,7 +919,8 @@ diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
 +  esChannelListInfo,
 +  esGroupsList,
 +  esGroupsChannelList,
-+  esGroupsChannelListInfo  
++  esGroupsChannelListInfo,
++  esClose  
 +  };
 +
 +class cChannelListItem : public cListObject {
@@ -849,7 +939,7 @@ diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
 +public:
 +  cGroupListItem(cChannel *Channel) { channel = Channel; numChannels = 0; };
 +  virtual ~cGroupListItem(void) { };
-+  const char *GroupName(void) { return channel->Name(); }
++  const char *GroupName(void);
 +  void SetNumChannels(int NumChannels) { numChannels = NumChannels; };
 +  int NumChannels(void) { return numChannels; };
 +  cChannel *Channel(void) { return channel; }
@@ -858,6 +948,7 @@ diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
 +class cDisplayChannelExtended : public cDisplayChannel {
 +private:
 +  eExtendedState state;
++  int keyRightOpensChannellist;
 +  int numItemsChannel, startChannel, currentChannel;
 +  int numItemsGroup, startGroup, currentGroup;
 +  cList<cChannelListItem> channellist;
@@ -869,6 +960,7 @@ diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
 +  bool StateChannelList(int key, cSkinDisplayChannelExtended *dcExt);
 +  bool StateGroupList(int key, cSkinDisplayChannelExtended *dcExt);
 +  bool StateGroupChannelList(int key, cSkinDisplayChannelExtended *dcExt);
++  void ShowChannellistInfo(cSkinDisplayChannelExtended *dcExt, eDisplaychannelView newViewType);
 +  void InitChannelList(cSkinDisplayChannelExtended *dcExt);
 +  void SetChannelList(void);
 +  int GetIndexChannel(cChannel *c);
@@ -895,7 +987,7 @@ diff -Naur vdr-2.2.0/menu.h vdr-2.2.0_zapcockpit/menu.h
    cSkinDisplayVolume *displayVolume;
 diff -Naur vdr-2.2.0/po/de_DE.po vdr-2.2.0_zapcockpit/po/de_DE.po
 --- vdr-2.2.0/po/de_DE.po	2015-02-19 10:12:22.401201125 +0100
-+++ vdr-2.2.0_zapcockpit/po/de_DE.po	2016-05-26 07:29:05.836117304 +0200
++++ vdr-2.2.0_zapcockpit/po/de_DE.po	2016-05-29 10:23:35.581064022 +0200
 @@ -8,7 +8,7 @@
  msgstr ""
  "Project-Id-Version: VDR 2.2.0\n"
@@ -905,7 +997,7 @@ diff -Naur vdr-2.2.0/po/de_DE.po vdr-2.2.0_zapcockpit/po/de_DE.po
  "PO-Revision-Date: 2015-02-10 13:45+0100\n"
  "Last-Translator: Klaus Schmidinger <vdr@tvdr.de>\n"
  "Language-Team: German <vdr@linuxtv.org>\n"
-@@ -1284,6 +1284,18 @@
+@@ -1284,6 +1284,21 @@
  msgid "Setup.Miscellaneous$Channel entry timeout (ms)"
  msgstr "Zeitlimit für Kanaleingabe (ms)"
  
@@ -921,12 +1013,25 @@ diff -Naur vdr-2.2.0/po/de_DE.po vdr-2.2.0_zapcockpit/po/de_DE.po
 +msgid "Setup.Miscellaneous$Zapcockpit: Hide last channel group"
 +msgstr "Zapcockpit: letzte Kanalgruppe ausblenden"
 +
++msgid "Setup.Miscellaneous$Zapcockpit: Show \"All Channels\" Item in Group List"
++msgstr "Zapcockpit: Zeige \"Alle Kanäle\" in Kanalgruppen Liste"
++
  msgid "Setup.Miscellaneous$Remote control repeat delay (ms)"
  msgstr "Fernbedienung Wiederholverzögerung (ms)"
  
+@@ -1359,6 +1374,9 @@
+ msgid "Cancel editing?"
+ msgstr "Bearbeitung abbrechen?"
+ 
++msgid "Setup.Miscellaneous$All Channels"
++msgstr "Alle Kanäle"
++
+ msgid "No audio available!"
+ msgstr "Kein Audio verfügbar!"
+ 
 diff -Naur vdr-2.2.0/skins.c vdr-2.2.0_zapcockpit/skins.c
 --- vdr-2.2.0/skins.c	2013-08-18 14:07:22.000000000 +0200
-+++ vdr-2.2.0_zapcockpit/skins.c	2016-05-26 07:29:05.788117303 +0200
++++ vdr-2.2.0_zapcockpit/skins.c	2016-05-29 10:16:17.436017479 +0200
 @@ -79,6 +79,13 @@
       SetMessage(mtInfo, cString::sprintf(tr("Moving dish to %.1f..."), double(positioner->TargetLongitude()) / 10));
  }
@@ -943,8 +1048,8 @@ diff -Naur vdr-2.2.0/skins.c vdr-2.2.0_zapcockpit/skins.c
  cSkinDisplayMenu::cSkinDisplayMenu(void)
 diff -Naur vdr-2.2.0/skins.h vdr-2.2.0_zapcockpit/skins.h
 --- vdr-2.2.0/skins.h	2015-01-15 11:45:47.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/skins.h	2016-05-26 07:29:05.740117301 +0200
-@@ -88,6 +88,33 @@
++++ vdr-2.2.0_zapcockpit/skins.h	2016-05-29 10:22:34.773793696 +0200
+@@ -88,6 +88,34 @@
    */
    };
  
@@ -966,6 +1071,7 @@ diff -Naur vdr-2.2.0/skins.h vdr-2.2.0_zapcockpit/skins.h
 +  cSkinDisplayChannelExtended(void);
 +  virtual void SetViewType(eDisplaychannelView ViewType) = 0;
 +  virtual int MaxItems(void) = 0;
++  virtual bool KeyRightOpensChannellist(void) = 0;
 +  virtual void SetChannelInfo(const cChannel *Channel) = 0;
 +  virtual void SetChannelList(const cChannel *Channel, int Index, bool Current) = 0;
 +  virtual void SetGroupList(const char *Group, int NumChannels, int Index, bool Current) = 0;
@@ -980,7 +1086,7 @@ diff -Naur vdr-2.2.0/skins.h vdr-2.2.0_zapcockpit/skins.h
    mcUnknown = 0,
 diff -Naur vdr-2.2.0/vdr.c vdr-2.2.0_zapcockpit/vdr.c
 --- vdr-2.2.0/vdr.c	2015-02-10 15:13:12.000000000 +0100
-+++ vdr-2.2.0_zapcockpit/vdr.c	2016-05-26 07:29:05.676117299 +0200
++++ vdr-2.2.0_zapcockpit/vdr.c	2016-05-29 10:16:17.436017479 +0200
 @@ -996,7 +996,7 @@
          // Channel display:
          if (!EITScanner.Active() && cDevice::CurrentChannel() != LastChannel) {
