@@ -339,6 +339,14 @@ void cAttributes::SetDirection(int id, const char *val) {
     attribs[id] = (int)direction;
 }
 
+void cAttributes::SetButton(int id, const char *val) {
+    eButtonType button = eButtonType::none;
+    if (!strcmp(val, "left"))
+        button = eButtonType::left;
+    else if (!strcmp(val, "right"))
+        button = eButtonType::right;
+    attribs[id] = (int)button;
+}
 /***************************************************************************
 * Private Functions
 ***************************************************************************/

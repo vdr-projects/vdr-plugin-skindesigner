@@ -244,6 +244,8 @@ void cViewListAttribs::Set(vector<stringpair> &attributes) {
             SetShiftType(id, attVal);
         } else if (IdEqual(id, (int)eViewListAttribs::shiftmode)) {
             SetShiftMode(id, attVal);
+        } else if (IdEqual(id, (int)eViewListAttribs::button)) {
+            SetButton(id, attVal);
         } else {
             attribCtors[id] = new cNumericExpr(attVal);
         }
@@ -289,6 +291,7 @@ void cViewListAttribs::SetAttributesDefs(void) {
     attribIDs.insert(pair<string, int>("startx", (int)eViewListAttribs::startx));
     attribIDs.insert(pair<string, int>("starty", (int)eViewListAttribs::starty));
     attribIDs.insert(pair<string, int>("condition", (int)eViewListAttribs::condition));
+    attribIDs.insert(pair<string, int>("button", (int)eViewListAttribs::button));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::align, "align"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::menuitemwidth, "menuitemwidth"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::determinatefont, "determinatefont"));
@@ -301,6 +304,7 @@ void cViewListAttribs::SetAttributesDefs(void) {
     attribNames.insert(pair<int, string>((int)eViewListAttribs::startx, "startx"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::starty, "starty"));
     attribNames.insert(pair<int, string>((int)eViewListAttribs::condition, "condition"));
+    attribNames.insert(pair<int, string>((int)eViewListAttribs::button, "button"));
 }
 
 void cViewListAttribs::Debug(void) {

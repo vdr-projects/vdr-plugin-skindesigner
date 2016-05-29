@@ -23,6 +23,7 @@ public:
 #ifdef USE_ZAPCOCKPIT
     virtual void SetViewType(eDisplaychannelView ViewType);
     virtual int MaxItems(void);
+    virtual bool KeyRightOpensChannellist(void);
     virtual void SetChannelInfo(const cChannel *Channel);
     virtual void SetChannelList(const cChannel *Channel, int Index, bool Current);
     virtual void SetGroupList(const char *Group, int NumChannels, int Index, bool Current);

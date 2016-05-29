@@ -46,6 +46,7 @@ protected:
     void SetOrientation(int id, const char *val);
     void SetDirection(int id, const char *val);
     void SetAlign(int id, const char *val);
+    void SetButton(int id, const char *val);
 public:
     cAttributes(int numAttributes);
     cAttributes(const cAttributes &other);

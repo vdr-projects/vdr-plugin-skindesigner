@@ -307,6 +307,7 @@
   numlistelements CDATA #REQUIRED
   orientation CDATA #REQUIRED
   condition CDATA #IMPLIED
+  button CDATA #IMPLIED
 >
 
 <!ELEMENT grouplist (listelement)>
@@ -325,6 +326,7 @@
   numlistelements CDATA #REQUIRED
   orientation CDATA #REQUIRED
   condition CDATA #IMPLIED
+  button CDATA #IMPLIED
 >
 
 <!ELEMENT groupchannellist (listelement)>

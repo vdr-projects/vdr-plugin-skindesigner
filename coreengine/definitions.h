@@ -1664,6 +1664,7 @@ enum class eViewListAttribs {
     startx,
     starty,
     condition,
+    button,
     count
 };
 
@@ -1871,5 +1872,10 @@ enum class eDirection {
     topdown
 };
 
+enum class eButtonType {
+    none = -1,
+    left,
+    right
+};
 
 #endif //__DEFINITIONS_H

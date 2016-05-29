@@ -70,6 +70,7 @@ public:
     cPoint ShiftStartpoint(void) { return cPoint(GetValue((int)eViewListAttribs::startx), GetValue((int)eViewListAttribs::starty)); };
     int ShiftType(void) { return GetValue((int)eViewListAttribs::shifttype); };
     int ShiftMode(void) { return GetValue((int)eViewListAttribs::shiftmode); };
+    eButtonType Button(void) { return (eButtonType)GetValue((int)eViewListAttribs::button); }
     void Debug(void);
 };
 /******************************************************************

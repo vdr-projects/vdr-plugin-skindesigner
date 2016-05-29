@@ -43,6 +43,7 @@ public:
     void Draw(eMenuCategory menuCat);
     void Clear(void);
     virtual void Close(void);
+    eButtonType Button(void) { return attribs->Button(); };
     //Fadable
     bool Detached(void) { return false; };
     int Delay(void) { return 0; };

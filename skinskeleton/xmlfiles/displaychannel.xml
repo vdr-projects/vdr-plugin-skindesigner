@@ -330,7 +330,7 @@
     {nexteventstart}            start time of next event in hh:mm
     {nexteventstop}             end time of next event in hh:mm
     -->
-    <channellist>
+    <channellist button="right">
     </channellist>
 
     <!-- Available Variables channellistdetail:
@@ -350,7 +350,7 @@
     {groupname}                 name of displayed channel group
     {numchannels}               number of channels in channel group
     -->
-    <grouplist>
+    <grouplist button="left">
     </grouplist>
 
     <!-- Available Variables groupchannellistback:

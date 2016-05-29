@@ -23,11 +23,11 @@
             <parameter type="int" name="zapdetailshorttextfs" min="0" max="100" displaytext="{tr(zapdetailshorttextfs)}">80</parameter>
             <parameter type="int" name="zapdetaildescfs" min="0" max="100" displaytext="{tr(zapdetaildescfs)}">6</parameter>
             <parameter type="separator" name="sepzapcockpitcl" displaytext="{tr(sepzapcockpitcl)}"/>
-            <parameter type="int" name="zapclchannelfs" min="0" max="100" displaytext="{tr(zapclchannelfs)}">38</parameter>
-            <parameter type="int" name="zapclchannely" min="0" max="100" displaytext="{tr(zapclchannely)}">3</parameter>
-            <parameter type="int" name="zapclpresentfs" min="0" max="100" displaytext="{tr(zapclpresentfs)}">38</parameter>
-            <parameter type="int" name="zapclpresenty" min="0" max="100" displaytext="{tr(zapclpresenty)}">35</parameter>
-            <parameter type="int" name="zapclnextfs" min="0" max="100" displaytext="{tr(zapclnextfs)}">28</parameter>
+            <parameter type="int" name="zapclpresenttimefs" min="0" max="100" displaytext="{tr(zapclpresenttimefs)}">30</parameter>
+            <parameter type="int" name="zapclpresenttimey" min="0" max="100" displaytext="{tr(zapclpresenttimey)}">3</parameter>
+            <parameter type="int" name="zapclpresentfs" min="0" max="100" displaytext="{tr(zapclpresentfs)}">45</parameter>
+            <parameter type="int" name="zapclpresenty" min="0" max="100" displaytext="{tr(zapclpresenty)}">26</parameter>
+            <parameter type="int" name="zapclnextfs" min="0" max="100" displaytext="{tr(zapclnextfs)}">30</parameter>
             <parameter type="int" name="zapclnexty" min="0" max="100" displaytext="{tr(zapclnexty)}">70</parameter>
             <parameter type="int" name="zapcldetaildatetimefs" min="0" max="100" displaytext="{tr(zapcldetaildatetimefs)}">80</parameter>
             <parameter type="int" name="zapcldetailheaderfs" min="0" max="100" displaytext="{tr(zapcldetailheaderfs)}">80</parameter>
@@ -361,15 +361,14 @@
             <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
             <trans lang="fi_FI">Liukuman kesto elementeille [ms]</trans>
         </token>
-        <token name="tr(zapclchannelfs)">
-            <trans lang="en_EN">Font size channel</trans>
-            <trans lang="de_DE">Schriftgröße Kanal</trans>
-            <trans lang="fi_FI">Kirjasintyypin koko kanavalle</trans>
+        <token name="tr(zapclpresenttimefs)">
+            <trans lang="en_EN">Font size remaining time present event</trans>
+            <trans lang="de_DE">Schriftgröße verbleibende Zeit aktuelle Sendung</trans>
         </token>
-        <token name="tr(zapclchannely)">
-            <trans lang="en_EN">Vertical position channel</trans>
-            <trans lang="de_DE">Vertikale Position Kanal</trans>
-            <trans lang="fi_FI">Pystysijainti kanavalle</trans>
+        <token name="tr(zapclpresenttimey)">
+            <trans lang="en_EN">Vertical position remaining time present event</trans>
+            <trans lang="de_DE">Vertikale Position verbleibende Zeit aktuelle Sendung</trans>
+            <trans lang="fi_FI">Pystysijainti nykyiselle ohjelmalle</trans>
         </token>
         <token name="tr(zapclpresentfs)">
             <trans lang="en_EN">Font size present event</trans>

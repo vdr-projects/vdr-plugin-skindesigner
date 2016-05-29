@@ -43,6 +43,12 @@ int cSDDisplayChannel::MaxItems(void) {
     return view->MaxItems();
 }
 
+bool cSDDisplayChannel::KeyRightOpensChannellist(void) {
+    if (!ok)
+        return true;
+    return view->KeyRightOpensChannellist();    
+}
+
 void cSDDisplayChannel::SetChannelInfo(const cChannel *Channel) {
     if (!ok)
         return;

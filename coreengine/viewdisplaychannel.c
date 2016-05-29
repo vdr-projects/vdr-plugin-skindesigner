@@ -292,6 +292,22 @@ int cViewChannel::MaxItems(void) {
     return 0;
 }
 
+bool cViewChannel::KeyRightOpensChannellist(void) {
+    if (channelList) {
+        if (channelList->Button() == eButtonType::left)
+            return false;
+        else if (channelList->Button() == eButtonType::right)
+            return true;
+    }
+    if (groupList) {
+        if (groupList->Button() == eButtonType::left)
+            return true;
+        else if (groupList->Button() == eButtonType::right)
+            return false;
+    }
+    return true;
+}
+
 void cViewChannel::SetChannelInfo(const cChannel *channel) {
     if (!channel)
         return;
@@ -329,6 +345,8 @@ void cViewChannel::ClearList(void) {
         channelList->Clear();
     if (viewType == dcGroupsList && groupList)
         groupList->Clear();
+    if (viewType == dcGroupsChannelList && groupChannelList)
+        groupChannelList->Clear();
 }
 
 void cViewChannel::SetNumChannelHints(int num) {
@@ -349,7 +367,7 @@ void cViewChannel::Close(void) {
     fader = NULL;
     delete shifter;
     shifter = NULL;
-    if (initFinished && ShiftTime() > 0) {
+    if (initFinished && viewType == dcDefault && ShiftTime() > 0) {
         cRect shiftbox = CoveredArea();
         cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
         cPoint end = ShiftStart(shiftbox);
@@ -357,7 +375,7 @@ void cViewChannel::Close(void) {
         shifter->Shift();
         delete shifter;
         shifter = NULL;
-    } else if (initFinished && FadeTime() > 0) {
+    } else if (initFinished && viewType == dcDefault && FadeTime() > 0) {
         fader = new cAnimation((cFadable*)this, false);
         fader->Fade();
         delete fader;
