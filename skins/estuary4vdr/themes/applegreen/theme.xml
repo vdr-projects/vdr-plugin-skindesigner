@@ -11,6 +11,7 @@
         <color name="menubackactive">FF99D235</color>
         <color name="menubackactivedark">FF659710</color>
         <color name="menumainheader">FF000000</color>
+        <color name="channelback">B0000000</color>
         <color name="messageback">D0000000</color>
         <color name="replayback">B0000000</color>
         <color name="fontdefault">FFFFFFFF</color>
