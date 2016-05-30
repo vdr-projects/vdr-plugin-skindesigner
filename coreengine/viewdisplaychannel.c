@@ -367,7 +367,12 @@ void cViewChannel::Close(void) {
     fader = NULL;
     delete shifter;
     shifter = NULL;
-    if (initFinished && viewType == dcDefault && ShiftTime() > 0) {
+    bool doAnim = true;
+#ifdef USE_ZAPCOCKPIT
+    if (viewType != dcDefault)
+        doAnim = false;
+#endif
+    if (initFinished && doAnim && ShiftTime() > 0) {
         cRect shiftbox = CoveredArea();
         cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
         cPoint end = ShiftStart(shiftbox);
@@ -375,7 +380,7 @@ void cViewChannel::Close(void) {
         shifter->Shift();
         delete shifter;
         shifter = NULL;
-    } else if (initFinished && viewType == dcDefault && FadeTime() > 0) {
+    } else if (initFinished && doAnim && FadeTime() > 0) {
         fader = new cAnimation((cFadable*)this, false);
         fader->Fade();
         delete fader;
