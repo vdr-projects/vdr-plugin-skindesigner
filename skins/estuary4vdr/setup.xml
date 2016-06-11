@@ -23,6 +23,7 @@
             <parameter type="int" name="zapdetailshorttextfs" min="0" max="100" displaytext="{tr(zapdetailshorttextfs)}">80</parameter>
             <parameter type="int" name="zapdetaildescfs" min="0" max="100" displaytext="{tr(zapdetaildescfs)}">6</parameter>
             <parameter type="separator" name="sepzapcockpitcl" displaytext="{tr(sepzapcockpitcl)}"/>
+            <parameter type="int" name="zapclnumchannels" min="0" max="100" displaytext="{tr(zapclnumchannels)}">16</parameter>
             <parameter type="int" name="zapclpresenttimefs" min="0" max="100" displaytext="{tr(zapclpresenttimefs)}">30</parameter>
             <parameter type="int" name="zapclpresenttimey" min="0" max="100" displaytext="{tr(zapclpresenttimey)}">3</parameter>
             <parameter type="int" name="zapclpresentfs" min="0" max="100" displaytext="{tr(zapclpresentfs)}">45</parameter>
@@ -34,6 +35,7 @@
             <parameter type="int" name="zapcldetailshorttextfs" min="0" max="100" displaytext="{tr(zapcldetailshorttextfs)}">80</parameter>
             <parameter type="int" name="zapcldetaildescfs" min="0" max="100" displaytext="{tr(zapcldetaildescfs)}">4</parameter>
             <parameter type="separator" name="sepzapcockpitgl" displaytext="{tr(sepzapcockpitgl)}"/>
+            <parameter type="int" name="zapglnumgroups" min="0" max="100" displaytext="{tr(zapglnumgroups)}">12</parameter>
             <parameter type="int" name="zapglgroupfs" min="0" max="100" displaytext="{tr(zapglgroupfs)}">40</parameter>
             <parameter type="int" name="zapgcldetaildatetimefs" min="0" max="100" displaytext="{tr(zapgcldetaildatetimefs)}">80</parameter>
             <parameter type="int" name="zapgcldetailheaderfs" min="0" max="100" displaytext="{tr(zapgcldetailheaderfs)}">80</parameter>
@@ -70,13 +72,19 @@
             <parameter type="int" name="mainiconsize" min="0" max="100" displaytext="{tr(mainiconsize)}">60</parameter>
         </submenu>
         <submenu name="subschedulesmenu" displaytext="{tr(subschedulesmenu)}">
-            <parameter type="int" name="numitemsschedueles" min="1" max="40" displaytext="{tr(numitemsschedueles)}">12</parameter>
-            <parameter type="separator" name="recsepnarrow" displaytext="{tr(recsepnarrow)}"/>
+            <parameter type="string" name="schedulesmenustyle" displaytext="{tr(menustyle)}" options="menu1,menu2">0</parameter>
+            <parameter type="separator" name="schedulessepnarrow" displaytext="{tr(sepnarrow)}"/>
+            <parameter type="int" name="numitemsscheduelesnarrow" min="1" max="40" displaytext="{tr(numitems)}">12</parameter>
             <parameter type="int" name="schedulesposydate" min="0" max="100" displaytext="{tr(schedulesposydate)}">7</parameter>
             <parameter type="int" name="schedulessizedate" min="0" max="100" displaytext="{tr(schedulessizedate)}">35</parameter>
             <parameter type="int" name="schedulesposytitle" min="0" max="100" displaytext="{tr(schedulesposytitle)}">40</parameter>
             <parameter type="int" name="schedulessizetitle" min="0" max="100" displaytext="{tr(schedulessizetitle)}">50</parameter>
             <parameter type="int" name="schedulesseparator" min="0" max="100" displaytext="{tr(schedulesseparator)}">60</parameter>
+            <parameter type="separator" name="schedulessepwide" displaytext="{tr(sepwide)}"/>
+            <parameter type="int" name="numitemsscheduleswide" min="1" max="40" displaytext="{tr(numitems)}">16</parameter>
+            <parameter type="int" name="schedulessizewide" min="0" max="100" displaytext="{tr(sizewide)}">70</parameter>
+            <parameter type="int" name="schedulessizewidesmall" min="0" max="100" displaytext="{tr(sizewidesmall)}">40</parameter>
+            <parameter type="bool" name="schedulesshowcurrent" displaytext="{tr(showcurrent)}">1</parameter>
             <parameter type="separator" name="schedulessepcurrent" displaytext="{tr(sepcurrent)}"/>
             <parameter type="int" name="schedulessizecurrenttitle" min="0" max="100" displaytext="{tr(schedulessizecurrenttitle)}">26</parameter>
             <parameter type="int" name="schedulessizecurrenttext" min="0" max="100" displaytext="{tr(schedulessizecurrenttext)}">20</parameter>
@@ -105,10 +113,9 @@
             <parameter type="int" name="timerssizecurrenttext" min="0" max="100" displaytext="{tr(timerssizecurrenttext)}">20</parameter>
         </submenu>
         <submenu name="subrecordings" displaytext="{tr(subrecordings)}">
-            <parameter type="string" name="recmenustyle" displaytext="{tr(recmenustyle)}" options="menu1,menu2">0</parameter>
-            <parameter type="int" name="numitemsrecnarrow" min="1" max="40" displaytext="{tr(numitemsrecnarrow)}">12</parameter>
-            <parameter type="int" name="numitemsrecwide" min="1" max="40" displaytext="{tr(numitemsrecwide)}">16</parameter>
-            <parameter type="separator" name="recsepnarrow" displaytext="{tr(recsepnarrow)}"/>
+            <parameter type="string" name="recmenustyle" displaytext="{tr(menustyle)}" options="menu1,menu2">0</parameter>
+            <parameter type="separator" name="recsepnarrow" displaytext="{tr(sepnarrow)}"/>
+            <parameter type="int" name="numitemsrecnarrow" min="1" max="40" displaytext="{tr(numitems)}">12</parameter>
             <parameter type="int" name="recposydate" min="0" max="100" displaytext="{tr(recposydate)}">7</parameter>
             <parameter type="int" name="recsizedate" min="0" max="100" displaytext="{tr(recsizedate)}">40</parameter>
             <parameter type="int" name="recposytitle" min="0" max="100" displaytext="{tr(recposytitle)}">45</parameter>
@@ -117,9 +124,10 @@
             <parameter type="int" name="recsizefoldertitle" min="0" max="100" displaytext="{tr(recsizefoldertitle)}">48</parameter>
             <parameter type="int" name="recposyfolderstats" min="0" max="100" displaytext="{tr(recposyfolderstats)}">50</parameter>
             <parameter type="int" name="recsizefolderstats" min="0" max="100" displaytext="{tr(recsizefolderstats)}">40</parameter>
-            <parameter type="separator" name="recsepwide" displaytext="{tr(recsepwide)}"/>
-            <parameter type="int" name="recsizewide" min="0" max="100" displaytext="{tr(recsizewide)}">70</parameter>
-            <parameter type="bool" name="recshowcurrent" displaytext="{tr(recshowcurrent)}">1</parameter>
+            <parameter type="separator" name="recsepwide" displaytext="{tr(sepwide)}"/>
+            <parameter type="int" name="numitemsrecwide" min="1" max="40" displaytext="{tr(numitems)}">16</parameter>
+            <parameter type="int" name="recsizewide" min="0" max="100" displaytext="{tr(sizewide)}">70</parameter>
+            <parameter type="bool" name="recshowcurrent" displaytext="{tr(showcurrent)}">1</parameter>
             <parameter type="separator" name="recsepcurrent" displaytext="{tr(sepcurrent)}"/>
             <parameter type="int" name="recsizecurrenttitle" min="0" max="100" displaytext="{tr(recsizecurrenttitle)}">25</parameter>
             <parameter type="int" name="recsizecurrenttext" min="0" max="100" displaytext="{tr(recsizecurrenttext)}">20</parameter>
@@ -233,14 +241,14 @@
             <trans lang="hu_HU">Beállítások menü [% a listaelemmagasság]</trans>
             <trans lang="it_IT">Menù impostazioni [% altezza della lista elementi]</trans>
         </token>
-        <token name="tr(recsepnarrow)">
+        <token name="tr(sepnarrow)">
             <trans lang="en_EN">Settings narrow menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen schmales Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Asetukset kapealle valikolle [% valikkorivin korkeudesta]</trans>
             <trans lang="hu_HU">A beállítások menüt szűkítenek [% a listaelemmagasság]</trans>
             <trans lang="it_IT">Menù breve impostazioni [% altezza della lista elementi]</trans>
         </token>
-        <token name="tr(recsepwide)">
+        <token name="tr(sepwide)">
             <trans lang="en_EN">Settings wide menu [% of list element height]</trans>
             <trans lang="de_DE">Einstellungen breites Menü [% der Listenelement Höhe]</trans>
             <trans lang="fi_FI">Asetukset leveälle valikolle [% valikkorivin korkeudesta]</trans>
@@ -395,6 +403,14 @@
             <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
             <trans lang="fi_FI">Liukuman kesto elementeille [ms]</trans>
             <trans lang="it_IT">Tempo di cambio degli elementi Zapcockpit [ms]</trans>
+        </token>
+        <token name="tr(zapclnumchannels)">
+            <trans lang="en_EN">Number of items in channels list</trans>
+            <trans lang="de_DE">Anzahl der Elemente in Kanalliste</trans>
+        </token>
+        <token name="tr(zapglnumgroups)">
+            <trans lang="en_EN">Number of items in channel group list</trans>
+            <trans lang="de_DE">Anzahl der Elemente in Kanalgruppenliste</trans>
         </token>
         <token name="tr(zapclpresenttimefs)">
             <trans lang="en_EN">Font size remaining time present event</trans>
@@ -816,7 +832,7 @@
             <trans lang="it_IT">Dimensione font del testo</trans>
         </token>
         <!-- menu recordings -->
-        <token name="tr(recmenustyle)">
+        <token name="tr(menustyle)">
             <trans lang="en_EN">Style of Recordings Menu</trans>
             <trans lang="de_DE">Darstellung des Aufzeichnungsmenüs</trans>
             <trans lang="fi_FI">Tallennevalikon tyyli</trans>
@@ -837,19 +853,12 @@
             <trans lang="hu_HU">Széles</trans>
             <trans lang="it_IT">Largo</trans>
         </token>
-        <token name="tr(numitemsrecnarrow)">
-            <trans lang="en_EN">Number of menu items in narrow menu</trans>
-            <trans lang="de_DE">Anzahl Menüelemente im schmalen Menü</trans>
-            <trans lang="fi_FI">Valikkorivien lukumäärä kapeassa</trans>
-            <trans lang="hu_HU">Keskeny menüben levő menüpontok száma</trans>
-            <trans lang="it_IT">Numero delle voci del menù stretto</trans>
-        </token>
-        <token name="tr(numitemsrecwide)">
-            <trans lang="en_EN">Number of menu items in wide menu</trans>
-            <trans lang="de_DE">Anzahl Menüelemente im breiten Menü</trans>
-            <trans lang="fi_FI">Valikkorivien lukumäärä leveässä</trans>
-            <trans lang="hu_HU">Széles menüben levő menüpontok száma</trans>
-            <trans lang="it_IT">Numero delle voci del menù largo</trans>
+        <token name="tr(numitems)">
+            <trans lang="en_EN">Number of menu items</trans>
+            <trans lang="de_DE">Anzahl Menüelemente</trans>
+            <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
+            <trans lang="hu_HU">menüpontok száma</trans>
+            <trans lang="it_IT">Numero delle voci</trans>
         </token>
         <token name="tr(recposydate)">
             <trans lang="en_EN">Vertical position date</trans>
@@ -907,14 +916,18 @@
             <trans lang="hu_HU">Betűméret mappa tartalmának</trans>
             <trans lang="it_IT">Dimensione font del contenuto della cartella</trans>
         </token>
-        <token name="tr(recsizewide)">
+        <token name="tr(sizewide)">
             <trans lang="en_EN">Font size wide menu</trans>
             <trans lang="de_DE">Schriftgröße breites Menü</trans>
             <trans lang="fi_FI">Kirjasintyypin koko</trans>
             <trans lang="hu_HU">Betűméret széles menü</trans>
             <trans lang="it_IT">Dimensione font del menù largo</trans>
         </token>
-        <token name="tr(recshowcurrent)">
+        <token name="tr(sizewidesmall)">
+            <trans lang="en_EN">Font size small wide menu</trans>
+            <trans lang="de_DE">Schriftgröße Klein breites Menü</trans>
+        </token>
+        <token name="tr(showcurrent)">
             <trans lang="en_EN">Show info for selected list element</trans>
             <trans lang="de_DE">Infos für das ausgewählte Listenelement anzeigen</trans>
             <trans lang="fi_FI">Näytä lisätiedot aktiiviselta valikkoriviltä</trans>
