@@ -167,6 +167,22 @@ const char* cGlobalTimers::RemoteHost(int i) {
     return "";
 }
 
+bool cGlobalTimers::IsRecording(const cRecording *rec) {
+    if (!rec || !rec->Name())
+        return false;
+    std::string recName = rec->Name();
+    int size = Size();
+    for (int i=0; i<size; i++) {
+        const cTimer *t = At(i);
+        const char *timerFile = t->File();
+        if (!t->Matches() || !timerFile)
+            continue;
+        if (recName.find(timerFile) != std::string::npos)
+            return true;
+    }
+    return false;
+}
+
 void cGlobalTimers::ClearTimers(void) {
     if (isEpg2VdrTimers) {
         int size = Size();

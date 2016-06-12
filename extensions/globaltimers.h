@@ -27,6 +27,7 @@ class cGlobalTimers : public cVector<const cTimer *> {
         int NumTimerConfilicts(void);
         bool IsRemoteTimer(int i);
         const char* RemoteHost(int i);
+        bool IsRecording(const cRecording *rec);
         void ClearTimers(void);
         static void StartRefreshThread(void);
         static void StopRefreshThread(void);

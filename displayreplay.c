@@ -91,6 +91,12 @@ void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {
     int usage = recording->IsInUse();
     if (usage & ruTimer)
         isTimeShift = true;
+    else {
+        cGlobalTimers globalTimers;
+        globalTimers.LoadTimers();
+        if (globalTimers.IsRecording(recording))
+            isTimeShift = true;
+    }
 #endif
     if (!isTimeShift)
         return;
