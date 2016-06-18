@@ -153,7 +153,6 @@ bool cPluginSkinDesigner::Start(void) {
     }
     config.TranslateSetup();
     config.SetSkinSetupParameters();
-    config.ReadSkinRepos();
 
     if (!skinAvailable) {
         esyslog("skindesigner: no skins found! Using default Skin LCARS!");

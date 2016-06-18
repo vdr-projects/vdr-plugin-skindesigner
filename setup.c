@@ -119,6 +119,8 @@ eOSState cInstallManager::ProcessInstallationStatus(void) {
 }
 
 // --- cSkinDesignerSetup -----------------------------------------------------------
+bool cSkinDesignerSetup::skinrepoUpdated = false;
+
 cSkinDesignerSetup::cSkinDesignerSetup(skindesignerapi::cPluginStructure *skinPreviewStruct) {
     this->skinPreviewStruct = skinPreviewStruct;
     numLogosPerSizeInitial = config.numLogosPerSizeInitial;
@@ -132,6 +134,13 @@ cSkinDesignerSetup::cSkinDesignerSetup(skindesignerapi::cPluginStructure *skinPr
     numCustomTokens = config.numCustomTokens;
     menuDisplayStyle[0] = tr("after one another");
     menuDisplayStyle[1] = tr("at one go");
+#ifndef DO_NOT_USE_SKININSTALLER
+    if (!skinrepoUpdated) {
+        Skins.Message(mtStatus, *cString::sprintf("%s...", tr("Updating Skinrepositories")));
+        skinrepoUpdated = true;
+        config.ReadSkinRepos();
+    }
+#endif
     Setup();
 }
 

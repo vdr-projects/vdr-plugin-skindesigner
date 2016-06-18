@@ -38,6 +38,7 @@ public:
 // --- cSkinDesignerSetup -----------------------------------------------------------
 class cSkinDesignerSetup : public cMenuSetupPage, cInstallManager {
 private:
+    static bool skinrepoUpdated;
     skindesignerapi::cPluginStructure *skinPreviewStruct;
     int numLogosPerSizeInitial;
     int cacheImagesInitial;
