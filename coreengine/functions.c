@@ -1170,6 +1170,8 @@ void cFuncLoop::Set(vector<stringpair> &attributes) {
             SetOrientation(id, attVal);
         } else if (IdEqual(id, (int)eLoopAttribs::overflow)) {
             SetOverflow(id, attVal);
+        } else if (IdEqual(id, (int)eLoopAttribs::valign)) {
+            SetAlign(id, attVal);
         } else {
             attribCtors[id] = new cNumericExpr(attVal);
         }
@@ -1235,6 +1237,7 @@ void cFuncLoop::Render(cPixmap *p, int x0, int y0, int cw, int rh) {
     int maxItems = GetValue((int)eLoopAttribs::maxitems);
     eOrientation orientation = (eOrientation)GetValue((int)eLoopAttribs::orientation);
     eOverflowType overflow = (eOverflowType)GetValue((int)eLoopAttribs::overflow);
+    eAlign vAlign = (eAlign)GetValue((int)eLoopAttribs::valign);
 
     int loopWidth = Width();
     if (loopWidth <= 0)
@@ -1251,6 +1254,22 @@ void cFuncLoop::Render(cPixmap *p, int x0, int y0, int cw, int rh) {
     int loopY = Y();
     int x = (loopX > 0) ? loopX : 0;
     int y = (loopY > 0) ? loopY : 0;
+
+    //set y position for vertical loop with valign bottom
+    if (orientation == eOrientation::vertical && vAlign == eAlign::bottom) {
+        int actRowheight = (rowHeight > 0) ? rowHeight : RowHeight();
+        if (actRowheight > 0) {
+            float fTotalItems = (float)loopHeight / (float)actRowheight;
+            int totalItems = (int)fTotalItems;
+            if (fTotalItems - (float)totalItems > 0.5f)
+                totalItems++;
+            if (maxItems > 0 && maxItems < totalItems)
+                totalItems = maxItems;
+            if (numRows < totalItems)
+                y += (totalItems - numRows) * actRowheight;
+        }
+    }
+
     for (int row = 0; row < numRows; ++row) {
         if (maxItems > 0 && row >= maxItems) {
             break;
@@ -1371,12 +1390,14 @@ void cFuncLoop::SetAttributesDefs(void) {
     attribIDs.insert(pair<string, int>("rowheight", (int)eLoopAttribs::rowheight));
     attribIDs.insert(pair<string, int>("name", (int)eLoopAttribs::name));
     attribIDs.insert(pair<string, int>("orientation", (int)eLoopAttribs::orientation));
+    attribIDs.insert(pair<string, int>("valign", (int)eLoopAttribs::valign));
     attribIDs.insert(pair<string, int>("overflow", (int)eLoopAttribs::overflow));
     attribIDs.insert(pair<string, int>("maxitems", (int)eLoopAttribs::maxitems));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::columnwidth, "columnwidth"));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::rowheight, "rowheight"));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::name, "name"));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::orientation, "orientation"));
+    attribNames.insert(pair<int, string>((int)eLoopAttribs::valign, "valign"));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::overflow, "overflow"));
     attribNames.insert(pair<int, string>((int)eLoopAttribs::maxitems, "maxitems"));
 }

@@ -50,8 +50,8 @@
 
 <!ELEMENT loop (drawtext|drawtextbox|drawtextvertical|drawimage|drawrectangle|drawellipse|drawslope)+>
 <!ATTLIST loop
-  x CDATA #REQUIRED
-  y CDATA #REQUIRED
+  x CDATA #IMPLIED
+  y CDATA #IMPLIED
   width CDATA #IMPLIED
   height CDATA #IMPLIED
   columnwidth CDATA #IMPLIED
@@ -60,6 +60,7 @@
   orientation (horizontal|vertical|absolute) #REQUIRED
   overflow (linewrap|cut) #IMPLIED
   maxitems CDATA #IMPLIED
+  valign (top|bottom) #IMPLIED
   debug (true|false) #IMPLIED
 >
 

@@ -187,6 +187,7 @@ public:
     void Render(cPixmap *p, int x0 = 0, int y0 = 0, int colWidth = 0, int rowHeight = 0);
     int FuncWidth(void);
     int FuncHeight(void);
+    int Valign(void) { return GetValue((int)eLoopAttribs::valign); };
     void Debug(void);
 };
 

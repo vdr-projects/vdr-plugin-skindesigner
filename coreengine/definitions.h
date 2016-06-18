@@ -1785,6 +1785,7 @@ enum class eLoopAttribs {
     rowheight,
     name,
     orientation,
+    valign,
     overflow,
     maxitems,
     count
