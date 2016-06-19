@@ -1,229 +1,486 @@
 <menumain x="0" y="0" width="100%" height="100%" fadetime="0" orientation="{mainmenuorientation}">
     <background>
         <!-- main menu background -->
-        <area x="0" y="0" width="71%" height="70%" layer="1">
-            <fill color="{clrTransBlack}" />
-        </area>
+        <areacontainer condition="not{mainmenusmall}">
+            <area x="0" y="0" width="71%" height="71%" layer="1">
+                <fill color="{menuback}" />
+            </area>
+            <area condition="gt({indexmainmenuorientation},0)" x="42%" y="18%" width="26%" height="36%" layer="2">
+                <fill color="{menuactive}" />
+            </area>
+        </areacontainer>
+
+        <areacontainer condition="{mainmenusmall}">
+            <area x="0" y="0" width="44%" height="70%" layer="1">
+                <fill color="{menuback}" />
+            </area>
+        </areacontainer>
+
+        <areacontainer condition="{mainmenusmall}++gt({indexmainmenuorientation},0)">
+            <area x="30%" y="5%" width="20%" height="33%" layer="2">
+                <fill color="{menuactive}" />
+            </area>
+        </areacontainer>
+
         <!-- datetime background -->
-        <area x="75%" y="0" width="25%" height="10%" layer="2">
-            <drawrectangle x="0" y="0" width="53%" height="100%" color="{clrTransBlueLight}" />
-            <drawrectangle x="53%" y="0" width="47%" height="100%" color="{clrTransBlack}" />
+        <area x="75%" y="0" width="25%" height="10%" layer="1">
+            <fill color="{menuback}" />
+            <drawrectangle x="0" y="0" width="52%" height="100%" color="{menuheader}" />
         </area>
-        <!-- system load background -->
-        <area x="75%" y="40%" width="25%" height="5%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <!-- disc usage background -->
-        <area x="75%" y="26%" width="25%" height="10%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
+
+
         <!-- weather background -->
-        <area x="75%" y="13%" width="25%" height="10%" layer="2">
-            <drawrectangle x="0" y="0" width="53%" height="100%" color="{clrTransBlueLight}" />
-            <drawrectangle x="53%" y="0" width="47%" height="100%" color="{clrTransBlack}" />
+        <area condition="gt({indexshowweather},0)" x="75%" y="13%" width="25%" height="10%" layer="1">
+            <fill color="{menuback}" />
+            <drawrectangle x="0" y="0" width="52%" height="100%" color="{menuheader}" />
         </area>
+        
+        <!-- information -->
+        <areacontainer condition="gt({indexshowinformation},1)">
+            <!-- background timers -->
+            <area x="0%" y="77%" width="30%" height="23%" layer="1">
+                <fill color="{menuback}" />
+                <drawrectangle x="0" y="0" width="100%" height="27%" color="{menuheader}" /> 
+            </area>
+            <!-- background last recordings -->
+            <area x="35%" y="77%" width="30%" height="23%" layer="1">
+                <fill color="{menuback}" />
+                <drawrectangle x="0" y="0" width="100%" height="27%" color="{menuheader}" /> 
+            </area>
+            <!-- background system info -->
+            <area x="70%" y="77%" width="30%" height="23%" layer="1">
+                <fill color="{menuback}" />
+                <drawrectangle x="0" y="0" width="100%" height="27%" color="{menuheader}" /> 
+            </area>
+            <area x="70%" y="77%" width="30%" height="6%" layer="2">
+                <drawtext align="center" valign="center" fontsize="60%" font="{regular}" color="{fontactive}" text="{tr(sysinfo)}" />
+            </area>
+        </areacontainer>
+
+        <areacontainer condition="eq({indexshowinformation},1)">
+            <!-- system load background -->
+            <area x="75%" y="40%" width="25%" height="5%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <!-- disc usage background -->
+            <area x="75%" y="26%" width="25%" height="10%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+        </areacontainer>
     </background>
 
     <header>
-        <area x="0" y="0" width="70%" height="7%" layer="2">
-            <drawtext x="10" valign="center" font="{light}" fontsize="100%" color="{clrWhite}" text="{title} {vdrversion}" />
-        </area>
+        <areacontainer condition="not{mainmenusmall}">
+            <area condition="not{hasicon}" x="0" y="0" width="60%" height="7%" layer="2">
+                <drawtext condition="strequal({title}, 'VDR')"    x="10" width="{areawidth}-20" valign="center" font="{light}" fontsize="100%" color="{fontdefault}" text="VDR {vdrversion}" />
+                <drawtext condition="strnotequal({title}, 'VDR')" x="10" width="{areawidth}-20" valign="center" font="{light}" fontsize="100%" color="{fontdefault}" text="{title}" />
+            </area>
+            <area condition="{hasicon}" x="0" y="0" width="60%" height="7%" layer="2">
+                <drawimage name="menuicon" imagetype="menuicon" path="{icon}" x="10" valign="center" width="{areaheight}*8/10" height="80%"/>
+                <drawtext condition="strequal({title}, 'VDR')"    x="{width(menuicon)}+20" valign="center" width="{areawidth}-{width(menuicon)}-30" font="{light}" fontsize="100%" color="{fontdefault}" text="VDR {vdrversion}" />
+                <drawtext condition="strnotequal({title}, 'VDR')" x="{width(menuicon)}+20" valign="center" width="{areawidth}-{width(menuicon)}-30" font="{light}" fontsize="100%" color="{fontdefault}" text="{title}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="{mainmenusmall}">
+            <area x="0" y="0" width="30%" height="7%" layer="2">
+                <drawtext condition="strequal({title}, 'VDR')"    x="10" valign="center" font="{light}" fontsize="100%" color="{fontdefault}" text="{title} {vdrversion}" />
+                <drawtext condition="strnotequal({title}, 'VDR')" x="10" valign="center" font="{light}" fontsize="100%" color="{fontdefault}" text="{title}" />
+            </area>
+        </areacontainer>
     </header>
 
     <datetime>
-        <area x="75%" y="0" width="13%" height="10%" layer="3">
-            <drawtext align="right" y="0%" font="{light}" fontsize="55%" color="{clrWhite}" text="{dayname}" />
-            <drawtext align="right" y="45%" font="{light}" fontsize="55%" color="{clrWhite}" text="{day}. {monthnameshort}" />
+        <area x="75%" y="0" width="12%" height="10%" layer="2">
+            <drawtext align="right" y="0%" font="{light}" fontsize="55%" color="{fontactive}" text="{dayname}" />
+            <drawtext align="right" y="45%" font="{light}" fontsize="55%" color="{fontactive}" text="{day}. {monthnameshort}" />
         </area>
-        <area x="88%" y="0" width="12%" height="10%" layer="3">
-            <drawtext align="center" valign="center" font="{light}" fontsize="100%" color="{clrWhite}" text="{time}" />
+        <area x="88%" y="0" width="12%" height="10%" layer="2">
+            <drawtext align="center" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{time}" />
         </area>
     </datetime>
-
-    <colorbuttons>
-        <area x="0" y="63%" width="18%" height="7%" layer="2">
-            <drawtext condition="{red1}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{red}" />
-            <drawrectangle condition="{red1}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green1}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{green}" />
-            <drawrectangle condition="{green1}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow1}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{yellow}" />
-            <drawrectangle condition="{yellow1}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue1}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{blue}" />
-            <drawrectangle condition="{blue1}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
-        </area>
-        <area x="18%" y="63%" width="17%" height="7%" layer="2">
-            <drawtext condition="{red2}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{red}" />
-            <drawrectangle condition="{red2}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green2}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{green}" />
-            <drawrectangle condition="{green2}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow2}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{yellow}" />
-            <drawrectangle condition="{yellow2}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue2}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{blue}" />
-            <drawrectangle condition="{blue2}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
-        </area>
-        <area x="35%" y="63%" width="18%" height="7%" layer="2">
-            <drawtext condition="{red3}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{red}" />
-            <drawrectangle condition="{red3}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green3}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{green}" />
-            <drawrectangle condition="{green3}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow3}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{yellow}" />
-            <drawrectangle condition="{yellow3}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue3}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{blue}" />
-            <drawrectangle condition="{blue3}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
-        </area>
-        <area x="53%" y="63%" width="17%" height="7%" layer="2">
-            <drawtext condition="{red4}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{red}" />
-            <drawrectangle condition="{red4}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green4}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{green}" />
-            <drawrectangle condition="{green4}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow4}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{yellow}" />
-            <drawrectangle condition="{yellow4}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue4}" x="20" valign="center" font="{light}" fontsize="80%" color="{clrWhite}" text="{blue}" />
-            <drawrectangle condition="{blue4}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
-        </area>
-    </colorbuttons>
-
-    <timers shifttime="{shifttimetimers}" startx="0" starty="100%">
-        <area x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}" />
-        </area>
-        <area condition="not{numtimerconflicts}" x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="2">
-            <drawtext align="center" y="15%" font="{light}" fontsize="50%" color="{clrWhite}" text="{numtimers}" />
-            <drawtext condition="eq({numtimers}, 0)||gt({numtimers}, 1)" name="timersheader" align="center" y="60%" font="{light}" fontsize="20%" color="{clrWhite}" text="{tr(activetimers)}" />
-            <drawtext condition="eq({numtimers}, 1)" name="timersheader" align="center" y="60%" font="{light}" fontsize="20%" color="{clrWhite}" text="{tr(activetimer)}" />
-        </area>
-        <area condition="{numtimerconflicts}" x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="2">
-            <drawtext align="center" y="0" font="{light}" fontsize="50%" color="{clrWhite}" text="{numtimers}" />
-            <drawtext name="timersheader" align="center" y="45%" font="{light}" fontsize="20%" color="{clrWhite}" text="{tr(activetimers)}" />
-            <drawtext align="center" y="65%" font="{semibold}" fontsize="20%" color="{clrRed}" text="{numtimerconflicts} {tr(conflicts)}!" />
-        </area>
-        
-        <area condition="gt({numtimers}, 0)" x="{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 1)" x="2*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 2)" x="3*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 3)" x="4*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 4)" x="5*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 5)" x="6*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area condition="gt({numtimers}, 6)" x="7*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
-            <fill color="{clrTransBlack}"/>
-        </area>
-        <area x="{areawidth}/8" y="75%" width="{areawidth}*0.875" height="25%" layer="2">
-            <loop name="timers" x="0" y="0" orientation="horizontal" columnwidth="{areawidth}/7" rowheight="{areaheight}" overflow="cut">
-                <drawrectangle condition="{timers[recording]}" x="0" y="0" width="{columnwidth}-5" height="{rowheight}" color="{clrRed}" />
-                <drawimage cache="true" name="logo" imagetype="channellogo" path="{timers[channelid]}" width="{columnwidth}-15" height="40%" align="center" y="10" />
-                <drawtextbox x="5" y="{height(logo)} + 10" width="{columnwidth}-10" align="center" maxlines="2" font="{light}" fontsize="15%" color="{clrWhite}" text="{timers[title]}" />
-                <drawtext align="center" y="75%" font="{light}" fontsize="20%" color="{clrWhite}" text="{timers[datetime]}" />
-            </loop>
-        </area>
-    </timers>
-
-    <discusage>
-        <area background="true" x="75%" y="26%" width="25%" height="10%" layer="1">
-            <fill condition="{discalert}" color="{clrRed}"/>
-        </area>
-        <area x="75%" y="26%" width="25%" height="10%" layer="2">
-            <drawimage imagetype="icon" path="ico_discusage" x="1%" valign="center" width="{areaheight}*0.9" height="{areaheight}*0.9"/>
-            <drawtext x="{areaheight}+10" y="0" font="{light}" fontsize="55%" color="{clrWhite}" text="{tr(disc)}: {freepercent}% {tr(free)}" />
-            <drawtext x="{areaheight}+10" y="45%" font="{light}" fontsize="55%" color="{clrWhite}" text="{freetime} {tr(hours)}" />
-        </area>
-    </discusage>
-
-    <currentweather>
-        <area x="75%" y="13%" width="12%" height="10%" layer="2">
+    
+    <currentweather condition="gt({indexshowweather},0)">
+        <area x="75%" y="13%" width="13%" height="10%" layer="2">
             <drawimage imagetype="icon" path="{icon}" align="center" valign="center" width="{areaheight}*0.9" height="{areaheight}*0.9"/>
         </area>
         <area x="89%" y="13%" width="10%" height="10%" layer="2">
-            <drawtext x="0" y="0" font="{light}" fontsize="35%" color="{clrWhite}" text="{mintemperature}°C" />
-            <drawtext x="0" y="70%" font="{light}" fontsize="35%" color="{clrWhite}" text="{maxtemperature}°C" />
+            <drawtext x="0" y="0" font="{light}" fontsize="35%" color="{fontdefault}" text="{mintemperature}°C" />
+            <drawtext x="0" y="70%" font="{light}" fontsize="35%" color="{fontdefault}" text="{maxtemperature}°C" />
         </area>
         <area x="89%" y="13%" width="10%" height="10%" layer="3">
-            <drawtext align="right" valign="center" font="{light}" fontsize="65%" color="{clrWhite}" text="{temperature}°C" />
+            <drawtext align="right" valign="center" font="{light}" fontsize="65%" color="{fontdefault}" text="{temperature}°C" />
         </area>
     </currentweather>
-
-    <devices condition="{showdevices}">
-        <area background="true" x="75%" y="48%" width="25%" height="{areaheight}/12 * {numdevices}" layer="1">
-            <fill color="{clrTransBlack}"/>
+    
+    
+    <devices condition="gt({indexshowdevices},0)">
+        <area background="true" x="75%" y="26%" width="25%" height="{areaheight}/12 * {numdevices}" layer="1">
+            <fill color="{menuback}"/>
         </area>
-        <area x="75%" y="48%" width="25%" height="{areaheight}/12 * {numdevices}" layer="2">
+        <area x="75%" y="26%" width="25%" height="{areaheight}/12 * {numdevices}" layer="2">
             <loop name="devices" x="0" y="0" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight} / {numdevices}" overflow="cut">
-                <drawtext name="label" x="5" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{clrWhite}" text="{devices[num]}: {devices[type]}" />
-                <drawtext condition="{devices[hascam]}" x="{width(label)} + 15" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{clrWhite}" text="(CAM {devices[cam]})" />
+                <drawtext name="label" x="5" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{fontdefault}" text="{devices[num]}: {devices[type]}" />
+                <drawtext condition="{devices[hascam]}" x="{width(label)} + 15" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{fontdefault}" text="(CAM {devices[cam]})" />
                 <drawtext condition="{devices[recording]} ++ {devices[livetv]}" align="right" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{clrRed}" text="LiveTV, Recording ({devices[channelname]}) " />
                 <drawtext condition="{devices[recording]} ++ not{devices[livetv]}" align="right" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{clrRed}" text="Recording ({devices[channelname]}) " />
-                <drawtext condition="not{devices[recording]} ++ {devices[livetv]}" align="right" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{clrWhite}" text="LiveTV ({devices[channelname]}) " />
-                <drawrectangle condition="{devices[istuned]}" x="5" y="{rowheight}/3 + 5" width="{areawidth} * {devices[signalstrength]} / 100 - 10 * {devices[signalstrength]} / 100" height="{rowheight}/3 - 10" color="{clrTransWhite}" />
-                <drawrectangle condition="{devices[istuned]}" x="5" y="2*{rowheight}/3 + 5" width="{areawidth} * {devices[signalquality]} / 100 - 10 * {devices[signalquality]} / 100" height="{rowheight}/3 - 10" color="{clrTransWhite}" />
-                <drawtext condition="not{devices[istuned]}" align="center" y="{rowheight}/2" font="{light}" fontsize="{rowheight}*0.35" color="{clrWhite}" text="not tuned" />
+                <drawtext condition="not{devices[recording]} ++ {devices[livetv]}" align="right" y="0" font="{light}" fontsize="{rowheight}*0.35" color="{fontdefault}" text="LiveTV ({devices[channelname]}) " />
+                <drawrectangle condition="{devices[istuned]}" x="5" y="{rowheight}/3 + 5" width="{areawidth} * {devices[signalstrength]} / 100 - 10 * {devices[signalstrength]} / 100" height="{rowheight}/3 - 10" color="{clrWhiteTrans}" />
+                <drawrectangle condition="{devices[istuned]}" x="5" y="2*{rowheight}/3 + 5" width="{areawidth} * {devices[signalquality]} / 100 - 10 * {devices[signalquality]} / 100" height="{rowheight}/3 - 10" color="{clrWhiteTrans}" />
+                <drawtext condition="not{devices[istuned]}" align="center" y="{rowheight}/2" font="{light}" fontsize="{rowheight}*0.35" color="{fontdefault}" text="not tuned" />
             </loop>
         </area>
     </devices>
 
-    <systemload>
-        <area x="75%" y="40%" width="25%" height="5%" layer="2">
-            <drawtext x="5" valign="center" font="{light}" fontsize="100%" color="{clrWhite}" text="System Load: {load}" />
+    <colorbuttons>
+        <areacontainer condition="not{mainmenusmall}">
+            <area x="0" y="64%" width="18%" height="7%" layer="2">
+                <drawtext condition="{red1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red1}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green1}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow1}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue1}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="18%" y="64%" width="17%" height="7%" layer="2">
+                <drawtext condition="{red2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red2}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green2}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow2}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue2}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="35%" y="64%" width="18%" height="7%" layer="2">
+                <drawtext condition="{red3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red3}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green3}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow3}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue3}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="53%" y="64%" width="17%" height="7%" layer="2">
+                <drawtext condition="{red4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red4}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green4}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow4}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue4}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+        </areacontainer>
+
+        <areacontainer condition="{mainmenusmall}">
+            <area x="0" y="64%" width="10%" height="6%" layer="2">
+                <drawtext condition="{red1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red1}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green1}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow1}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue1}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="11%" y="64%" width="10%" height="6%" layer="2">
+                <drawtext condition="{red2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red2}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green2}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow2}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue2}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="22%" y="64%" width="10%" height="6%" layer="2">
+                <drawtext condition="{red3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red3}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green3}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow3}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue3}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+            <area x="33%" y="64%" width="10%" height="6%" layer="2">
+                <drawtext condition="{red4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
+                <drawrectangle condition="{red4}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
+                <drawtext condition="{green4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
+                <drawrectangle condition="{green4}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
+                <drawtext condition="{yellow4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
+                <drawrectangle condition="{yellow4}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
+                <drawtext condition="{blue4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
+                <drawrectangle condition="{blue4}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
+            </area>
+        </areacontainer>
+    </colorbuttons>
+
+    <timers shifttime="{shifttimetimers}" startx="0" starty="100%">
+        <areacontainer condition="eq({indexshowinformation},1)" >
+            <area x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}" />
+            </area>
+            <area condition="not{numtimerconflicts}" x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="2">
+                <drawtext align="center" y="15%" font="{light}" fontsize="50%" color="{fontdefault}" text="{numtimers}" />
+                <drawtext condition="eq({numtimers}, 0)||gt({numtimers}, 1)" name="timersheader" align="center" y="60%" font="{light}" fontsize="20%" color="{fontdefault}" text="{tr(activetimers)}" />
+                <drawtext condition="eq({numtimers}, 1)" name="timersheader" align="center" y="60%" font="{light}" fontsize="20%" color="{fontdefault}" text="{tr(activetimer)}" />
+            </area>
+            <area condition="{numtimerconflicts}" x="0" y="75%" width="{areawidth}/8 - 5" height="25%" layer="2">
+                <drawtext align="center" y="0" font="{light}" fontsize="50%" color="{fontdefault}" text="{numtimers}" />
+                <drawtext name="timersheader" align="center" y="45%" font="{light}" fontsize="20%" color="{fontdefault}" text="{tr(activetimers)}" />
+                <drawtext align="center" y="65%" font="{semibold}" fontsize="20%" color="{clrRed}" text="{numtimerconflicts} {tr(conflicts)}!" />
+            </area>
+        
+            <area condition="gt({numtimers}, 0)" x="{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 1)" x="2*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 2)" x="3*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 3)" x="4*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 4)" x="5*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 5)" x="6*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area condition="gt({numtimers}, 6)" x="7*{areawidth}/8" y="75%" width="{areawidth}/8 - 5" height="25%" layer="1">
+                <fill color="{menuback}"/>
+            </area>
+            <area x="{areawidth}/8" y="75%" width="{areawidth}*0.875" height="25%" layer="2">
+                <loop name="timers" x="0" y="0" orientation="horizontal" columnwidth="{areawidth}/7" rowheight="{areaheight}" overflow="cut">
+                    <drawrectangle condition="{timers[recording]}" x="0" y="0" width="{columnwidth}-5" height="{rowheight}" color="{clrRed}" />
+                    <drawimage cache="true" name="logo" imagetype="channellogo" path="{timers[channelid]}" width="{columnwidth}-20" height="40%" align="center" y="10" />
+                    <drawtextbox x="5" y="{height(logo)} + 10" width="{columnwidth}-10" align="center" maxlines="2" font="{light}" fontsize="15%" color="{fontdefault}" text="{timers[title]}" />
+                    <drawtext align="center" y="75%" font="{light}" fontsize="20%" color="{fontdefault}" text="{timers[datetime]}" />
+                </loop>
+            </area>
+        </areacontainer>
+        <areacontainer condition="gt({indexshowinformation},1)">
+            <area x="0%" y="77%" width="30%" height="6%" layer="2">
+                <drawtext condition="lt({numtimers}, 1) || gt({numtimers}, 1)" align="center" valign="center" fontsize="60%" font="{regular}" color="{fontactive}" text="{numtimers} {tr(activetimers)}" />
+                <drawtext condition="eq({numtimers}, 1)" align="center" valign="center" fontsize="60%" font="{regular}" color="{fontactive}" text="{numtimers} {tr(activetimer)}" />
+            </area>
+            <area condition="{numtimers}" x="0%" y="84%" width="30%" height="14%" layer="2">
+                <loop name="timers" x="5" y="3" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/3" overflow="cut">
+                    <drawimage cache="true" name="logo" imagetype="channellogo" path="{timers[channelid]}" width="{columnwidth}*0.15" height="{rowheight}*0.75" x="10" valign="center" />
+                    <drawtext condition="not{timers[recording]}" name="datetime" x="{posx(logo)} + {width(logo)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[datetime]}" />
+                    <drawimage condition="not{timers[recording]}++{timers[isremotetimer]}" name="remotetimericon" imagetype="icon" path="ico_remotetimer" width="{rowheight}*0.4" height="{rowheight}*0.4" x="{posx(datetime)} + {width(datetime)} + 10" y="0" />
+                    <drawtext  condition="not{timers[recording]}++{timers[isremotetimer]}" x="{posx(remotetimericon)} + {width(remotetimericon)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[remotehost]}" />
+                    <drawtext condition="{timers[recording]}" name="datetimeactive" x="{posx(logo)} + {width(logo)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{icontextalert}" text="{timers[datetime]}" />
+                    <drawimage condition="{timers[recording]}++{timers[isremotetimer]}" name="remotetimericonactive" imagetype="icon" path="ico_remotetimer" width="{rowheight}*0.4" height="{rowheight}*0.4" x="{posx(datetimeactive)} + {width(datetimeactive)} + 10" y="0" />
+                    <drawtext  condition="{timers[recording]}++{timers[isremotetimer]}" x="{posx(remotetimericonactive)} + {width(remotetimericonactive)} + 10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{timers[remotehost]}" />
+                    <drawtext condition="not{timers[recording]}" x="{posx(logo)} + {width(logo)} + 10" y="{rowheight}*0.35" width="{columnwidth} - {posx(logo)} - {width(logo)} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{fontdefault}" text="{timers[title]}" />
+                    <drawtext condition="{timers[recording]}" x="{posx(logo)} + {width(logo)} + 10" y="{rowheight}*0.35" width="{columnwidth} - {posx(logo)} - {width(logo)} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{icontextalert}" text="{timers[title]}" />
+                </loop>
+            </area>
+        </areacontainer>
+    </timers>
+
+    <lastrecordings condition="gt({indexshowinformation},1)">
+        <area x="35%" y="77%" width="30%" height="6%" layer="2">
+            <drawtext align="center" valign="center" fontsize="60%" font="{regular}" color="{fontactive}" text="{tr(lastrecs)}" />
         </area>
+        <area x="35%" y="84%" width="30%" height="14%" layer="2">
+            <loop name="recordings" x="5" y="3" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/3" overflow="cut">
+                <drawtext  x="10" y="0" font="{regular}" fontsize="{rowheight}*0.4" color="{fontdefault}" text="{recordings[date]}, {recordings[duration]} min" />
+                <drawtext condition="empty{recordings[seriesname]}" x="10" y="{rowheight}*0.35" width="{columnwidth} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{fontdefault}" text="{recordings[name]}" />
+                <drawtext condition="isset{recordings[seriesname]}" x="10" y="{rowheight}*0.35" width="{columnwidth} - 20" font="{regular}" fontsize="{rowheight}*0.6" color="{fontdefault}" text="{recordings[seriesname]}" />
+            </loop>
+        </area>
+    </lastrecordings>
+
+    <discusage>
+        <areacontainer condition="eq({indexshowinformation},1)">
+            <area background="true" x="75%" y="26%" width="25%" height="10%" layer="1">
+                <fill condition="{discalert}" color="{clrRed}"/>
+            </area>
+            <area x="75%" y="26%" width="25%" height="10%" layer="2">
+                <drawimage imagetype="icon" path="ico_discusage" x="1%" valign="center" width="{areaheight}*0.9" height="{areaheight}*0.9"/>
+                <drawtext x="{areaheight}+10" y="0" font="{light}" fontsize="55%" color="{fontdefault}" text="{tr(disc)}: {freepercent}% {tr(free)}" />
+                <drawtext x="{areaheight}+10" y="45%" font="{light}" fontsize="55%" color="{fontdefault}" text="{freetime} {tr(hours)}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="gt({indexshowinformation},1)">
+            <area background="true" x="71%" y="85%" width="9%" height="6%" layer="2">
+                <drawimage imagetype="icon" path="harddisc" align="center" y="0" width="{areaheight}" height="{areaheight}" />
+            </area>
+            <area x="71%" y="92%" width="9%" height="7%" layer="2">
+                <drawtext align="center" y="0" fontsize="40%" font="{regular}" color="{fontdefault}" text="{tr(disc)} {usedpercent}%" />
+                <drawtext align="center" y="40%" fontsize="40%" font="{regular}" color="{fontdefault}" text="{freetime}h {tr(free)}" />
+            </area>
+        </areacontainer>
+    </discusage>
+
+    <systemload>
+        <areacontainer condition="eq({indexshowinformation},1)">
+            <area x="75%" y="40%" width="25%" height="5%" layer="2">
+                <drawtext x="5" valign="center" font="{light}" fontsize="100%" color="{fontdefault}" text="System Load: {load}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="gt({indexshowinformation},1)">
+            <area background="true" x="81%" y="85%" width="5%" height="5%" layer="2">
+                <drawimage imagetype="icon" path="cpu" align="center" y="0" width="{areaheight}" height="{areaheight}" />
+            </area>
+            <area x="86%" y="85%" width="12%" height="3%" layer="2">
+                <drawtext x="0" y="0" fontsize="100%" font="{regular}" color="{fontdefault}" text="{tr(load)} {load}" />
+            </area>
+        </areacontainer>
     </systemload>
 
-    <menuitems x="0" y="7%" orientation="vertical" width="70%" height="56%" align="center" numlistelements="8">
+    <vdrstatistics condition="gt({indexshowinformation},1)">
+        <area x="86%" y="88%" width="12%" height="3%" layer="2">
+            <drawtext x="0" y="0" fontsize="100%" font="{regular}" color="{fontdefault}" text="{tr(vdrcpu)}: {vdrcpu}%" />
+        </area>
+    </vdrstatistics>
+
+    <temperatures condition="gt({indexshowinformation},1)">
+        <area background="true" x="81%" y="92%" width="5%" height="5%" layer="2">
+            <drawimage imagetype="icon" path="temperature" align="center" y="0" width="{areaheight}" height="{areaheight}" />
+        </area>
+        <area x="86%" y="92%" width="12%" height="6%" layer="2">
+            <drawtext x="0" y="0" fontsize="50%" font="{regular}" color="{fontdefault}" text="CPU {cputemp}°C" />
+            <drawtext x="0" y="50%" fontsize="50%" font="{regular}" color="{fontdefault}" text="GPU {gputemp}°C" />
+        </area>
+    </temperatures>
+
+    <menuitems x="0" y="7%" orientation="vertical" width="70%" height="57%" align="center" numlistelements="{menuitemsmax}">
         <listelement>
-            <area x="0" width="60%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
-                <fill condition="{current}" color="{clrTransBlueLight}" />
-            </area>
-            <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="0" width="60%" layer="3">
-                <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{clrWhite}" text="{number} {label}" />
-            </areascroll>
+            <areacontainer x="0" width="57%" condition="not{mainmenusmall}">
+                <area layer="2">
+                    <fill condition="not{current}" color="{clrTransparent}" />
+                    <fill condition="{current}" color="{menuactive}" />
+                </area>
+                <areascroll condition="{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
+                    <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{number} {label}" />
+                </areascroll>
+                <areascroll condition="not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
+                    <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{number} {label}" />
+                </areascroll>
+            </areacontainer>
+            <areacontainer x="0" width="41%" condition="{mainmenusmall}">
+                <area layer="2">
+                    <fill condition="not{current}" color="{clrTransparent}" />
+                    <fill condition="{current}" color="{menuactive}" />
+                </area>
+                <areascroll condition="{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
+                    <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{number} {label}" />
+                </areascroll>
+                <areascroll condition="not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
+                    <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{number} {label}" />
+                </areascroll>
+            </areacontainer>
         </listelement>
-        <currentelement fadetime="300">
-            <area x="61%" y="22%" width="36%" height="52%" layer="2">
-                <fill color="{clrTransBlueLight}" />
+
+        <currentelement delay="0" fadetime="{fadetimecurrent}">
+            <area condition="not{mainmenusmall}" x="61%" y="25%" width="36%" height="50%" layer="3">
+                <drawimage imagetype="menuicon" path="{icon}_active" align="center" valign="center" width="{areaheight} - 10" height="{areaheight} - 10"/>
             </area>
-            <area x="61%" y="23%" width="36%" height="50%" layer="3">
-                <drawimage imagetype="menuicon" path="{icon}" align="center" valign="center" width="{areaheight} - 10" height="{areaheight} - 10"/>
+            <area condition="{mainmenusmall}" x="39%" y="0" width="36%" height="50%" layer="3">
+                <drawimage imagetype="menuicon" path="{icon}_active" align="center" valign="center" width="{areaheight} - 10" height="{areaheight} - 10"/>
             </area>
         </currentelement>
     </menuitems>
 
-    <menuitems x="0" y="7%" orientation="horizontal" width="70%" height="56%" align="center" numlistelements="1">
+    <menuitems orientation="horizontal" condition="not{mainmenusmall}" x="13%" y="7%" width="45%" height="56%" align="center" numlistelements="1">
         <listelement>
-            <area y="10%" height="80%" layer="2">
-                <drawrectangle condition="{current}" x="20%" y="0" width="60%" height="100%" color="{clrTransBlueLight}" />
+            <areacontainer condition="{current}">
+                <area x="0" y="10%" width="100%" height="80%" layer="2">
+                    <fill  color="{menuactive}" />
+                </area>
+                <area x="12%" width="76%" y="10%" height="80%" layer="3">
+                    <drawimage imagetype="menuicon" path="{icon}_active" align="center" x="0" y="10%" width="{areaheight}*0.6" height="{areaheight}*0.6"/>
+                </area>
+                <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="5%" width="90%"  y="70%" height="20%" layer="4">
+                    <drawtext name="menutext" align="center" valign="center" font="{light}" fontsize="80%" color="{fontactive}" text="{label}" />
+                </areascroll>
+            </areacontainer>
+<!--
+            <area condition="not{current}" x="5%" width="90%"  y="70%" height="20%" layer="4">
+                <drawtext name="menutext" align="center" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{label}" />
             </area>
-            <area y="10%" height="80%" layer="3">
-                <drawimage condition="{current}" imagetype="menuicon" path="{icon}" align="center" y="10%" width="{areaheight}*0.6" height="{areaheight}*0.6"/>
+-->
+        </listelement>
+    </menuitems>
+    <menuitems orientation="horizontal" condition="{mainmenusmall}" x="0" y="7%" width="44%" height="56%" align="center" numlistelements="1">
+        <listelement>
+            <areacontainer condition="{current}">
+                <area x="0" y="10%" width="100%" height="80%" layer="2">
+                    <fill color="{menuactive}" />
+                </area>
+                <area x="12%" width="76%" y="10%" height="80%" layer="3">
+                    <drawimage imagetype="menuicon" path="{icon}_active" align="center" x="0" y="10%" width="{areaheight}*0.6" height="{areaheight}*0.6"/>
+                </area>
+                <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="5%" width="90%"  y="70%" height="20%" layer="4">
+                    <drawtext name="menutext" align="center" valign="center" font="{light}" fontsize="80%" color="{fontactive}" text="{label}" />
+                </areascroll>
+            </areacontainer>
+<!--
+            <area condition="not{current}"  x="5%" width="90%"  y="70%" height="20%" layer="4">
+                <drawtext name="menutext" align="center" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{label}" />
             </area>
-            <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" y="70%" height="20%" layer="4">
-                <drawtext name="menutext" align="center" valign="center" font="{light}" fontsize="90%" color="{clrWhite}" text="{label}" />
-            </areascroll>
+-->
         </listelement>
     </menuitems>
 
     <scrollbar orientation="vertical">
-        <area x="68%" y="7%" width="2%" height="56%" layer="2">
-            <fill color="{clrWhite}" />
-            <drawrectangle x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
-            <drawrectangle x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{clrWhite}" />
-        </area>
+        <areacontainer condition="{mainmenusmall}++eq({indexshowscrollbar},0)">
+            <area x="44%" y="3%" width="6%" height="37%" layer="1">
+                <fill color="{menuback}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="eq({indexshowscrollbar},2)">
+            <area condition="{mainmenusmall}" x="44%" y="3%" width="9%" height="37%" layer="1">
+                <fill color="{menuback}" />
+            </area>
+            <area condition="{mainmenusmall}" x="51%" y="5%" width="1%" height="33%" layer="2">
+                <fill color="{scrollbar}" />
+                <drawrectangle x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
+                <drawrectangle x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{scrollbar}" />
+            </area>
+            <area condition="not{mainmenusmall}" x="69%" y="7%" width="1%" height="56%" layer="2">
+                <fill color="{scrollbar}" />
+                <drawrectangle x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
+                <drawrectangle x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{scrollbar}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="eq({indexshowscrollbar},1)">
+            <area condition="{mainmenusmall}" x="44%" y="3%" width="6%" height="37%" layer="1">
+                <fill condition="not{hasprev}++not{hasnext}" color="{menuback}" />
+            </area>
+            <area condition="{mainmenusmall}" x="44%" y="3%" width="9%" height="37%" layer="1">
+                <fill condition="{hasprev}||{hasnext}" color="{menuback}" />
+            </area>
+            <area condition="{mainmenusmall}" x="51%" y="5%" width="1%" height="33%" layer="2">
+                <fill condition="{hasprev}||{hasnext}" color="{scrollbar}" />
+                <drawrectangle condition="{hasprev}||{hasnext}" x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
+                <drawrectangle condition="{hasprev}||{hasnext}" x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{scrollbar}" />
+            </area>
+            <area condition="not{mainmenusmall}" x="69%" y="7%" width="1%" height="56%" layer="2">
+                <fill condition="{hasprev}||{hasnext}" color="{scrollbar}" />
+                <drawrectangle condition="{hasprev}||{hasnext}" x="2" y="2" width="{areawidth} - 4" height="{areaheight} - 4" color="{clrTransparent}" />
+                <drawrectangle condition="{hasprev}||{hasnext}" x="4" y="4 + {areaheight} * {offset} / 1000" width="{areawidth} - 8" height="{areaheight} * {height} / 1000 - 8" color="{scrollbar}" />
+            </area>
+        </areacontainer>
     </scrollbar>
 
     <scrollbar orientation="horizontal">
-        <area condition="{hasprev}" x="0" y="7%" width="14%" height="56%" layer="2">
+        <area condition="{hasprev}" x="1%" y="7%" width="8%" height="56%" layer="3">
             <drawimage imagetype="icon" path="ico_arrow_left" align="center" valign="center" width="{areawidth}*0.8" height="{areawidth}*0.8"/>
         </area>
-        <area condition="{hasnext}" x="56%" y="7%" width="14%" height="56%" layer="2">
+        <area condition="not{mainmenusmall}++{hasnext}" x="62%" y="7%" width="8%" height="56%" layer="3">
+            <drawimage imagetype="icon" path="ico_arrow_right" align="center" valign="center" width="{areawidth}*0.8" height="{areawidth}*0.8"/>
+        </area>
+        <area condition="{mainmenusmall}++{hasnext}" x="35%" y="7%" width="8%" height="56%" layer="3">
             <drawimage imagetype="icon" path="ico_arrow_right" align="center" valign="center" width="{areawidth}*0.8" height="{areawidth}*0.8"/>
         </area>
     </scrollbar>

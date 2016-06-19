@@ -304,7 +304,7 @@ void cVeDmScrollbar::SetList(int numDisplayed, int offset, int numMax) {
     tokenContainer->AddIntToken((int)eDMScrollbarIT::height, barHeight);
     tokenContainer->AddIntToken((int)eDMScrollbarIT::offset, barOffset);
     tokenContainer->AddIntToken((int)eDMScrollbarIT::hasprev, (offset == 0) ? 0 : 1);
-    tokenContainer->AddIntToken((int)eDMScrollbarIT::hasnext, (offset + numMax == numDisplayed) ? 0 : 1);
+    tokenContainer->AddIntToken((int)eDMScrollbarIT::hasnext, (offset + numMax >= numDisplayed) ? 0 : 1);
     SetDirty();
 }
 

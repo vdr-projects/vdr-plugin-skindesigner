@@ -3,17 +3,137 @@
 
 <setup>
     <menu>
+        <parameter type="separator" name="sep" displaytext="---------------- MetrixHD ----------------"/>
         <parameter type="int" name="fadetime" min="0" max="1000" displaytext="{tr(fadetext)}" helptext="{tr(helpfade)}">0</parameter>
+        <parameter type="int" name="fadetimecurrent" min="0" max="1000" displaytext="{tr(fadecurrenttext)}" helptext="{tr(helpfadecurrent)}">50</parameter>
         <parameter type="int" name="shifttimechannel" min="0" max="1000" displaytext="{tr(shifttimechanneltext)}" helptext="{tr(helpshifttimechannel)}">0</parameter>
-        <parameter type="int" name="shifttimedatetime" min="0" max="1000" displaytext="{tr(shifttimedatetimetext)}" helptext="{tr(helpshifttimedatetime)}">0</parameter>
-        <parameter type="int" name="shifttimetimers" min="0" max="1000" displaytext="{tr(shifttimetimerstext)}" helptext="{tr(helpshifttimetimers)}">0</parameter>
-        <parameter type="bool" name="showdevices" displaytext="{tr(showdevices)}" helptext="{tr(helpshowdevices)}">0</parameter>
-        <parameter type="string" name="mainmenuorientation" displaytext="{tr(mainmenuorientation)}" helptext="{tr(helpmainmenuorientation)}" options="horizontal,vertical">1</parameter>
+        <parameter type="int" name="shifttimedatetime" min="0" max="1000" displaytext="{tr(shifttimedatetimetext)}" helptext="{tr(helpshifttimedatetime)}">200</parameter>
+        <parameter type="string" name="showdevices" displaytext="{tr(showdevices)}" helptext="{tr(helpshowdevices)}" options="no,menu,yes">0</parameter>
+        <parameter type="string" name="showweather" displaytext="{tr(showweather)}" helptext="{tr(helpshowweather)}" options="no,menu,yes">1</parameter>
         <parameter type="string" name="recmenuorientation" displaytext="{tr(recmenuorientation)}" options="horizontal,vertical">1</parameter>
         <parameter type="string" name="weathermenuorientation" displaytext="{tr(weathermenuorientation)}" options="horizontal,vertical">1</parameter>
+        <!-- mainmenu -->
+        <parameter type="separator" name="sepmainmenu" displaytext="---------------- {tr(sepmainmenu)} ----------------"/>
+        <parameter type="string" name="mainmenuorientation" displaytext="{tr(mainmenuorientation)}" helptext="{tr(helpmainmenuorientation)}" options="horizontal,vertical">1</parameter>
+        <parameter type="bool" name="mainmenusmall" displaytext="{tr(mainmenusmall)}">0</parameter>
+        <parameter type="int" name="menuitemsmax" min="1" max="16" displaytext="{tr(menuitemsmaxtext)}">9</parameter>
+        <parameter type="string" name="showscrollbar" displaytext="{tr(showscrollbar)}" helptext="{tr(helpshowscrollbar)}" options="no,auto,yes">1</parameter>
+        <parameter type="string" name="showinformation" displaytext="{tr(showinformation)}" helptext="{tr(helpshowinformation)}" options="no,oldstyle,yes">2</parameter>
+        <parameter type="int" name="shifttimetimers" min="0" max="1000" displaytext="{tr(shifttimetimerstext)}" helptext="{tr(helpshifttimetimers)}">0</parameter>
+        <!-- zapcockpit -->
+        <parameter type="separator" name="sepzapcockpit" displaytext="---------------- {tr(sepzapcockpit)} ----------------"/>
+        <parameter type="int" name="fadetimezapcockpit" displaytext="{tr(fadetimezapcockpit)}">0</parameter>
+        <parameter type="int" name="shifttimezapcockpit" displaytext="{tr(shifttimezapcockpit)}">200</parameter>
+        <parameter type="separator" name="sepzapcockpitchannelhint" displaytext="---------------- {tr(sepzapcockpitchannelhint)} ----------------"/>
+        <parameter type="int" name="zapchannelhintsheight" min="0" max="100" displaytext="{tr(zapchannelhintsheight)}">30</parameter>
+        <parameter type="int" name="zapchannelhintswidth" min="0" max="100" displaytext="{tr(zapchannelhintswidth)}">30</parameter>
     </menu>
 
     <translations>
+        <token name="tr(sepmainmenu)">
+            <trans lang="en_EN">Main Menu</trans>
+            <trans lang="de_DE">Hauptmenü</trans>
+        </token>
+        <token name="tr(mainmenusmall)">
+            <trans lang="en_EN">Small Main Menu</trans>
+            <trans lang="de_DE">Schmales Hauptmenü</trans>
+        </token>
+        <token name="tr(fadecurrenttext)">
+            <trans lang="en_EN">Fade time of current element [ms]</trans>
+            <trans lang="de_DE">Einblendzeit des aktiven Elements [ms]</trans>
+        </token>
+        <token name="tr(helpfadecurrent)">
+            <trans lang="en_EN">Fade time in ms. If this is set to a value larger 0 the current OSD element fade in and out.</trans>
+            <trans lang="de_DE">Einblendzeit in ms. Ist dieser Wert auf einen Wert > 0 gesetzt, wird das aktive OSD Element ein- und ausgeblendet</trans>
+        </token>
+        <token name="tr(helpshowinformation)">
+            <trans lang="en_EN">Show information about timers, newest recordings, system load... 'oldstyle' showes the wide timer element but lacks some other infos.</trans>
+            <trans lang="de_DE">Zeige Informationen über Timer, neuste Aufnahmen, Systemlast... 'oldstyle' zeigt dabei des breite Timer-Element, nutzt dafür aber nicht alle Infos.</trans>
+        </token>
+        <token name="tr(helpshowscrollbar)">
+            <trans lang="en_EN">Show Scrollbar in Main Menu. Auto hides the scrollbar if its not needed.</trans>
+            <trans lang="de_DE">Zeige die Scroll-Leiste im Hauptmenü. Auto versteckt die Leiste, wenn sie nicht benötigt wird.</trans>
+        </token>
+        <token name="tr(helpshowweather)">
+            <trans lang="en_EN">Off, main menu only or main menu and channelinfo</trans>
+            <trans lang="de_DE">Aus, nur Hauptmenü oder Haputmenü und Kanalinformationen</trans>
+        </token>
+
+        <token name="tr(menuitemsmaxtext)">
+            <trans lang="en_EN">Number of Main Menu items (max)</trans>
+            <trans lang="de_DE">Elemente im Hauptmenü (max)</trans>
+        </token>
+        <token name="tr(menu)">
+            <trans lang="en_EN">main menu</trans>
+            <trans lang="de_DE">im Hauptmenü</trans>
+        </token>
+        <token name="tr(no)">
+            <trans lang="en_EN">no</trans>
+            <trans lang="de_DE">nein</trans>
+        </token>
+        <token name="tr(yes)">
+            <trans lang="en_EN">yes</trans>
+            <trans lang="de_DE">ja</trans>
+        </token>
+        <token name="tr(auto)">
+            <trans lang="en_EN">automatic</trans>
+            <trans lang="de_DE">automatisch</trans>
+        </token>
+        <token name="tr(oldstyle)">
+            <trans lang="en_EN">oldsytle</trans>
+            <trans lang="de_DE">oldstyle</trans>
+        </token>
+
+        <token name="tr(showscrollbar)">
+            <trans lang="en_EN">Show Scrollbar in main menu</trans>
+            <trans lang="de_DE">Zeige Scrollbar im Hauptmenü</trans>
+        </token>
+        <token name="tr(showweather)">
+            <trans lang="en_EN">Show Weather info</trans>
+            <trans lang="de_DE">Wetter Info anzeigen</trans>
+        </token>
+        <token name="tr(showinformation)">
+            <trans lang="en_EN">Show Information in main menu</trans>
+            <trans lang="de_DE">Zeige Informationen im Hauptmenü</trans>
+        </token>
+        <!-- displaychannel / zapcockpit -->
+        <token name="tr(sepzapcockpit)">
+            <trans lang="en_EN">Zapcockpit</trans>
+            <trans lang="de_DE">Zapcockpit</trans>
+            <trans lang="fi_FI">Zapcockpit</trans>
+            <trans lang="it_IT">Zapcockpit</trans>
+        </token>
+        <token name="tr(sepzapcockpitchannelhint)">
+            <trans lang="en_EN">Zapcockpit channel hints</trans>
+            <trans lang="de_DE">Zapcockpit Kanal Hinweise</trans>
+            <trans lang="fi_FI">Zapcockpit kanavavihjeille</trans>
+            <trans lang="it_IT">Zapcockpit suggerimenti canale</trans>
+        </token>
+        <token name="tr(fadetimezapcockpit)">
+            <trans lang="en_EN">Fade time for zapcockpit elements [ms]</trans>
+            <trans lang="de_DE">Einblendzeit für Zapcockpit Elemente [ms]</trans>
+            <trans lang="fi_FI">Häivytyksen kesto elementeille [ms]</trans>
+            <trans lang="it_IT">Tempo di dissolvenza degli elementi Zapcockpit</trans>
+        </token>
+        <token name="tr(shifttimezapcockpit)">
+            <trans lang="en_EN">Shift time for zapcockpit elements [ms]</trans>
+            <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
+            <trans lang="fi_FI">Liukuman kesto elementeille [ms]</trans>
+            <trans lang="it_IT">Tempo di cambio degli elementi Zapcockpit [ms]</trans>
+        </token>
+        <token name="tr(zapchannelhintsheight)">
+            <trans lang="en_EN">Height channel hints (% of screen height)</trans>
+            <trans lang="de_DE">Höhe Kanal Hinweise (% der Bildschirmhöhe)</trans>
+            <trans lang="fi_FI">Korkeus (% näytön korkeudesta)</trans>
+            <trans lang="it_IT">Altezza suggerimenti canale (% della altezza del video)</trans>
+        </token>
+        <token name="tr(zapchannelhintswidth)">
+            <trans lang="en_EN">Width channel hints (% of screen width)</trans>
+            <trans lang="de_DE">Breite Kanal Hinweise (% der Bildschirmbreite)</trans>
+            <trans lang="fi_FI">Leveys (% näytön leveydestä)</trans>
+            <trans lang="it_IT">Larghezza suggerimenti canale (% della larghezza del video)</trans>
+        </token>
+        <!-- metrixhd -->
         <token name="tr(fadetext)">
             <trans lang="en_EN">Fade time [ms]</trans>
             <trans lang="de_DE">Einblendzeit [ms]</trans>

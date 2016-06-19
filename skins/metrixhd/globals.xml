@@ -3,6 +3,39 @@
 
 <globals>
     <colors>
+        <!-- general colors -->
+        <color name="clrRed">FFFF0000</color>
+        <color name="clrRedTrans">55FF0000</color>
+        <color name="clrGreen">FF5FE200</color>
+        <color name="clrYellow">FFE2DA00</color>
+        <color name="clrBlue">FF007FE2</color>
+        <color name="clrBlack">FF000000</color>
+        <color name="clrBlackTrans">77000000</color>
+        <color name="clrWhite">FFFFFFFF</color>
+        <color name="clrWhiteTrans">C0FFFFFF</color>
+        <color name="clrTransparent">00000000</color>
+        <!-- theme colors  -->
+        <color name="menuback">C0000000</color>
+        <color name="menubackline">C0FFFFFF</color>
+        <color name="menualternate">FF14141E</color>
+        <color name="menuactive">C01E8BD7</color>
+        <color name="menuheader">E01E8BD7</color>
+        <color name="menuseparator">D0000000</color>
+        <color name="listback">00000000</color>
+        <color name="fontdefault">FFFFFFFF</color>
+        <color name="fontactive">FFFFFFFF</color>
+        <color name="fontmenuactive">FFFFFFFF</color>
+        <color name="fontseparator">FF1E8BD7</color>
+        <color name="icontextalert">FFFF0000</color>
+        <color name="icontextactive">FFFFFFFF</color>
+        <color name="icontextinactive">FF333333</color>
+        <color name="scrollbar">FFFFFFFF</color>
+        <!-- colors svg templates -->
+        <color name="icon">FFFFFFFF</color>
+        <color name="iconactive">FFFFFFFF</color>
+        <color name="iconselected">FF800000</color>
+        <color name="iconrecactive">FFFFFFFF</color>
+        <color name="iconrecinactive">FF111111</color>
     </colors>
 
     <variables>
@@ -32,7 +65,7 @@
         </token>
         <token name="tr(disc)">
             <trans lang="en_EN">Disc</trans>
-            <trans lang="de_DE">Disk</trans>
+            <trans lang="de_DE">HDD</trans>
             <trans lang="fi_FI">Levy</trans>
             <trans lang="hu_HU">Lemez</trans>
             <trans lang="it_IT">Disco</trans>
@@ -429,8 +462,27 @@
             <trans lang="hu_HU">lejár: </trans>
             <trans lang="it_IT">finisce alle</trans>
         </token>
+        <token name="tr(lastrecs)">
+            <trans lang="en_EN">last recordings</trans>
+            <trans lang="de_DE">Neueste Aufnahmen</trans>
+        </token>
+        <token name="tr(sysinfo)">
+            <trans lang="en_EN">system information</trans>
+            <trans lang="de_DE">System Informationen</trans>
+        </token>
+        <token name="tr(load)">
+            <trans lang="en_EN">System load:</trans>
+            <trans lang="de_DE">Systemlast:</trans>
+        </token>
+        <token name="tr(vdrcpu)">
+            <trans lang="en_EN">VDR CPU</trans>
+            <trans lang="de_DE">VDR CPU</trans>
+        </token>
     </translations>
-
     <fonts>
+        <font name="light">VDROpen Sans:Light</font>
+        <font name="semibold">VDROpen Sans:Semibold</font>
+        <font name="regular">Lato:Regular</font>
+        <font name="bold">Lato:Bold</font>
     </fonts>
 </globals>
