@@ -421,6 +421,7 @@ void cFuncDrawText::Render(cPixmap *p, int x0, int y0, int colWidth, int rowHeig
     } else if (horAlign == eAlign::center) {
         x = x0 + (contWidth - TextWidth(funcText)) / 2;
     }
+    if (x < 0) x = 0;
 
     int contHeight = rowHeight > 0 ? rowHeight : container.Height();
     int y = Y() + y0;
@@ -449,7 +450,7 @@ int cFuncDrawText::FuncX(void) {
     } else if (horAlign == eAlign::center) {
         x = (container.Width() - TextWidth(funcText)) / 2;
     }
-    return x;
+    return (x >= 0) ? x : 0 ;
 }
 
 int cFuncDrawText::FuncY(void) {

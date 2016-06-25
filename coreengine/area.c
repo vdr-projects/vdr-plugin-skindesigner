@@ -528,7 +528,6 @@ void cArea::CreatePixmap(cRect drawPort) {
     pix = sdOsd->CreatePixmap(layer, viewPort, drawPort);
     if (pix)
         pix->Clear();
-
     int pixTransparency = attribs->Transparency();
     if (pixTransparency > 0) {
         SetTransparency(pixTransparency, true);
