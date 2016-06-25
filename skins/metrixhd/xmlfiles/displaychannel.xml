@@ -238,7 +238,7 @@
         </area>
     </channellistback>
     
-    <channellist x="0" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="14" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
+    <channellist x="0" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="{listitemsmax}" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
         <listelement>
             <area x="0" width="100%" layer="4">
                 <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
@@ -286,7 +286,7 @@
         </area>
     </grouplistback>
 
-    <grouplist x="70%" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="12" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right">
+    <grouplist x="70%" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="{listitemsmax}-2" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right">
         <listelement>
             <area x="0" width="100%" layer="5">
                 <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
@@ -316,7 +316,7 @@
         </area>
     </groupchannellistback>
 
-    <groupchannellist x="40%" y="3%" orientation="vertical" width="30%" height="94%" align="center" numlistelements="14" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="70%" starty="3%">
+    <groupchannellist x="40%" y="3%" orientation="vertical" width="30%" height="94%" align="center" numlistelements="{listitemsmax}" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="70%" starty="3%">
         <listelement>
             <area x="0" width="100%" layer="2">
                 <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />

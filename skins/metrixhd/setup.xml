@@ -12,6 +12,8 @@
         <parameter type="string" name="showweather" displaytext="{tr(showweather)}" helptext="{tr(helpshowweather)}" options="no,menu,yes">1</parameter>
         <parameter type="string" name="recmenuorientation" displaytext="{tr(recmenuorientation)}" options="horizontal,vertical">1</parameter>
         <parameter type="string" name="weathermenuorientation" displaytext="{tr(weathermenuorientation)}" options="horizontal,vertical">1</parameter>
+        <parameter type="int" name="chlistitemsmax" min="8" max="16" displaytext="{tr(chlistitemsmaxtext)}">10</parameter>
+        <parameter type="int" name="listitemsmax" min="8" max="16" displaytext="{tr(listitemsmaxtext)}">14</parameter>
         <!-- mainmenu -->
         <parameter type="separator" name="sepmainmenu" displaytext="---------------- {tr(sepmainmenu)} ----------------"/>
         <parameter type="string" name="mainmenuorientation" displaytext="{tr(mainmenuorientation)}" helptext="{tr(helpmainmenuorientation)}" options="horizontal,vertical">1</parameter>
@@ -19,6 +21,7 @@
         <parameter type="int" name="menuitemsmax" min="1" max="16" displaytext="{tr(menuitemsmaxtext)}">9</parameter>
         <parameter type="string" name="showscrollbar" displaytext="{tr(showscrollbar)}" helptext="{tr(helpshowscrollbar)}" options="no,auto,yes">1</parameter>
         <parameter type="string" name="showinformation" displaytext="{tr(showinformation)}" helptext="{tr(helpshowinformation)}" options="no,oldstyle,yes">2</parameter>
+        <parameter type="int" name="infolistitemsmax" min="1" max="5" displaytext="{tr(infolistitemsmaxtext)}">3</parameter>
         <parameter type="int" name="shifttimetimers" min="0" max="1000" displaytext="{tr(shifttimetimerstext)}" helptext="{tr(helpshifttimetimers)}">0</parameter>
         <!-- zapcockpit -->
         <parameter type="separator" name="sepzapcockpit" displaytext="---------------- {tr(sepzapcockpit)} ----------------"/>
@@ -58,7 +61,18 @@
             <trans lang="en_EN">Off, main menu only or main menu and channelinfo</trans>
             <trans lang="de_DE">Aus, nur Hauptmenü oder Haputmenü und Kanalinformationen</trans>
         </token>
-
+        <token name="tr(infolistitemsmaxtext)">
+            <trans lang="en_EN">Number of Information lists items (max)</trans>
+            <trans lang="de_DE">Elemente in den Info-Listen (max)</trans>
+        </token>
+        <token name="tr(chlistitemsmaxtext)">
+            <trans lang="en_EN">Number of Channel list items (max)</trans>
+            <trans lang="de_DE">Elemente in der Kanalliste (max)</trans>
+        </token>
+        <token name="tr(listitemsmaxtext)">
+            <trans lang="en_EN">Number of list items (max)</trans>
+            <trans lang="de_DE">Elemente in andern Listen (max)</trans>
+        </token>
         <token name="tr(menuitemsmaxtext)">
             <trans lang="en_EN">Number of Main Menu items (max)</trans>
             <trans lang="de_DE">Elemente im Hauptmenü (max)</trans>

@@ -1,5 +1,5 @@
 <menutimers x="0" y="0" width="100%" height="100%" fadetime="0">
-    <menuitems x="0" y="10%" orientation="vertical" width="100%" height="82%" align="center" numlistelements="16">
+    <menuitems x="0" y="10%" orientation="vertical" width="100%" height="82%" align="center" numlistelements="{listitemsmax}">
         <listelement>
             <!-- Background -->
             <area x="1%" width="58%" layer="2">
@@ -36,14 +36,14 @@
                 <drawtext name="channum" x="{width(logo)} + 20" y="{areaheight}/6" width="{areawidth} - {width(logo)} - 30" font="{light}" fontsize="40%" color="{fontactive}" text="Kanal Nr. {channelnumber}" />
                 <drawtext name="channame" x="{width(logo)} + 20" y="{areaheight}/3 + {areaheight}/6" width="{areawidth} - {width(logo)} - 30" font="{semibold}" fontsize="40%" color="{fontactive}" text="{channelname}" />
             </area>
-            <area x="63%" y="15%" width="36%" height="70%" layer="3">
+            <area x="63%" y="15%" width="36%" height="85%" layer="3">
                 <!-- title -->
                 <drawtext name="title" align="center" y="0" font="{semibold}" width="{areawidth}-20" fontsize="{areaheight}/10" color="{fontactive}" text="{eventtitle}" />
                 <!-- scraper poster -->
                 <drawimage condition="{hasposter}" name="poster" imagetype="image" path="{posterpath}" x="10" y="{posy(title)} + {height(title)} + 10" width="{areawidth}/3" height="{areawidth}/3 * {posterheight} / {posterwidth}"/>
                 <!-- description -->
-                <drawtextbox condition="{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" float="topleft" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 20" font="{light}" fontsize="{areaheight}/14" color="{fontactive}" text="{eventdescription}" />
-                <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" font="{light}" fontsize="{areaheight}/14" color="{fontactive}" text="{eventdescription}" />
+                <drawtextbox condition="{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" float="topleft" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 10" font="{light}" fontsize="{areaheight}/15" color="{fontactive}" text="{eventdescription}" />
+                <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight} - {posy(poster)}" font="{light}" fontsize="{areaheight}/15" color="{fontactive}" text="{eventdescription}" />
             </area>
         </currentelement>
     </menuitems>
