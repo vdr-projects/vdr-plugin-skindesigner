@@ -346,7 +346,7 @@ bool cVeDevices::Parse(bool forced) {
             signalQuality = device->SignalQuality();
         }
         tokenContainer->AddLoopToken(devicesIndex, i, (int)eDevicesLT::signalstrength, *cString::sprintf("%d", signalStrength));
-        tokenContainer->AddLoopToken(devicesIndex, i, (int)eDevicesLT::signalstrength, *cString::sprintf("%d", signalQuality));
+        tokenContainer->AddLoopToken(devicesIndex, i, (int)eDevicesLT::signalquality, *cString::sprintf("%d", signalQuality));
         tokenContainer->AddLoopToken(devicesIndex, i, (int)eDevicesLT::livetv, i == deviceLiveTV ? "1" : "0");
 
         bool isRecording = false;
