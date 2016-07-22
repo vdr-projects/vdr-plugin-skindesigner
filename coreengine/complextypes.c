@@ -177,7 +177,7 @@ bool cCondition::True(void) {
                 }
             }
         }
-        else if (c->type == eCondType::lowerInt || c->type == eCondType::equalInt || c->type == eCondType::greaterInt) 
+        else if (c->type == eCondType::lowerInt || c->type == eCondType::equalInt || c->type == eCondType::notequalInt || c->type == eCondType::greaterInt) 
         {
             if (c->tokenType == eCondTokenType::inttoken) {
                 int tokenVal = tokenContainer->IntToken(c->tokenIndex);
@@ -185,6 +185,8 @@ bool cCondition::True(void) {
                     condTrue = (tokenVal < c->compareValue) ? true : false;
                 else if (c->type == eCondType::equalInt)
                     condTrue = (tokenVal == c->compareValue) ? true : false;
+                else if (c->type == eCondType::notequalInt)
+                    condTrue = (tokenVal != c->compareValue) ? true : false;
                 else if (c->type == eCondType::greaterInt)
                     condTrue = (tokenVal > c->compareValue) ? true : false;
             } else if (c->tokenType == eCondTokenType::stringtoken) {
@@ -195,6 +197,8 @@ bool cCondition::True(void) {
                         condTrue = (intVal < c->compareValue) ? true : false;
                     else if (c->type == eCondType::equalInt)
                         condTrue = (intVal == c->compareValue) ? true : false;
+                    else if (c->type == eCondType::notequalInt)
+                        condTrue = (intVal != c->compareValue) ? true : false;
                     else if (c->type == eCondType::greaterInt)
                         condTrue = (intVal > c->compareValue) ? true : false;
                 }
@@ -207,6 +211,8 @@ bool cCondition::True(void) {
                             condTrue = (intVal < c->compareValue) ? true : false;
                         else if (c->type == eCondType::equalInt)
                             condTrue = (intVal == c->compareValue) ? true : false;
+                        else if (c->type == eCondType::notequalInt)
+                            condTrue = (intVal != c->compareValue) ? true : false;
                         else if (c->type == eCondType::greaterInt)
                             condTrue = (intVal > c->compareValue) ? true : false;
                     }
@@ -308,6 +314,8 @@ void cCondition::Tokenize(void) {
             type = eCondType::lowerInt;
         } else if (startswith(cond, "eq({") && endswith(cond, ")")) {
             type = eCondType::equalInt;
+        } else if (startswith(cond, "noteq({") && endswith(cond, ")")) {
+            type = eCondType::notequalInt;
         } else if (startswith(cond, "gt({") && endswith(cond, ")")) {
             type = eCondType::greaterInt;
         } else if (startswith(cond, "isset{") && endswith(cond, "}")) {
@@ -349,6 +357,7 @@ void cCondition::PrepareTokens(void) {
                 break;
             case eCondType::lowerInt:
             case eCondType::equalInt:
+            case eCondType::notequalInt:
             case eCondType::greaterInt:
                 SetIntegerCond(c);
                 break;
@@ -408,6 +417,8 @@ void cCondition::SetIntegerCond(cCond *c) {
         if (c->type == eCondType::lowerInt && result < c->compareValue)
             c->isTrue = true;
         else if (c->type == eCondType::equalInt && result == c->compareValue)
+            c->isTrue = true;
+        else if (c->type == eCondType::notequalInt && result != c->compareValue)
             c->isTrue = true;
         else if (c->type == eCondType::greaterInt && result > c->compareValue)
             c->isTrue = true;

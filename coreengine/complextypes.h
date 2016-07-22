@@ -32,6 +32,7 @@ enum class eCondType {
     negtoken,
     lowerInt,
     equalInt,
+    notequalInt,
     greaterInt,
     isset,
     empty,
