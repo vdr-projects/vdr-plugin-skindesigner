@@ -8,6 +8,8 @@
         <parameter type="int" name="fadetimecurrent" min="0" max="1000" displaytext="{tr(fadecurrenttext)}" helptext="{tr(helpfadecurrent)}">50</parameter>
         <parameter type="int" name="shifttimechannel" min="0" max="1000" displaytext="{tr(shifttimechanneltext)}" helptext="{tr(helpshifttimechannel)}">0</parameter>
         <parameter type="int" name="shifttimedatetime" min="0" max="1000" displaytext="{tr(shifttimedatetimetext)}" helptext="{tr(helpshifttimedatetime)}">200</parameter>
+        <parameter type="int" name="listfadetime" min="0" max="1000" displaytext="{tr(listfadetimetext)}" helptext="{tr(helplistfadetime)}">0</parameter>
+        <parameter type="int" name="listshifttime" min="0" max="1000" displaytext="{tr(listshifttimetext)}" helptext="{tr(helplistshifttime)}">100</parameter>
         <parameter type="string" name="showdevices" displaytext="{tr(showdevices)}" helptext="{tr(helpshowdevices)}" options="no,menu,yes">0</parameter>
         <parameter type="string" name="showweather" displaytext="{tr(showweather)}" helptext="{tr(helpshowweather)}" options="no,menu,yes">1</parameter>
         <parameter type="string" name="recmenuorientation" displaytext="{tr(recmenuorientation)}" options="horizontal,vertical">1</parameter>
@@ -195,6 +197,22 @@
             <trans lang="de_DE">Einfahrzeit der Timer im Hauptmenü in ms. Steht dieser Wert auf 0, werden die Timer sofort angezeigt.</trans>
             <trans lang="fi_FI">Liukuman kesto millisekunteina. Nollasta eriävä arvo aktivoi transitioefektit päävalikon ajastimille.</trans>
             <trans lang="it_IT">Tempi di cambio del display dei Timer nel menù principale in ms. Se impostati a 0, i timers sono mostrati immediatamente.</trans>
+        </token>
+        <token name="tr(listfadetimetext)">
+            <trans lang="en_EN">Fade time menus [ms]</trans>
+            <trans lang="de_DE">Überblendungszeit Menüs [ms]</trans>
+        </token>
+        <token name="tr(listshifttimetext)">
+            <trans lang="en_EN">Shift time menus [ms]</trans>
+            <trans lang="de_DE">Übergangszeit Menüelemente [ms]</trans>
+        </token>
+        <token name="tr(helplistfadetime)">
+            <trans lang="en_EN">Fade time of menu elements when scrolling through the menus. If set to 0, this effect is disabled.</trans>
+            <trans lang="de_DE">Überblendungszeit der Menüelemente beim Bewegen durch die Menüs. Steht dieser Wert auf 0, ist dieser Effekt deaktiviert.</trans>
+        </token>
+        <token name="tr(helplistshifttime)">
+            <trans lang="en_EN">Shift time of menu elements when scrolling through the menus. If set to 0, this effect is disabled.</trans>
+            <trans lang="de_DE">Übergangszeit der Menüelemente beim Bewegen durch die Menüs. Steht dieser Wert auf 0, ist dieser Effekt deaktiviert.</trans>
         </token>
         <token name="tr(showdevices)">
             <trans lang="en_EN">Show DVB device info</trans>

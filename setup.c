@@ -132,6 +132,7 @@ cSkinDesignerSetup::cSkinDesignerSetup(skindesignerapi::cPluginStructure *skinPr
     rerunDistance = config.rerunDistance;
     rerunMaxChannel = config.rerunMaxChannel;
     numCustomTokens = config.numCustomTokens;
+    FPS = config.FPS;
     menuDisplayStyle[0] = tr("after one another");
     menuDisplayStyle[1] = tr("at one go");
 #ifndef DO_NOT_USE_SKININSTALLER
@@ -272,6 +273,7 @@ void cSkinDesignerSetup::Store(void) {
     config.rerunDistance = rerunDistance;
     config.rerunMaxChannel = rerunMaxChannel;
     config.numCustomTokens = numCustomTokens;
+    config.FPS = FPS;
 
     config.InitSetupIterator();
     cSkinSetup *skinSetup = NULL;
@@ -296,6 +298,7 @@ void cSkinDesignerSetup::Store(void) {
     SetupStore("RerunDistance", rerunDistance);
     SetupStore("RerunMaxChannel", rerunMaxChannel);
     SetupStore("NumCustomTokens", numCustomTokens);
+    SetupStore("FPS", FPS);
 }
 
 cOsdItem *cSkinDesignerSetup::InfoItem(const char *label) {
@@ -308,6 +311,7 @@ cOsdItem *cSkinDesignerSetup::InfoItem(const char *label) {
 void cSkinDesignerSetup::PluginSetup(void) {
     Add(InfoItem(tr("Plugin Setup")));
 
+    Add(new cMenuEditIntItem(tr("Frames per Second to display animations"), &FPS, 10, 60));
     Add(new cMenuEditIntItem(tr("Maximum number of custom tokens"), &numCustomTokens, 0, 100));
 
     Add(InfoItem(tr("Reruns")));

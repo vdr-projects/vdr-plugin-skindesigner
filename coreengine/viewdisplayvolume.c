@@ -40,13 +40,12 @@ void cViewVolume::SetVolume(int current, int total, bool mute) {
         veVolume->Set(current, total, mute);
 }
 
-void cViewVolume::Flush(bool animFlush) {
+void cViewVolume::Flush(void) {
     if (init) {
-        sdOsd.LockFlush();
         Render((int)eVeDisplayVolume::background);
     }
     Render((int)eVeDisplayVolume::volume);
-    cView::Flush(animFlush);
+    cView::Flush();
 }
 
 

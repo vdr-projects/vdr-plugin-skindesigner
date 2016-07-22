@@ -135,6 +135,11 @@ void cViewReplay::SetViewElementObjects(void) {
     }
 }
 
+void cViewReplay::PreCache(void) {
+    cView::PreCache();
+    SetViewelementsAnimOut();
+}
+
 void cViewReplay::ClearVariables(void) {
     cView::ClearVariables();
     modeOnly = false;
@@ -276,9 +281,8 @@ void cViewReplay::DelayOnPause(void) {
     veOnPause->ResetSleep();
 }
 
-void cViewReplay::Flush(bool animFlush) {
+void cViewReplay::Flush(void) {
     if (init) {
-        sdOsd.LockFlush();
         if (!modeOnly) {
             Render((int)eVeDisplayReplay::background);
             Render((int)eVeDisplayReplay::rectitle);
@@ -303,7 +307,7 @@ void cViewReplay::Flush(bool animFlush) {
         SetProgressModeOnly();
     }
 
-    cView::Flush(animFlush);
+    cView::Flush();
 }
 
 void cViewReplay::SetProgressModeOnly(void) {

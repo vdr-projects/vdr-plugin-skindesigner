@@ -121,7 +121,7 @@
         </areacontainer>
     </header>
 
-    <datetime>
+    <datetime shifttime="400" shifttype="right">
         <area x="75%" y="0" width="12%" height="10%" layer="2">
             <drawtext align="right" y="0%" font="{light}" fontsize="55%" color="{fontactive}" text="{dayname}" />
             <drawtext align="right" y="45%" font="{light}" fontsize="55%" color="{fontactive}" text="{day}. {monthnameshort}" />
@@ -131,7 +131,7 @@
         </area>
     </datetime>
     
-    <currentweather condition="gt({indexshowweather},0)">
+    <currentweather condition="gt({indexshowweather},0)" shifttime="400" shifttype="right">
         <areacontainer condition="not{mainmenusmall}++eq({indexmainmenuorientation},0)">
             <area x="50%" y="0" width="14%" height="10%" layer="3">
                 <drawimage imagetype="icon" path="{icon}" align="center" valign="center" width="{areaheight}*0.9" height="{areaheight}*0.9"/>
@@ -455,23 +455,21 @@
     </temperatures>
 
     <menuitems x="0" y="7%" orientation="vertical" width="70%" height="57%" align="center" numlistelements="{menuitemsmax}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <areacontainer x="0" width="57%" condition="not{mainmenusmall}">
-                <area layer="2">
-                    <fill condition="not{current}" color="{clrTransparent}" />
-                    <fill condition="{current}" color="{menuactive}" />
+                <area indicator="true" condition="{current}" layer="2">
+                    <fill color="{menuactive}" />
                 </area>
                 <areascroll condition="{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{number} {label}" />
                 </areascroll>
-                <areascroll condition="not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
+                <areascroll condition="not{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="4">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{number} {label}" />
                 </areascroll>
             </areacontainer>
             <areacontainer x="0" width="41%" condition="{mainmenusmall}">
-                <area layer="2">
-                    <fill condition="not{current}" color="{clrTransparent}" />
-                    <fill condition="{current}" color="{menuactive}" />
+                <area indicator="true" condition="{current}" layer="2">
+                    <fill color="{menuactive}" />
                 </area>
                 <areascroll condition="{current}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="0" width="99%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{number} {label}" />
@@ -493,7 +491,7 @@
     </menuitems>
 
     <menuitems orientation="horizontal" condition="not{mainmenusmall}" x="2%" y="10%" width="96%" height="50%" align="center" numlistelements="{menuitemsmax}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <areacontainer condition="not{current}">
                 <area x="0" width="100%" y="10%" height="80%" layer="3">
                     <drawimage imagetype="menuicon" path="{icon}" align="center"  valign="center" width="{areaheight}*0.4" height="{areaheight}*0.4"/>
@@ -503,7 +501,7 @@
                 </areascroll>
             </areacontainer>
             <areacontainer condition="{current}">
-                <area x="0" y="15%" width="100%" height="75%" layer="2">
+                <area indicator="true" x="0" y="15%" width="100%" height="75%" layer="2">
                     <fill color="{menuactive}" />
                 </area>
                 <area x="0" width="100%" y="10%" height="80%" layer="3">
@@ -516,14 +514,14 @@
         </listelement>
     </menuitems>
     <menuitems orientation="horizontal" condition="{mainmenusmall}" x="0" y="7%" width="44%" height="56%" align="center" numlistelements="{menuitemsmax}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <areacontainer condition="not{current}">
                 <area x="0" width="100%" y="10%" height="60%" layer="3">
                     <drawimage imagetype="menuicon" path="{icon}" valign="center"  align="center" x="0" y="10%" width="{areawidth}*0.7" height="{areawidth}*0.7"/>
                 </area>
             </areacontainer>
             <areacontainer condition="{current}">
-                <area x="0" y="10%" width="100%" height="60%" layer="2">
+                <area indicator="true" x="0" y="10%" width="100%" height="60%" layer="2">
                     <fill color="{menuactive}" />
                 </area>
                 <area x="0" width="100%" y="10%" height="60%" layer="3">

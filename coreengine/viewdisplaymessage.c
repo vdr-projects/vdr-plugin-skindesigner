@@ -43,12 +43,11 @@ void cViewMessage::SetMessage(eMessageType type, const char *text) {
         veMessage->Set(type, text);
 }
 
-void cViewMessage::Flush(bool animFlush) {
+void cViewMessage::Flush(void) {
     if (init) {
-        sdOsd.LockFlush();
         Render((int)eVeDisplayMessage::background);
     }
     Render((int)eVeDisplayMessage::message);
-    cView::Flush(animFlush);
+    cView::Flush();
 }
 

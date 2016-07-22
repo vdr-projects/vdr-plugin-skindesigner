@@ -1,220 +1,40 @@
+#include "../config.h"
 #include "animation.h"
 #include <math.h>
 
 /******************************************************************
-* cAnimation
+* cDetacher
 ******************************************************************/
-cAnimation::cAnimation(cScrollable *scrollable) : cThread("scroller") {
-    this->scrollable = scrollable;
-    this->detachable = NULL;
-    this->fadable = NULL;
-    this->shiftable = NULL;
-    this->blinkable = NULL;
-    waitOnWakeup = false;
-    keepSleeping = false;
-    doAnimation = true;
-    modeIn = false;
-    blinkFunc = -1;
-}
-
-cAnimation::cAnimation(cDetachable *detachable, bool wait, bool animation) : cThread("detached") {
-    this->scrollable = NULL;
+cDetacher::cDetacher(cDetachable *detachable, bool wait, bool animation) : cThread("detacher thread") {
     this->detachable = detachable;
-    this->fadable = NULL;
-    this->shiftable = NULL;
-    this->blinkable = NULL;
     waitOnWakeup = wait;
     keepSleeping = false;
     doAnimation = animation;
-    modeIn = false;
-    blinkFunc = -1;
 }
 
-cAnimation::cAnimation(cFadable *fadable, bool fadein) : cThread("fadable") {
-    this->scrollable = NULL;
-    this->detachable = NULL;
-    this->fadable = fadable;
-    this->shiftable = NULL;
-    this->blinkable = NULL;
-    waitOnWakeup = false;
-    keepSleeping = false;
-    doAnimation = true;
-    modeIn = fadein;
-    blinkFunc = -1;
-}
-
-cAnimation::cAnimation(cShiftable *shiftable, cPoint &start, cPoint &end, bool shiftin) : cThread("shiftable") {
-    this->scrollable = NULL;
-    this->detachable = NULL;
-    this->fadable = NULL;
-    this->shiftable = shiftable;
-    this->blinkable = NULL;
-    waitOnWakeup = false;
-    keepSleeping = false;
-    doAnimation = true;
-    modeIn = shiftin;
-    shiftstart = start;
-    shiftend = end;
-    blinkFunc = -1;
-}
-
-cAnimation::cAnimation(cBlinkable *blinkable, int func) : cThread("blinking") {
-    this->scrollable = NULL;
-    this->detachable = NULL;
-    this->fadable = NULL;
-    this->shiftable = NULL;
-    this->blinkable = blinkable;
-    waitOnWakeup = false;
-    keepSleeping = false;
-    doAnimation = true;
-    modeIn = false;
-    blinkFunc = func;
-}
-
-cAnimation::~cAnimation(void) {
+cDetacher::~cDetacher(void) {
     sleepWait.Signal();
     Cancel(2);
 }
 
-void cAnimation::WakeUp(void) {
+void cDetacher::WakeUp(void) {
     sleepWait.Signal();
 }
 
-void cAnimation::ResetSleep(void) {
+void cDetacher::ResetSleep(void) {
     keepSleeping = true;
     sleepWait.Signal();
 }
 
-void cAnimation::Stop(bool deletePixmaps) { 
+void cDetacher::Stop(bool deletePixmaps) { 
     sleepWait.Signal();
     Cancel(2);
-    if (scrollable && deletePixmaps)
-        scrollable->StopScrolling();
 }
 
-void cAnimation::Action(void) {
-    if (scrollable) {
-        Scroll();
-        scrollable->UnregisterAnimation();
-    } else if (detachable) {
-        Detach();
-    } else if (fadable) {
-        Fade();
-        fadable->UnregisterAnimation();
-    } else if (shiftable) {
-        Shift();
-        shiftable->UnregisterAnimation();
-    } else if (blinkable) {
-        blinkable->RegisterAnimation();
-        Blink();
-        blinkable->UnregisterAnimation();
-    }
-}
-
-void cAnimation::Sleep(int duration) {
-    //sleep should wake up itself, so no infinit wait allowed
-    if (duration <= 0)
+void cDetacher::Action(void) {
+    if (!detachable) {
         return;
-    do {
-        keepSleeping = false;
-        sleepWait.Wait(duration);
-    } while (keepSleeping);
-}
-
-void cAnimation::Wait(void) {
-    //wait has to be waked up from outside
-    sleepWait.Wait(0);
-}
-
-void cAnimation::Scroll(void) {
-    int delay = scrollable->ScrollDelay();
-    Sleep(delay);
-    scrollable->RegisterAnimation();
-    if (!Running()) return;
-    
-    eOrientation orientation = scrollable->ScrollOrientation();
-    int scrollTotal = 0;
-    if (orientation == eOrientation::horizontal) {
-        scrollTotal = scrollable->ScrollWidth();
-    } else if (orientation == eOrientation::vertical) {
-        scrollTotal = scrollable->ScrollHeight();
     }
-
-    eScrollMode mode = scrollable->ScrollMode();
-    bool carriageReturn = (mode == eScrollMode::carriagereturn) ? true : false;
-    
-    eScrollSpeed speed = scrollable->ScrollSpeed();
-    int frameTime = 30;
-    if (speed == eScrollSpeed::slow)
-        frameTime = 50;
-    else if (speed == eScrollSpeed::medium)
-        frameTime = 30;
-    else if (speed == eScrollSpeed::fast)
-        frameTime = 15;
-
-    if (!Running()) return;    
-    
-    scrollable->StartScrolling();
-    
-    int drawPortX = 0;
-    int drawPortY = 0;
-    int scrollDelta = 1;
-
-    bool doSleep = false;
-    while (Running()) {
-        if (doSleep) {
-            Sleep(delay);
-            doSleep = false;
-        }
-        if (!Running()) return;
-        uint64_t now = cTimeMs::Now();
-        
-        cPoint drawPortPoint(0,0);
-        if (orientation == eOrientation::horizontal) {
-
-            drawPortX -= scrollDelta;
-            if (abs(drawPortX) > scrollTotal) {
-                Sleep(delay);
-                if (carriageReturn) {
-                    drawPortX = 0;
-                    doSleep = true;
-                } else {
-                    scrollDelta *= -1;
-                    drawPortX -= scrollDelta;
-                }
-            }            
-            drawPortPoint.SetX(drawPortX);
-
-        } else if (orientation == eOrientation::vertical) {
-
-            drawPortY -= scrollDelta;
-            if (abs(drawPortY) > scrollTotal) {
-                Sleep(delay);
-                drawPortY = 0;
-                doSleep = true;
-            } 
-            drawPortPoint.SetY(drawPortY);
-
-        }
-        
-        if (!Running()) return;
-        scrollable->SetDrawPort(drawPortPoint);
-
-        if (!Running()) return;
-        scrollable->Flush(true);
-
-        if (orientation == eOrientation::horizontal && !carriageReturn && (drawPortX == 0)) {
-            scrollDelta *= -1;
-            doSleep = true;
-        }
-
-        int delta = cTimeMs::Now() - now;
-        if (delta < frameTime)
-            Sleep(frameTime - delta);
-    }
-}
-
-void cAnimation::Detach(void) {
     if (waitOnWakeup) {
         Wait();
         int delay = 50 + detachable->Delay();
@@ -224,155 +44,625 @@ void cAnimation::Detach(void) {
         if (delay > 0)
             Sleep(delay);
     }
-    //if (!Running()) return;
+
     detachable->ParseDetached();
-    //if (!Running()) return;
     detachable->RenderDetached();
-    //if (!Running()) return;
     if (!doAnimation)
-        detachable->Flush(false);
+        detachable->Flush();
     if (!Running()) return;
     if (doAnimation) {
         detachable->StartAnimation();        
     }
 }
 
-void cAnimation::Fade(void) {
-    int fadetime = fadable->FadeTime();
-    int frametime = 1000 / FPS;
-    int step = 100.0f / ((double)fadetime / (double)frametime);
-    uint64_t start = cTimeMs::Now();
-    int transparency = 0;
-    if (modeIn) {
-        transparency = 100 - step;
-    } else {
-        transparency = step;
-    }
-    //wait configured delay if not already done by detacher
-    if (!fadable->Detached()) {
-        int delay = fadable->Delay();
-        if (delay > 0)
-            Sleep(delay);
-    }
-    fadable->RegisterAnimation();
-    while (Running() || !modeIn) {
-        uint64_t now = cTimeMs::Now();
-        if (Running() || !modeIn)
-            fadable->SetTransparency(transparency, !modeIn);
-        if (Running() || !modeIn)
-            fadable->Flush(true);
-        int delta = cTimeMs::Now() - now;
-        if ((Running()  || !modeIn) && (delta < frametime)) {
-            Sleep(frametime - delta);
-        }
-        if ((int)(now - start) > fadetime) {
-            if ((Running() && modeIn) && transparency > 0) {
-                fadable->SetTransparency(0);
-                fadable->Flush(true);
-            } else if (!modeIn && transparency < 100) {
-                fadable->SetTransparency(100, true);
-                fadable->Flush(true);                
-            } 
-            break;
-        }
-        if (modeIn) {
-            transparency -= step;
-            if (transparency < 0)
-                transparency = 0;
-        } else {
-            transparency += step;
-            if (transparency > 100)
-                transparency = 100;            
-        }
-    }
-}
-
-void cAnimation::Shift(void) {
-    int shifttime = shiftable->ShiftTime();
-    eShiftMode mode = (eShiftMode)shiftable->ShiftMode();
-    //in shiftmode slowedDown shifting is done starting with slowratio % faster
-    //at start. Then speed reduces linear to (100 - slowratio)% at end
-    //for me 60 is a nice value :-) 
-    int slowRatio = 60;
-
-    int frametime = 1000 / FPS;
-    int steps = (double)shifttime / (double)frametime;
-    if (steps < 2)
+void cDetacher::Sleep(int duration) {
+    if (duration <= 0)
         return;
-    int stepXLinear = 0;
-    int stepYLinear = 0;
-    if (shiftstart.X() == shiftend.X()) {
-        stepYLinear = (shiftend.Y() - shiftstart.Y()) / steps;
-    } else if (shiftstart.Y() == shiftend.Y()) {
-        stepXLinear = (shiftend.X() - shiftstart.X()) / steps;
-    } else {
-        stepXLinear = (shiftend.X() - shiftstart.X()) / steps;
-        stepYLinear = (shiftend.Y() - shiftstart.Y()) / steps;        
-    }
-    int stepX = stepXLinear;
-    int stepY = stepYLinear;
-
-    cPoint pos;
-    if (modeIn)
-        pos = shiftstart;
-    else
-        pos = shiftend;
-
-    //wait configured delay if not already done by detacher
-    if (!shiftable->Detached()) {
-        int delay = shiftable->Delay();
-        if (delay > 0)
-            Sleep(delay);
-    }
-    shiftable->RegisterAnimation();
-    shiftable->SetStartShifting();
-    uint64_t start = cTimeMs::Now();
-    bool finished = false;
-    while (Running() || !modeIn) {
-        uint64_t now = cTimeMs::Now();
-        if (Running() || !modeIn)
-            shiftable->SetPosition(pos, shiftend);
-        if (Running() || !modeIn)
-            shiftable->Flush(true);
-        int delta = cTimeMs::Now() - now;
-        if ((Running()  || !modeIn) && (delta < frametime)) {
-            cCondWait::SleepMs(frametime - delta);
-        }
-        if ((int)(now - start) > shifttime) {
-            finished = true;
-            if ((Running() && modeIn) && pos != shiftend) {
-                shiftable->SetPosition(shiftend, shiftend);
-                shiftable->Flush(true);
-            }
-            break;
-        }
-        if (mode == eShiftMode::slowedDown) {
-            double t = (double)(now - start) / (double)shifttime;
-            double factor = 1.0f + (double)slowRatio / 100.0f - 2.0f * ((double)slowRatio / 100.0f) * t;
-            stepX = stepXLinear * factor;
-            stepY = stepYLinear * factor;
-        }
-        if (modeIn) {
-            pos.Set(pos.X() + stepX, pos.Y() + stepY);
-        } else {
-            pos.Set(pos.X() - stepX, pos.Y() - stepY);
-        }
-    }
-    if (!finished) {
-        shiftable->SetPosition(shiftend, shiftend);
-    }
-    shiftable->SetEndShifting();
+    do {
+        keepSleeping = false;
+        sleepWait.Wait(duration);
+    } while (keepSleeping);
 }
 
-void cAnimation::Blink(void) {
-    int freq = blinkable->BlinkFreq(blinkFunc);
-    bool blinkOn = false;
-    while (Running()) {
-        Sleep(freq);
-        if (Running())
-            blinkable->DoBlink(blinkFunc, blinkOn);
-        if (Running())
-            blinkable->Flush(true);  
-        blinkOn = !blinkOn;
+void cDetacher::Wait(void) {
+    //wait has to be waked up from outside
+    sleepWait.Wait(0);
+}
+
+/******************************************************************
+* cAnimaton
+******************************************************************/
+cAnimation::cAnimation(void) {
+    started = 0;
+    finished = false;
+    persistent = false;
+    frametime = 1000 / config.FPS;
+}
+
+cAnimation::~cAnimation(void) {
+}
+
+/******************************************************************
+* cScroller
+******************************************************************/
+cScroller::cScroller(cScrollable *scrollable) { 
+    this->scrollable = scrollable;
+    paused = true;
+    pauseTime = 0;
+    scrollingStarted = false;
+    secondDelay = false;
+    delScrollPix = true;
+    Init();
+}
+
+cScroller::~cScroller(void) {
+}
+
+void cScroller::Init(void) {
+    delay = scrollable->ScrollDelay();
+    orientation = scrollable->ScrollOrientation();
+    if (orientation == eOrientation::horizontal) {
+        scrollLength = scrollable->ScrollWidth();
+    } else if (orientation == eOrientation::vertical) {
+        scrollLength = scrollable->ScrollHeight();
+    }
+    eScrollMode mode = scrollable->ScrollMode();
+    carriageReturn = (mode == eScrollMode::carriagereturn) ? true : false;
+    drawPortX = 0.0f;
+    drawPortY = 0.0f;
+    eScrollSpeed speed = scrollable->ScrollSpeed();
+    if (speed == eScrollSpeed::slow)
+        scrollDelta = 0.5f;
+    else if (speed == eScrollSpeed::fast)
+        scrollDelta = 2.0f;
+    else
+        scrollDelta = 1.0f;
+}
+
+void cScroller::Reactivate(void) {}
+void cScroller::SetInitial(void) {}
+
+bool cScroller::Pause(void) {
+    if (!paused)
+        return false;
+    if ((pauseTime + frametime) > delay) {
+        paused = false;
+        pauseTime = 0;
+        return false;
+    }
+    pauseTime += frametime;
+    return true;
+}
+
+bool cScroller::Overflow(void) {
+    if (orientation == eOrientation::horizontal) {
+        if (!carriageReturn && (drawPortX >= 1)) {
+            drawPortX = 0;
+            scrollDelta *= -1;
+            paused = true;
+            return true;
+        }
+        if (carriageReturn && (drawPortX >= 0) && secondDelay) {
+            cPoint drawPortPoint(drawPortX,0);
+            scrollable->SetDrawPort(drawPortPoint);
+            drawPortX = -1;
+            paused = true;
+            secondDelay = false;
+            return true;
+        }
+        if (abs(drawPortX) < scrollLength)
+            return false;
+        if (carriageReturn) {
+            drawPortX = 0;
+            secondDelay = true;
+        } else {
+            scrollDelta *= -1;
+            drawPortX -= scrollDelta;
+        }
+    } else if (orientation == eOrientation::vertical) {
+        if ((drawPortY >= 0) && secondDelay) {
+            cPoint drawPortPoint(0, drawPortY);
+            scrollable->SetDrawPort(drawPortPoint);
+            drawPortY = -1;
+            paused = true;
+            secondDelay = false;
+            return true;
+        }
+        if (abs(drawPortY) < scrollLength)
+            return false;
+        secondDelay = true;
+        drawPortY = 0;
+    }
+    paused = true;
+    return true;
+}
+
+void cScroller::SetFinished(void) {
+    finished = true;
+    if (delScrollPix) {
+        scrollable->StopScrolling();
+    }
+}
+
+bool cScroller::Tick(void) {
+    if (finished) {
+        return false;
+    }
+
+    if (Pause())
+        return true;
+
+    if (!scrollingStarted) {
+        scrollable->StartScrolling();
+        scrollingStarted = true;
+    }
+
+    if (Overflow())
+        return true;
+
+    cPoint drawPortPoint(0,0);
+    if (orientation == eOrientation::horizontal) {
+        drawPortX -= scrollDelta;
+        drawPortPoint.SetX(drawPortX);
+    } else if (orientation == eOrientation::vertical) {
+        drawPortY -= scrollDelta;
+        drawPortPoint.SetY(drawPortY);
+    }
+    scrollable->SetDrawPort(drawPortPoint);
+    return true;
+};
+
+/******************************************************************
+* cFader
+******************************************************************/
+cFader::cFader(cFadable *fadable) { 
+    this->fadable = fadable;
+    fadein = true;
+    fadetime = fadable->FadeTime();
+    step = 100.0f / ((double)fadetime / (double)frametime);
+    transparency = 100;
+    hideWhenFinished = false;
+}
+
+cFader::~cFader(void) {
+}
+
+void cFader::Reactivate(void) {
+    started = 0;
+    finished = false;
+    fadein = false;
+}
+
+void cFader::SetInitial(void) {
+    fadable->SetTransparency(transparency);
+}
+
+void cFader::SetFadeOut(void) { 
+    fadein = false;
+    transparency = 0; 
+}
+
+void cFader::SetFinished(void) {
+    finished = true;
+    if (hideWhenFinished)
+        fadable->SetTransparency(100);
+}
+
+bool cFader::Tick(void) {
+    if (finished) {
+        if (fadein)
+            fadable->SetTransparency(0);
+        else
+            fadable->SetTransparency(100);
+        return false;
+    }
+    if (!started) {
+        started = cTimeMs::Now();
+    }
+
+    if ((int)(cTimeMs::Now() - started) > fadetime) {
+        if (fadein)
+            fadable->SetTransparency(0);
+        else
+            fadable->SetTransparency(100);
+        finished = true;
+        return false;
+    }
+    fadable->SetTransparency(transparency);
+    if (fadein) {
+        transparency -= step;
+    } else {
+        transparency += step;
+    }
+    return true;
+};
+
+/******************************************************************
+* cShifter
+******************************************************************/
+cShifter::cShifter(cShiftable *shiftable) { 
+    this->shiftable = shiftable;
+    step = 0;
+    shiftin = true;
+    shifttime = 0;
+    x = 0.0f;
+    y = 0.0f;
+    stepXLinear = 0;
+    stepYLinear = 0;
+    stepsFast = 0;
+    stepXFast = 0;
+    stepXSlow = 0;
+    stepYFast = 0;
+    stepYSlow = 0;
+    Init();
+}
+
+cShifter::~cShifter(void) {
+}
+
+void cShifter::Init(void) {
+    shifttime = shiftable->ShiftTime();
+    mode = (eShiftMode)shiftable->ShiftMode();
+    shiftable->ShiftPositions(&start, &end);
+    int steps = (double)shifttime / (double)frametime;
+    float percentFast = 33.3f;
+    float distanceFast = 85.0f;
+    stepsFast = (float)steps * percentFast / 100.0f;
+    if (start.X() == end.X()) {
+        stepYLinear = (float)(end.Y() - start.Y()) / (float)steps;
+        stepYFast = (float)(end.Y() - start.Y()) * distanceFast / 100.0f / (float)stepsFast;
+        stepYSlow = (float)(end.Y() - start.Y()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);
+    } else if (start.Y() == end.Y()) {
+        stepXLinear = (end.X() - start.X()) / steps;
+        stepXFast = (float)(end.X() - start.X()) * distanceFast / 100.0f / (float)stepsFast;
+        stepXSlow = (float)(end.X() - start.X()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);            
+    } else {
+        stepXLinear = (end.X() - start.X()) / steps;
+        stepXFast = (float)(end.X() - start.X()) * distanceFast / 100.0f / (float)stepsFast;
+        stepXSlow = (float)(end.X() - start.X()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);            
+        stepYLinear = (end.Y() - start.Y()) / steps;
+        stepYFast = (float)(end.Y() - start.Y()) * distanceFast / 100.0f / (float)stepsFast;
+        stepYSlow = (float)(end.Y() - start.Y()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);
+    }
+    x = start.X();
+    y = start.Y();
+}
+
+void cShifter::Reactivate(void) {
+    started = 0;
+    finished = false;
+    shiftin = false;
+    step = 0;
+}
+
+void cShifter::SetInitial(void) {
+    cPoint pos(x, y);
+    shiftable->SetPosition(pos, end);
+}
+
+void cShifter::NextPosition(void) {
+    if (mode == eShiftMode::linear) {
+        if (shiftin) {
+            x += stepXLinear;
+            y += stepYLinear;
+        } else {
+            x -= stepXLinear;
+            y -= stepYLinear;
+        }
+    } else if (mode == eShiftMode::slowedDown) {
+        if (shiftin) {
+            if (step <= stepsFast) {
+                x += stepXFast;
+                y += stepYFast;
+            } else {
+                x += stepXSlow;
+                y += stepYSlow;
+            }
+        } else {
+            if (step <= stepsFast) {
+                x -= stepXFast;
+                y -= stepYFast;
+            } else {
+                x -= stepXSlow;
+                y -= stepYSlow;
+            }
+        }
+    }
+}
+
+bool cShifter::Tick(void) {
+    if (finished)
+        return false;
+    if (!started) {
+        started = cTimeMs::Now();
+    }
+    if ((int)(cTimeMs::Now() - started) > shifttime) {
+        if (shiftin)
+            shiftable->SetPosition(end, end);
+        else
+            shiftable->SetPosition(start, end);
+        finished = true;
+        return false;
+    }
+    cPoint pos(x, y);
+    shiftable->SetPosition(pos, end);
+    step++;
+    NextPosition();
+    return true;
+};
+
+/******************************************************************
+* cListShifter
+******************************************************************/
+cListShifter::cListShifter(cListShiftable *shiftable) { 
+    this->shiftable = shiftable;
+    shifttime = shiftable->ListShiftTime();
+    distance = shiftable->ShiftDistance();
+    orientation = shiftable->ShiftOrientation();
+    int steps = (double)shifttime / (double)frametime;
+    step = distance / steps;
+    shiftin = true;
+    fromtop = true;
+}
+
+cListShifter::~cListShifter(void) {
+}
+
+void cListShifter::Reactivate(void) {}
+
+void cListShifter::SetInitial(void) {
+    if (shiftin) {
+        if (orientation == eOrientation::horizontal) {
+            if (fromtop) {
+                pos.SetX(-1 * distance);
+                pos.SetY(0);
+            } else {
+                pos.SetX(distance);
+                pos.SetY(0);
+            }
+        } else {
+            if (fromtop) {
+                pos.SetX(0);
+                pos.SetY(-1 * distance);
+            } else {
+                pos.SetX(0);
+                pos.SetY(distance);
+            }
+        }
+    }
+    shiftable->SetIndicatorPosition(pos);
+}
+
+void cListShifter::NextPosition(void) {
+    int x = pos.X();
+    int y = pos.Y();
+    if (orientation == eOrientation::horizontal) {
+        if (fromtop) {
+            pos.SetX(x+step);
+        } else {
+            pos.SetX(x-step);
+        }
+    } else {
+        if (fromtop) {
+            pos.SetY(y+step);
+        } else {
+            pos.SetY(y-step);
+        }
+    }
+}
+
+void cListShifter::EndPosition(void) {
+    if (shiftin) {
+        pos.SetX(0);
+        pos.SetY(0);
+    } else {
+        if (orientation == eOrientation::horizontal) {
+            pos.SetX(distance);
+        } else {
+            pos.SetY(distance);                
+        }
+    }
+    shiftable->SetIndicatorPosition(pos);
+}
+
+bool cListShifter::Tick(void) {
+    if (finished) {
+        EndPosition();
+        return false;
+    }
+
+    if (!started) {
+        started = cTimeMs::Now();
+    }
+
+    if ((int)(cTimeMs::Now() - started) > shifttime) {
+        EndPosition();
+        finished = true;
+        return false;
+    }
+    shiftable->SetIndicatorPosition(pos);
+    NextPosition();
+    return true;
+};
+
+/******************************************************************
+* cBlinker
+******************************************************************/
+cBlinker::cBlinker(cBlinkable *blinkable, int blinkFunc) {
+    this->blinkable = blinkable;
+    this->blinkFunc = blinkFunc;
+    freq = blinkable->BlinkFreq(blinkFunc);
+    blinkOn = false;
+    paused = true;
+    pauseTime = 0;
+}
+
+cBlinker::~cBlinker(void) {
+}
+
+void cBlinker::Reactivate(void) {}
+void cBlinker::SetInitial(void) {}
+
+bool cBlinker::Pause(void) {
+    if (!paused)
+        return false;
+    if ((pauseTime + frametime) > freq) {
+        paused = false;
+        pauseTime = 0;
+        return false;
+    }
+    pauseTime += frametime;
+    return true;
+}
+
+bool cBlinker::Tick(void) {
+    if (finished)
+        return false;
+    if (Pause())
+        return true;
+    blinkable->DoBlink(blinkFunc, blinkOn);
+    blinkOn = !blinkOn;
+    paused = true;
+    pauseTime = 0;
+    return true;
+};
+
+/******************************************************************
+* cAnimator
+******************************************************************/
+cAnimator::cAnimator(cSdOsd *osd) : cThread("animator thread") {
+    this->osd = osd;
+    timeneeded = 0;
+    timeslice = 1000 / config.FPS;
+}
+
+cAnimator::~cAnimator(void) {
+    Stop();
+}
+
+void cAnimator::Sleep(uint64_t start) {
+    timeneeded = cTimeMs::Now() - start;
+    int sleepTime = (timeslice - timeneeded) > 0 ? timeslice - timeneeded : 0;
+    if (sleepTime)
+        sleepWait.Wait(sleepTime);
+}
+
+void cAnimator::DoTick(bool &animActive) {
+    animLock.Lock();
+    for (cAnimation *animation = animations.First(); animation; animation = animations.Next(animation)) {
+        if (Running()) {
+            bool currentAnimActive = animation->Tick();
+            animActive = animActive || currentAnimActive;
+        }
+    }
+    animLock.Unlock();
+}
+
+/*****************************************************************************************
+* Cleanup Anims
+* removes finished anims
+* remembers persistent anims 
+*****************************************************************************************/
+void cAnimator::CleanupAnims(void) {
+    bool found;
+    animLock.Lock();
+    do {
+        found = false;
+        for (cAnimation *animation = animations.First(); animation; animation = animations.Next(animation)) {
+            if (!animation->Finished())
+                continue;
+            if (animation->Persistent()) {
+                animations.Del(animation, false);
+                animationsPersistent.Add(animation);
+            } else {
+                animations.Del(animation);
+            }
+            found = true;
+            break;
+        }
+    } while (found);
+    animLock.Unlock();
+}
+
+/*****************************************************************************************
+* Main Loop
+*****************************************************************************************/
+void cAnimator::Action(void) {
+    while(Running()) {
+        bool animActive = false;
+        uint64_t start = cTimeMs::Now();
+        DoTick(animActive);                 if (!Running()) break;
+        osd->Flush();                       if (!Running()) break;
+        CleanupAnims();                     if (!Running()) break;
+        if (!animActive) {
+            pauseWait.Wait();
+        } else {
+            Sleep(start);            
+        }
+    }
+}
+
+/*****************************************************************************************
+* Add Animation
+* if startAnim is set to true, main loop gets waked up
+*****************************************************************************************/
+void cAnimator::AddAnimation(cAnimation *animation, bool startAnim) {
+    animation->SetInitial();
+    animLock.Lock();
+    animations.Ins(animation);
+    animLock.Unlock();
+    if (startAnim)
+        pauseWait.Signal();
+}
+
+/*****************************************************************************************
+* Remove Animation
+* animation will be set to finished and removed later by Cleanup()
+*****************************************************************************************/
+void cAnimator::RemoveAnimation(cAnimation *remove) {
+    animLock.Lock();
+    for (cAnimation *animation = animations.First(); animation; animation = animations.Next(animation)) {
+        if (animation == remove) {
+            animation->SetFinished();
+            break;
+        }
+    }
+    animLock.Unlock();
+}
+
+/*****************************************************************************************
+* Finish Main Loop
+*****************************************************************************************/
+void cAnimator::Stop(void) {
+    if (!Running())
+        return;
+    Cancel(-1);
+    pauseWait.Signal();
+    sleepWait.Signal();
+    Cancel(2);
+}
+
+/*****************************************************************************************
+* shift or fade out persistent animations
+*****************************************************************************************/
+void cAnimator::Finish(void) {
+    bool animActive = true;
+    bool reactivate = true;
+    while(animActive) {
+        animActive = false;
+        uint64_t start = cTimeMs::Now();
+        animLock.Lock();
+        for (cAnimation *animation = animationsPersistent.First(); animation; animation = animationsPersistent.Next(animation)) {
+            if (reactivate)
+                animation->Reactivate();
+            bool currentAnimActive = animation->Tick();
+            animActive = animActive || currentAnimActive;
+        }
+        animLock.Unlock();
+        reactivate = false;
+        osd->Flush();
+        if (!animActive)
+            break;
+        Sleep(start);
     }
 }

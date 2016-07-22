@@ -22,5 +22,5 @@ void cSDDisplayVolume::SetVolume(int Current, int Total, bool Mute) {
 void cSDDisplayVolume::Flush(void) {
     if (!ok)
         return;
-    view->Flush(false);
+    view->Flush();
 }

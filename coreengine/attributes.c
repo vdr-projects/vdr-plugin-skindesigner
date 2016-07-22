@@ -359,6 +359,8 @@ void cAreaAttribs::Set(vector<stringpair> &attributes) {
             SetScrollSpeed(id, attVal);
         } else if (IdEqual(id, (int)eAreaAttribs::background)) {
             SetBool(id, attVal);
+        } else if (IdEqual(id, (int)eAreaAttribs::indicator)) {
+            SetBool(id, attVal);
         } else if (IdEqual(id, (int)eAreaAttribs::name)) {
             name = new cTextExpr(attVal);
         } else {
@@ -377,6 +379,13 @@ int cAreaAttribs::Layer(void) {
 bool cAreaAttribs::BackgroundArea(void) {
     int isBackground = GetValue((int)eAreaAttribs::background);
     if (isBackground == 1)
+        return true;
+    return false; 
+}
+
+bool cAreaAttribs::IndicatorArea(void) {
+    int isIndicator = GetValue((int)eAreaAttribs::indicator);
+    if (isIndicator == 1)
         return true;
     return false; 
 }
@@ -405,6 +414,7 @@ void cAreaAttribs::SetAttributesDefs(void) {
     attribIDs.insert(pair<string, int>("scrollspeed", (int)eAreaAttribs::scrollspeed));
     attribIDs.insert(pair<string, int>("delay", (int)eAreaAttribs::delay));
     attribIDs.insert(pair<string, int>("background", (int)eAreaAttribs::background));
+    attribIDs.insert(pair<string, int>("indicator", (int)eAreaAttribs::indicator));
     attribIDs.insert(pair<string, int>("name", (int)eAreaAttribs::name));
     attribIDs.insert(pair<string, int>("scrollheight", (int)eAreaAttribs::scrollheight));
     attribNames.insert(pair<int, string>((int)eAreaAttribs::layer, "layer"));

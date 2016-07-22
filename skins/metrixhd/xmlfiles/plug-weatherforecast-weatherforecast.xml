@@ -49,11 +49,10 @@
     </scrollbar>    
 
     <menuitems x="0" y="10%" orientation="vertical" width="100%" height="82%" align="center" numlistelements="10">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area x="1%" width="46%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
-                <fill condition="{current}" color="{menuactive}" />
+            <area indicator="true" condition="{current}" x="1%" width="46%" layer="2">
+                <fill color="{menuactive}" />
             </area>
             <area x="1%" width="46%" layer="3">
                 <drawtext condition="not{current}" x="10" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{menuitemtext}" />
@@ -96,11 +95,10 @@
         </currentelement>
     </menuitems>
     <menuitems x="0" y="10%" orientation="horizontal" width="100%" height="90%" align="center" numlistelements="3">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area y="80%" height="20%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
-                <fill condition="{current}" color="{menuactive}" />
+            <area indicator="true" condition="{current}" y="80%" height="20%" layer="2">
+                <fill color="{menuactive}" />
             </area>
             <area y="80%" height="20%" layer="3">
                 <drawtextbox condition="not{current}" x="0" y="0" width="100%" height="100%" align="center" valign="center" font="{light}" fontsize="40%" color="{fontdefault}" text="{menuitemtext}" />

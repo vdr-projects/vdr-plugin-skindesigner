@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <list>
 
 #include "osdwrapper.h"
 #include "definitions.h"
@@ -45,13 +46,16 @@ public:
     virtual void Close(void) {};
     virtual void StopBlinkers(void) {};
     virtual void Clear(bool forceClearBackground = false) {};
+    virtual void ClearWithoutIndicators(void) {};
     virtual void Hide(void) {};
     virtual void Show(void) {};
     virtual void Render(void) {};
     virtual bool Execute(void) { return true; };
     virtual void SetTransparency(int transparency, bool absolute = false) {};
+    virtual void SetIndicatorTransparency(int transparency) {};
     virtual void SetViewPort(cRect &vp) {};
     virtual void SetPosition(cPoint &pos, cPoint &ref) {};
+    virtual void SetIndicatorPosition(cPoint &pos) {};
     virtual cRect CoveringArea(void) { return cRect::Null; };
     virtual bool Scrolling(void) { return false; };
     virtual cArea *ScrollingArea(void) { return NULL; };
@@ -77,7 +81,7 @@ private:
     bool scrolling;
     bool isScrolling;
     cFunction *scrollFunc;
-    cList<cAnimation> blinkers;
+    list<cBlinker*> blinkers;
     bool blinking;
     void InitFunctions(void);
     void CreatePixmap(cRect drawPort = cRect::Null);
@@ -105,11 +109,15 @@ public:
     int GetWidth(void) { return attribs->Width(); };
     void Close(void);
     void Clear(bool forceClearBackground = false);
+    void ClearWithoutIndicators(void);
     void Hide(void);
     void Show(void);
     void Render(void);
     bool Execute(void);
+    bool IsIndicatorArea(void) { return attribs->IndicatorArea(); };
     void SetTransparency(int transparency, bool absolute = false);
+    void SetIndicatorTransparency(int transparency);
+    void SetIndicatorPosition(cPoint &pos);
     cRect CoveringArea(void);
     //Scrollable
     bool Scrolling(void);
@@ -133,11 +141,8 @@ public:
     void DoBlink(int func, bool on);
     void StopBlinkers(void);
     //Common
-    void RegisterAnimation(void);
-    void UnregisterAnimation(void);
     const char *Name(void) { return attribs->Name(); };
     bool BackgroundArea(void) { return attribs->BackgroundArea(); };
-    void Flush(bool animFlush);
     void Debug(bool full = false);
 };
 
@@ -165,11 +170,14 @@ public:
     void Cache(void);
     void Close(void);
     void Clear(bool forceClearBackground = false);
+    void ClearWithoutIndicators(void);
     void Hide(void);
     void Show(void);
     void Render(void);
     bool Execute(void);
     void SetTransparency(int transparency, bool absolute = false);
+    void SetIndicatorTransparency(int transparency);
+    void SetIndicatorPosition(cPoint &pos);
     void SetViewPort(cRect &vp);
     void SetPosition(cPoint &pos, cPoint &ref);
     cRect CoveringArea(void);

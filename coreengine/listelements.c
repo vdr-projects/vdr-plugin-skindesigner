@@ -13,15 +13,24 @@ cListElement::cListElement(void) {
     current = false;
     wasCurrent = false;
     selectable = false;
+    selectedFromTop = true;
+    suppressAnimation = false;
+    listShifter = NULL;
     currentElement = NULL;
     menuCat = mcUndefined;
+    orientation = eOrientation::vertical;
 };
 
 cListElement::cListElement(const cListElement &other) : cViewElement(other) {
     num = -1;
     current = false; 
+    wasCurrent = false;
     selectable = false;     
+    selectedFromTop = true;
+    suppressAnimation = false;
+    listShifter = NULL;
     currentElement = NULL;
+    orientation = eOrientation::vertical;
 }
 
 void cListElement::SetCurrent(bool cur) { 
@@ -54,6 +63,80 @@ void cListElement::WakeCurrent(void) {
     }    
 }
 
+void cListElement::Render(void) {
+    if (!dirty || blocked)
+        return;
+
+    if (attribs->DoDebug())
+        Debug();
+    bool animated = Fading() || Shifting();
+
+    for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        //Check redraw of already scrolling list element
+        if (drawn && scrollingStarted && node->Scrolling()) {
+            if (DoScroll()) {
+                //current list element
+                continue;
+            } else {
+                //not current list element anymore
+                scrollingStarted = false;
+            }
+        }
+        //don't clear animated list element if it was current 
+        //and animation was not suppressed because of cleared list
+        sdOsd->Lock();
+        if (animated && wasCurrent && !suppressAnimation) {
+            node->ClearWithoutIndicators();
+        } else {
+            node->Clear();
+        }
+        sdOsd->Unlock();
+        if (!node->Execute())
+            continue;
+        sdOsd->Lock();
+        node->Render();
+        sdOsd->Unlock();
+        
+        if (DoScroll() && node->Scrolling()) {
+            cArea *scrollArea = node->ScrollingArea();
+            if (scrollArea) {
+                scrollingStarted = true;
+                cScroller *scroller = new cScroller(scrollArea);
+                scrollers.push_back(scroller);
+                cView::AddAnimation(scroller);                
+            }
+        }     
+    }
+    dirty = false;
+    drawn = true;
+    StartListAnimation();
+}
+
+int cListElement::ShiftDistance(void) {
+    if (orientation == eOrientation::horizontal)
+        return container.Width();
+    return container.Height();
+}
+
+eOrientation cListElement::ShiftOrientation(void) {
+    return orientation;
+}
+
+void cListElement::SetIndicatorPosition(cPoint &position) {
+    for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        sdOsd->Lock();
+        node->SetIndicatorPosition(position);
+        sdOsd->Unlock();
+    }
+}
+
+void cListElement::SetTransparency(int transparency, bool force) {
+    for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
+        sdOsd->Lock();
+        node->SetIndicatorTransparency(transparency);
+        sdOsd->Unlock();
+    }
+}
 
 char *cListElement::ParseSeparator(const char *text) {
     const char *start = text;
@@ -69,6 +152,49 @@ char *cListElement::ParseSeparator(const char *text) {
     memset(ret, 0, len);
     strncpy(ret, start, len-1);
     return ret;
+}
+
+void cListElement::StopListAnimation(void) {
+    if (listShifter) {
+        cView::RemoveAnimation(listShifter);
+        listShifter = NULL;
+    }
+    if (fader) {
+        cView::RemoveAnimation(fader);
+        fader = NULL;
+    }
+}
+
+void cListElement::StartListAnimation(void) {
+    if (suppressAnimation)
+        return;
+    if (!Fading() && !Shifting())
+        return;
+    listShifter = NULL;
+    fader = NULL;
+    if (current) {
+        if (ShiftTime() > 0) {
+            listShifter = new cListShifter((cListShiftable*)this);
+            listShifter->SetDirection(selectedFromTop);
+            cView::AddAnimation(listShifter, true);
+        } else if (FadeTime() > 0) {
+            fader = new cFader((cFadable*)this);
+            cView::AddAnimation(fader, true);
+        }
+    }
+    if (wasCurrent) {
+        if (ShiftTime() > 0) {
+            listShifter = new cListShifter((cListShiftable*)this);
+            listShifter->SetDirection(selectedFromTop);
+            listShifter->SetShiftOut();
+            cView::AddAnimation(listShifter, false);
+        } else if (FadeTime() > 0) {
+            fader = new cFader((cFadable*)this);
+            fader->SetFadeOut();
+            fader->SetHideWhenFinished();
+            cView::AddAnimation(fader, false);
+        }
+    }
 }
 
 /******************************************************************

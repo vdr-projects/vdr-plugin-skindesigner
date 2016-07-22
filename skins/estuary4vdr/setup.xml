@@ -5,6 +5,8 @@
     <menu>
         <parameter type="int" name="fadetime" min="0" max="1000" displaytext="{tr(fadetext)}" helptext="{tr(helpfade)}">0</parameter>
         <parameter type="int" name="shifttime" min="0" max="1000" displaytext="{tr(shifttext)}" helptext="{tr(helpshift)}">300</parameter>
+        <parameter type="int" name="listfadetime" min="0" max="1000" displaytext="{tr(listfadetimetext)}" helptext="{tr(helplistfadetime)}">100</parameter>
+        <parameter type="int" name="listshifttime" min="0" max="1000" displaytext="{tr(listshifttimetext)}" helptext="{tr(helplistshifttime)}">0</parameter>
         <submenu name="subdisplaychannel" displaytext="{tr(subdisplaychannel)}">
             <parameter type="int" name="epgtextposy" min="0" max="100" displaytext="{tr(epgtextposy)}">5</parameter>
             <parameter type="int" name="epgtextfontsize" min="0" max="100" displaytext="{tr(epgtextfontsize)}">50</parameter>
@@ -304,6 +306,22 @@
             <trans lang="fi_FI">Liukuman kesto millisekunteina. Nollasta eriävä arvo aktivoi valikkojen transitioefektit riippumatta häivytyksen kestosta.</trans>
             <trans lang="hu_HU">Késleltetés idő ms-ben. Ha ez be van állítva, hogy az érték > 0, az összes OSD elemek mellett a VDR menü eltolódik, és ki a képernyő alján. Ha fadetime is ennek az értéke nagyobb 0, mindig eltolásával végezzük.</trans>
             <trans lang="it_IT">Tempo di cambio in ms. Se questo è settato ad un valore maggiore di 0 tutti gli elementi OSD dietro al menù Vdr cambiano dalla parte bassa dello schermo. Se il tempo di cambio fosse settato anche ad un valore maggiore di zero, comunque il cambio viene effettuato</trans>
+        </token>
+        <token name="tr(listfadetimetext)">
+            <trans lang="en_EN">Fade time menus [ms]</trans>
+            <trans lang="de_DE">Überblendungszeit Menüs [ms]</trans>
+        </token>
+        <token name="tr(listshifttimetext)">
+            <trans lang="en_EN">Shift time menus [ms]</trans>
+            <trans lang="de_DE">Übergangszeit Menüelemente [ms]</trans>
+        </token>
+        <token name="tr(helplistfadetime)">
+            <trans lang="en_EN">Fade time of menu elements when scrolling through the menus. If set to 0, this effect is disabled.</trans>
+            <trans lang="de_DE">Überblendungszeit der Menüelemente beim Bewegen durch die Menüs. Steht dieser Wert auf 0, ist dieser Effekt deaktiviert.</trans>
+        </token>
+        <token name="tr(helplistshifttime)">
+            <trans lang="en_EN">Shift time of menu elements when scrolling through the menus. If set to 0, this effect is disabled.</trans>
+            <trans lang="de_DE">Übergangszeit der Menüelemente beim Bewegen durch die Menüs. Steht dieser Wert auf 0, ist dieser Effekt deaktiviert.</trans>
         </token>
         <!-- displaychannel -->
         <token name="tr(epgtextposy)">

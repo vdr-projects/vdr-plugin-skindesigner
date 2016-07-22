@@ -49,6 +49,7 @@ private:
     int rerunDistance;
     int rerunMaxChannel;
     int numCustomTokens;
+    int FPS;
     const char *menuDisplayStyle[2];
     void Setup(void);
     virtual void Store(void);

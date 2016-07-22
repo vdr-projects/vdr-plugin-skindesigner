@@ -114,6 +114,7 @@ public:
     int rerunDistance;
     int rerunMaxChannel;
     int numCustomTokens;
+    int FPS;
     //TemplateReload on Setup Close
     bool setupCloseDoReload;
 };

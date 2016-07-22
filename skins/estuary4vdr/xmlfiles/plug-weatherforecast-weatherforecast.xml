@@ -19,11 +19,13 @@
     </scrollbar>    
 
     <menuitems x="2%" y="10%" orientation="horizontal" width="96%" height="80%" align="center" numlistelements="3">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area y="90%" height="10%" layer="2">
-                <fill condition="not{current}" color="{menuback}" />
-                <fill condition="{current}" color="{menubackactive}" />
+            <area condition="{current}" indicator="true" y="90%" height="10%" layer="2">
+                <fill color="{menubackactive}" />
+            </area>
+            <area condition="not{current}" y="90%" height="10%" layer="2">
+                <fill color="{menuback}" />
                 <drawrectangle x="{areawidth}-1" y="0" width="1" height="100%" color="{menubackline}"/>
             </area>
             <area y="90%" height="10%" layer="3">

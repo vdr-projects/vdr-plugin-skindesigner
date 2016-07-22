@@ -13,7 +13,7 @@ public:
     cViewVolume(void);
     virtual ~cViewVolume(void);
     void SetVolume(int current, int total, bool mute);
-    void Flush(bool animFlush);
+    void Flush(void);
 };
 
 #endif //__VIEWDISPLAYVOLUME_H

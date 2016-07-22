@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <list>
 #include <vdr/tools.h>
 #include "osdwrapper.h"
 #include "globals.h"
@@ -24,6 +25,8 @@ protected:
     bool dirty;
     bool blocked;
     bool detached;
+    bool doAnimOut;
+    bool doStartAnim;
     bool waitOnWakeup;
     bool scrollingStarted;
     bool startAnimation;
@@ -35,10 +38,10 @@ protected:
     bool clearAll;
     cList<cAreaNode> areaNodes;
     skindesignerapi::cTokenContainer *tokenContainer;
-    cList<cAnimation> scrollers;
-    cAnimation *detacher;
-    cAnimation *fader;
-    cAnimation *shifter;
+    list<cScroller*> scrollers;
+    cDetacher *detacher;
+    cShifter *shifter;
+    cFader *fader;
     void InheritTokenContainer(void);
     void InheritTokenContainerDeep(void);
     virtual bool DoScroll(void) { return true; };
@@ -54,6 +57,8 @@ public:
     void SetGlobals(cGlobals *globals);
     virtual void SetTokenContainer(void);
     void SetDetached(void) { detached = true; };
+    void SetAnimOut(void) { doAnimOut = true; };
+    void UnsetStartAnim(void) { doStartAnim = false; };
     void UnsetWaitOnWakeup(void) { waitOnWakeup = false; };
     bool Detached(void);
     void SetContainer(int x, int y, int width, int height);
@@ -90,16 +95,15 @@ public:
     int FadeTime(void);
     int ShiftTime(void);
     int ShiftMode(void);
+    void ShiftPositions(cPoint *start, cPoint *end);
     void StartAnimation(void);
     void SetRestartAnimation(void) { restartAnimation = true; };
     virtual void SetTransparency(int transparency, bool force = false);
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
     void SetStartShifting(void) { };
     void SetEndShifting(void) { };
-    void RegisterAnimation(void);
-    void UnregisterAnimation(void);
     cRect CoveredArea(void);
-    void Flush(bool animFlush);
+    void Flush(void);
     virtual bool Parse(bool forced = false);
     cFunction *GetFunction(const char *name);
     virtual void Debug(bool full = false);

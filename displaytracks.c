@@ -27,5 +27,5 @@ void cSDDisplayTracks::SetAudioChannel(int AudioChannel) {
 void cSDDisplayTracks::Flush(void) {
     if (!ok)
         return;
-    view->Flush(false);
+    view->Flush();
 }

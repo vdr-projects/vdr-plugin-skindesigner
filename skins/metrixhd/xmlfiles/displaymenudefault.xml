@@ -82,12 +82,10 @@
     </scrollbar>
     
     <menuitems x="0" y="10%" orientation="vertical" width="94%" height="82%" align="center" menuitemwidth="94%" determinatefont="column1" numlistelements="{listitemsmax}">
-        <listelement>
-            <area x="0" condition="not{separator}" width="100%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
-                <fill condition="{current}" color="{menuactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area indicator="true" condition="{current}++not{separator}" x="0" width="100%" layer="2">
+                <fill color="{menuactive}" />
             </area>
-
             <!-- Separators -->
             <area x="0" condition="{separator}" width="100%" layer="2">
                 <fill color="{menualternate}" />

@@ -26,11 +26,13 @@
     </scrollbar>
 
     <menuitems x="2%" y="9%" condition="eq({indexrecmenustyle}, 0)" orientation="vertical" width="98%" height="82%" align="center" numlistelements="{numitemsrecnarrow}">
-        <listelement>
-            <area x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area condition="{current}" indicator="true" x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area condition="not{current}" x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <!-- recording folder -->
             <area condition="{folder}" x="1%" width="6%" layer="3">
@@ -86,11 +88,13 @@
     </menuitems>
 
     <menuitems x="2%" y="9%" condition="eq({indexrecmenustyle}, 1)" orientation="vertical" width="95%" height="82%" align="center" numlistelements="{numitemsrecwide}">
-        <listelement>
-            <area x="0" y="0" width="100%" height="100%" layer="2">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area condition="{current}" indicator="true" x="0" y="0" width="100%" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area condition="not{current}" x="0" y="0" width="100%" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <!-- recording folder -->
             <areacontainer condition="{folder}">

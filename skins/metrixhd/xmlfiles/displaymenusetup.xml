@@ -46,10 +46,9 @@
     </colorbuttons>
 
     <menuitems x="0" y="10%" orientation="vertical" width="98%" height="80%" align="center" numlistelements="10">
-        <listelement>
-            <area x="0" width="60%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
-                <fill condition="{current}" color="{menuactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area indicator="true" condition="{current}" x="0" width="60%" layer="2">
+                <fill color="{menuactive}" />
             </area>
             <area condition="not{current}" x="0" width="60%" layer="3">
                 <drawtext x="20" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{number} {label}" />

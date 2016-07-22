@@ -1,6 +1,6 @@
 <menuchannels x="0" y="0" width="100%" height="100%" fadetime="0">
     <menuitems x="0" y="10%" orientation="vertical" width="100%" height="82%" align="center" numlistelements="{chlistitemsmax}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <areacontainer condition="not{current}">
                 <!-- Background -->
                 <area x="1%" width="58%" layer="2">
@@ -24,7 +24,7 @@
             </areacontainer>
             <areacontainer condition="{current}">
                 <!-- Background -->
-                <area x="1%" width="58%" layer="2">
+                <area indicator="true" x="1%" width="58%" layer="2">
                     <fill condition="{current}" color="{menuactive}" />
                     <fill condition="{separator}" color="{menuseparator}" />
                 </area>

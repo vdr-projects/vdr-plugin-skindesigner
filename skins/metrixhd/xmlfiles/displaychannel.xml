@@ -176,7 +176,6 @@
         </area>
     </scrapercontent>
 
-
     <channelhints>
         <area background="true" x="0" y="{areaheight}*0.75 - {numhints}*{areaheight}*{zapchannelhintsheight}/1000 + 1" width="{zapchannelhintswidth}*{areawidth}/100" height="{numhints}*{areaheight}*{zapchannelhintsheight}/1000" layer="1">
             <fill color="{menuback}" />
@@ -239,11 +238,13 @@
     </channellistback>
     
     <channellist x="0" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="{listitemsmax}" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
-        <listelement>
-            <area x="0" width="100%" layer="4">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area indicator="true" condition="{current}" x="0" width="100%" layer="4">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+            </area>
+            <area condition="not{current}" x="0" width="100%" layer="4">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <area x="1%" width="25%" layer="5">
                 <drawimage condition="{channellogoexists}" name="logo" imagetype="channellogo" path="{channelid}" align="center" width="80%" height="80%" valign="center" />
@@ -287,11 +288,13 @@
     </grouplistback>
 
     <grouplist x="70%" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="{listitemsmax}-2" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right">
-        <listelement>
-            <area x="0" width="100%" layer="5">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area indicator="true" condition="{current}" x="0" width="100%" layer="5">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+            </area>
+            <area condition="not{current}" x="0" width="100%" layer="5">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <area x="0" width="24%" layer="5">
                 <drawimage condition="not{current}" imagetype="icon" path="folder" align="center" valign="center" width="90%" height="90%" />
@@ -317,11 +320,13 @@
     </groupchannellistback>
 
     <groupchannellist x="40%" y="3%" orientation="vertical" width="30%" height="94%" align="center" numlistelements="{listitemsmax}" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" startx="70%" starty="3%">
-        <listelement>
-            <area x="0" width="100%" layer="2">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area indicator="true" condition="{current}" x="0" width="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuactive}" />
+            </area>
+            <area condition="not{current}" x="0" width="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <area x="1%" width="25%" layer="5">
                 <drawimage condition="{channellogoexists}" name="logo" imagetype="channellogo" path="{channelid}" align="center" width="80%" height="80%" valign="center" />

@@ -1,12 +1,14 @@
 <menusetup x="0" y="0" width="100%" height="100%" fadetime="0" scaletvx="39%" scaletvy="8%" scaletvwidth="60%" scaletvheight="60%">
 
     <menuitems x="2%" y="9%" orientation="vertical" width="98%" height="82%" align="center" numlistelements="10">
-        <listelement>
-            <area x="0" y="0" width="31%" height="100%" layer="2">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="15%" height="100%" color="{menubackactivedark}" />
-                <drawrectangle condition="{current}" x="15%" y="0" width="85%" height="100%" color="{menubackactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area condition="{current}" indicator="true" x="0" y="0" width="31%" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="15%" height="100%" color="{menubackactivedark}" />
+                <drawrectangle x="15%" y="0" width="85%" height="100%" color="{menubackactive}" />
+            </area>
+            <area condition="not{current}" x="0" y="0" width="31%" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <area x="0" y="0" width="5%" height="100%" layer="3">
                 <drawimage condition="not{current}" imagetype="menuicon" path="{icon}" align="center" valign="center" width="{areaheight}*{mainiconsize}/100" height="{areaheight}*{mainiconsize}/100"/>

@@ -101,7 +101,7 @@ public:
     bool Init(void);
     void Close(void);
     void Clear(void);
-    void Flush(bool animFlush);
+    void Flush(void);
     void SetTransparency(int transparency, bool forceDetached = false);
     void Debug(void);
 };

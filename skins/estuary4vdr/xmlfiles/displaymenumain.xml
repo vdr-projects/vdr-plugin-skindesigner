@@ -99,22 +99,24 @@
     </temperatures>
 
     <menuitems x="2%" y="9%" orientation="vertical" width="30%" height="60%" align="center" numlistelements="{numitemsmain}">
-        <listelement>
-            <area x="0" y="0" width="100%" height="100%" layer="3">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="15%" height="100%" color="{menubackactivedark}" />
-                <drawrectangle condition="{current}" x="15%" y="0" width="85%" height="100%" color="{menubackactive}" />
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
+            <area condition="{current}" indicator="true" x="0" y="0" width="100%" height="100%" layer="3">
+                <drawrectangle x="0" y="0" width="15%" height="100%" color="{menubackactivedark}" />
+                <drawrectangle x="15%" y="0" width="85%" height="100%" color="{menubackactive}" />
             </area>
-            <area x="0" y="0" width="15%" height="100%" layer="3">
+            <area condition="not{current}" x="0" y="0" width="100%" height="100%" layer="3">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
+            </area>
+            <area x="0" y="0" width="15%" height="100%" layer="4">
                 <drawimage condition="not{current}" imagetype="menuicon" path="{icon}" align="center" valign="center" width="{areaheight}*{mainiconsize}/100" height="{areaheight}*{mainiconsize}/100"/>
                 <drawimage condition="{current}" imagetype="menuicon" path="{icon}_active" align="center" valign="center" width="{areaheight}*{mainiconsize}/100" height="{areaheight}*{mainiconsize}/100"/>
             </area>
-            <areascroll condition="{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="20%" width="79%" layer="3">
+            <areascroll condition="{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="20%" width="79%" layer="4">
                 <drawtext condition="not{current}" x="0" valign="center" font="{regular}" fontsize="{areaheight}*{mainfontsize}/100" color="{fontdefault}" text="{number} {label}" />
                 <drawtext condition="{current}" name="menutext" x="0" valign="center" font="{regular}" fontsize="{areaheight}*{mainfontsize}/100" color="{fontmenuactive}" text="{number} {label}" />
             </areascroll>
-            <areascroll condition="not{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="20%" width="79%" layer="3">
+            <areascroll condition="not{showlistnumbers}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="20%" width="79%" layer="4">
                 <drawtext condition="not{current}" x="0" valign="center" font="{regular}" fontsize="{areaheight}*{mainfontsize}/100" color="{fontdefault}" text="{label}" />
                 <drawtext condition="{current}" name="menutext" x="0" valign="center" font="{regular}" fontsize="{areaheight}*{mainfontsize}/100" color="{fontmenuactive}" text="{label}" />
             </areascroll>

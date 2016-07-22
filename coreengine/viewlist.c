@@ -1,9 +1,13 @@
 #include "viewlist.h"
+#include "view.h"
 
 cViewList::cViewList(void) {
     globals = NULL;
     attribs = new cViewListAttribs((int)eViewListAttribs::count);
     numElements = 0;
+    orientation = eOrientation::vertical;
+    cleared = true;
+    itemCount = 0;
     listElement = NULL;
     currentElement = NULL;
     listElements = NULL;
@@ -27,8 +31,6 @@ cViewList::~cViewList(void) {
     }
     delete[] listElements;
     delete tokenContainer;
-    delete fader;
-    delete shifter;
 }
 
 void cViewList::SetGlobals(cGlobals *globals) {
@@ -194,9 +196,15 @@ eOrientation cViewList::Orientation(void) {
 
 void cViewList::Draw(eMenuCategory menuCat) {
     int current = -1;
+    int numCalls = 0;
     for (int i = 0; i < numElements; i++) {
         listElements[i]->SetMenuCategory(menuCat);
         if (listElements[i]->Parse()) {
+            if (listElements[i]->Shifting())
+                SetShiftParameters(i, numCalls);
+            if (listElements[i]->Fading() && itemCount == 1) {
+                listElements[i]->SetSuppressAnimation(true);
+            }
             listElements[i]->Render();
             if (listElements[i]->Current()) {
                 listElements[i]->RenderCurrent();
@@ -207,10 +215,11 @@ void cViewList::Draw(eMenuCategory menuCat) {
     if (current >= 0 && listElements[current]) {
         listElements[current]->WakeCurrent();
     }
-
+    cleared = false;
 }
 
 void cViewList::Clear(void) {
+    cleared = true;
     if (!listElements)
         return;
     for (int i = 0; i < numElements; i++) {
@@ -223,10 +232,10 @@ void cViewList::Clear(void) {
 }
 
 void cViewList::Close(void) {
-    delete fader;
-    fader = NULL;
-    delete shifter;
-    shifter = NULL;
+    if (shifter)
+        cView::RemoveAnimation(shifter);
+    if (fader)
+        cView::RemoveAnimation(fader);
     if (!listElements)
         return;
     for (int i = 0; i < numElements; i++) {
@@ -260,49 +269,26 @@ void cViewList::SetPosition(cPoint &position, cPoint &reference, bool force) {
     }
 }
 
-void cViewList::RegisterAnimation(void) {
-   for (int i = 0; i < numElements; i++) {
-        if (listElements[i]) {
-            listElements[i]->RegisterAnimation();
-            break;
-        }
-    } 
+void cViewList::ShiftPositions(cPoint *start, cPoint *end) {
+    cRect shiftbox = CoveredArea();
+    cPoint startPoint = ShiftStart(shiftbox);
+    start->Set(startPoint);
+    end->Set(shiftbox.X(), shiftbox.Y());
 }
 
-void cViewList::UnregisterAnimation(void) {
-   for (int i = 0; i < numElements; i++) {
-        if (listElements[i]) {
-            listElements[i]->UnregisterAnimation();
-            break;
-        }
-    }
-}
-
-void cViewList::StartAnimation(void) {
+void cViewList::StartAnimation(bool animOut) {
+    shifter = NULL;
+    fader = NULL;
     if (ShiftTime() > 0) {
-        cRect shiftbox = CoveredArea();
-        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
-        cPoint start = ShiftStart(shiftbox);
-        SetPosition(start, ref);
-        Flush(false);
-        delete shifter;
-        shifter = new cAnimation((cShiftable*)this, start, ref, true);
-        shifter->Start();
+        shifter = new cShifter((cShiftable*)this);
+        if (animOut)
+            shifter->SetPersistent();
+        cView::AddAnimation(shifter);
     } else if (FadeTime() > 0) {
-        SetTransparency(100);
-        Flush(false);
-        delete fader;
-        fader = new cAnimation((cFadable*)this, true);
-        fader->Start();
-    }
-}
-
-void cViewList::Flush(bool animFlush) {
-    for (int i = 0; i < numElements; i++) {
-        if (listElements[i]) {
-            listElements[i]->Flush(animFlush);
-            break;
-        }
+        fader = new cFader((cFadable*)this);
+        if (animOut)
+            fader->SetPersistent();
+        cView::AddAnimation(fader);
     }
 }
 
@@ -330,6 +316,37 @@ cPoint cViewList::ShiftStart(cRect &shiftbox) {
         start.SetY(cOsd::OsdHeight());
     }
     return start;
+}
+
+void cViewList::SetShiftParameters(int index, int &call) {
+    if (itemCount == 1) {
+        listElements[index]->SetSuppressAnimation(true);
+        return;
+    }
+    listElements[index]->SetSuppressAnimation(cleared);
+    if (listElements[index]->WasCurrent()) {
+        if (call == 0) {
+            call++;
+            listElements[index]->SetSelectedFromTop();
+        } else if (call == 1) {                    
+            call++;
+            listElements[index]->SetSelectedFromBottom();
+        }
+    } else if (listElements[index]->Current()) {
+        if (call == 0) {
+            call++;
+            listElements[index]->SetSelectedFromBottom();
+        } else if (call == 1) {                    
+            call++;
+            listElements[index]->SetSelectedFromTop();
+        }
+    }
+}
+
+void cViewList::CheckListAnimation(int index) {
+    itemCount++;
+    if (listElements[index])
+        listElements[index]->StopListAnimation();
 }
 
 /******************************************************************
@@ -364,6 +381,7 @@ void cViewListDefault::Prepare(int start, int step) {
         listDefault[i] = new cLeMenuDefault(*tpl);
         listElements[i] = listDefault[i];
         listDefault[i]->SetNumber(i);
+        listDefault[i]->SetOrientation(orientation);
         listDefault[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -446,6 +464,7 @@ void cViewListDefault::SetTabs(int tab1, int tab2, int tab3, int tab4, int tab5)
 void cViewListDefault::Set(const char *text, int index, bool current, bool selectable) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listDefault[index]->StopScrolling();
     listDefault[index]->SetCurrent(current);
@@ -489,6 +508,7 @@ void cViewListMain::Prepare(int start, int step) {
         listMain[i] = new cLeMenuMain(*tpl);
         listElements[i] = listMain[i];
         listMain[i]->SetNumber(i);
+        listMain[i]->SetOrientation(orientation);
         listMain[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -524,6 +544,7 @@ void cViewListMain::Prepare(int start, int step) {
 void cViewListMain::Set(const char *text, int index, bool current, bool selectable) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listMain[index]->StopScrolling();
     listMain[index]->SetCurrent(current);
@@ -568,6 +589,7 @@ void cViewListSchedules::Prepare(int start, int step) {
         listSchedules[i] = new cLeMenuSchedules(*tpl);
         listElements[i] = listSchedules[i];
         listSchedules[i]->SetNumber(i);
+        listSchedules[i]->SetOrientation(orientation);
         listSchedules[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -604,6 +626,7 @@ void cViewListSchedules::Set(const cEvent *event, int index, bool current, bool 
                              const cChannel *channel, bool withDate, eTimerMatch timerMatch) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listSchedules[index]->StopScrolling();
     listSchedules[index]->SetCurrent(current);
@@ -640,6 +663,7 @@ void cViewListTimers::Prepare(int start, int step) {
         listTimers[i] = new cLeMenuTimers(*tpl);
         listElements[i] = listTimers[i];
         listTimers[i]->SetNumber(i);
+        listTimers[i]->SetOrientation(orientation);
         listTimers[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -675,6 +699,7 @@ void cViewListTimers::Prepare(int start, int step) {
 void cViewListTimers::Set(const cTimer *timer, int index, bool current, bool selectable) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listTimers[index]->StopScrolling();
     listTimers[index]->SetCurrent(current);
@@ -710,6 +735,7 @@ void cViewListChannels::Prepare(int start, int step) {
         listChannels[i] = new cLeMenuChannels(*tpl);
         listElements[i] = listChannels[i];
         listChannels[i]->SetNumber(i);
+        listChannels[i]->SetOrientation(orientation);
         listChannels[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -745,6 +771,7 @@ void cViewListChannels::Prepare(int start, int step) {
 void cViewListChannels::Set(const cChannel *channel, int index, bool current, bool selectable, bool withProvider) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listChannels[index]->StopScrolling();
     listChannels[index]->SetCurrent(current);
@@ -780,6 +807,7 @@ void cViewListRecordings::Prepare(int start, int step) {
         listRecordings[i] = new cLeMenuRecordings(*tpl);
         listElements[i] = listRecordings[i];
         listRecordings[i]->SetNumber(i);
+        listRecordings[i]->SetOrientation(orientation);
         listRecordings[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -815,6 +843,7 @@ void cViewListRecordings::Prepare(int start, int step) {
 void cViewListRecordings::Set(const cRecording *recording, int index, bool current, bool selectable, int level, int total, int New) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listRecordings[index]->StopScrolling();
     listRecordings[index]->SetCurrent(current);
@@ -853,6 +882,7 @@ void cViewListPlugin::Prepare(int start, int step) {
         listPlugin[i] = new cLeMenuPlugin(*tpl);
         listElements[i] = listPlugin[i];
         listPlugin[i]->SetNumber(i);
+        listPlugin[i]->SetOrientation(orientation);
         listPlugin[i]->SetPlugId(plugId);
         listPlugin[i]->SetPlugMenuId(plugMenuId);
         listPlugin[i]->SetTokenContainer();
@@ -893,6 +923,7 @@ void cViewListPlugin::Prepare(int start, int step) {
 void cViewListPlugin::Set(skindesignerapi::cTokenContainer *tk, int index, bool current, bool selectable) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listPlugin[index]->StopScrolling();
     listPlugin[index]->SetCurrent(current);
@@ -1056,6 +1087,7 @@ void cViewListChannelList::Prepare(int start, int step) {
         listChannelList[i] = new cLeChannelList(*tpl);
         listElements[i] = listChannelList[i];
         listChannelList[i]->SetNumber(i);
+        listChannelList[i]->SetOrientation(orientation);
         listChannelList[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -1080,6 +1112,7 @@ void cViewListChannelList::Prepare(int start, int step) {
 void cViewListChannelList::Set(const cChannel *channel, int index, bool current) {
     if (index < 0 || index  >= numElements)
         return;
+    itemCount++;
     if (!current)
         listChannelList[index]->StopScrolling();
     listChannelList[index]->SetCurrent(current);
@@ -1113,6 +1146,7 @@ void cViewListGroupList::Prepare(int start, int step) {
         listGroupList[i] = new cLeGroupList(*tpl);
         listElements[i] = listGroupList[i];
         listGroupList[i]->SetNumber(i);
+        listGroupList[i]->SetOrientation(orientation);
         listGroupList[i]->SetTokenContainer();
         int x, y, width, height;
         if (orientation == eOrientation::vertical) {
@@ -1137,6 +1171,7 @@ void cViewListGroupList::Prepare(int start, int step) {
 void cViewListGroupList::Set(const char *group, int numChannels, int index, bool current) {
     if (index < 0 || index  >= numElements)
         return;
+    CheckListAnimation(index);
     if (!current)
         listGroupList[index]->StopScrolling();
     listGroupList[index]->SetCurrent(current);

@@ -9,16 +9,16 @@
     </header>
 
     <menuitems x="0" y="10%" orientation="vertical" width="100%" height="82%" align="center" numlistelements="{listitemsmax}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area x="1%" width="58%" layer="2">
-                <fill condition="not{current}" color="{clrTransparent}" />
+            <area indicator="true" condition="{current}||{separator}" x="1%" width="58%" layer="2">
                 <fill condition="{current}" color="{menuactive}" />
                 <fill condition="{separator}" color="{menuseparator}" />
             </area>
             <!-- WHATSON -->
+
             <areacontainer x="1%" width="58%" condition="not{separator}++{whatson}++not{current}">
-                <area condition="not{running}" x="0" width="93%" layer="3">
+                <area condition="not{running}" width="93%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{start} {title}" />
                 </area>
                 <area condition="{running}" layer="3">

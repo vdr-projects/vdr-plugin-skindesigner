@@ -23,7 +23,7 @@ public:
     void SetTracks(const char * const *tracks);
     void SetAudiochannel(int audioChannel);
     void SetCurrentTrack(int index);
-    void Flush(bool animFlush);
+    void Flush(void);
 };
 
 #endif //__VIEWDISPLAYTRACKS_H

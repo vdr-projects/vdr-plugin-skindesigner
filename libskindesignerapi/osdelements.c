@@ -198,5 +198,5 @@ skindesignerapi::cViewTab *skindesignerapi::cOsdView::GetViewTabs(void) {
 
 void skindesignerapi::cOsdView::Display(void) {
     if (displayPlugin)
-        displayPlugin->Flush(false);
+        displayPlugin->Flush();
 }

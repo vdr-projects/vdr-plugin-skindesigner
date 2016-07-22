@@ -18,6 +18,7 @@
   transparency CDATA #IMPLIED
   condition CDATA #IMPLIED
   background (true|false) #IMPLIED
+  indicator (true|false) #IMPLIED
   debug (true|false) #IMPLIED
 >
 

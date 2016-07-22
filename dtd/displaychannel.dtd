@@ -349,6 +349,8 @@
 
 <!ELEMENT listelement (areacontainer|area|areascroll)*>
 <!ATTLIST listelement
+  fadetime CDATA #IMPLIED
+  shifttime CDATA #IMPLIED
   debug CDATA #IMPLIED
 >
 

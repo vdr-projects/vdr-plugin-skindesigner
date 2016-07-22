@@ -1677,6 +1677,7 @@ enum class eAreaAttribs {
     scrollspeed,
     delay,
     background,
+    indicator,
     name,
     scrollheight,
     count

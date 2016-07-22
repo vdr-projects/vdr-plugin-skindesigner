@@ -16,13 +16,17 @@ protected:
     skindesignerapi::cTokenContainer *tokenContainer;
     int numElements;
     eOrientation orientation;
+    bool cleared;
+    int itemCount;
     cViewElement *listElement;
     cViewElement *currentElement;
     cListElement **listElements;
-    cAnimation *fader;
-    cAnimation *shifter;
+    cFader *fader;
+    cShifter *shifter;
     virtual void Prepare(int start, int step) {};
     cPoint ShiftStart(cRect &shiftbox);
+    void SetShiftParameters(int index, int &call);
+    void CheckListAnimation(int index);
 public:
     cViewList(void);
     virtual ~cViewList(void);
@@ -42,6 +46,7 @@ public:
     eOrientation Orientation(void);
     void Draw(eMenuCategory menuCat);
     void Clear(void);
+    void ResetItemCount(void) { itemCount = 0; };
     virtual void Close(void);
     eButtonType Button(void) { return attribs->Button(); };
     //Fadable
@@ -52,14 +57,12 @@ public:
     //Shiftable
     int ShiftTime(void) { return attribs->ShiftTime(); };
     int ShiftMode(void) { return attribs->ShiftMode(); };
+    void ShiftPositions(cPoint *start, cPoint *end);
     void SetPosition(cPoint &position, cPoint &reference, bool force = false);
     void SetStartShifting(void) { };
     void SetEndShifting(void) { };
-    void RegisterAnimation(void);
-    void UnregisterAnimation(void);
     cRect CoveredArea(void);
-    void StartAnimation(void);
-    void Flush(bool animFlush);
+    void StartAnimation(bool animOut = false);
     void Debug(void);
 };
 

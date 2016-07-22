@@ -3,6 +3,8 @@
 
 // --- cView -------------------------------------------------------------
 
+cAnimator* cView::animator = NULL;
+
 cView::cView(void) {
     globals = NULL;
     viewName = NULL;
@@ -10,8 +12,6 @@ cView::cView(void) {
     numViewElements = 0;
     viewElements = NULL;
     viewElementsHorizontal = NULL;
-    fader = NULL;
-    shifter = NULL;
     shifting = false;
     currentTvFrame = NULL;
     newTvFrame = NULL;
@@ -29,8 +29,8 @@ cView::~cView() {
     }
     delete attribs;
     free(viewName);
-    delete fader;
-    delete shifter;
+    delete animator;
+    animator = NULL;
     shifting = false;
     sdOsd.DeleteOsd();
 }
@@ -203,11 +203,24 @@ void cView::PreCache(void) {
     SetViewElementObjects();
 }
 
+void cView::AddAnimation(cAnimation *animation, bool startAnimation) {
+    if (!animator)
+        return;
+    animator->AddAnimation(animation, startAnimation);
+}
+
+void cView::RemoveAnimation(cAnimation *animation) {
+    if (!animator)
+        return;
+    animator->RemoveAnimation(animation);
+}
+
 bool cView::Init(void) {
     int osdX = attribs->X();
     int osdY = attribs->Y();
     int osdWidth  = attribs->Width();
     int osdHeight = attribs->Height();
+    animator = new cAnimator(&sdOsd);
     return sdOsd.CreateOsd(osdX, osdY, osdWidth, osdHeight);
 }
 
@@ -243,24 +256,19 @@ void cView::Show(int ve) {
     viewElements[ve]->Show();
 }
 
+void cView::SetViewelementsAnimOut(void) {
+    for (int i=0; i< numViewElements; i++)
+        if (viewElements[i]) {
+            viewElements[i]->SetAnimOut();
+        }
+}
+
 void cView::Close(void) {
-    delete fader;
-    fader = NULL;
-    delete shifter;
-    shifter = NULL;
-    if (initFinished && ShiftTime() > 0) {
-        cRect shiftbox = CoveredArea();
-        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
-        cPoint end = ShiftStart(shiftbox);
-        shifter = new cAnimation((cShiftable*)this, end, ref, false);
-        shifter->Shift();
-        delete shifter;
-        shifter = NULL;
-    } else if (initFinished && FadeTime() > 0) {
-        fader = new cAnimation((cFadable*)this, false);
-        fader->Fade();
-        delete fader;
-        fader = NULL;
+    if (animator) {
+        animator->Stop();
+        animator->Finish();
+        delete animator;
+        animator = NULL;        
     }
     UnScaleTv();
     ClearVariables();
@@ -293,6 +301,13 @@ int cView::ShiftMode(void) {
     return attribs->ShiftMode();
 }
 
+void cView::ShiftPositions(cPoint *start, cPoint *end) {
+    cRect shiftbox = CoveredArea();
+    cPoint startPoint = ShiftStart(shiftbox);
+    start->Set(startPoint);
+    end->Set(shiftbox.X(), shiftbox.Y());
+}
+
 void cView::SetPosition(cPoint &position, cPoint &reference, bool force) {
     for (int i = 0; i < numViewElements; i++) {
         if (viewElements[i] && (!viewElements[i]->Shifting() || force)) {
@@ -301,32 +316,18 @@ void cView::SetPosition(cPoint &position, cPoint &reference, bool force) {
     }
 }
 
-void cView::RegisterAnimation(void) {
-    sdOsd.AddAnimation();
-}
-
-void cView::UnregisterAnimation(void) {
-    sdOsd.RemoveAnimation();
-}
-
-void cView::Flush(bool animFlush) {
+void cView::Flush(void) {
     if (init) {
         init = false;
         StartAnimation();
         menuInit = true;
-        //LockFlush was set at startup of view to avoid display
-        //of not positioned pixmaps for shifting and fading 
-        sdOsd.UnlockFlush();
     }
     if (menuInit) {
         ScaleTv();
         WakeViewElements();
         menuInit = false;
     }
-    if (animFlush)
-        sdOsd.AnimatedFlush();
-    else
-        sdOsd.Flush();
+    sdOsd.Flush();
 }
 
 void cView::Debug(void) {
@@ -345,7 +346,6 @@ void cView::Debug(void) {
 *******************************************************************/
 void cView::ClearVariables(void) { 
     init = true;
-    initFinished = false;
     newTvFrame = NULL;
     currentTvFrame = NULL;
     menuInit = false;
@@ -359,22 +359,19 @@ int cView::ViewElementId(const char *name) {
 }
 
 void cView::StartAnimation(void) {
-    if (ShiftTime() > 0) {
-        cRect shiftbox = CoveredArea();
-        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
-        cPoint start = ShiftStart(shiftbox);
-        SetPosition(start, ref);
-        shifter = new cAnimation((cShiftable*)this, start, ref, true);
-        shifter->Start();
-    } else if (FadeTime() > 0) {
-        if (fader)
-            return;
-        SetTransparency(100);
-        sdOsd.Flush();
-        fader = new cAnimation((cFadable*)this, true);
-        fader->Start();
+    if (viewId != eViewType::DisplayMenu && 
+        viewId != eViewType::DisplayPlugin) {
+        if (ShiftTime() > 0) {
+            cShifter *shifter = new cShifter((cShiftable*)this);
+            shifter->SetPersistent();
+            cView::AddAnimation(shifter);
+        } else if (FadeTime() > 0) {
+            cFader *fader = new cFader((cFadable*)this);
+            fader->SetPersistent();
+            cView::AddAnimation(fader);
+        }
     }
-    initFinished = true;
+    animator->Start();
 }
 
 void cView::WakeViewElements(void) {

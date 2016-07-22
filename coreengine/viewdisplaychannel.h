@@ -71,7 +71,7 @@ public:
     void SetChannelHint(const cChannel *channel);
 #endif
     void Close(void);
-    void Flush(bool animFlush);
+    void Flush(void);
 };
 
 #endif //__VIEWDISPLAYCHANNEL_H

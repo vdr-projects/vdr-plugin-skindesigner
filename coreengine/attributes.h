@@ -96,6 +96,7 @@ public:
     int Layer(void);
     int ScrollStep(void) { return GetValue((int)eAreaAttribs::scrollheight); };
     bool BackgroundArea(void);
+    bool IndicatorArea(void);
     const char *Name(void);
     void CheckDynamic(void);
     bool Dynamic(void) {return dynamic; };

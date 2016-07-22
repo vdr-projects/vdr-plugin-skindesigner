@@ -252,6 +252,17 @@ void cArea::Clear(bool forceClearBackground) {
     }
     StopBlinkers();
     if (pix) {
+        pix->SetDrawPortPoint(cPoint(0,0));
+        pix->Fill(clrTransparent);
+    }
+}
+
+void cArea::ClearWithoutIndicators(void) {
+    if (attribs->IndicatorArea()) {
+        return;
+    }
+    StopBlinkers();
+    if (pix) {
         pix->Fill(clrTransparent);
     }
 }
@@ -333,6 +344,23 @@ void cArea::SetTransparency(int transparency, bool absolute) {
     if (pix) {
         pix->SetAlpha(alpha);
     }
+}
+
+void cArea::SetIndicatorTransparency(int transparency) {
+    if (!attribs->IndicatorArea())
+        return;
+    if (transparency < 0 || transparency > 100)
+        return;
+    int alpha = (100 - transparency)*255/100;
+    if (pix) {
+        pix->SetAlpha(alpha);
+    }
+}
+
+void cArea::SetIndicatorPosition(cPoint &pos) {
+    if (!attribs->IndicatorArea())
+        return;
+    SetDrawPort(pos);
 }
 
 bool cArea::Scrolling(void) { 
@@ -497,12 +525,6 @@ void cArea::Debug(bool full) {
     }
 }
 
-void cArea::Flush(bool animFlush) {
-    if (animFlush)
-        sdOsd->AnimatedFlush();
-    else
-        sdOsd->Flush();
-}
 /******************************************************************
 * Private Functions
 ******************************************************************/
@@ -565,9 +587,9 @@ void cArea::StartBlinkers(void) {
             continue;
         }
         if (f->Blinking()) {
-            cAnimation *blink = new cAnimation((cBlinkable*)this, func);
-            blinkers.Add(blink);
-            blink->Start();
+            cBlinker *blinker = new cBlinker((cBlinkable*)this, func);
+            blinkers.push_back(blinker);
+            cView::AddAnimation(blinker);
         }
         func++;
     }
@@ -575,15 +597,10 @@ void cArea::StartBlinkers(void) {
 
 void cArea::StopBlinkers(void) {
     blinking = false;
-    blinkers.Clear();
-}
-
-void cArea::RegisterAnimation(void) {
-    sdOsd->AddAnimation();
-}
-
-void cArea::UnregisterAnimation(void) {
-    sdOsd->RemoveAnimation();
+    for (list<cBlinker*>::iterator it = blinkers.begin(); it != blinkers.end(); it++) {
+        cView::RemoveAnimation(*it);
+    }
+    blinkers.clear();
 }
 
 /******************************************************************
@@ -707,6 +724,12 @@ void cAreaContainer::Clear(bool forceClearBackground) {
     }
 }
 
+void cAreaContainer::ClearWithoutIndicators(void) {
+    for (cArea *area = areas.First(); area; area = areas.Next(area)) {
+        area->ClearWithoutIndicators();
+    }
+}
+
 void cAreaContainer::Hide(void) {
     for (cArea *area = areas.First(); area; area = areas.Next(area)) {
         area->Hide();
@@ -734,6 +757,18 @@ void cAreaContainer::SetTransparency(int transparency, bool absolute) {
     for (cArea *area = areas.First(); area; area = areas.Next(area)) {
         area->SetTransparency(transparency, absolute);
     }
+}
+
+void cAreaContainer::SetIndicatorTransparency(int transparency) {
+    for (cArea *area = areas.First(); area; area = areas.Next(area)) {
+        area->SetIndicatorTransparency(transparency);
+    }    
+}
+
+void cAreaContainer::SetIndicatorPosition(cPoint &pos) {
+    for (cArea *area = areas.First(); area; area = areas.Next(area)) {
+        area->SetIndicatorPosition(pos);
+    }    
 }
 
 void cAreaContainer::SetViewPort(cRect &vp) {

@@ -29,10 +29,10 @@ private:
     void SetClearOnDisplay(int ve, const char *clearOnDisplay);
 protected:
     cSdOsd sdOsd;
+    static cAnimator *animator;
     cViewAttribs *attribs;
     cRect container;
     bool init;
-    bool initFinished;
     eViewType viewId;
     cGlobals *globals;
     char *viewName;
@@ -40,8 +40,6 @@ protected:
     cViewElement **viewElements;
     cViewElement **viewElementsHorizontal;
     map<string,int> viewElementNames;
-    cAnimation *fader;
-    cAnimation *shifter;
     bool shifting;
     cRect tvFrame;
     cRect *currentTvFrame;
@@ -74,6 +72,8 @@ public:
     virtual const cFont *GetTextAreaFont(void) { return NULL; };
     virtual int GetTextAreaWidth(void) { return 0; };
     virtual int GetListWidth(void) { return 0; };
+    static void AddAnimation(cAnimation *animation, bool startAnimation = true);
+    static void RemoveAnimation(cAnimation *animation);
     //View API
     virtual bool Init(void);
     void Clear(int ve, bool forceClearBackground = false);
@@ -82,21 +82,20 @@ public:
     void Hide(int ve);
     void Show(int ve);
     virtual void Close(void);
-    virtual void Flush(bool animFlush);
+    virtual void Flush(void);
     virtual void Debug(void);
+    void SetViewelementsAnimOut(void);
     //Fadable
-    bool Detached(void) { return false; };
     int Delay(void) { return 0; };
     int FadeTime(void);
     virtual void SetTransparency(int transparency, bool force = false);
     //Shiftable
     int ShiftTime(void);
     int ShiftMode(void);
+    void ShiftPositions(cPoint *start, cPoint *end);
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false);
     void SetStartShifting(void) { shifting = true; };
     void SetEndShifting(void) { shifting = false; };
-    void RegisterAnimation(void);
-    void UnregisterAnimation(void);
 };
 
 #endif //__VIEW_H

@@ -41,14 +41,10 @@ void cViewTracks::ClearVariables(void) {
 }
 
 void cViewTracks::Close(void) {
-    delete fader;
-    fader = NULL;
-    if (FadeTime() > 0) {
-        fader = new cAnimation((cFadable*)this, false);
-        fader->Fade();
-        delete fader;
-        fader = NULL;
-    }
+    animator->Stop();
+    animator->Finish();
+    delete animator;
+    animator = NULL;
     for (int i=0; i < numViewElements; i++) {
         if (viewElements[i]) {
             viewElements[i]->Close();
@@ -107,14 +103,13 @@ void cViewTracks::SetCurrentTrack(int index) {
     change = true;
 }
 
-void cViewTracks::Flush(bool animFlush) {
+void cViewTracks::Flush(void) {
     if (init) {
-        sdOsd.LockFlush();
+        Render((int)eVeDisplayTracks::background);
         if (viewList) {
             viewList->Draw();
-            viewList->StartAnimation();
+            viewList->StartAnimation(true);
         }
-        Render((int)eVeDisplayTracks::background);
     }
     if (change) {
         Render((int)eVeDisplayTracks::header);
@@ -122,5 +117,5 @@ void cViewTracks::Flush(bool animFlush) {
             viewList->Draw();
         change = false;
     }
-    cView::Flush(animFlush);
+    cView::Flush();
 }

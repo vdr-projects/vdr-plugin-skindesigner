@@ -13,12 +13,14 @@
     </scrollbar>
 
     <menuitems x="2%" y="10%" orientation="vertical" width="96%" height="80%" align="center" menuitemwidth="94%" determinatefont="column1" numlistelements="{numitemsdefault}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area x="0" y="0" width="100%" layer="2">
-                <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
-                <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            <area condition="{current}" indicator="true" x="0" y="0" width="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
+            <area condition="not{current}" x="0" y="0" width="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuback}" />
+                <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <!-- Separators -->
             <area x="1%" condition="{separator}" width="98%" layer="3">

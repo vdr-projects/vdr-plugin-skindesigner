@@ -34,12 +34,14 @@
     </scrollbar>
 
     <menuitems condition="eq({indexschedulesmenustyle}, 0)" x="2%" y="9%" orientation="vertical" width="98%" height="82%" align="center" numlistelements="{numitemsscheduelesnarrow}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- background and progressbar -->
+            <area condition="{current}" indicator="true" x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
             <area x="0" y="0" width="{areawidth}*0.305" height="100%" layer="2">
                 <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
                 <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
                 <drawrectangle condition="{running}" x="65%" y="{areaheight}*0.1" width="{areawidth}*0.34" height="{areaheight}*0.12" color="{progressbarback}" />
                 <drawrectangle condition="{running}" x="65%" y="{areaheight}*0.1 + 1" width="{areawidth}*0.34*{elapsed}/{duration} - {elapsed}/{duration}" height="{areaheight}*0.12 - 3" color="{progressbar}" />
             </area>
@@ -140,12 +142,14 @@
     </menuitems>
 
     <menuitems condition="eq({indexschedulesmenustyle}, 1)" x="2%" y="9%" orientation="vertical" width="95%" height="82%" align="center" numlistelements="{numitemsscheduleswide}">
-        <listelement>
+        <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- background and progressbar -->
+            <area condition="{current}" indicator="true" x="0" y="0" width="100%" height="100%" layer="2">
+                <drawrectangle x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
+            </area>
             <area x="0" y="0" width="100%" height="100%" layer="2">
                 <drawrectangle condition="not{current}" x="0" y="0" width="100%" height="100%" color="{menuback}" />
                 <drawrectangle condition="not{current}" x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
-                <drawrectangle condition="{current}" x="0" y="0" width="100%" height="100%" color="{menubackactive}" />
                 <drawrectangle condition="{running}" x="30%" y="20%" width="10%" height="60%" color="{progressbarback}" />
                 <drawrectangle condition="{running}" x="{areawidth}*0.3 + 1" y="{areaheight}*0.2 + 1" width="{areawidth}*0.1*{elapsed}/{duration} - {elapsed}/{duration} - 1" height="{areaheight}*0.6 - 3" color="{progressbar}" />
             </area>

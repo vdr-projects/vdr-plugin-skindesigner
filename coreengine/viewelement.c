@@ -13,6 +13,8 @@ cViewElement::cViewElement(void) {
     scrollingStarted = false;
     blocked = false;
     detached = false;
+    doAnimOut = false;
+    doStartAnim = true;
     waitOnWakeup = true;
     startAnimation = true;
     restartAnimation = false;
@@ -21,8 +23,8 @@ cViewElement::cViewElement(void) {
     attribs = new cViewElementAttribs((int)eViewElementAttribs::count);
     clearAll = false;
     detacher = NULL;
-    fader = NULL;
     shifter = NULL;
+    fader = NULL;
 }
 
 cViewElement::cViewElement(const cViewElement &other) {
@@ -34,6 +36,8 @@ cViewElement::cViewElement(const cViewElement &other) {
     scrollingStarted = false;
     blocked = false;
     detached = false;
+    doAnimOut = other.doAnimOut;
+    doStartAnim = other.doStartAnim;
     waitOnWakeup = true;
     startAnimation = true;
     restartAnimation = false;
@@ -52,15 +56,13 @@ cViewElement::cViewElement(const cViewElement &other) {
     }
     
     detacher = NULL;
-    fader = NULL;
     shifter = NULL;
+    fader = NULL;
 }
 
 cViewElement::~cViewElement(void) {
     delete attribs;
     delete detacher;
-    delete fader;
-    delete shifter;
     delete tokenContainer;
 }
 
@@ -381,9 +383,9 @@ void cViewElement::Render(void) {
             cArea *scrollArea = node->ScrollingArea();
             if (scrollArea) {
                 scrollingStarted = true;
-                cAnimation *scroller = new cAnimation(scrollArea); 
-                scrollers.Add(scroller);
-                scroller->Start();                
+                cScroller *scroller = new cScroller(scrollArea);
+                scrollers.push_back(scroller);
+                cView::AddAnimation(scroller);                
             }
         }     
     }
@@ -397,10 +399,10 @@ void cViewElement::Render(void) {
 }
 
 void cViewElement::StopScrolling(bool deletePixmaps) {
-    for (cAnimation *scroller = scrollers.First(); scroller; scroller = scrollers.Next(scroller)) {
-        scroller->Stop(deletePixmaps);
+    for (list<cScroller*>::iterator it = scrollers.begin(); it != scrollers.end(); it++) {
+        cView::RemoveAnimation(*it);
     }
-    scrollers.Clear();
+    scrollers.clear();
 }
 
 void cViewElement::ParseDetached(void) {
@@ -413,14 +415,14 @@ void cViewElement::RenderDetached(void) {
 }
 
 bool cViewElement::Shifting(void) {
-    if (attribs->ShiftTime() >= 0) {
+    if (attribs->ShiftTime() > 0) {
         return true;
     }
     return false;
 }
 
 bool cViewElement::Fading(void) {
-    if (attribs->FadeTime() >= 0) {
+    if (attribs->FadeTime() > 0) {
         return true;
     }
     return false;
@@ -438,22 +440,26 @@ int cViewElement::ShiftMode(void) {
     return attribs->ShiftMode();
 }
 
+void cViewElement::ShiftPositions(cPoint *start, cPoint *end) {
+    cRect shiftbox = CoveredArea();
+    cPoint startPoint = ShiftStart(shiftbox);
+    start->Set(startPoint);
+    end->Set(shiftbox.X(), shiftbox.Y());
+}
+
 void cViewElement::StartAnimation(void) {
+    shifter = NULL;
+    fader = NULL;
     if (ShiftTime() > 0) {
-        cRect shiftbox = CoveredArea();
-        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
-        cPoint start = ShiftStart(shiftbox);
-        SetPosition(start, ref);
-        sdOsd->Flush();
-        delete shifter;
-        shifter = new cAnimation((cShiftable*)this, start, ref, true);
-        shifter->Start();
+        shifter = new cShifter((cShiftable*)this);
+        if (doAnimOut)
+            shifter->SetPersistent();
+        cView::AddAnimation(shifter, doStartAnim);
     } else if (FadeTime() > 0) {
-        SetTransparency(100);
-        sdOsd->Flush();
-        delete fader;
-        fader = new cAnimation((cFadable*)this, true);
-        fader->Start();
+        fader = new cFader((cFadable*)this);
+        if (doAnimOut)
+            fader->SetPersistent();
+        cView::AddAnimation(fader, doStartAnim);
     }
 }
 
@@ -481,19 +487,8 @@ cRect cViewElement::CoveredArea(void) {
     return unionArea;
 }
 
-void cViewElement::RegisterAnimation(void) {
-    sdOsd->AddAnimation();
-}
-
-void cViewElement::UnregisterAnimation(void) {
-    sdOsd->RemoveAnimation();    
-}
-
-void cViewElement::Flush(bool animFlush) {
-    if (animFlush)
-        sdOsd->AnimatedFlush();
-    else
-        sdOsd->Flush();
+void cViewElement::Flush(void) {
+    sdOsd->Flush();
 }
 
 bool cViewElement::Parse(bool forced) { 
@@ -505,7 +500,7 @@ bool cViewElement::Parse(bool forced) {
     }
     delete detacher;
     bool isAnimated = (FadeTime() > 0) || (ShiftTime() > 0);
-    detacher = new cAnimation((cDetachable*)this, waitOnWakeup, startAnimation && isAnimated);
+    detacher = new cDetacher((cDetachable*)this, waitOnWakeup, startAnimation && isAnimated);
     detacher->Start();
     startAnimation = false;
     init = false;
@@ -576,8 +571,8 @@ cPoint cViewElement::ShiftStart(cRect &shiftbox) {
 void cViewElement::StopAnimation(void) {
     delete detacher;
     detacher = NULL;
-    delete shifter;
-    shifter = NULL;
-    delete fader;
-    fader = NULL;
+    if (shifter)
+        cView::RemoveAnimation(shifter);
+    if (fader)
+        cView::RemoveAnimation(fader);
 }

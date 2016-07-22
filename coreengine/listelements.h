@@ -8,28 +8,45 @@
 /******************************************************************
 * cListElement
 ******************************************************************/
-class cListElement : public cViewElement {
+class cListElement : public cViewElement , public cListShiftable {
 protected:
     eMenuCategory menuCat;
+    eOrientation orientation;
     int num;
     bool current;
     bool wasCurrent;
     bool selectable;
+    bool selectedFromTop;
+    bool suppressAnimation;
+    cListShifter *listShifter;
     cViewElement *currentElement;
     char *ParseSeparator(const char *text);
+    void StartListAnimation(void);
 public:
     cListElement(void);
     cListElement(const cListElement &other);
     virtual ~cListElement(void) {};
     void SetMenuCategory(eMenuCategory menuCat) { this->menuCat = menuCat; };
+    void SetOrientation(eOrientation orientation) { this->orientation = orientation; };
     void SetNumber(int number) { num = number; };
     void SetCurrent(bool cur);
     bool Current(void) { return current; };
+    bool WasCurrent(void) { return wasCurrent; };
     void WakeCurrent(void);
     void SetSelectable(bool sel) { selectable = sel; };
+    void SetSelectedFromTop(void) { selectedFromTop = true; };
+    void SetSelectedFromBottom(void) { selectedFromTop = false; };
+    void SetSuppressAnimation(bool suppress) { suppressAnimation = suppress; };
     bool DoScroll(void) { return current; };
+    void Render(void);
     virtual void RenderCurrent(void) { };
     void Close(void);
+    int ListShiftTime(void) { return ShiftTime(); };
+    int ShiftDistance(void);
+    eOrientation ShiftOrientation(void);
+    void SetIndicatorPosition(cPoint &position);
+    void SetTransparency(int transparency, bool force = false);
+    void StopListAnimation(void);
     virtual void Clear(bool forceClearBackground = false);
 };
 

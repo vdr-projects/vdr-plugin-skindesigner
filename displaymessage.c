@@ -21,5 +21,5 @@ void cSDDisplayMessage::SetMessage(eMessageType Type, const char *Text) {
 void cSDDisplayMessage::Flush(void) {
     if (!ok)
         return;
-    view->Flush(false);
+    view->Flush();
 }

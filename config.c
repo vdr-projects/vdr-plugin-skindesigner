@@ -21,6 +21,8 @@ cDesignerConfig::cDesignerConfig() {
     rerunMaxChannel = 0;
     //max number of custom int and string tokens
     numCustomTokens = 10;
+    //Frames per Second to display animations
+    FPS = 50;
     //remember current skin and theme, osd size and osd fonts
     SetSkin();
     SetOSDSize();
@@ -512,6 +514,7 @@ bool cDesignerConfig::SetupParse(const char *Name, const char *Value) {
     else if (!strcasecmp(Name, "RerunDistance"))           rerunDistance = atoi(Value);
     else if (!strcasecmp(Name, "RerunMaxChannel"))         rerunMaxChannel = atoi(Value);
     else if (!strcasecmp(Name, "NumCustomTokens"))         numCustomTokens = atoi(Value);
+    else if (!strcasecmp(Name, "FPS"))                     FPS = atoi(Value);
     else pluginSetupParam = false;
 
     if (!pluginSetupParam) {

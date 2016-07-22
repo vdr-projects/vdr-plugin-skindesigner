@@ -4,11 +4,64 @@
 #include <vdr/skins.h>
 #include <vdr/thread.h>
 #include "definitions.h"
-
-#define FPS 50
+#include "osdwrapper.h"
 
 /******************************************************************
-* cScrollable
+* Detaching
+******************************************************************/
+class cDetachable {
+protected:
+    cDetachable(void) {};
+    ~cDetachable(void) {};
+public:
+    virtual int Delay(void) = 0;
+    virtual void StartAnimation(void) = 0;
+    virtual void ParseDetached(void) = 0;
+    virtual void RenderDetached(void) = 0;
+    virtual void Flush(void) = 0;
+};
+
+class cDetacher : public cThread, public cListObject {
+private:
+    cCondWait sleepWait;
+    cDetachable *detachable;
+    bool waitOnWakeup;
+    bool keepSleeping;
+    bool doAnimation;
+    void Sleep(int duration);
+    void Wait(void);
+    virtual void Action(void);
+public:
+    cDetacher(cDetachable *detachable, bool wait, bool animation);
+    ~cDetacher(void);
+    void WakeUp(void);
+    void ResetSleep(void);
+    void Stop(bool deletePixmaps);
+};
+
+/******************************************************************
+* cAnimation
+******************************************************************/
+class cAnimation : public cListObject {
+protected:
+    uint64_t started;
+    bool finished;
+    bool persistent;
+    int frametime;
+public:
+    cAnimation(void);
+    virtual ~cAnimation(void);
+    virtual void SetInitial(void) = 0;
+    virtual void Reactivate(void) = 0;
+    virtual bool Tick(void) = 0;
+    bool Finished(void) { return finished; };
+    virtual void SetFinished(void) { finished = true; };
+    void SetPersistent(void) { persistent = true; };
+    bool Persistent(void) { return persistent; };
+};
+
+/******************************************************************
+* Scrolling
 ******************************************************************/
 class cScrollable {
 protected:
@@ -24,67 +77,140 @@ public:
     virtual void StartScrolling(void) = 0;
     virtual void StopScrolling(void) = 0;
     virtual void SetDrawPort(cPoint &point) = 0;
-    virtual void RegisterAnimation(void) = 0;
-    virtual void UnregisterAnimation(void) = 0;
-    virtual void Flush(bool animFlush) = 0;
 };
 
-/******************************************************************
-* cDetachable
-******************************************************************/
-class cDetachable {
-protected:
-    cDetachable(void) {};
-    ~cDetachable(void) {};
+class cScroller : public cAnimation {
+private:
+    cScrollable *scrollable;
+    int delay;
+    bool paused;
+    int pauseTime;
+    bool scrollingStarted;
+    bool secondDelay;
+    eOrientation orientation;
+    int scrollLength;
+    bool carriageReturn;
+    float drawPortX;
+    float drawPortY;
+    float scrollDelta;
+    bool delScrollPix;
+    void Init(void);
+    bool Pause(void);
+    bool Overflow(void);
 public:
-    virtual int Delay(void) = 0;
-    virtual void ParseDetached(void) = 0;
-    virtual void RenderDetached(void) = 0;
-    virtual void StartAnimation(void) = 0;
-    virtual void RegisterAnimation(void) = 0;
-    virtual void UnregisterAnimation(void) = 0;
-    virtual void Flush(bool animFlush) = 0;
+    cScroller(cScrollable *scrollable);
+    ~cScroller(void);
+    void SetInitial(void);
+    void Reactivate(void);
+    void SetFinished(void);
+    void UnsetDelScrollPix(void) { delScrollPix = false; };
+    bool Tick(void);
 };
 
 /******************************************************************
-* cFadable
+* Fading
 ******************************************************************/
 class cFadable {
 protected:
     cFadable(void) {};
     ~cFadable(void) {};
 public:
-    virtual bool Detached(void) = 0;
     virtual int Delay(void) = 0;
     virtual int FadeTime(void) = 0;
     virtual void SetTransparency(int transparency, bool force = false) = 0;
-    virtual void RegisterAnimation(void) = 0;
-    virtual void UnregisterAnimation(void) = 0;
-    virtual void Flush(bool animFlush) = 0;
 };
 
+class cFader : public cAnimation {
+private:
+    cFadable *fadable;
+    bool fadein;
+    int fadetime;
+    int step;
+    int transparency;
+    bool hideWhenFinished;
+public:
+    cFader(cFadable *fadable);
+    ~cFader(void);
+    void SetInitial(void);
+    void Reactivate(void);
+    void SetFadeOut(void);
+    void SetFinished(void);
+    void SetHideWhenFinished(void) { hideWhenFinished = true; };
+    bool Tick(void);
+};
 /******************************************************************
-* cShiftable
+* Shifting
 ******************************************************************/
 class cShiftable {
 protected:
     cShiftable(void) {};
     ~cShiftable(void) {};
 public:
-    virtual bool Detached(void) = 0;
     virtual int Delay(void) = 0;
     virtual int ShiftTime(void) = 0;
     virtual int ShiftMode(void) = 0;
+    virtual void ShiftPositions(cPoint *start, cPoint *end) = 0;
     virtual void SetPosition(cPoint &position, cPoint &reference, bool force = false) = 0;
-    virtual void SetStartShifting(void) = 0;
-    virtual void SetEndShifting(void) = 0;
-    virtual void RegisterAnimation(void) = 0;
-    virtual void UnregisterAnimation(void) = 0;
-    virtual void Flush(bool animFlush) = 0;
+};
+
+class cListShiftable {
+protected:
+    cListShiftable(void) {};
+    ~cListShiftable(void) {};
+public:
+    virtual int ListShiftTime(void) = 0;
+    virtual int ShiftDistance(void) = 0;
+    virtual eOrientation ShiftOrientation(void) = 0;
+    virtual void SetIndicatorPosition(cPoint &position) = 0;
+};
+
+class cShifter : public cAnimation {
+private:
+    cShiftable *shiftable;
+    bool shiftin;
+    cPoint start, end;
+    int shifttime;
+    eShiftMode mode;
+    int step;
+    float stepXLinear, stepYLinear;
+    int stepsFast;
+    float stepXFast, stepXSlow;
+    float stepYFast, stepYSlow;
+    float x, y;
+    void Init(void);
+    void NextPosition(void);
+public:
+    cShifter(cShiftable *shiftable);
+    ~cShifter(void);
+    void SetInitial(void);
+    void Reactivate(void);
+    bool Tick(void);
+};
+
+class cListShifter : public cAnimation {
+private:
+    cListShiftable *shiftable;
+    bool shiftin;
+    bool fromtop;
+    int distance;
+    eOrientation orientation;
+    int shifttime;
+    int step;
+    cPoint pos;
+    void NextPosition(void);
+    void EndPosition(void);
+public:
+    cListShifter(cListShiftable *shiftable);
+    ~cListShifter(void);
+    void SetInitial(void);
+    void Reactivate(void);
+    void SetShiftOut(void) { shiftin = false; };
+    void SetDirection(bool fromTop) { fromtop = fromTop; };
+    bool Tick(void);
 };
 
 /******************************************************************
-* cBlinkable
+* Blinking
 ******************************************************************/
 class cBlinkable {
 protected:
@@ -93,48 +219,49 @@ protected:
 public:
     virtual int BlinkFreq(int func) = 0;
     virtual void DoBlink(int func, bool on) = 0;
-    virtual void RegisterAnimation(void) = 0;
-    virtual void UnregisterAnimation(void) = 0;
-    virtual void Flush(bool animFlush) = 0;
+};
+
+class cBlinker : public cAnimation {
+private:
+    cBlinkable *blinkable;
+    int blinkFunc;
+    int freq;
+    bool blinkOn;
+    bool paused;
+    int pauseTime;
+    bool Pause(void);
+public:
+    cBlinker(cBlinkable *blinkable, int blinkFunc);
+    ~cBlinker(void);
+    void SetInitial(void);
+    void Reactivate(void);
+    bool Tick(void);
 };
 
 /******************************************************************
-* cAnimation
+* cAnimator
 ******************************************************************/
-class cAnimation : public cThread, public cListObject {
+class cAnimator : public cThread {
 private:
+    cSdOsd *osd;
     cCondWait sleepWait;
-    cScrollable *scrollable;
-    cDetachable *detachable;
-    cFadable    *fadable;
-    cShiftable  *shiftable;
-    cBlinkable  *blinkable;
-    bool waitOnWakeup;
-    bool keepSleeping;
-    bool doAnimation;
-    bool modeIn;
-    int blinkFunc;
-    cPoint shiftstart;
-    cPoint shiftend;
-    void Sleep(int duration);
-    void Wait(void);
-    void Scroll(void);
-    void Detach(void);    
-    void Blink(void);
-protected:
+    cCondWait pauseWait;
+    int timeslice;
+    int timeneeded;
+    cMutex animLock;
+    cList<cAnimation> animations;
+    cList<cAnimation> animationsPersistent;
+    void Sleep(uint64_t start);
+    void DoTick(bool &animActive);
+    void CleanupAnims(void);
     virtual void Action(void);
 public:
-    cAnimation(cScrollable *scrollable);
-    cAnimation(cDetachable *detachable, bool wait, bool animation);
-    cAnimation(cFadable    *fadable, bool fadein);
-    cAnimation(cShiftable  *shiftable, cPoint &start, cPoint &end, bool shiftin);
-    cAnimation(cBlinkable  *blinkable, int func);
-    ~cAnimation(void);
-    void WakeUp(void);
-    void ResetSleep(void);
-    void Fade(void);
-    void Shift(void);
-    void Stop(bool deletePixmaps);
+    cAnimator(cSdOsd *osd);
+    ~cAnimator(void);
+    void AddAnimation(cAnimation *animation, bool startAnim = true);
+    void RemoveAnimation(cAnimation *remove);
+    void Stop(void);
+    void Finish(void);
 };
 
 #endif //__ANIMATION_H

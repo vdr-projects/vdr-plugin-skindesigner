@@ -535,14 +535,10 @@ bool cViewMenu::Init(void) {
 }
 
 void cViewMenu::Close(void) {
-    delete fader;
-    fader = NULL;
-    if (FadeTime() > 0) {
-        fader = new cAnimation((cFadable*)this, false);
-        fader->Fade();
-        delete fader;
-        fader = NULL;
-    }
+    animator->Stop();
+    animator->Finish();    
+    delete animator;
+    animator = NULL;
     for (int i=0; i < numSubviews; i++) {
         if (subViews[i]) {
             subViews[i]->Close();
@@ -566,10 +562,7 @@ void cViewMenu::Clear(void) {
     activeSubview->ClearViewList();
 }
 
-void cViewMenu::Flush(bool animFlush) {
-    if (init) {
-        sdOsd.LockFlush();
-    }
+void cViewMenu::Flush(void) {
     bool staticInitiated = false;
     if (menuChange) {
         newTvFrame = activeSubview->GetTvFrame();
@@ -591,7 +584,7 @@ void cViewMenu::Flush(bool animFlush) {
         detailViewInit = false;
     }
     activeSubview->DrawDynamicVEs();
-    cView::Flush(animFlush);
+    cView::Flush();
 }
 
 void cViewMenu::SetTransparency(int transparency, bool forceDetached) {
@@ -912,6 +905,7 @@ void cSubView::DrawDynamicVEs(void) {
 void cSubView::DrawList(void) {
     if (viewList) {
         viewList->Draw(menuCat);
+        viewList->ResetItemCount();
     }
 }
 

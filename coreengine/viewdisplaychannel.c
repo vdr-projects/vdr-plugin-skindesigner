@@ -71,6 +71,13 @@ void cViewChannel::PreCache(void) {
         groupChannelList->PreCache();
     }
 #endif
+    if (viewElements[(int)eVeDisplayChannel::channellistback])
+        viewElements[(int)eVeDisplayChannel::channellistback]->UnsetStartAnim();
+    if (viewElements[(int)eVeDisplayChannel::grouplistback])
+        viewElements[(int)eVeDisplayChannel::grouplistback]->UnsetStartAnim();
+    if (viewElements[(int)eVeDisplayChannel::groupchannellistback])
+        viewElements[(int)eVeDisplayChannel::groupchannellistback]->UnsetStartAnim();
+    SetViewelementsAnimOut();
 }
 
 void cViewChannel::AddChannelViewList(const char *listName, cViewList *viewList) {
@@ -363,29 +370,17 @@ void cViewChannel::SetChannelHint(const cChannel *channel) {
 #endif //USE_ZAPCOCKPIT
 
 void cViewChannel::Close(void) {
-    delete fader;
-    fader = NULL;
-    delete shifter;
-    shifter = NULL;
     bool doAnim = true;
 #ifdef USE_ZAPCOCKPIT
     if (viewType != dcDefault)
         doAnim = false;
 #endif
-    if (initFinished && doAnim && ShiftTime() > 0) {
-        cRect shiftbox = CoveredArea();
-        cPoint ref = cPoint(shiftbox.X(), shiftbox.Y());
-        cPoint end = ShiftStart(shiftbox);
-        shifter = new cAnimation((cShiftable*)this, end, ref, false);
-        shifter->Shift();
-        delete shifter;
-        shifter = NULL;
-    } else if (initFinished && doAnim && FadeTime() > 0) {
-        fader = new cAnimation((cFadable*)this, false);
-        fader->Fade();
-        delete fader;
-        fader = NULL;
+    if (doAnim) {
+        animator->Stop();
+        animator->Finish();    
     }
+    delete animator;
+    animator = NULL;
     UnScaleTv();
     ClearVariables();
     for (int i=0; i < numViewElements; i++) {
@@ -557,8 +552,6 @@ void cViewChannel::DrawExtended(void) {
         ClearOnDisplay();
         initExtended = false;
     }
-    if (!init && initList)
-        sdOsd.LockFlush();
     if (viewType == dcChannelList && channelList) {
         Render((int)eVeDisplayChannel::channellistback);
         channelList->Draw(mcUndefined);
@@ -575,27 +568,22 @@ void cViewChannel::DrawExtended(void) {
         if (initList)
             groupChannelList->StartAnimation();
     }
-    if (!init && initList)
-        sdOsd.UnlockFlush();
     displayList = false;
     initList = false;
 #endif
 }
 
-void cViewChannel::Flush(bool animFlush) {
-    if (init) {
-        sdOsd.LockFlush();
-    }
-    
+void cViewChannel::Flush(void) {
 #ifdef USE_ZAPCOCKPIT
     ClearExtended();
 #endif
 
+#ifdef USE_ZAPCOCKPIT
+    if (viewType < dcChannelList) {
+#endif
     //Basic Display Handling
     if (mode == dmDefault) {
-        if (!shifting) {
-            DrawBasic(init);
-        }
+        DrawBasic(init);
     } else if (mode == dmChannelGroups) {
         if (init) {
             Render((int)eVeDisplayChannel::background);
@@ -603,15 +591,16 @@ void cViewChannel::Flush(bool animFlush) {
         }
         Render((int)eVeDisplayChannel::channelgroup);
     }
-    if (!shifting) {
-        Render((int)eVeDisplayChannel::datetime);
-        Render((int)eVeDisplayChannel::time);
+    Render((int)eVeDisplayChannel::datetime);
+    Render((int)eVeDisplayChannel::time);
+#ifdef USE_ZAPCOCKPIT
     }
+#endif
     channelChange = false;
 
 #ifdef USE_ZAPCOCKPIT
     DrawExtended();
 #endif
 
-    cView::Flush(animFlush);
+    cView::Flush();
 }

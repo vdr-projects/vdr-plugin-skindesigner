@@ -64,7 +64,7 @@ public:
     void TabDown(int viewId);
     void DisplayTabs(int viewId);
     void ClearTab(int viewId);
-    void Flush(bool animFlush);
+    void Flush(void);
     bool ChannelLogoExists(string channelId);
     string GetEpgImagePath(void);
 };

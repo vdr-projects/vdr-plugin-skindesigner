@@ -37,6 +37,7 @@ private:
 public:
     cViewReplay(void);
     virtual ~cViewReplay(void);
+    void PreCache(void);
     void SetModeOnly(bool modeOnly) { this->modeOnly = modeOnly; };
     void SetRecordingLength(int length) { reclength = length; };
     void SetTimeShift(int framesTotal, int timeShiftLength);
@@ -53,7 +54,7 @@ public:
     void StartOnPause(const char *recfilename);
     void ClearOnPause(void);
     void DelayOnPause(void);
-    void Flush(bool animFlush);
+    void Flush(void);
 };
 
 #endif //__VIEWDISPLAYREPLAY_H1
