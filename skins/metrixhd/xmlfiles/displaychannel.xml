@@ -103,11 +103,11 @@
     <channelgroup>
         <area x="0" y="80%" width="20%" height="20%" layer="2">
             <drawimage condition="{sepexists}" imagetype="seplogo" path="{seppath}" width="98%" height="98%" align="center" valign="center" />
-            <drawimage condition="not{sepexists}" imagetype="icon" path="ico_channelsep" align="center" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="not{sepexists}" imagetype="icon" path="ico_channelsep_active" align="center" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
         </area>
         <area x="22%" y="85%" width="76%" height="10%" layer="2">
             <drawtext x="0" width="30%" valign="center" font="{light}" fontsize="60%" color="{fontdefault}" text="{prevgroup}" />
-            <drawtext x="30%" width="40%" valign="center" font="{semibold}" fontsize="80%" color="{fontdefault}" text="{group}" />
+            <drawtext align="center" x="30%" width="40%" valign="center" font="{semibold}" fontsize="80%" color="{fontdefault}" text="{group}" />
             <drawtext align="right" width="30%" valign="center" font="{light}" fontsize="60%" color="{fontdefault}" text="{nextgroup}" />
         </area>             
     </channelgroup>
@@ -176,6 +176,7 @@
         </area>
     </scrapercontent>
 
+
     <channelhints>
         <area background="true" x="0" y="{areaheight}*0.75 - {numhints}*{areaheight}*{zapchannelhintsheight}/1000 + 1" width="{zapchannelhintswidth}*{areawidth}/100" height="{numhints}*{areaheight}*{zapchannelhintsheight}/1000" layer="1">
             <fill color="{menuback}" />
@@ -192,43 +193,60 @@
         <area background="true" x="5%" y="15%" width="90%" height="65%" layer="1">
             <fill color="{menuback}" />
         </area>
-        <area x="7%" y="17%" width="41%" height="5%" layer="2">
-            <drawtext x="0" valign="center" fontsize="80%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
-        </area>
-        <areascroll condition="{ismovie}||{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="20%" width="41%" height="7%" layer="3">
-            <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
-        </areascroll>
-        <areascroll condition="{ismovie}||{isseries}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="25%" width="41%" height="6%" layer="3">
-            <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
-        </areascroll>
-        <areascroll condition="{ismovie}||{isseries}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="31%" width="41%" height="47%" layer="2">
-            <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="6%" color="{fontdefault}" text="{currentdescription}" />
-        </areascroll>
-        <area condition="{ismovie}" x="52%" y="17%" width="41%" height="30%" layer="1">
-            <drawimage imagetype="image" path="{posterpath}" align="center" valign="center" width="100%" height="100%" />
-        </area>
-        <area condition="{isseries}" x="52%" y="17%" width="41%" height="30%" layer="1">
-            <drawimage imagetype="image" path="{seriesbanner1path}" align="center" valign="center" width="100%" height="100%" />
-        </area>
-        <areascroll condition="{ismovie}||{isseries}" orientation="vertical" scrollelement="actors" mode="forthandback" delay="5000" scrollspeed="medium" x="52%" y="49%" width="41%" height="30%" layer="2">
-            <loop name="actors" x="0" y="0" width="100%" orientation="horizontal" columnwidth="{areawidth}/5" rowheight="{areawidth}/5*1.5" overflow="linewrap" >
-                <drawimage name="thumb" imagetype="image" path="{actors[thumb]}" x="10" y="0" width="{columnwidth}-20" height="{columnwidth} * {actors[thumbheight]} / {actors[thumbwidth]} - 40 * {actors[thumbheight]} / {actors[thumbwidth]}"/>
-                <drawtext align="center" y="{height(thumb)} + 10" width="{columnwidth}" name="actorname" font="{regular}" fontsize="6%" color="{fontdefault}" text="{actors[name]}" />
-                <drawtext align="center" y="{height(thumb)} + 10 + {height(actorname)}" width="{columnwidth}" font="{regular}" fontsize="6%" color="{fontdefault}" text="{actors[role]}" />
-            </loop>
-        </areascroll>
-        <areascroll condition="not{ismovie}++not{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="22%" y="16%" width="70%" height="7%" layer="3">
-            <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
-        </areascroll>
-        <areascroll condition="not{ismovie}++not{isseries}++isset{currentshorttext}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="22%" y="22%" width="70%" height="6%" layer="3">
-            <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
-        </areascroll>
-        <areascroll condition="not{ismovie}++not{isseries}++empty{currentshorttext}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="24%" width="86%" height="54%" layer="2">
-            <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="7%" color="{fontdefault}" text="{currentdescription}" />
-        </areascroll>
-        <areascroll condition="not{ismovie}++not{isseries}++isset{currentshorttext}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="31%" width="86%" height="47%" layer="2">
-            <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="8%" color="{fontdefault}" text="{currentdescription}" />
-        </areascroll>
+
+        <areacontainer condition="not{doitsimple}">
+            <area x="7%" y="17%" width="41%" height="5%" layer="2">
+                <drawtext x="0" valign="center" fontsize="80%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+            </area>
+            <areascroll condition="{ismovie}||{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="20%" width="41%" height="7%" layer="3">
+                <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </areascroll>
+            <areascroll condition="{ismovie}||{isseries}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="7%" y="25%" width="41%" height="6%" layer="3">
+                <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+            </areascroll>
+            <areascroll condition="{ismovie}||{isseries}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="31%" width="41%" height="47%" layer="2">
+                <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="8%" color="{fontdefault}" text="{currentdescription}" />
+            </areascroll>
+            <areascroll condition="{ismovie}" orientation="vertical" scrollelement="actors" mode="forthandback" delay="5000" scrollspeed="medium" x="52%" y="18%" width="41%" height="60%" layer="1">
+                <drawimage imagetype="image" path="{posterpath}" align="center" y="0" width="100%" height="95%" />
+                <loop name="actors" x="0" y="100%" width="100%" orientation="horizontal" columnwidth="{areawidth}/5" rowheight="{areawidth}/5*1.5" overflow="linewrap" >
+                    <drawimage name="thumb" imagetype="image" path="{actors[thumb]}" x="10" y="0" width="{columnwidth}-20" height="{columnwidth} * {actors[thumbheight]} / {actors[thumbwidth]} - 40 * {actors[thumbheight]} / {actors[thumbwidth]}"/>
+                    <drawtext align="center" y="{height(thumb)} + 10" width="{columnwidth}" name="actorname" font="{regular}" fontsize="4%" color="{fontdefault}" text="{actors[name]}" />
+                    <drawtext align="center" y="{height(thumb)} + 10 + {height(actorname)}" width="{columnwidth}" font="{regular}" fontsize="4%" color="{fontdefault}" text="{actors[role]}" />
+                </loop>
+            </areascroll>
+            <area condition="{isseries}" x="52%" y="17%" width="41%" height="15%" layer="1">
+                <drawimage imagetype="image" path="{seriesbanner1path}" align="center" valign="center" width="100%" height="100%" />
+            </area>
+            <areascroll condition="{isseries}" orientation="vertical" scrollelement="actors" mode="forthandback" delay="5000" scrollspeed="medium" x="52%" y="35%" width="41%" height="44%" layer="2">
+                <loop name="actors" x="0" y="0" width="100%" orientation="horizontal" columnwidth="{areawidth}/5" rowheight="{areawidth}/5*1.5" overflow="linewrap" >
+                    <drawimage name="thumb" imagetype="image" path="{actors[thumb]}" x="10" y="0" width="{columnwidth}-20" height="{columnwidth} * {actors[thumbheight]} / {actors[thumbwidth]} - 40 * {actors[thumbheight]} / {actors[thumbwidth]}"/>
+                    <drawtext align="center" y="{height(thumb)} + 10" width="{columnwidth}" name="actorname" font="{regular}" fontsize="5%" color="{fontdefault}" text="{actors[name]}" />
+                    <drawtext align="center" y="{height(thumb)} + 10 + {height(actorname)}" width="{columnwidth}" font="{regular}" fontsize="5%" color="{fontdefault}" text="{actors[role]}" />
+                </loop>
+            </areascroll>
+            <areascroll condition="not{ismovie}++not{isseries}" scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="22%" y="16%" width="70%" height="7%" layer="3">
+                <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </areascroll>
+            <areascroll condition="not{ismovie}++not{isseries}++isset{currentshorttext}" scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="22%" y="22%" width="70%" height="6%" layer="3">
+                <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+            </areascroll>
+            <areascroll condition="not{ismovie}++not{isseries}++empty{currentshorttext}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="24%" width="86%" height="54%" layer="2">
+                <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="7%" color="{fontdefault}" text="{currentdescription}" />
+            </areascroll>
+            <areascroll condition="not{ismovie}++not{isseries}++isset{currentshorttext}" orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="7%" y="31%" width="86%" height="47%" layer="2">
+                <drawtextbox name="desc" x="0" y="0" width="96%" font="{regular}" fontsize="8%" color="{fontdefault}" text="{currentdescription}" />
+            </areascroll>
+        </areacontainer>
+
+        <areacontainer condition="{doitsimple}">
+            <area x="7%" y="17%" width="86%" height="61%" layer="2">
+                <drawimage condition="{isseries}" name="seriesposter" imagetype="image" path="{seriesposter1path}" x="75%" y="10" width="25%" height="{areawidth} * 0.25 * {seriesposter1height} / {seriesposter1width}"/>
+                <drawimage condition="{ismovie}" name="movieposter" imagetype="image" path="{posterpath}" x="75%" y="10" width="25%" height="{areawidth} * 0.25 * {posterheight} / {posterwidth}" />
+                <drawtextbox condition="{ismovie}||{isseries}" x="0" width="70%" height="98%" font="{regular}" fontsize="7%" color="{fontdefault}" text="{currentstart} - {currentstop}  {currenttitle}&#10;|{currentshorttext}&#10;|{currentdescription}" />
+                <drawtextbox condition="not{ismovie}++not{isseries}" x="0" y="0" width="98%" height="98%" font="{regular}" fontsize="7%" color="{fontdefault}" text="{currentstart} - {currentstop}  {currenttitle}&#10;|{currentshorttext}&#10;|{currentdescription}" />
+            </area>
+        </areacontainer>
     </channeldetail>
 
     <channellistback clearondisplay="all" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
@@ -239,7 +257,7 @@
     
     <channellist x="0" y="0" orientation="vertical" width="30%" height="100%" align="center" numlistelements="{listitemsmax}" fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="left">
         <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
-            <area indicator="true" condition="{current}" x="0" width="100%" layer="4">
+           <area indicator="true" condition="{current}" x="0" width="100%" layer="4">
                 <drawrectangle x="0" y="0" width="100%" height="100%" color="{menuactive}" />
             </area>
             <area condition="not{current}" x="0" width="100%" layer="4">
@@ -267,18 +285,33 @@
         <area x="30%" y="5%" width="66%" height="90%" layer="1">
             <fill color="{menuback}" />
         </area>
-        <area x="32%" y="6%" width="62%" height="5%" layer="2">
-            <drawtext x="0" valign="center" fontsize="90%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
-        </area>
-        <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="10%" width="62%" height="7%" layer="3">
-            <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
-        </areascroll>
-        <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="16%" width="62%" height="6%" layer="3">
-            <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
-        </areascroll>
-        <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="32%" y="22%" width="62%" height="71%" layer="2">
-            <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="5%" color="{fontdefault}" text="{currentdescription}" />
-        </areascroll>
+
+        <areacontainer condition="not{doitsimple}">
+            <area x="32%" y="6%" width="62%" height="5%" layer="2">
+                <drawtext x="0" valign="center" fontsize="90%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+            </area>
+            <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="10%" width="62%" height="7%" layer="3">
+                <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </areascroll>
+            <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="32%" y="16%" width="62%" height="6%" layer="3">
+                <drawtext name="shorttext" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+            </areascroll>
+            <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="32%" y="22%" width="62%" height="71%" layer="2">
+                <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="5%" color="{fontdefault}" text="{currentdescription}" />
+            </areascroll>
+        </areacontainer>
+
+        <areacontainer condition="{doitsimple}">
+            <area x="32%" y="7%" width="62%" height="5%" layer="2">
+                <drawtext x="0" valign="center" fontsize="75%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+            </area>
+            <area x="32%" y="10%" width="62%" height="7%" layer="2">
+                <drawtext name="title" x="0" valign="center" fontsize="70%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </area>
+            <area x="32%" y="17%" width="62%" height="75%" layer="2">
+                <drawtextbox x="0" y="0" width="98%" height="98%" font="{regular}" fontsize="4%" color="{fontdefault}" text="|{currentshorttext}&#10;|{currentdescription}" />
+            </area>
+        </areacontainer>
     </channellistdetail>
 
     <grouplistback fadetime="{fadetimezapcockpit}" shifttime="{shifttimezapcockpit}" shiftmode="slowed" shifttype="right" clearondisplay="all">
@@ -297,8 +330,8 @@
                 <drawrectangle x="0" y="{areaheight}-1" width="100%" height="1" color="{menubackline}" />
             </area>
             <area x="0" width="24%" layer="5">
-                <drawimage condition="not{current}" imagetype="icon" path="folder" align="center" valign="center" width="90%" height="90%" />
-                <drawimage condition="{current}" imagetype="icon" path="folder_active" align="center" valign="center" width="90%" height="90%" />
+                <drawimage condition="not{current}" imagetype="icon" path="ico_folder" align="center" valign="center" width="90%" height="90%" />
+                <drawimage condition="{current}" imagetype="icon" path="ico_folder_active" align="center" valign="center" width="90%" height="90%" />
             </area>
             <area x="0" width="24%" layer="6">
                 <drawtext condition="not{current}" align="center" y="38%" fontsize="40%" font="{regular}" color="{fontdefault}" text="{numchannels}" />
@@ -349,18 +382,33 @@
         <area x="2%" y="6%" width="38%" height="88%" layer="1">
             <fill color="{menuback}" />
         </area>
-        <area x="4%" y="6%" width="35%" height="5%" layer="2">
-            <drawtext x="0" valign="center" fontsize="85%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
-        </area>
-        <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="10%" width="35%" height="7%" layer="3">
-            <drawtext name="title" x="0" valign="center" fontsize="68%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
-        </areascroll>
-        <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="16%" width="35%" height="6%" layer="3">
-            <drawtext name="shorttext" x="0" valign="center" fontsize="68%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
-        </areascroll>
-        <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="4%" y="22%" width="35%" height="70%" layer="2">
-            <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="5%" color="{fontdefault}" text="{currentdescription}" />
-        </areascroll>
+
+        <areacontainer condition="not{doitsimple}">
+            <area x="4%" y="6%" width="35%" height="5%" layer="2">
+                <drawtext x="0" valign="center" fontsize="85%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+            </area>
+            <areascroll scrollelement="title" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="10%" width="35%" height="7%" layer="3">
+                <drawtext name="title" x="0" valign="center" fontsize="68%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </areascroll>
+            <areascroll scrollelement="shorttext" mode="forthandback" orientation="horizontal" delay="1000" scrollspeed="medium" x="4%" y="16%" width="35%" height="6%" layer="3">
+                <drawtext name="shorttext" x="0" valign="center" fontsize="68%" font="{regular}" color="{fontdefault}" text="{currentshorttext}" />
+            </areascroll>
+            <areascroll orientation="vertical" scrollelement="desc" mode="forthandback" delay="5000" scrollspeed="medium" x="4%" y="22%" width="35%" height="70%" layer="2">
+                <drawtextbox name="desc" x="0" y="0" width="100%" font="{regular}" fontsize="5%" color="{fontdefault}" text="{currentdescription}" />
+            </areascroll>
+        </areacontainer>
+
+        <areacontainer condition="{doitsimple}">
+            <area x="4%" y="7%" width="35%" height="5%" layer="2">
+                <drawtext x="0" valign="center" fontsize="75%" font="{regular}" color="{fontdefault}" text="{currentstart} - {currentstop}" />
+            </area>
+            <area x="4%" y="10%" width="35%" height="7%" layer="2">
+                <drawtext name="title" x="0" valign="center" fontsize="60%" font="{regular}" color="{fontdefault}" text="{currenttitle}" />
+            </area>
+            <area x="4%" y="17%" width="35%" height="75%" layer="3">
+                <drawtextbox x="0" y="0" width="98%" height="98%" font="{regular}" fontsize="4%" color="{fontdefault}" text="|{currentshorttext}&#10;|{currentdescription}" />
+            </area>
+        </areacontainer>
     </groupchannellistdetail>
 
     <message>

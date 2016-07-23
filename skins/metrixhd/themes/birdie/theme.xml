@@ -6,7 +6,7 @@
         <color name="menuback">C0FFA500</color>
         <color name="menuheader">C0111111</color>
         <color name="menuactive">F0111111</color>
-        <color name="menualternate">C0F5B914</color>
+<!--        <color name="menualternate">C0F5B914</color> -->
         <color name="menuseparator">22FFFFFF</color>
         <color name="fontdefault">F0111111</color>
         <color name="fontseparator">F0111111</color>

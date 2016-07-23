@@ -24,9 +24,12 @@
                     <drawimage condition="{flagrecording}" name="recording" imagetype="icon" path="ico_recording_active" x="0.7*{areaheight}" width="0.5*{areaheight}" height="0.5*{areaheight}" valign="center" />
 <!--                    <drawimage condition="{isremote}" name="remote" imagetype="icon" path="ico_remotetimer_active" x="0.7*{areaheight}" width="0.5*{areaheight}" height="0.5*{areaheight}" valign="center" /> -->
                 </area>
-                <areascroll scrollelement="timertext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="5%" width="54%" layer="3">
+                <areascroll condition="not{doitsimple}" scrollelement="timertext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="5%" width="54%" layer="3">
                     <drawtext name="timertext" x="10" valign="center" font="{light}" fontsize="80%" color="{fontactive}" text="{dayname} {day}. {timerstart} - {timerstop}: {title}" />
                 </areascroll>
+                <area condition="{doitsimple}" x="5%" width="54%" layer="3">
+                    <drawtext name="timertext" x="10" valign="center" font="{light}" fontsize="80%" color="{fontactive}" text="{dayname} {day}. {timerstart} - {timerstop}: {title}" />
+                </area>
             </areacontainer>
         </listelement>
         <currentelement delay="0" fadetime="{fadetimecurrent}">

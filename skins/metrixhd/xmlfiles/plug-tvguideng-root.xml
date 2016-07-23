@@ -28,42 +28,70 @@
     </viewelement>
 
     <viewelement name="header_hor">
-        <areascroll condition="not{isdummy}++not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="1%" y="1%" width="68%" height="19%" layer="2">
-            <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
-            <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
-            <drawtextbox name="shorttext" x="0" y="55%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
-        </areascroll>
+        <areacontainer condition="{doitsimple}">
+            <area condition="not{isdummy}++not{hasposter}" x="1%" y="1%" width="68%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox x="0" y="55%" width="100%" font="{light}" fontsize="22%" color="{fontdefault}" text="|{shorttext}&#10;|{description}" />
+            </area>
+            <area condition="not{isdummy}++{hasposter}" x="10%" y="1%" width="58%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox x="0" y="55%" width="100%" font="{light}" fontsize="22%" color="{fontdefault}" text="|{shorttext}&#10;|{description}" />
+            </area>
+        </areacontainer>
+        <areacontainer condition="not{doitsimple}">
+            <areascroll condition="not{isdummy}++not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="1%" y="1%" width="68%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox name="shorttext" x="0" y="55%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+            <areascroll condition="not{isdummy}++{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="10%" y="1%" width="58%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="25%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox name="shorttext" x="0" y="55%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+        </areacontainer>
         <area condition="not{isdummy}++{hasposter}" x="1%" y="1%" width="{areaheight}*0.2*{posterwidth}/{posterheight}" height="19%" layer="2">
             <drawimage imagetype="image" path="{posterpath}" x="0" y="0" width="100%" height="100%"/>
         </area>
-        <areascroll condition="not{isdummy}++{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="12%" y="1%" width="56%" height="19%" layer="2">
-            <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
-            <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
-            <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
-        </areascroll>
         <area condition="{isdummy}" x="1%" y="1%" width="68%" height="19%" layer="2">
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="35%" color="{fontdefault}" text="{title}" />
         </area>
     </viewelement>
 
     <viewelement name="header_ver">
-        <areascroll condition="not{isdummy}++not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="1%" y="1%" width="68%" height="19%" layer="2">
-            <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
-            <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
-            <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
-        </areascroll>
+        <areacontainer condition="{doitsimple}">
+            <area condition="not{isdummy}++not{hasposter}" x="1%" y="1%" width="68%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox x="0" y="50%" width="100%" font="{light}" fontsize="22%" color="{fontdefault}" text="|{shorttext}&#10;|{description}" />
+            </area>
+            <area condition="not{isdummy}++{hasposter}" x="10%" y="1%" width="58%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox x="0" y="50%" width="100%" font="{light}" fontsize="22%" color="{fontdefault}" text="|{shorttext}&#10;|{description}"  />
+            </area>
+        </areacontainer>
+        <areacontainer condition="not{doitsimple}">
+            <areascroll condition="not{isdummy}++not{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="1%" y="1%" width="68%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+            <areascroll condition="not{isdummy}++{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="10%" y="1%" width="58%" height="19%" layer="2">
+                <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
+                <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
+                <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
+                <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
+            </areascroll>
+        </areacontainer>
         <area condition="not{isdummy}++{hasposter}" x="1%" y="1%" width="{areaheight}*0.2*{posterwidth}/{posterheight}" height="19%" layer="2">
             <drawimage imagetype="image" path="{posterpath}" x="0" y="0" width="100%" height="100%"/>
         </area>
-        <areascroll condition="not{isdummy}++{hasposter}" orientation="vertical" mode="forthandback" delay="3000" scrollspeed="medium" x="12%" y="1%" width="56%" height="19%" layer="2">
-            <drawtext x="0" y="0" font="{semibold}" width="100%" fontsize="25%" color="{fontdefault}" text="{day} {daynumeric}.{month} {start} - {stop}" />
-            <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="30%" color="{fontdefault}" text="{title}" />
-            <drawtextbox name="shorttext" x="0" y="50%" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{shorttext}" />
-            <drawtextbox x="0" y="{posy(shorttext)} + {height(shorttext)}" width="100%" font="{light}" fontsize="20%" color="{fontdefault}" text="{description}" />
-        </areascroll>
         <area condition="{isdummy}" x="1%" y="1%" width="68%" height="19%" layer="2">
             <drawtext x="0" y="20%" font="{semibold}" width="100%" fontsize="35%" color="{fontdefault}" text="{title}" />
         </area>

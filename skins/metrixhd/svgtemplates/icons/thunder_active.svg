@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 320.192 320.192" style="enable-background:new 0 0 320.192 320.192;" xml:space="preserve">
-<g fill="#{sdcol(icon)}" fill-opacity="1">
+<g fill="#{sdcol(iconactive)}" fill-opacity="1">
 	<g id="Dibujo_27_">
 		<path d="M259.466,82.808c-2.804,0-6.139,0.436-9.324,1.016c-11.554-39.593-47.742-67.262-90.046-67.262
 			c-42.309,0-78.497,27.669-90.051,67.262c-3.18-0.58-6.52-1.016-9.319-1.016C27.244,82.808,0,110.052,0,143.534

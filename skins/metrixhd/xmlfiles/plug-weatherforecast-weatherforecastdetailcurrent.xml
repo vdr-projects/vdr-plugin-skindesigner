@@ -42,7 +42,7 @@
             <drawtext x="20" valign="center" font="{light}" fontsize="40%" color="{fontdefault}" text="{menuheader}" />
         </area>
         <area x="{areawidth} - {areaheight}*0.2" y="0" width="{areaheight}*0.2" height="20%" layer="4">
-            <drawimage imagetype="icon" path="{icon}" align="center" valign="center" width="90%" height="90%"/>
+            <drawimage imagetype="icon" path="{icon}_active" align="center" valign="center" width="90%" height="90%"/>
         </area>
         <area x="{areawidth} - {areaheight}*0.6" y="0" width="{areaheight}*0.35" height="20%" layer="4">
             <drawtext align="right" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{temperature}°C" />

@@ -89,8 +89,8 @@
     <!-- TAB EPGINFO -->
     <tab name="EPG Info" x="2%" y="20%" width="94%" height="65%" layer="2" scrollheight="{areaheight}/4">
         <drawtextbox condition="not{isseries}++not{ismovie}" x="0" y="0" width="96%" font="{light}" fontsize="8%" color="{fontdefault}" text="{description}" />
-        <drawimage condition="{isseries}" name="seriesposter" imagetype="image" path="{seriesposter1path}" x="{areawidth}*0.75" y="0" width="{areawidth}*0.25" height="{areawidth} * 0.25 * {seriesposter1height} / {seriesposter1width}"/>
-        <drawimage condition="{ismovie}" name="movieposter" imagetype="image" path="{posterpath}" x="{areawidth}*0.75" y="0" width="{areawidth}*0.25" height="{areawidth} * 0.25 * {posterheight} / {posterwidth}" />
+        <drawimage condition="{isseries}" name="seriesposter" imagetype="image" path="{seriesposter1path}" x="{areawidth}*0.75" y="10" width="{areawidth}*0.25" height="{areawidth} * 0.25 * {seriesposter1height} / {seriesposter1width}-20"/>
+        <drawimage condition="{ismovie}" name="movieposter" imagetype="image" path="{posterpath}" x="{areawidth}*0.75" y="10" width="{areawidth}*0.25" height="{areawidth} * 0.25 * {posterheight} / {posterwidth}-20" />
         <drawtextbox condition="{isseries}" x="0" y="0" width="96%" float="topright" floatwidth="{width(seriesposter)} + 10" floatheight="{height(seriesposter)} + 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{description}" />
         <drawtextbox condition="{ismovie}" x="0" y="0" width="96%" float="topright" floatwidth="{width(movieposter)} + 10" floatheight="{height(movieposter)} + 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{description}" />
     </tab>
@@ -134,7 +134,7 @@
     </tab>
     <!-- TAB MOVIEDBINFO -->
     <tab condition="{ismovie}" name="MovieDBInfo" x="2%" y="20%" width="94%" height="65%" layer="2" scrollheight="{areaheight}/4">
-        <drawimage name="poster" imagetype="image" path="{posterpath}" x="70%" y="10" width="{areawidth}*0.3" height="{areawidth} * 0.3 * {posterheight} / {posterwidth}"/>
+        <drawimage name="poster" imagetype="image" path="{posterpath}" x="75%" y="10" width="25%" height="{areawidth} * 0.25 * {posterheight} / {posterwidth} -20"/>
         <drawtextbox x="0" y="10" width="96%" float="topright" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{tr(originaltitle)}: {movieoriginalTitle}&#10;&#10;|{tr(genre)}: {moviegenres}&#10;&#10;||{movietagline}&#10;&#10;|{movieoverview}&#10;&#10;|{tr(budget)}: {moviebudget}&#10;||{tr(revenue)}: {movierevenue}&#10;&#10;||{tr(adult)}: {movieadult}&#10;||{tr(releasedate)}: {moviereleasedate}&#10;||{tr(runtime)}: {movieruntime} min&#10;||&#10;{tr(popularity)}: {moviepopularity}&#10;||&#10;{tr(voteaverage)}: {movievoteaverage}&#10;||&#10;{tr(homepage)}: {moviehomepage}|&#10;" />
     </tab>
     <!-- TAB MOVIEGALERY -->

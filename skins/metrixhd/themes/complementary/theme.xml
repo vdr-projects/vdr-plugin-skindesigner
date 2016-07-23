@@ -3,19 +3,23 @@
 
 <globals>
     <colors>
-        <color name="menuback">EE8CC04B</color>
-<!--        <color name="menualternate">EE75a968</color> -->
-        <color name="menuheader">EEC7053D</color>
-        <color name="menuactive">EFC7053D</color>
+        <color name="menuback">DDC7B097</color>
+        <color name="menualternate">33FFFFFF</color>
+        <color name="menuheader">DD98AFC7</color>
+        <color name="menuactive">DD98AFC7</color>
         <color name="menuseparator">33FFFFFF</color>
-        <color name="fontdefault">FF000000</color>
+        <color name="fontactive">FF333333</color>
+        <color name="fontmenuactive">FF333333</color>
+        <color name="fontdefault">FF555555</color>
         <color name="fontseparator">FF000000</color>
+        <color name="scrollbar">FF666666</color>
         <!-- colors svg templates -->
-        <color name="icon">FF000000</color>
-        <color name="iconactive">FFFFFFFF</color>
+        <color name="icon">FF666666</color>
+        <color name="iconactive">FF333333</color>
         <color name="iconselected">FF000000</color>
         <color name="iconrecactive">EFFFFFFF</color>
         <color name="iconrecinactive">FF000000</color>
+        <color name="icontextalert">FFFF5050</color>
     </colors>
 
     <variables>

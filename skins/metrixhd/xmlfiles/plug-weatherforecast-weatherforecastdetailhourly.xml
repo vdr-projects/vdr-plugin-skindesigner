@@ -42,7 +42,7 @@
             <drawtext x="20" valign="center" font="{light}" fontsize="40%" color="{fontdefault}" text="{menuheader}" />
         </area>
         <area x="{areawidth} - {areaheight}*0.2" y="0" width="{areaheight}*0.2" height="20%" layer="4">
-            <drawimage imagetype="icon" path="{icon}" align="center" valign="center" width="70%" height="70%"/>
+            <drawimage imagetype="icon" path="{icon}_active" align="center" valign="center" width="70%" height="70%"/>
         </area>
     </detailheader>
 
@@ -51,7 +51,7 @@
         <drawrectangle x="0" y="{posy(summary)} + {height(summary)} + 10" width="{areawidth}" height="1" color="{clrWhite}" />
         <loop name="hourly" x="0" y="{posy(summary)} + {height(summary)} + 10" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/5">
             <drawtext x="0" font="{semibold}" fontsize="9%" valign="center" color="{fontdefault}" text="{hourly[timestamp]}" />
-            <drawimage imagetype="icon" path="{hourly[icon]}" x="{rowheight}" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
+            <drawimage imagetype="icon" path="{hourly[icon]}_active" x="{rowheight}" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
             <drawtext name="temp" x="2*{rowheight} + 0.75*{rowheight} - {width(temp)}/2" font="{light}" fontsize="13%" y="0" color="{fontdefault}" text="{hourly[temperature]}°C" />
             <drawtext name="felt" x="2*{rowheight} + 0.75*{rowheight} - {width(felt)}/2" font="{light}" fontsize="6%" y="{rowheight}*0.6" color="{fontdefault}" text="{tr(felt)} {hourly[apparenttemperature]}°C" />
             <drawtext x="4*{rowheight}" font="{light}" fontsize="{rowheight}/3" y="0" width="{columnwidth} - 4*{rowheight}" color="{fontdefault}" text="{hourly[summary]}" />

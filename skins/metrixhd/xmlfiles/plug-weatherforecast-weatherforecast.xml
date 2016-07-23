@@ -61,7 +61,7 @@
         </listelement>
         <currentelement delay="0" fadetime="{fadetimecurrent}">
             <area condition="{iscurrent}" x="51%" y="0" width="48%" height="100%" layer="3">
-                <drawimage name="weathericon" imagetype="icon" path="{icon}" x="2%" y="0" width="{areawidth}*0.3" height="{areawidth}*0.3"/>
+                <drawimage name="weathericon" imagetype="icon" path="{icon}_active" x="2%" y="0" width="{areawidth}*0.3" height="{areawidth}*0.3"/>
                 <drawtext align="right" y="0" font="{semibold}" fontsize="8%" color="{fontactive}" text="{city}" />
                 <drawtext align="right" y="7%" font="{light}" fontsize="8%" color="{fontactive}" text="{timestamp}" />
                 <drawtext align="right" y="13%" font="{light}" fontsize="18%" color="{fontactive}" text="{temperature}°C" />
@@ -77,19 +77,19 @@
             <area condition="{ishourly}" x="51%" y="0" width="48%" height="100%" layer="3">
                 <loop name="hourly" x="0" y="0" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/12" overflow="cut">
                     <drawtext x="0" font="{semibold}" fontsize="7%" valign="center" color="{fontactive}" text="{hourly[timestamp]}" />
-                    <drawimage imagetype="icon" path="{hourly[icon]}" x="18%" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
+                    <drawimage imagetype="icon" path="{hourly[icon]}_active" x="18%" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
                     <drawtext x="30%" font="{light}" fontsize="7%" valign="center" color="{fontactive}" text="{hourly[temperature]}°C" />
-                    <drawtext x="48%" font="{light}" fontsize="5%" valign="center" width="52%" color="{fontactive}" text="{hourly[summary]}" />
-                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{clrWhite}" />
+                    <drawtext x="48%" font="{light}" fontsize="6%" valign="center" width="52%" color="{fontactive}" text="{hourly[summary]}" />
+                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{fontactive}" />
                 </loop>
             </area>
             <area condition="{isdaily}" x="51%" y="0" width="48%" height="100%" layer="3">
                 <loop name="daily" x="0" y="0" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/7" overflow="cut">
                     <drawtext x="0" font="{semibold}" fontsize="{rowheight}/2" y="5" color="{fontactive}" text="{daily[dayname]} {daily[day]}" />
                     <drawtext x="35%" font="{light}" fontsize="{rowheight}/2" y="5" color="{fontactive}" text="{daily[temperaturemin]}°C - {daily[temperaturemax]}°C" />
-                    <drawtext x="0" font="{light}" fontsize="{rowheight}*0.3" width="{columnwidth} - {rowheight}*0.7" y="{rowheight}*0.6" color="{fontactive}" text="{daily[summary]}" />
-                    <drawimage imagetype="icon" path="{daily[icon]}" x="{columnwidth} - {rowheight}*0.7" valign="center" width="{rowheight}*0.7" height="{rowheight}*0.7"/>
-                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{clrWhite}" />
+                    <drawtext x="0" font="{light}" fontsize="{rowheight}/2.5" width="{columnwidth} - {rowheight}*0.7" y="{rowheight}*0.5" color="{fontactive}" text="{daily[summary]}" />
+                    <drawimage imagetype="icon" path="{daily[icon]}_active" x="{columnwidth} - {rowheight}*0.7" valign="center" width="{rowheight}*0.7" height="{rowheight}*0.7"/>
+                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{fontactive}" />
                 </loop>
             </area>
         </currentelement>
@@ -97,17 +97,17 @@
     <menuitems x="0" y="10%" orientation="horizontal" width="100%" height="90%" align="center" numlistelements="3">
         <listelement fadetime="{listfadetime}" shifttime="{listshifttime}">
             <!-- Background -->
-            <area indicator="true" condition="{current}" y="80%" height="20%" layer="2">
+             <area indicator="true" condition="{current}" y="80%" height="20%" layer="2">
                 <fill color="{menuactive}" />
             </area>
             <area y="80%" height="20%" layer="3">
-                <drawtextbox condition="not{current}" x="0" y="0" width="100%" height="100%" align="center" valign="center" font="{light}" fontsize="40%" color="{fontdefault}" text="{menuitemtext}" />
-                <drawtextbox condition="{current}" x="0" y="0" width="100%" height="100%" align="center" valign="center" font="{light}" fontsize="40%" color="{fontactive}" text="{menuitemtext}" />
+                <drawtextbox condition="not{current}" x="0" y="0" width="100%" height="100%" align="center" valign="center" font="{light}" fontsize="35%" color="{fontdefault}" text="{menuitemtext}" />
+                <drawtextbox condition="{current}" x="0" y="0" width="100%" height="100%" align="center" valign="center" font="{light}" fontsize="35%" color="{fontactive}" text="{menuitemtext}" />
             </area>
         </listelement>
         <currentelement delay="0" fadetime="{fadetimecurrent}">
             <area condition="{iscurrent}" x="10%" y="5%" width="80%" height="70%" layer="3">
-                <drawimage name="weathericon" imagetype="icon" path="{icon}" x="2%" y="0" width="{areaheight}*0.4" height="{areaheight}*0.4"/>
+                <drawimage name="weathericon" imagetype="icon" path="{icon}_active" x="2%" y="0" width="{areaheight}*0.4" height="{areaheight}*0.4"/>
                 <drawtext align="right" y="0" font="{semibold}" fontsize="10%" color="{fontactive}" text="{city}" />
                 <drawtext align="right" y="9%" font="{light}" fontsize="10%" color="{fontactive}" text="{timestamp}" />
                 <drawtext align="right" y="18%" font="{light}" fontsize="25%" color="{fontactive}" text="{temperature}°C" />
@@ -123,19 +123,19 @@
             <area condition="{ishourly}" x="10%" y="5%" width="80%" height="70%" layer="3">
                 <loop name="hourly" x="0" y="0" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/12" overflow="cut">
                     <drawtext x="0" font="{semibold}" fontsize="7%" valign="center" color="{fontactive}" text="{hourly[timestamp]}" />
-                    <drawimage imagetype="icon" path="{hourly[icon]}" x="18%" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
+                    <drawimage imagetype="icon" path="{hourly[icon]}_active" x="18%" valign="center" width="{rowheight}*0.8" height="{rowheight}*0.8"/>
                     <drawtext x="30%" font="{light}" fontsize="7%" valign="center" color="{fontactive}" text="{hourly[temperature]}°C" />
-                    <drawtext x="48%" font="{light}" fontsize="5%" valign="center" width="52%" color="{fontactive}" text="{hourly[summary]}" />
-                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{clrWhite}" />
+                    <drawtext x="48%" font="{light}" fontsize="6%" valign="center" width="52%" color="{fontactive}" text="{hourly[summary]}" />
+                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{fontactive}" />
                 </loop>
             </area>
             <area condition="{isdaily}" x="10%" y="5%" width="80%" height="70%" layer="3">
                 <loop name="daily" x="0" y="0" orientation="vertical" columnwidth="{areawidth}" rowheight="{areaheight}/7" overflow="cut">
                     <drawtext x="0" font="{semibold}" fontsize="{rowheight}/2" y="5" color="{fontactive}" text="{daily[dayname]} {daily[day]}" />
                     <drawtext x="35%" font="{light}" fontsize="{rowheight}/2" y="5" color="{fontactive}" text="{daily[temperaturemin]}°C - {daily[temperaturemax]}°C" />
-                    <drawtext x="0" font="{light}" fontsize="{rowheight}*0.3" width="{columnwidth} - {rowheight}*0.7" y="{rowheight}*0.6" color="{fontactive}" text="{daily[summary]}" />
-                    <drawimage imagetype="icon" path="{daily[icon]}" x="{columnwidth} - {rowheight}*0.7" valign="center" width="{rowheight}*0.7" height="{rowheight}*0.7"/>
-                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{clrWhite}" />
+                    <drawtext x="0" font="{light}" fontsize="{rowheight}/2.3" width="{columnwidth} - {rowheight}*0.7" y="{rowheight}*0.5" color="{fontactive}" text="{daily[summary]}" />
+                    <drawimage imagetype="icon" path="{daily[icon]}_active" x="{columnwidth} - {rowheight}*0.7" valign="center" width="{rowheight}*0.7" height="{rowheight}*0.7"/>
+                    <drawrectangle x="0" y="{rowheight} - 1" width="{columnwidth}" height="1" color="{fontactive}" />
                 </loop>
             </area>
         </currentelement>

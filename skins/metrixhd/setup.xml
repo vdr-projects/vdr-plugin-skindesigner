@@ -12,16 +12,18 @@
         <parameter type="int" name="listshifttime" min="0" max="1000" displaytext="{tr(listshifttimetext)}" helptext="{tr(helplistshifttime)}">100</parameter>
         <parameter type="string" name="showdevices" displaytext="{tr(showdevices)}" helptext="{tr(helpshowdevices)}" options="no,menu,yes">0</parameter>
         <parameter type="string" name="showweather" displaytext="{tr(showweather)}" helptext="{tr(helpshowweather)}" options="no,menu,yes">1</parameter>
+        <parameter type="string" name="showscrollbar" displaytext="{tr(showscrollbar)}" helptext="{tr(helpshowscrollbar)}" options="no,auto,yes">1</parameter>
         <parameter type="string" name="recmenuorientation" displaytext="{tr(recmenuorientation)}" options="horizontal,vertical">1</parameter>
         <parameter type="string" name="weathermenuorientation" displaytext="{tr(weathermenuorientation)}" options="horizontal,vertical">1</parameter>
+        <parameter type="string" name="setupmenuorientation" displaytext="{tr(setupmenuorientation)}" options="horizontal,vertical">1</parameter>
         <parameter type="int" name="chlistitemsmax" min="8" max="16" displaytext="{tr(chlistitemsmaxtext)}">10</parameter>
         <parameter type="int" name="listitemsmax" min="8" max="16" displaytext="{tr(listitemsmaxtext)}">14</parameter>
+        <parameter type="bool" name="doitsimple" displaytext="{tr(doitsimple)}">0</parameter>
         <!-- mainmenu -->
         <parameter type="separator" name="sepmainmenu" displaytext="---------------- {tr(sepmainmenu)} ----------------"/>
         <parameter type="string" name="mainmenuorientation" displaytext="{tr(mainmenuorientation)}" helptext="{tr(helpmainmenuorientation)}" options="horizontal,vertical">1</parameter>
         <parameter type="bool" name="mainmenusmall" displaytext="{tr(mainmenusmall)}">0</parameter>
         <parameter type="int" name="menuitemsmax" min="1" max="16" displaytext="{tr(menuitemsmaxtext)}">9</parameter>
-        <parameter type="string" name="showscrollbar" displaytext="{tr(showscrollbar)}" helptext="{tr(helpshowscrollbar)}" options="no,auto,yes">1</parameter>
         <parameter type="string" name="showinformation" displaytext="{tr(showinformation)}" helptext="{tr(helpshowinformation)}" options="no,oldstyle,yes">2</parameter>
         <parameter type="int" name="infolistitemsmax" min="1" max="5" displaytext="{tr(infolistitemsmaxtext)}">3</parameter>
         <parameter type="int" name="shifttimetimers" min="0" max="1000" displaytext="{tr(shifttimetimerstext)}" helptext="{tr(helpshifttimetimers)}">0</parameter>
@@ -101,8 +103,8 @@
         </token>
 
         <token name="tr(showscrollbar)">
-            <trans lang="en_EN">Show Scrollbar in main menu</trans>
-            <trans lang="de_DE">Zeige Scrollbar im Hauptmenü</trans>
+            <trans lang="en_EN">Show Scrollbar</trans>
+            <trans lang="de_DE">Zeige Scrollbar</trans>
         </token>
         <token name="tr(showweather)">
             <trans lang="en_EN">Show Weather info</trans>
@@ -136,6 +138,10 @@
             <trans lang="de_DE">Einfahrzeit für Zapcockpit Elemente [ms]</trans>
             <trans lang="fi_FI">Liukuman kesto elementeille [ms]</trans>
             <trans lang="it_IT">Tempo di cambio degli elementi Zapcockpit [ms]</trans>
+        </token>
+        <token name="tr(doitsimple)">
+            <trans lang="en_EN">Disable text scolling</trans>
+            <trans lang="de_DE">Text-Scrolling abschalten</trans>
         </token>
         <token name="tr(zapchannelhintsheight)">
             <trans lang="en_EN">Height channel hints (% of screen height)</trans>
@@ -249,6 +255,10 @@
             <trans lang="de_DE">Ausrichtung des Wettermenüs</trans>
             <trans lang="fi_FI">Säälaajennoksen orientaatio</trans>
             <trans lang="it_IT">Orientamento menù previsioni del tempo</trans>
+        </token>
+        <token name="tr(setupmenuorientation)">
+            <trans lang="en_EN">Orientation of setup menu</trans>
+            <trans lang="de_DE">Ausrichtung des Einstellungsmenüs</trans>
         </token>
         <token name="tr(horizontal)">
             <trans lang="en_EN">horizontal menu</trans>

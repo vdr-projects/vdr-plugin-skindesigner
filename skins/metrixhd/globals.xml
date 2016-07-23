@@ -12,12 +12,12 @@
         <color name="clrBlack">FF000000</color>
         <color name="clrBlackTrans">77000000</color>
         <color name="clrWhite">FFFFFFFF</color>
-        <color name="clrWhiteTrans">C0FFFFFF</color>
+        <color name="clrWhiteTrans">55FFFFFF</color>
         <color name="clrTransparent">00000000</color>
         <!-- theme colors  -->
         <color name="menuback">C0000000</color>
         <color name="menubackline">C0FFFFFF</color>
-        <color name="menualternate">FF14141E</color>
+        <color name="menualternate">33FFFFFF</color>
         <color name="menuactive">C01E8BD7</color>
         <color name="menuheader">E01E8BD7</color>
         <color name="menuseparator">D0000000</color>
@@ -477,6 +477,10 @@
         <token name="tr(vdrcpu)">
             <trans lang="en_EN">VDR CPU</trans>
             <trans lang="de_DE">VDR CPU</trans>
+        </token>
+        <token name="tr(new)">
+            <trans lang="en_EN">new</trans>
+            <trans lang="de_DE">neu</trans>
         </token>
     </translations>
     <fonts>

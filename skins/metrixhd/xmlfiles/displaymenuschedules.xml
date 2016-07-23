@@ -16,7 +16,6 @@
                 <fill condition="{separator}" color="{menuseparator}" />
             </area>
             <!-- WHATSON -->
-
             <areacontainer x="1%" width="58%" condition="not{separator}++{whatson}++not{current}">
                 <area condition="not{running}" width="93%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontdefault}" text="{start} {title}" />
@@ -37,18 +36,19 @@
                 </area>
             </areacontainer>
             <areacontainer x="1%" width="58%" condition="not{separator}++{whatson}++{current}">
-                <areascroll condition="not{running}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="93%" layer="3">
+                <areascroll condition="not{running}++not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="93%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
                 </areascroll>
-                <areascroll condition="{running}++not{timerfull}++not{timerpartitial}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="80%" layer="3">
+                <areascroll condition="{running}++not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="74%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
                 </areascroll>
-                <areascroll condition="{running}++{timerpartitial}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="74%" layer="3">
+                <area condition="not{running}++{doitsimple}" width="93%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
-                </areascroll>
-                <areascroll condition="{running}++{timerfull}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" width="74%" layer="3">
+                </area>
+                <area condition="{running}++{doitsimple}" width="74%" layer="3">
                     <drawtext name="menutext" x="20" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
-                </areascroll>
+                </area>
+
                 <area condition="{running}" layer="4">
                     <drawrectangle condition="{timerfull}||{timerpartitial}" x="{areawidth}*0.85 - 14 - {areaheight}" y="{areaheight}/3" width="{areawidth}*0.15" height="{areaheight}/3" color="{fontactive}" />
                     <drawrectangle condition="{timerfull}||{timerpartitial}" x="{areawidth}*0.85 - 12  - {areaheight}" y="{areaheight}/3 + 2" width="{areawidth}*0.15 - 4" height="{areaheight}/3 - 4" color="{clrTransparent}" />
@@ -89,9 +89,12 @@
                     <drawrectangle x="2" y="{areaheight}/3 + 2" width="{areawidth} - 4" height="{areaheight}/3 - 4" color="{clrTransparent}" />
                     <drawrectangle x="4" y="{areaheight}/3 + 4" width="{areawidth} * {elapsed} / {duration} - 8" height="{areaheight}/3 - 8" color="{fontactive}" />
                 </area>
-                <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="15%" width="40%" layer="4">
+                <areascroll condition="not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="15%" width="40%" layer="4">
                     <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
                 </areascroll>
+                <area condition="{doitsimple}" x="15%" width="40%" layer="4">
+                    <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
+                </area>
                 <area x="53%" width="6%" layer="5">
                     <drawimage condition="{timerfull}" imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.9*{areaheight} - 5" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
                     <drawimage condition="{timerpartitial}" imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.5*{areaheight} - 5" width="0.5*{areaheight}" height="0.5*{areaheight}" valign="center" />
@@ -114,9 +117,12 @@
                 <area x="1%" width="6%" layer="3">
                     <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
                 </area>
-                <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="7%" width="47%" layer="4">
+                <areascroll condition="not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="7%" width="47%" layer="4">
                     <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
                 </areascroll>
+                <area condition="{doitsimple}" x="7%" width="47%" layer="4">
+                    <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
+                </area>
                 <area x="53%" width="6%" layer="5">
                     <drawimage condition="{timerfull}" imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.9*{areaheight} - 5" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
                     <drawimage condition="{timerpartitial}" imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.5*{areaheight} - 5" width="0.5*{areaheight}" height="0.5*{areaheight}" valign="center" />
@@ -139,9 +145,12 @@
                 <area x="1%" width="6%" layer="3">
                     <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
                 </area>
-                <areascroll scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="7%" width="46%" layer="4">
+                <areascroll condition="not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="7%" width="46%" layer="4">
                     <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
                 </areascroll>
+                <area condition="{doitsimple}" x="7%" width="46%" layer="4">
+                    <drawtext name="menutext" x="10" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{start} {title}" />
+                </area>
                 <area x="53%" width="6%" layer="5">
                     <drawimage condition="{timerfull}" imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.9*{areaheight} - 5" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
                     <drawimage condition="{timerpartitial}"  imagetype="icon" path="ico_timer_active" x="{areawidth} - 0.5*{areaheight} - 5" width="0.5*{areaheight}" height="0.5*{areaheight}" valign="center" />
@@ -186,12 +195,17 @@
                     <drawtextbox condition="{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight}*0.85  - {posy(poster)}" float="topleft" floatwidth="{width(poster)} + 10" floatheight="{height(poster)} + 10" font="{light}" fontsize="6%" color="{fontactive}" text="{description}" />
                     <drawtextbox condition="not{hasposter}" x="10" y="{posy(poster)}" width="99%" height="{areaheight}*0.85 - {posy(poster)}" font="{light}" fontsize="6%" color="{fontactive}" text="{description}" />
                 </area>
-                <areascroll mode="forthandback" orientation="vertical" delay="2000" scrollspeed="medium" x="63%" y="85%" width="36%" height="15%" layer="3">
+                <areascroll condition="not{doitsimple}" mode="forthandback" orientation="vertical" delay="2000" scrollspeed="medium" x="63%" y="85%" width="36%" height="15%" layer="3">
                     <drawtext x="10" y="0" font="{semibold}" fontsize="30%" color="{fontactive}" text="Next Schedules:" />
                     <loop name="schedule" x="0" y="{areaheight}/4 + 5" orientation="vertical">
                         <drawtext x="10" font="{light}" width="{areawidth}-20" fontsize="30%" color="{fontactive}" text="{schedule[start]} {schedule[title]}" />
                     </loop>
                 </areascroll>
+                <area condition="{doitsimple}" x="63%" y="85%" width="36%" height="15%" layer="3">
+                    <loop name="schedule" x="0" y="10" orientation="vertical" maxitems="3">
+                        <drawtext x="10" font="{light}" width="{areawidth}-20" fontsize="30%" color="{fontactive}" text="{schedule[start]} {schedule[title]}" />
+                    </loop>
+                </area>
             </areacontainer>
         </currentelement>
     </menuitems>

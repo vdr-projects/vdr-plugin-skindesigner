@@ -31,7 +31,11 @@
                 <area condition="not{separator}" x="2%" width="7%" layer="3">
                     <drawimage name="logo" imagetype="channellogo" path="{channelid}" x="0" width="100%" height="100%" valign="center" />
                 </area>
-                <areascroll condition="not{separator}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="10%" width="44%" layer="3">
+                <area condition="not{separator}++{doitsimple}" x="10%" width="44%" layer="3">
+                    <drawtext name="menutext"  x="20" y="2" font="{light}" fontsize="60%" color="{fontactive}" text="{number} {name}" />
+                    <drawtext x="20" y="50%"  font="{light}" fontsize="50%" color="{fontactive}" text="{sourcedescription}, Transp. {transponder}" />
+                </area>
+                <areascroll condition="not{separator}++not{doitsimple}" scrollelement="menutext" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="10%" width="44%" layer="3">
                     <drawtext name="menutext"  x="20" y="2" font="{light}" fontsize="60%" color="{fontactive}" text="{number} {name}" />
                     <drawtext x="20" y="50%"  font="{light}" fontsize="50%" color="{fontactive}" text="{sourcedescription}, Transp. {transponder}" />
                 </areascroll>
