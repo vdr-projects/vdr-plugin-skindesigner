@@ -312,8 +312,8 @@
 
     <time>
         <area x="80%" y="80%" width="20%" height="15%" layer="2">
-            <drawtext name="clock" x="11%" valign="center" fontsize="70%" font="{digital}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
-            <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{areaheight}/2 -  {height(clocksec)}/2 + {height(clock)}/2 - {height(clocksec)}/2 - 5" fontsize="50%" font="{digital}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
+            <drawtext name="clock" x="11%" valign="center" fontsize="60%" font="{digital}" color="{fontdefault}" text="{hour}:{printf('%02d', min)}" />
+            <drawtext name="clocksec" x="{posx(clock)} + {width(clock)}" y="{areaheight}/2 -  {height(clocksec)}/2 + {height(clock)}/2 - {height(clocksec)}/2 - 5" fontsize="45%" font="{digital}" color="{fontdefault}" text=":{printf('%02d', sec)}" />
         </area>
     </time>
 

@@ -60,8 +60,8 @@
         <submenu name="submenucommon" displaytext="{tr(submenucommon)}">
             <parameter type="int" name="headerfontsize" min="0" max="100" displaytext="{tr(headerfontsize)}">80</parameter>
             <parameter type="int" name="headerdatefontsize" min="0" max="100" displaytext="{tr(headerdatefontsize)}">70</parameter>
-            <parameter type="int" name="headertimefontsize" min="0" max="100" displaytext="{tr(headertimefontsize)}">80</parameter>
-            <parameter type="int" name="headertimefontsizesmall" min="0" max="100" displaytext="{tr(headertimefontsizesmall)}">60</parameter>
+            <parameter type="int" name="headertimefontsize" min="0" max="100" displaytext="{tr(headertimefontsize)}">70</parameter>
+            <parameter type="int" name="headertimefontsizesmall" min="0" max="100" displaytext="{tr(headertimefontsizesmall)}">50</parameter>
             <parameter type="int" name="buttonfontsize" min="0" max="100" displaytext="{tr(buttonfontsize)}">60</parameter>
             <parameter type="int" name="numitemsdefault" min="1" max="40" displaytext="{tr(numitemsdefault)}">16</parameter>
             <parameter type="int" name="defaultitemfontsize" min="0" max="100" displaytext="{tr(defaultitemfontsize)}">80</parameter>
