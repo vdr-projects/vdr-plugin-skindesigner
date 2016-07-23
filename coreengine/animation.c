@@ -150,7 +150,7 @@ bool cScroller::Overflow(void) {
             secondDelay = false;
             return true;
         }
-        if (abs(drawPortX) < scrollLength)
+        if (abs((int)drawPortX) < scrollLength)
             return false;
         if (carriageReturn) {
             drawPortX = 0;
@@ -168,7 +168,7 @@ bool cScroller::Overflow(void) {
             secondDelay = false;
             return true;
         }
-        if (abs(drawPortY) < scrollLength)
+        if (abs((int)drawPortY) < scrollLength)
             return false;
         secondDelay = true;
         drawPortY = 0;
