@@ -118,6 +118,7 @@
             <parameter type="string" name="recmenustyle" displaytext="{tr(menustyle)}" options="menu1,menu2">0</parameter>
             <parameter type="separator" name="recsepnarrow" displaytext="{tr(sepnarrow)}"/>
             <parameter type="int" name="numitemsrecnarrow" min="1" max="40" displaytext="{tr(numitems)}">12</parameter>
+            <parameter type="bool" name="recusethumbs" displaytext="{tr(recusethumbs)}">1</parameter>
             <parameter type="int" name="recposydate" min="0" max="100" displaytext="{tr(recposydate)}">7</parameter>
             <parameter type="int" name="recsizedate" min="0" max="100" displaytext="{tr(recsizedate)}">40</parameter>
             <parameter type="int" name="recposytitle" min="0" max="100" displaytext="{tr(recposytitle)}">45</parameter>
@@ -877,6 +878,10 @@
             <trans lang="fi_FI">Valikkorivien lukumäärä</trans>
             <trans lang="hu_HU">menüpontok száma</trans>
             <trans lang="it_IT">Numero delle voci</trans>
+        </token>
+        <token name="tr(recusethumbs)">
+            <trans lang="en_EN">Show posters</trans>
+            <trans lang="de_DE">Poster anzeigen</trans>
         </token>
         <token name="tr(recposydate)">
             <trans lang="en_EN">Vertical position date</trans>
