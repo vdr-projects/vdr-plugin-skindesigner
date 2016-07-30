@@ -305,6 +305,7 @@ void cShifter::Init(void) {
     mode = (eShiftMode)shiftable->ShiftMode();
     shiftable->ShiftPositions(&start, &end);
     int steps = (double)shifttime / (double)frametime;
+    if (steps <= 0) steps = 1;
     float percentFast = 33.3f;
     float distanceFast = 85.0f;
     stepsFast = (float)steps * percentFast / 100.0f;
@@ -400,6 +401,7 @@ cListShifter::cListShifter(cListShiftable *shiftable) {
     distance = shiftable->ShiftDistance();
     orientation = shiftable->ShiftOrientation();
     int steps = (double)shifttime / (double)frametime;
+    if (steps <= 0) steps = 1;
     step = distance / steps;
     shiftin = true;
     fromtop = true;
