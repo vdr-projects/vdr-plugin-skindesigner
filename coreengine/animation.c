@@ -328,8 +328,13 @@ void cShifter::Init(void) {
         stepYFast = (float)(end.Y() - start.Y()) * distanceFast / 100.0f / (float)stepsFast;
         stepYSlow = (float)(end.Y() - start.Y()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);
     }
-    x = start.X();
-    y = start.Y();
+    if (shiftin) {
+        x = start.X();
+        y = start.Y();
+    } else {
+        x = end.X();
+        y = end.Y();
+    }
 }
 
 void cShifter::Reactivate(void) {
@@ -337,6 +342,9 @@ void cShifter::Reactivate(void) {
     finished = false;
     shiftin = false;
     step = 0;
+    if (start.X() == 0 && start.Y() == 0 && end.X() == 0 && end.Y() == 0) {
+        Init();
+    }
 }
 
 void cShifter::SetInitial(void) {
