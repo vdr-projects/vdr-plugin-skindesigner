@@ -290,13 +290,13 @@ cShifter::cShifter(cShiftable *shiftable) {
     shifttime = 0;
     x = 0.0f;
     y = 0.0f;
-    stepXLinear = 0;
-    stepYLinear = 0;
+    stepXLinear = 0.0f;
+    stepYLinear = 0.0f;
     stepsFast = 0;
-    stepXFast = 0;
-    stepXSlow = 0;
-    stepYFast = 0;
-    stepYSlow = 0;
+    stepXFast = 0.0f;
+    stepXSlow = 0.0f;
+    stepYFast = 0.0f;
+    stepYSlow = 0.0f;
     Init();
 }
 
@@ -317,14 +317,14 @@ void cShifter::Init(void) {
         stepYFast = (float)(end.Y() - start.Y()) * distanceFast / 100.0f / (float)stepsFast;
         stepYSlow = (float)(end.Y() - start.Y()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);
     } else if (start.Y() == end.Y()) {
-        stepXLinear = (end.X() - start.X()) / steps;
+        stepXLinear = (float)(end.X() - start.X()) / (float)steps;
         stepXFast = (float)(end.X() - start.X()) * distanceFast / 100.0f / (float)stepsFast;
         stepXSlow = (float)(end.X() - start.X()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);            
     } else {
-        stepXLinear = (end.X() - start.X()) / steps;
+        stepXLinear = (float)(end.X() - start.X()) / (float)steps;
         stepXFast = (float)(end.X() - start.X()) * distanceFast / 100.0f / (float)stepsFast;
         stepXSlow = (float)(end.X() - start.X()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);            
-        stepYLinear = (end.Y() - start.Y()) / steps;
+        stepYLinear = (float)(end.Y() - start.Y()) / (float)steps;
         stepYFast = (float)(end.Y() - start.Y()) * distanceFast / 100.0f / (float)stepsFast;
         stepYSlow = (float)(end.Y() - start.Y()) * (100.0f - distanceFast) / 100.0f / (float)(steps-stepsFast);
     }

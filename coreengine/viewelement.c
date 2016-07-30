@@ -437,7 +437,9 @@ int cViewElement::ShiftTime(void) {
 }
 
 int cViewElement::ShiftMode(void) {
-    return attribs->ShiftMode();
+    int mode = attribs->ShiftMode();
+    if (mode < 0) mode = 0;
+    return mode;
 }
 
 void cViewElement::ShiftPositions(cPoint *start, cPoint *end) {

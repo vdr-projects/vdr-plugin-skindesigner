@@ -258,9 +258,8 @@ void cView::Show(int ve) {
 
 void cView::SetViewelementsAnimOut(void) {
     for (int i=0; i< numViewElements; i++)
-        if (viewElements[i]) {
+        if (viewElements[i])
             viewElements[i]->SetAnimOut();
-        }
 }
 
 void cView::Close(void) {
@@ -298,7 +297,9 @@ int cView::ShiftTime(void) {
 }
 
 int cView::ShiftMode(void) {
-    return attribs->ShiftMode();
+    int mode = attribs->ShiftMode();
+    if (mode < 0) mode = 0;
+    return mode;
 }
 
 void cView::ShiftPositions(cPoint *start, cPoint *end) {
