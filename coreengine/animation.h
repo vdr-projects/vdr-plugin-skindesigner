@@ -74,6 +74,7 @@ public:
     virtual eScrollMode ScrollMode(void) = 0;
     virtual eScrollSpeed ScrollSpeed(void) = 0;
     virtual eOrientation ScrollOrientation(void) = 0;
+    virtual void SetScrollingStarted(void) = 0;
     virtual void StartScrolling(void) = 0;
     virtual void StopScrolling(void) = 0;
     virtual void SetDrawPort(cPoint &point) = 0;

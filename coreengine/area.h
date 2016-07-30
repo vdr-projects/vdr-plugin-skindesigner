@@ -58,6 +58,7 @@ public:
     virtual void SetIndicatorPosition(cPoint &pos) {};
     virtual cRect CoveringArea(void) { return cRect::Null; };
     virtual bool Scrolling(void) { return false; };
+    virtual bool ScrollingStarted(void) { return false; };
     virtual cArea *ScrollingArea(void) { return NULL; };
     virtual cFunction *GetFunction(const char *name) { return NULL; };
     virtual const char *Name(void) { return NULL; };
@@ -80,6 +81,7 @@ private:
     cList<cFunction> functions;
     bool scrolling;
     bool isScrolling;
+    bool scrollingStarted;
     cFunction *scrollFunc;
     list<cBlinker*> blinkers;
     bool blinking;
@@ -121,6 +123,8 @@ public:
     cRect CoveringArea(void);
     //Scrollable
     bool Scrolling(void);
+    void SetScrollingStarted(void) { scrollingStarted = true; };
+    bool ScrollingStarted(void) { return scrollingStarted; };
     int ScrollWidth(void);
     int ScrollHeight(void);
     int ScrollDelay(void);

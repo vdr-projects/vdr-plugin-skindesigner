@@ -176,7 +176,6 @@
         </area>
     </scrapercontent>
 
-
     <channelhints>
         <area background="true" x="0" y="{areaheight}*0.75 - {numhints}*{areaheight}*{zapchannelhintsheight}/1000 + 1" width="{zapchannelhintswidth}*{areawidth}/100" height="{numhints}*{areaheight}*{zapchannelhintsheight}/1000" layer="1">
             <fill color="{menuback}" />

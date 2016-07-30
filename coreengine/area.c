@@ -30,6 +30,7 @@ cArea::cArea(void) {
     attribs = new cAreaAttribs((int)eAreaAttribs::count);
     scrolling = false;
     isScrolling = false;
+    scrollingStarted = false;
     scrollFunc = NULL;
     blinking = false;
     areaContainer = NULL;
@@ -45,6 +46,7 @@ cArea::cArea(const cArea &other) {
     attribs = new cAreaAttribs(*other.attribs);
     //area container is set from outside during cloning of areacontainer
     areaContainer = NULL;
+    scrollingStarted = false;
     //scrolling is set from outside by ScrollFunc(), see below
     scrolling = other.scrolling;
     isScrolling = false;
@@ -244,6 +246,7 @@ void cArea::Close(void) {
         pix = NULL;
     }
     init = true;
+    scrollingStarted = false;
 }
 
 void cArea::Clear(bool forceClearBackground) {
@@ -255,6 +258,7 @@ void cArea::Clear(bool forceClearBackground) {
         pix->SetDrawPortPoint(cPoint(0,0));
         pix->Fill(clrTransparent);
     }
+    scrollingStarted = false;
 }
 
 void cArea::ClearWithoutIndicators(void) {
@@ -265,6 +269,7 @@ void cArea::ClearWithoutIndicators(void) {
     if (pix) {
         pix->Fill(clrTransparent);
     }
+    scrollingStarted = false;
 }
 
 void cArea::Hide(void) {

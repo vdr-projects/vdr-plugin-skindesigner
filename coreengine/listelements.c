@@ -60,7 +60,7 @@ void cListElement::Clear(bool forceClearBackground) {
 void cListElement::WakeCurrent(void) {
     if (currentElement) {
         currentElement->WakeUp();
-    }    
+    }
 }
 
 void cListElement::Render(void) {
@@ -70,16 +70,12 @@ void cListElement::Render(void) {
     if (attribs->DoDebug())
         Debug();
     bool animated = Fading() || Shifting();
-
     for (cAreaNode *node = areaNodes.First(); node; node = areaNodes.Next(node)) {
         //Check redraw of already scrolling list element
-        if (drawn && scrollingStarted && node->Scrolling()) {
+        if (drawn && node->Scrolling() && node->ScrollingStarted()) {
             if (DoScroll()) {
                 //current list element
                 continue;
-            } else {
-                //not current list element anymore
-                scrollingStarted = false;
             }
         }
         //don't clear animated list element if it was current 
@@ -97,15 +93,14 @@ void cListElement::Render(void) {
         node->Render();
         sdOsd->Unlock();
         
-        if (DoScroll() && node->Scrolling()) {
+        if (DoScroll() && node->Scrolling() && !node->ScrollingStarted()) {
             cArea *scrollArea = node->ScrollingArea();
             if (scrollArea) {
-                scrollingStarted = true;
                 cScroller *scroller = new cScroller(scrollArea);
                 scrollers.push_back(scroller);
                 cView::AddAnimation(scroller);                
             }
-        }     
+        }
     }
     dirty = false;
     drawn = true;

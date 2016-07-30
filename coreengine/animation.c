@@ -120,7 +120,10 @@ void cScroller::Init(void) {
 }
 
 void cScroller::Reactivate(void) {}
-void cScroller::SetInitial(void) {}
+
+void cScroller::SetInitial(void) {
+    scrollable->SetScrollingStarted();
+}
 
 bool cScroller::Pause(void) {
     if (!paused)
