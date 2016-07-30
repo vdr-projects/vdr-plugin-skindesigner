@@ -125,14 +125,14 @@
             <areascroll condition="not{separator}++not{setup}++{current}++not{doitsimple}" scrollelement="column1" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" x="1%" width="{column1width}" layer="3">
                 <drawtext name="column1" x="{column1x}" width="{column1width}" valign="center" font="{light}" fontsize="90%" color="{fontactive}" text="{column1}" />
             </areascroll>
-            <area condition="not{separator} ++ not{setup} ++ not{current}" x="1%" width="100%" layer="4">
+            <area condition="not{separator} ++ not{setup} ++ not{current}" x="1%" width="98%" layer="4">
                 <drawtext condition="{column2set}" x="{column2x}" valign="center" font="{light}" fontsize="90%" width="{column2width}" color="{fontdefault}" text="{column2}" />
                 <drawtext condition="{column3set}" x="{column3x}" valign="center" font="{light}" fontsize="90%" width="{column3width}" color="{fontdefault}" text="{column3}" />
                 <drawtext condition="{column4set}" x="{column4x}" valign="center" font="{light}" fontsize="90%" width="{column4width}" color="{fontdefault}" text="{column4}" />
                 <drawtext condition="{column5set}" x="{column5x}" valign="center" font="{light}" fontsize="90%" width="{column5width}" color="{fontdefault}" text="{column5}" />
                 <drawtext condition="{column6set}" x="{column6x}" valign="center" font="{light}" fontsize="90%" width="{column6width}" color="{fontdefault}" text="{column6}" />
             </area>
-            <area condition="not{separator}++not{setup}++{current}" x="1%" width="100%" layer="4">
+            <area condition="not{separator}++not{setup}++{current}" x="1%" width="98%" layer="4">
                 <drawtext condition="{column2set}" x="{column2x}" valign="center" font="{light}" fontsize="90%" width="{column2width}" color="{fontactive}" text="{column2}" />
                 <drawtext condition="{column3set}" x="{column3x}" valign="center" font="{light}" fontsize="90%" width="{column3width}" color="{fontactive}" text="{column3}" />
                 <drawtext condition="{column4set}" x="{column4x}" valign="center" font="{light}" fontsize="90%" width="{column4width}" color="{fontactive}" text="{column4}" />
