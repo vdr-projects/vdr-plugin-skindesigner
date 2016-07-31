@@ -342,9 +342,7 @@ void cShifter::Reactivate(void) {
     finished = false;
     shiftin = false;
     step = 0;
-    if (start.X() == 0 && start.Y() == 0 && end.X() == 0 && end.Y() == 0) {
-        Init();
-    }
+    Init();
 }
 
 void cShifter::SetInitial(void) {
