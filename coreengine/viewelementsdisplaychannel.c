@@ -180,7 +180,7 @@ bool cVeDcEpgInfo::EventHasTimer(const cEvent *e) {
     bool hasTimer = e->HasTimer();
     for (int i = 0; i < globalTimers->Size() && !hasTimer; i++) 
         if (const cTimer *Timer = globalTimers->At(i)) 
-            if (Timer->Channel()->GetChannelID() == e->ChannelID()) 
+            if (Timer->Channel() && (Timer->Channel()->GetChannelID() == e->ChannelID())) 
                 if (const cEvent *timerEvent = Timer->Event())
                     if (e->EventID() == timerEvent->EventID())
                         hasTimer = true;
