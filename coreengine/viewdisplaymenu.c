@@ -535,10 +535,12 @@ bool cViewMenu::Init(void) {
 }
 
 void cViewMenu::Close(void) {
-    animator->Stop();
-    animator->Finish();    
-    delete animator;
-    animator = NULL;
+    if (animator) {
+        animator->Stop();
+        animator->Finish();
+        delete animator;
+        animator = NULL;
+    }
     for (int i=0; i < numSubviews; i++) {
         if (subViews[i]) {
             subViews[i]->Close();

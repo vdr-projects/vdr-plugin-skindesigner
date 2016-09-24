@@ -1610,6 +1610,7 @@ cLeMenuRecordings::cLeMenuRecordings(const cLeMenuRecordings &other) : cListElem
 }
 
 cLeMenuRecordings::~cLeMenuRecordings(void) {
+    delete recording;
 }
 
 void cLeMenuRecordings::SetTokenContainer(void) {
@@ -1657,7 +1658,7 @@ void cLeMenuRecordings::ClearCurrentElement(void) {
 }
 
 void cLeMenuRecordings::Set(const cRecording *recording, int level, int total, int New) {
-    this->recording = recording;
+    this->recording = new cRecording(recording->FileName());
     this->level = level;
     this->total = total;
     this->New = New;
@@ -1841,6 +1842,7 @@ cCeMenuRecordings::cCeMenuRecordings(void) {
 }
 
 cCeMenuRecordings::~cCeMenuRecordings(void) {
+    delete recording;
 }
 
 void cCeMenuRecordings::SetTokenContainer(void) {
