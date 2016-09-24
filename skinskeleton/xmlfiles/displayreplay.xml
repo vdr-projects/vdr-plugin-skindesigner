@@ -116,14 +116,22 @@
     <!-- Available Variables controlicons and controliconsmodeonly:
     {play}              true if recording is played currently
     {pause}             true if recording is paused
-    {forward}           true if fast forwarding 
-    {forward1x}         true if fast forwarding 1x (with 3 trickspeeds)
-    {forward2x}         true if fast forwarding 2x (with 3 trickspeeds)
-    {forward3x}         true if fast forwarding 3x (with 3 trickspeeds)
-    {rewind}            true if rewinding 
-    {rewind1x}          true if rewinding 1x (with 3 trickspeeds)
-    {rewind2x}          true if rewinding 2x (with 3 trickspeeds)
-    {rewind3x}          true if rewinding 3x (with 3 trickspeeds)
+    {forward}           true if slow or fast forwarding
+    {slowforward}       true if slow forwarding
+    {forward1x}         true if slow or fast forwarding 1x (with 3 trickspeeds)
+    {forward2x}         true if slow or fast forwarding 2x (with 3 trickspeeds)
+    {forward3x}         true if slow or fast forwarding 3x (with 3 trickspeeds)
+    {slowforward1x}     true if slow forwarding 1x (with 3 trickspeeds)
+    {slowforward2x}     true if slow forwarding 2x (with 3 trickspeeds)
+    {slowforward3x}     true if slow forwarding 3x (with 3 trickspeeds)
+    {rewind}            true if slow or fast rewinding 
+    {slowrewind}        true if slow rewinding
+    {rewind1x}          true if slow or fast rewinding 1x (with 3 trickspeeds)
+    {rewind2x}          true if slow or fast rewinding 2x (with 3 trickspeeds)
+    {rewind3x}          true if slow or fast rewinding 3x (with 3 trickspeeds)
+    {slowrewind1x}      true if slow rewinding 1x (with 3 trickspeeds)
+    {slowrewind2x}      true if slow rewinding 2x (with 3 trickspeeds)
+    {slowrewind3x}      true if slow rewinding 3x (with 3 trickspeeds)
     -->
     <controlicons>
     </controlicons>

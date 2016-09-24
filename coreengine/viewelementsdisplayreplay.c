@@ -430,13 +430,21 @@ void cVeDrControlIcons::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{play}", (int)eDRControlIconsIT::play);
     tokenContainer->DefineIntToken("{pause}", (int)eDRControlIconsIT::pause);
     tokenContainer->DefineIntToken("{forward}", (int)eDRControlIconsIT::forward);
+    tokenContainer->DefineIntToken("{slowforward}", (int)eDRControlIconsIT::slowforward);
     tokenContainer->DefineIntToken("{forward1x}", (int)eDRControlIconsIT::forward1x);
     tokenContainer->DefineIntToken("{forward2x}", (int)eDRControlIconsIT::forward2x);
     tokenContainer->DefineIntToken("{forward3x}", (int)eDRControlIconsIT::forward3x);
+    tokenContainer->DefineIntToken("{slowforward1x}", (int)eDRControlIconsIT::slowforward1x);
+    tokenContainer->DefineIntToken("{slowforward2x}", (int)eDRControlIconsIT::slowforward2x);
+    tokenContainer->DefineIntToken("{slowforward3x}", (int)eDRControlIconsIT::slowforward3x);
     tokenContainer->DefineIntToken("{rewind}", (int)eDRControlIconsIT::rewind);
+    tokenContainer->DefineIntToken("{slowrewind}", (int)eDRControlIconsIT::slowrewind);
     tokenContainer->DefineIntToken("{rewind1x}", (int)eDRControlIconsIT::rewind1x);
     tokenContainer->DefineIntToken("{rewind2x}", (int)eDRControlIconsIT::rewind2x);
     tokenContainer->DefineIntToken("{rewind3x}", (int)eDRControlIconsIT::rewind3x);
+    tokenContainer->DefineIntToken("{slowrewind1x}", (int)eDRControlIconsIT::slowrewind1x);
+    tokenContainer->DefineIntToken("{slowrewind2x}", (int)eDRControlIconsIT::slowrewind2x);
+    tokenContainer->DefineIntToken("{slowrewind3x}", (int)eDRControlIconsIT::slowrewind3x);
     InheritTokenContainer();
 }
 
@@ -454,13 +462,21 @@ bool cVeDrControlIcons::Parse(bool force) {
     bool isPlay = false;
     bool isPause = false;
     bool isFF = false;
+    bool isSlowFF = false;
     bool isFF1x = false;
     bool isFF2x = false;
     bool isFF3x = false;
+    bool isSlowFF1x = false;
+    bool isSlowFF2x = false;
+    bool isSlowFF3x = false;
     bool isRew = false;
+    bool isSlowRew = false;
     bool isRew1x = false;
     bool isRew2x = false;
     bool isRew3x = false;
+    bool isSlowRew1x = false;
+    bool isSlowRew2x = false;
+    bool isSlowRew3x = false;
 
     if (speed == -1) {
         if (play) {
@@ -474,12 +490,20 @@ bool cVeDrControlIcons::Parse(bool force) {
         }
         if (speed == 1) {
             isFF1x = true;
+            if (!play)
+                isSlowFF1x = true;
         } else if (speed == 2) {
             isFF2x = true;
+            if (!play)
+                isSlowFF2x = true;
         } else if (speed == 3) {
             isFF3x = true;
+            if (!play)
+                isSlowFF3x = true;
         } else {
             isFF = true;
+            if (!play)
+                isSlowFF = true;
         }
     } else {
         if (!play) {
@@ -487,25 +511,41 @@ bool cVeDrControlIcons::Parse(bool force) {
         }
         if (speed == 1) {
             isRew1x = true;
+            if (!play)
+                isSlowRew1x = true;
         } else if (speed == 2) {
             isRew2x = true;
+            if (!play)
+                isSlowRew2x = true;
         } else if (speed == 3) {
             isRew3x = true;
+            if (!play)
+                isSlowRew3x = true;
         } else {
             isRew = true;
+            if (!play)
+                isSlowRew = true;
         }
     }
     tokenContainer->Clear();
     tokenContainer->AddIntToken((int)eDRControlIconsIT::play, isPlay);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::pause, isPause);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::forward, isFF);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowforward, isSlowFF);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::forward1x, isFF1x);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::forward2x, isFF2x);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::forward3x, isFF3x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowforward1x, isSlowFF1x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowforward2x, isSlowFF2x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowforward3x, isSlowFF3x);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::rewind, isRew);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowrewind, isSlowRew);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::rewind1x, isRew1x);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::rewind2x, isRew2x);
     tokenContainer->AddIntToken((int)eDRControlIconsIT::rewind3x, isRew3x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowrewind1x, isSlowRew1x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowrewind2x, isSlowRew2x);
+    tokenContainer->AddIntToken((int)eDRControlIconsIT::slowrewind3x, isSlowRew3x);
     SetDirty();
     changed = false;
     return true;

@@ -1517,13 +1517,21 @@ enum class eDRControlIconsIT {
     play = 0,
     pause,
     forward,
+    slowforward,
     forward1x,
     forward2x,
     forward3x,
+    slowforward1x,
+    slowforward2x,
+    slowforward3x,
     rewind,
+    slowrewind,
     rewind1x,
     rewind2x,
     rewind3x,
+    slowrewind1x,
+    slowrewind2x,
+    slowrewind3x,
     count
 };
 
