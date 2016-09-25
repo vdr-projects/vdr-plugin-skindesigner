@@ -1658,7 +1658,9 @@ void cLeMenuRecordings::ClearCurrentElement(void) {
 }
 
 void cLeMenuRecordings::Set(const cRecording *recording, int level, int total, int New) {
-    this->recording = new cRecording(recording->FileName());
+    if (!this->recording) {
+        this->recording = new cRecording(recording->FileName());
+    }
     this->level = level;
     this->total = total;
     this->New = New;
@@ -1785,6 +1787,18 @@ void cLeMenuRecordings::RenderCurrent(void) {
     currentRecording->Set(recording, level, total, New);
     currentRecording->SetListPosition(container.X(), container.Y(), container.Width(), container.Height(), num);
     currentRecording->Parse();
+}
+
+void cLeMenuRecordings::Clear(bool forceClearBackground) {
+    delete recording;
+    recording = NULL;
+    cListElement::Clear(forceClearBackground);
+}
+
+void cLeMenuRecordings::Close(void) {
+    delete recording;
+    recording = NULL;
+    cListElement::Close();
 }
 
 char *cLeMenuRecordings::RecName(const char *path, int level) {

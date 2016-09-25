@@ -40,7 +40,7 @@ public:
     bool DoScroll(void) { return current; };
     void Render(void);
     virtual void RenderCurrent(void) { };
-    void Close(void);
+    virtual void Close(void);
     int ListShiftTime(void) { return ShiftTime(); };
     int ShiftDistance(void);
     eOrientation ShiftOrientation(void);
@@ -283,6 +283,8 @@ public:
     void Set(const cRecording *recording, int level, int total, int New);
     bool Parse(bool forced = true);
     void RenderCurrent(void);
+    void Clear(bool forceClearBackground = false);
+    void Close(void);
 };
 
 /******************************************************************
