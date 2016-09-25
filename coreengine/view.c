@@ -220,7 +220,10 @@ bool cView::Init(void) {
     int osdY = attribs->Y();
     int osdWidth  = attribs->Width();
     int osdHeight = attribs->Height();
-    animator = new cAnimator(&sdOsd);
+    if (!animator)
+        animator = new cAnimator(&sdOsd);
+    else
+        esyslog("skindesigner: ERROR: animator already exists");
     return sdOsd.CreateOsd(osdX, osdY, osdWidth, osdHeight);
 }
 
