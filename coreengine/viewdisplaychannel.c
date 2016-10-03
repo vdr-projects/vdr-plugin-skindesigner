@@ -372,7 +372,7 @@ void cViewChannel::SetChannelHint(const cChannel *channel) {
 void cViewChannel::Close(void) {
     bool doAnim = true;
 #ifdef USE_ZAPCOCKPIT
-    if (viewType != dcDefault)
+    if (viewType != dcDefault || viewTypeLast != dcDefault)
         doAnim = false;
 #endif
     if (doAnim) {
