@@ -485,45 +485,47 @@ bool cVeDrControlIcons::Parse(bool force) {
             isPause = true;
         }
     } else if (forward) {
-        if (!play) {
-            isPause = true;
-        }
         if (speed == 1) {
-            isFF1x = true;
-            if (!play)
+            if (play)
+                isFF1x = true;
+            else
                 isSlowFF1x = true;
         } else if (speed == 2) {
-            isFF2x = true;
-            if (!play)
+            if (play)
+                isFF2x = true;
+            else
                 isSlowFF2x = true;
         } else if (speed == 3) {
-            isFF3x = true;
-            if (!play)
+            if (play)
+                isFF3x = true;
+            else
                 isSlowFF3x = true;
         } else {
-            isFF = true;
-            if (!play)
+            if (play)
+                isFF = true;
+            else
                 isSlowFF = true;
         }
     } else {
-        if (!play) {
-            isPause = true;
-        }
         if (speed == 1) {
-            isRew1x = true;
-            if (!play)
+            if (play)
+                isRew1x = true;
+            else
                 isSlowRew1x = true;
         } else if (speed == 2) {
-            isRew2x = true;
-            if (!play)
+            if (play)
+                isRew2x = true;
+            else
                 isSlowRew2x = true;
         } else if (speed == 3) {
-            isRew3x = true;
-            if (!play)
+            if (play)
+                isRew3x = true;
+            else
                 isSlowRew3x = true;
         } else {
-            isRew = true;
-            if (!play)
+            if (play)
+                isRew = true;
+            else
                 isSlowRew = true;
         }
     }

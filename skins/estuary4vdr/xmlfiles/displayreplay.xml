@@ -117,10 +117,10 @@
     <controlicons>
         <area x="30%" y="90%" width="40%" height="7%" layer="3">
             <drawimage condition="not{rewind} ++ not{rewind1x} ++ not{rewind2x} ++ not{rewind3x}" imagetype="icon" path="rec_rew_inactive" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{rewind}" imagetype="icon" path="rec_rew_active" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{rewind1x}" imagetype="icon" path="rec_rew_x1" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{rewind2x}" imagetype="icon" path="rec_rew_x2" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{rewind3x}" imagetype="icon" path="rec_rew_x3" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{rewind} || {slowrewind}" imagetype="icon" path="rec_rew_active" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{rewind1x} || {slowrewind1x}" imagetype="icon" path="rec_rew_x1" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{rewind2x} || {slowrewind2x}" imagetype="icon" path="rec_rew_x2" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{rewind3x} || {slowrewind3x}" imagetype="icon" path="rec_rew_x3" x="{areawidth}/2 - 2*{areaheight} - 6" y="0" width="{areaheight}" height="{areaheight}"/>
             
             <drawimage condition="not{pause}" imagetype="icon" path="rec_pause_inactive" x="{areawidth}/2 - {areaheight} - 2" y="0" width="{areaheight}" height="{areaheight}"/>
             <drawimage condition="{pause}" imagetype="icon" path="rec_pause_active" x="{areawidth}/2 - {areaheight} - 2" y="0" width="{areaheight}" height="{areaheight}"/>
@@ -129,25 +129,25 @@
             <drawimage condition="{play}" imagetype="icon" path="rec_play_active" x="{areawidth}/2 + 2" y="0" width="{areaheight}" height="{areaheight}"/>
 
             <drawimage condition="not{forward} ++ not{forward1x} ++ not{forward2x} ++ not{forward3x}" imagetype="icon" path="rec_fwd_inactive" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{forward}" imagetype="icon" path="rec_fwd_active" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{forward1x}" imagetype="icon" path="rec_fwd_x1" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{forward2x}" imagetype="icon" path="rec_fwd_x2" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
-            <drawimage condition="{forward3x}" imagetype="icon" path="rec_fwd_x3" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{forward} || {slowforward}" imagetype="icon" path="rec_fwd_active" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{forward1x} || {slowforward1x}" imagetype="icon" path="rec_fwd_x1" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{forward2x} || {slowforward2x}" imagetype="icon" path="rec_fwd_x2" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
+            <drawimage condition="{forward3x} || {slowforward3x}" imagetype="icon" path="rec_fwd_x3" x="{areawidth}/2 + {areaheight} + 6" y="0" width="{areaheight}" height="{areaheight}"/>
         </area>
     </controlicons>
 
     <controliconsmodeonly>
         <area x="85%" y="85%" width="15%" height="15%" layer="2">
-            <drawimage condition="{rewind}" imagetype="icon" path="rec_rew_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{rewind1x}" imagetype="icon" path="rec_rew_x1" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{rewind2x}" imagetype="icon" path="rec_rew_x2" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{rewind3x}" imagetype="icon" path="rec_rew_x3" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{rewind} || {slowrewind}" imagetype="icon" path="rec_rew_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{rewind1x} || {slowrewind1x}" imagetype="icon" path="rec_rew_x1" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{rewind2x} || {slowrewind2x}" imagetype="icon" path="rec_rew_x2" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{rewind3x} || {slowrewind3x}" imagetype="icon" path="rec_rew_x3" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
             <drawimage condition="{pause}++not{forward1x}" imagetype="icon" path="rec_pause_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
             <drawimage condition="{play}" imagetype="icon" path="rec_play_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{forward}" imagetype="icon" path="rec_fwd_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{forward1x}" imagetype="icon" path="rec_fwd_x1" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{forward2x}" imagetype="icon" path="rec_fwd_x2" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
-            <drawimage condition="{forward3x}" imagetype="icon" path="rec_fwd_x3" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{forward} || {slowforward}" imagetype="icon" path="rec_fwd_active" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{forward1x} || {slowforward1x}" imagetype="icon" path="rec_fwd_x1" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{forward2x} || {slowforward2x}" imagetype="icon" path="rec_fwd_x2" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
+            <drawimage condition="{forward3x} || {slowforward3x}" imagetype="icon" path="rec_fwd_x3" x="{areawidth} - {areaheight}" valign="center" width="{areaheight}*0.8" height="{areaheight}*0.8"/>
         </area>
     </controliconsmodeonly>
 

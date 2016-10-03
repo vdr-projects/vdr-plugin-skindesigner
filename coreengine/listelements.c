@@ -1856,7 +1856,6 @@ cCeMenuRecordings::cCeMenuRecordings(void) {
 }
 
 cCeMenuRecordings::~cCeMenuRecordings(void) {
-    delete recording;
 }
 
 void cCeMenuRecordings::SetTokenContainer(void) {
