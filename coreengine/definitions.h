@@ -1045,6 +1045,7 @@ enum class eLeMenuTimersST {
     stateinfo,
     action,
     vdrname,
+    type,
     count
 };
 
@@ -1086,6 +1087,7 @@ enum class eCeMenuTimersST {
     stateinfo,
     action,
     vdrname,
+    type,
     count
 };
 

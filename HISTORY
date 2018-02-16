@@ -435,3 +435,7 @@ Version 0.7.2
 Version 1.2.4 (horchi)
 
 - added compatibility to vdr 2.3.8
+
+Version 1.2.5 (horchi)
+
+- added timer type to epg2vdr interface

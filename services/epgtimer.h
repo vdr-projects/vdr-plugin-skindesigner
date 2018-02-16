@@ -5,8 +5,8 @@
  *
  */
 
-#ifndef _SERVICE_H_ 
-#define _SERVICE_H_ 
+#ifndef _SERVICE_H_
+#define _SERVICE_H_
 
 #include <vdr/timers.h>
 #include <vdr/epg.h>
@@ -25,9 +25,9 @@ class cEpgEvent_Interface_V1 : public cEvent
          : cEvent(EventID) {}
 
       // #TODO ... getter
-      
+
    protected:
-      
+
       // #TODO ... attributes
 };
 
@@ -38,21 +38,37 @@ class cEpgEvent_Interface_V1 : public cEvent
 class cEpgTimer_Interface_V1 : public cTimer
 {
    public:
-      
-      cEpgTimer_Interface_V1(bool Instant = false, bool Pause = false, cChannel* Channel = 0)
-         : cTimer(Instant, Pause, Channel) {}
-      
-      long TimerId()              { return timerid; }
-      long EventId()              { return eventid; }
-      const char* VdrName()       { return vdrName ? vdrName : ""; }
-      const char* VdrUuid()       { return vdrUuid ? vdrUuid : ""; }
-      int isVdrRunning()          { return vdrRunning; }
-      int isLocal()               { return local; }
-      int isRemote()              { return !isLocal(); }
 
-      char State()                { return state; }
-      const char* StateInfo()     { return stateInfo ? stateInfo : ""; }
-      char Action()               { return action; }
+      enum TimerType
+      {
+         ttRecord = 'R',   // Aufnahme-Timer
+         ttView   = 'V',   // Umschalt-Timer
+         ttSearch = 'S'    // Such-Timer
+      };
+
+      cEpgTimer_Interface_V1(bool Instant = false, bool Pause = false, const cChannel* Channel = 0)
+#if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
+	 : cTimer(Instant, Pause, Channel) {}
+#else
+	 : cTimer(Instant, Pause, (cChannel*)Channel) {}
+#endif
+
+      long TimerId()               const { return timerid; }
+      long EventId()               const { return eventid; }
+      const char* VdrName()        const { return vdrName ? vdrName : ""; }
+      const char* VdrUuid()        const { return vdrUuid ? vdrUuid : ""; }
+      int isVdrRunning()           const { return vdrRunning; }
+      int isLocal()                const { return local; }
+      int isRemote()               const { return !isLocal(); }
+      int isRecordTimer()          const { return type == ttRecord; }
+      int isSwithTimer()           const { return type == ttView; }
+      char State()                 const { return state; }
+      int  hasState(char s)        const { return state == s; }
+      const char* StateInfo()      const { return stateInfo ? stateInfo : ""; }
+      char Action()                const { return action; }
+      char Type()                  const { return type; }
+      time_t CreateTime()          const { return createTime; }
+      time_t ModTime()             const { return modTime; }
 
    protected:
 
@@ -63,10 +79,14 @@ class cEpgTimer_Interface_V1 : public cTimer
       char* vdrUuid;
       int local;
       int vdrRunning;
-      
+
       char state;
       char* stateInfo;
       char action;
+
+      char type;
+      time_t createTime;
+      time_t modTime;
 };
 
 //***************************************************************************
@@ -92,7 +112,7 @@ class cEpgEvent : public cEpgEvent_Interface_V1
 
       cEpgEvent(tEventID EventID);
       virtual ~cEpgEvent() {}
-      
+
       // #TODO ... setter
 };
 
@@ -118,4 +138,4 @@ class cEpgTimer : public cEpgTimer_Interface_V1
 
 //***************************************************************************
 
-#endif // _SERVICE_H_ 
+#endif // _SERVICE_H_

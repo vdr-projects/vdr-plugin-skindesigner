@@ -7,7 +7,7 @@
 /******************************************************************
 * cListElement
 ******************************************************************/
-cListElement::cListElement(void) { 
+cListElement::cListElement(void) {
     dirty = false;
     num = -1;
     current = false;
@@ -23,9 +23,9 @@ cListElement::cListElement(void) {
 
 cListElement::cListElement(const cListElement &other) : cViewElement(other) {
     num = -1;
-    current = false; 
+    current = false;
     wasCurrent = false;
-    selectable = false;     
+    selectable = false;
     selectedFromTop = true;
     suppressAnimation = false;
     listShifter = NULL;
@@ -33,7 +33,7 @@ cListElement::cListElement(const cListElement &other) : cViewElement(other) {
     orientation = eOrientation::vertical;
 }
 
-void cListElement::SetCurrent(bool cur) { 
+void cListElement::SetCurrent(bool cur) {
     if (!cur && current)
         wasCurrent = true;
     else
@@ -78,7 +78,7 @@ void cListElement::Render(void) {
                 continue;
             }
         }
-        //don't clear animated list element if it was current 
+        //don't clear animated list element if it was current
         //and animation was not suppressed because of cleared list
         sdOsd->Lock();
         if (animated && wasCurrent && !suppressAnimation) {
@@ -92,13 +92,13 @@ void cListElement::Render(void) {
         sdOsd->Lock();
         node->Render();
         sdOsd->Unlock();
-        
+
         if (DoScroll() && node->Scrolling() && !node->ScrollingStarted()) {
             cArea *scrollArea = node->ScrollingArea();
             if (scrollArea) {
                 cScroller *scroller = new cScroller(scrollArea);
                 scrollers.push_back(scroller);
-                cView::AddAnimation(scroller);                
+                cView::AddAnimation(scroller);
             }
         }
     }
@@ -490,7 +490,7 @@ void cVeMenuMain::SplitText(void) {
         if (found) {
             //if current char is not a figure anymore, break
             if (!(*c >= '0' && *c <= '9')) {
-                //there has to be a space after the menu item number 
+                //there has to be a space after the menu item number
                 //plugins with figures in their name are eval :-)
                 if (*c != ' ')
                     found = false;
@@ -787,7 +787,7 @@ bool cLeMenuSchedules::Parse(bool forced) {
         }
     } else if (!channel) {
         //Hack für komischen patch von jinx
-        //stringTokens.insert(pair<string,string>("title", dayseparator));        
+        //stringTokens.insert(pair<string,string>("title", dayseparator));
     }
     if (channel) {
         tokenContainer->AddStringToken((int)eLeMenuSchedulesST::channelname, channel->Name());
@@ -866,7 +866,7 @@ void cCeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineLoopToken("{schedule[start]}", (int)eCeMenuSchedulesLT::start);
     tokenContainer->DefineLoopToken("{schedule[stop]}", (int)eCeMenuSchedulesLT::stop);
     schedulesIndex = tokenContainer->LoopIndex("schedule");
-    InheritTokenContainer();    
+    InheritTokenContainer();
 }
 
 void cCeMenuSchedules::Set(const cEvent *event, const cChannel *channel, bool withDate, eTimerMatch timerMatch, eMenuCategory menuCat) {
@@ -955,7 +955,7 @@ bool cCeMenuSchedules::Parse(bool forced) {
         }
         vector<int> loopInfo;
         loopInfo.push_back(eventsAvailable);
-        tokenContainer->CreateLoopTokenContainer(&loopInfo);        
+        tokenContainer->CreateLoopTokenContainer(&loopInfo);
 
         if (schedule) {
             int num = 0;
@@ -971,7 +971,7 @@ bool cCeMenuSchedules::Parse(bool forced) {
                 num++;
                 if (num > 11)
                     break;
-            }            
+            }
         }
     }
     return true;
@@ -1017,7 +1017,7 @@ void cLeMenuChannels::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{isSat}", (int)eLeMenuChannelsIT::isSat);
     tokenContainer->DefineIntToken("{isTerr}", (int)eLeMenuChannelsIT::isTerr);
     tokenContainer->DefineIntToken("{isEncrypted}", (int)eLeMenuChannelsIT::isEncrypted);
-    InheritTokenContainer();    
+    InheritTokenContainer();
 }
 
 void cLeMenuChannels::ClearCurrentElement(void) {
@@ -1238,7 +1238,7 @@ bool cCeMenuChannels::Parse(bool forced) {
             }
         }
     }
-    
+
     vector<int> loopInfo;
     int eventsAvailable = 0;
     if (schedule) {
@@ -1253,7 +1253,7 @@ bool cCeMenuChannels::Parse(bool forced) {
         eventsAvailable = 0;
 
     loopInfo.push_back(eventsAvailable);
-    tokenContainer->CreateLoopTokenContainer(&loopInfo);        
+    tokenContainer->CreateLoopTokenContainer(&loopInfo);
 
     if (schedule && eventsAvailable > 0) {
         int num = 0;
@@ -1269,7 +1269,7 @@ bool cCeMenuChannels::Parse(bool forced) {
             num++;
             if (num > 11)
                 break;
-        }            
+        }
     }
     return true;
 }
@@ -1307,6 +1307,7 @@ void cLeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{stateinfo}", (int)eLeMenuTimersST::stateinfo);
     tokenContainer->DefineStringToken("{action}", (int)eLeMenuTimersST::action);
     tokenContainer->DefineStringToken("{vdrname}", (int)eLeMenuTimersST::vdrname);
+    tokenContainer->DefineStringToken("{type}", (int)eLeMenuTimersST::type);
     tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeMenuTimersIT::nummenuitem);
     tokenContainer->DefineIntToken("{current}", (int)eLeMenuTimersIT::current);
     tokenContainer->DefineIntToken("{separator}", (int)eLeMenuTimersIT::separator);
@@ -1321,7 +1322,7 @@ void cLeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{flagpending}", (int)eLeMenuTimersIT::flagpending);
     tokenContainer->DefineIntToken("{isvdrrunning}", (int)eLeMenuTimersIT::isvdrrunning);
     tokenContainer->DefineIntToken("{isremote}", (int)eLeMenuTimersIT::isremote);
-    InheritTokenContainer();    
+    InheritTokenContainer();
 }
 
 void cLeMenuTimers::ClearCurrentElement(void) {
@@ -1348,7 +1349,7 @@ bool cLeMenuTimers::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eLeMenuTimersIT::flagvps, timer->HasFlags(tfVps));
     tokenContainer->AddIntToken((int)eLeMenuTimersIT::flagrecording, timer->Recording());
     tokenContainer->AddIntToken((int)eLeMenuTimersIT::flagpending, timer->Pending());
-    
+
     const char *file = Setup.FoldersInTimerMenu ? NULL : strrchr(timer->File(), FOLDERDELIMCHAR);
     if (file && strcmp(file + 1, TIMERMACRO_TITLE) && strcmp(file + 1, TIMERMACRO_EPISODE))
         file++;
@@ -1357,7 +1358,7 @@ bool cLeMenuTimers::Parse(bool forced) {
     tokenContainer->AddStringToken((int)eLeMenuTimersST::title, file);
     tokenContainer->AddStringToken((int)eLeMenuTimersST::timerstart, *cString::sprintf("%02d:%02d", timer->Start() / 100, timer->Start() % 100));
     tokenContainer->AddStringToken((int)eLeMenuTimersST::timerstop, *cString::sprintf("%02d:%02d", timer->Stop() / 100, timer->Stop() % 100));
-    
+
     cString day("");
     cString dayName("");
     if (timer->WeekDays())
@@ -1373,7 +1374,7 @@ bool cLeMenuTimers::Parse(bool forced) {
         strftime(buffer, sizeof(buffer), "%Y%m%d", &tm_r);
         day = buffer;
     }
-    
+
     struct tm tm_r;
     time_t timerDate = timer->Day();
     localtime_r(&timerDate, &tm_r);
@@ -1417,6 +1418,8 @@ bool cLeMenuTimers::Parse(bool forced) {
         tokenContainer->AddStringToken((int)eLeMenuTimersST::state, state.str().c_str());
         tokenContainer->AddStringToken((int)eLeMenuTimersST::stateinfo, epgTimer->StateInfo());
         tokenContainer->AddStringToken((int)eLeMenuTimersST::vdrname, epgTimer->VdrName());
+        char tp[2]; sprintf(tp, "%c", epgTimer->Type());
+        tokenContainer->AddStringToken((int)eLeMenuTimersST::type, tp);
         stringstream action;
         action << epgTimer->Action();
         tokenContainer->AddStringToken((int)eLeMenuTimersST::action, action.str().c_str());
@@ -1465,6 +1468,7 @@ void cCeMenuTimers::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{stateinfo}", (int)eCeMenuTimersST::stateinfo);
     tokenContainer->DefineStringToken("{action}", (int)eCeMenuTimersST::action);
     tokenContainer->DefineStringToken("{vdrname}", (int)eCeMenuTimersST::vdrname);
+    tokenContainer->DefineStringToken("{type}", (int)eCeMenuTimersST::type);
     tokenContainer->DefineIntToken("{menuitemx}", (int)eCeMenuTimersIT::menuitemx);
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuTimersIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuTimersIT::menuitemwidth);
@@ -1509,7 +1513,7 @@ bool cCeMenuTimers::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eCeMenuTimersIT::flagvps, timer->HasFlags(tfVps));
     tokenContainer->AddIntToken((int)eCeMenuTimersIT::flagrecording, timer->Recording());
     tokenContainer->AddIntToken((int)eCeMenuTimersIT::flagpending, timer->Pending());
-    
+
     const char *file = Setup.FoldersInTimerMenu ? NULL : strrchr(timer->File(), FOLDERDELIMCHAR);
     if (file && strcmp(file + 1, TIMERMACRO_TITLE) && strcmp(file + 1, TIMERMACRO_EPISODE))
         file++;
@@ -1518,7 +1522,7 @@ bool cCeMenuTimers::Parse(bool forced) {
     tokenContainer->AddStringToken((int)eCeMenuTimersST::title, file);
     tokenContainer->AddStringToken((int)eCeMenuTimersST::timerstart, *cString::sprintf("%02d:%02d", timer->Start() / 100, timer->Start() % 100));
     tokenContainer->AddStringToken((int)eCeMenuTimersST::timerstop, *cString::sprintf("%02d:%02d", timer->Stop() / 100, timer->Stop() % 100));
-    
+
     cString day("");
     cString dayName("");
     if (timer->WeekDays())
@@ -1534,7 +1538,7 @@ bool cCeMenuTimers::Parse(bool forced) {
         strftime(buffer, sizeof(buffer), "%Y%m%d", &tm_r);
         day = buffer;
     }
-    
+
     struct tm tm_r;
     time_t timerDate = timer->Day();
     localtime_r(&timerDate, &tm_r);
@@ -1582,6 +1586,8 @@ bool cCeMenuTimers::Parse(bool forced) {
         tokenContainer->AddStringToken((int)eCeMenuTimersST::state, state.str().c_str());
         tokenContainer->AddStringToken((int)eCeMenuTimersST::stateinfo, epgTimer->StateInfo());
         tokenContainer->AddStringToken((int)eCeMenuTimersST::vdrname, epgTimer->VdrName());
+        char tp[2]; sprintf(tp, "%c", epgTimer->Type());
+        tokenContainer->AddStringToken((int)eCeMenuTimersST::type, tp);
         stringstream action;
         action << epgTimer->Action();
         tokenContainer->AddStringToken((int)eCeMenuTimersST::action, action.str().c_str());
@@ -2026,7 +2032,7 @@ bool cCeMenuRecordings::Parse(bool forced) {
     tokenContainer->AddIntToken((int)eCeMenuRecordingsIT::durationevent, duration);
     tokenContainer->AddIntToken((int)eCeMenuRecordingsIT::durationeventhours, duration / 60);
     tokenContainer->AddStringToken((int)eCeMenuRecordingsST::durationeventminutes, *cString::sprintf("%.2d", duration%60));
-    
+
     tokenContainer->AddStringToken((int)eCeMenuRecordingsST::shorttext, info->ShortText());
     tokenContainer->AddStringToken((int)eCeMenuRecordingsST::description, info->Description());
 
@@ -2188,7 +2194,7 @@ void cLeChannelList::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{channellogoexists}", (int)eLeChannelListIT::channellogoexists);
     tokenContainer->DefineIntToken("{presenteventelapsed}", (int)eLeChannelListIT::presenteventelapsed);
     tokenContainer->DefineIntToken("{presenteventremaining}", (int)eLeChannelListIT::presenteventremaining);
-    InheritTokenContainer();    
+    InheritTokenContainer();
 }
 
 void cLeChannelList::Set(const cChannel *channel) {
@@ -2237,7 +2243,7 @@ bool cLeChannelList::Parse(bool forced) {
             }
         }
     }
-    
+
     return true;
 }
 
@@ -2263,7 +2269,7 @@ void cLeGroupList::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{numchannels}", (int)eLeGroupListIT::numchannels);
     tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeGroupListIT::nummenuitem);
     tokenContainer->DefineIntToken("{current}", (int)eLeGroupListIT::current);
-    InheritTokenContainer();    
+    InheritTokenContainer();
 }
 
 void cLeGroupList::Set(const char *group, int numChannels) {
