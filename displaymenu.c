@@ -69,7 +69,7 @@ void cSDDisplayMenu::SetMessage(eMessageType Type, const char *Text) {
         view->SetMessage(Type, Text);
 }
 
-bool cSDDisplayMenu::SetItemEvent(const cEvent *Event, int Index, bool Current, bool Selectable, const cChannel *Channel, bool WithDate, eTimerMatch TimerMatch) {
+bool cSDDisplayMenu::SetItemEvent(const cEvent *Event, int Index, bool Current, bool Selectable, const cChannel *Channel, bool WithDate, eTimerMatch TimerMatch, bool TimerActive) {
     if (!view)
         return false;
     if (Index == 0) {

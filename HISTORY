@@ -67,9 +67,9 @@ Version 0.0.3
 - fixed Bug that displaychannel was not shown after closing displaymenu with
   "backspace" (with active menuorg plugin)
 - fixed Bug with menuselection Patch
-- added tokens {month}, {monthname} and {year} in displaymenutimers listitem and 
+- added tokens {month}, {monthname} and {year} in displaymenutimers listitem and
   currentitem
-- added dedicated tokens for posters and banners in <srapercontent> in 
+- added dedicated tokens for posters and banners in <srapercontent> in
   displaychannel and displayreplay
 - added Plugin Interface
 - fixed crash when clearing a message in displaychannel and displayreplay
@@ -81,7 +81,7 @@ Version 0.0.4
 
 Version 0.0.5
 
-- added {channelnumber} and {channelname} Tokens in displaymenudetailepg 
+- added {channelnumber} and {channelname} Tokens in displaymenudetailepg
   detailheader
 - fixed {hasicon} Token in displaymenu header
 - added {newmails} Token in displaychannel statusinfo, mailbox plugin
@@ -111,7 +111,7 @@ Version 0.0.8
 Version 0.1.0
 
 - fixed display of color buttons in detailed views
-- fixed possible Nullpointer access in displaymenurootview 
+- fixed possible Nullpointer access in displaymenurootview
 - added currentschedule viewelement in displaymenumain
 - fixed bug that wrong channel was shown in header of whatson
   if entering from whatsonnow
@@ -180,7 +180,7 @@ Version 0.1.6
   adds its vakues and potentially overrides valués from globals.xml
 - check icons, menuicons and skinparts additionally directly in skin folder
   to allow default images which can be used for all skins
-- fixed bug that setup variables are sometimes not identified in case two 
+- fixed bug that setup variables are sometimes not identified in case two
   or more skin names start identically
 
 Version 0.2.0
@@ -195,7 +195,7 @@ Version 0.2.1
 - some more nopacity optimizations - thanx@utility
 - added possibiliy to use submenus in the skin setup menus
 - reloading active skin directly after closing setup menu so that
-  changes of setup parameters are immediately in use 
+  changes of setup parameters are immediately in use
 
 Version 0.2.2
 
@@ -260,7 +260,7 @@ Version 0.3.3
   no signal information will be fetched to improve performance.
 
 Version 0.3.4
-  
+
 - fixed backward compatibility to VDR version < 2.1.1 where
   cRecording::IsInUse() was introduced
 - automatically detect type of image if no file extension is available
@@ -270,7 +270,7 @@ Version 0.4.0
 
 - fixed bug that time was not correctly drawn if a submenu implements
   its own time display
-- fixed bug that date was drawn every flush in displayreplay 
+- fixed bug that date was drawn every flush in displayreplay
 - fixed bug in metrixhd timers menu
 - fixed bug that datetime was not correctly drawn if a submenu implements
   its own datetime display
@@ -290,7 +290,7 @@ Version 0.4.2
 - fixed bug that string tokens are not evaluated in area conditions
 - added possibility to draw a debug grid in views
 - added more info if debugImage is activted in config
-- added possibility for blinking images, texts, rectangles, ellipses 
+- added possibility for blinking images, texts, rectangles, ellipses
   and slopes
 - adapted libskindesignerapi makefile for LCLBLD
 
@@ -376,7 +376,7 @@ Version 0.5.3
 - added SVG Template parsing
 - fixed memory leak when creating fonts
 - fixed crash using animated images in plugins
-- added banner to displaymenuschedulescurrentview and 
+- added banner to displaymenuschedulescurrentview and
   displaymenureplaycurrentview
 - immplemented areacontainers to group areas
 - fixed bug displaying pixmaps with transparency
@@ -406,10 +406,10 @@ Version 0.6.2
 Version 0.6.3
 
 - implemented horizontal menus
-  For displaying horizontal menus with VDR <= 2.2.x a VDR 
-  patch is required (see /patches/vdr-2.2.0_horizontal_menu.patch 
-  in the plugin source directory). Without this patch the keys 
-  left/right and up/down are not toggled in horizontal menus. 
+  For displaying horizontal menus with VDR <= 2.2.x a VDR
+  patch is required (see /patches/vdr-2.2.0_horizontal_menu.patch
+  in the plugin source directory). Without this patch the keys
+  left/right and up/down are not toggled in horizontal menus.
   With VDR >= 2.3.1 this patch is not needed anymore.
 - added possibility to add conditions to <menuitems> elements
 - added possibility to define a viewelement several times with
@@ -418,7 +418,7 @@ Version 0.6.3
 - added "valign" option in <drawtextbox>. If the box height is set
   and the text does not need the complete height, with valign="center"
   the text can be placed horizontally centered inside the box borders.
-- implemented optional horizontal main-, recordings- and 
+- implemented optional horizontal main-, recordings- and
   weatherforecast menu in metrixhd
 
 Version 0.7.0
@@ -431,3 +431,7 @@ Version 0.7.1
 - added possibility to define help texts for skin setup parameters
 
 Version 0.7.2
+
+Version 1.2.4 (horchi)
+
+- added compatibility to vdr 2.3.8

@@ -83,13 +83,13 @@ cCond::cCond(const cCond &other) {
         compareStrValue = strdup(other.compareStrValue);
 }
 
-cCond::~cCond(void) { 
-    free(expr); 
+cCond::~cCond(void) {
+    free(expr);
     free(compareStrValue);
 }
 
 void cCond::Debug(void) {
-    esyslog("skindesigner:              cond %s, operation %s, type %d", expr, 
+    esyslog("skindesigner:              cond %s, operation %s, type %d", expr,
                                                             (operation == eCondOp::tAnd) ? "++" : "||",
                                                             (int)type);
     if (constant)
@@ -138,15 +138,15 @@ bool cCondition::True(void) {
     for (cCond *c = conds.First(); c; c = conds.Next(c)) {
         bool condTrue = true;
         //evaluate condition
-        if (c->constant) 
+        if (c->constant)
         {
             condTrue = c->isTrue;
-        } 
-        else if (c->type == eCondType::token) 
+        }
+        else if (c->type == eCondType::token)
         {
             if (c->tokenType == eCondTokenType::inttoken) {
                 int tokenVal = tokenContainer->IntToken(c->tokenIndex);
-                condTrue = (tokenVal > 0) ? true : false;                
+                condTrue = (tokenVal > 0) ? true : false;
             } else if (c->tokenType == eCondTokenType::stringtoken) {
                 char *tokenVal = tokenContainer->StringToken(c->tokenIndex);
                 if (tokenVal)
@@ -159,8 +159,8 @@ bool cCondition::True(void) {
                 }
             }
 
-        } 
-        else if (c->type == eCondType::negtoken) 
+        }
+        else if (c->type == eCondType::negtoken)
         {
             if (c->tokenType == eCondTokenType::inttoken) {
                 int tokenVal = tokenContainer->IntToken(c->tokenIndex);
@@ -177,7 +177,7 @@ bool cCondition::True(void) {
                 }
             }
         }
-        else if (c->type == eCondType::lowerInt || c->type == eCondType::equalInt || c->type == eCondType::notequalInt || c->type == eCondType::greaterInt) 
+        else if (c->type == eCondType::lowerInt || c->type == eCondType::equalInt || c->type == eCondType::notequalInt || c->type == eCondType::greaterInt)
         {
             if (c->tokenType == eCondTokenType::inttoken) {
                 int tokenVal = tokenContainer->IntToken(c->tokenIndex);
@@ -219,7 +219,7 @@ bool cCondition::True(void) {
                 }
             }
         }
-        else if (c->type == eCondType::isset || c->type == eCondType::empty) 
+        else if (c->type == eCondType::isset || c->type == eCondType::empty)
         {
             if (c->tokenType == eCondTokenType::stringtoken) {
                 char *tokenVal = tokenContainer->StringToken(c->tokenIndex);
@@ -251,7 +251,7 @@ bool cCondition::True(void) {
                 }
             }
         }
-        else if (c->type == eCondType::equalString || c->type == eCondType::notEqualString || c->type == eCondType::contains || c->type == eCondType::notContains) 
+        else if (c->type == eCondType::equalString || c->type == eCondType::notEqualString || c->type == eCondType::contains || c->type == eCondType::notContains)
         {
             if (c->tokenType == eCondTokenType::stringtoken) {
                 char *tokenVal = tokenContainer->StringToken(c->tokenIndex);
@@ -284,7 +284,7 @@ bool cCondition::True(void) {
         if (c->operation == eCondOp::tAnd) {
             ok = ok && condTrue;
         } else if (c->operation == eCondOp::tOr) {
-            ok = ok || condTrue;                
+            ok = ok || condTrue;
         }
     }
     return ok;
@@ -470,8 +470,8 @@ void cCondition::SetTokenIndex(cCond *c, const char *token) {
 /******************************************************************
 * cSummand
 ******************************************************************/
-cSummand::cSummand(const char *summand) { 
-    this->summand = strdup(summand); 
+cSummand::cSummand(const char *summand) {
+    this->summand = strdup(summand);
 }
 
 cSummand::cSummand(const cSummand &other) {
@@ -485,7 +485,7 @@ cSummand::cSummand(const cSummand &other) {
 }
 
 cSummand::~cSummand(void) {
-    free(summand); 
+    free(summand);
 }
 
 void cSummand::Debug(void) {
@@ -564,7 +564,7 @@ bool cNumericExpr::CacheStatic(void) {
         value = atoi(expr);
         return true;
     }
-    
+
     //check if expression is a percent expression
     if (PercentValue(expr)) {
         return true;
@@ -676,7 +676,7 @@ int cNumericExpr::Calculate(void) {
             if (f->multiplication)
                 factor *= fac;
             else if (fac)
-                factor /= fac;            
+                factor /= fac;
         }
         if (s->positive)
             result += factor;
@@ -722,7 +722,7 @@ bool cNumericExpr::IsNumericExpression(const char *e) {
         else
             return false;
     }
-    return true;    
+    return true;
 }
 
 bool cNumericExpr::PercentValue(const char *e) {
@@ -762,7 +762,7 @@ char *cNumericExpr::ReplacePercentValue(char *e) {
     if (horizontal) {
         sprintf(replacement, "%.5f*{areawidth}", percentVal);
     } else {
-        sprintf(replacement, "%.5f*{areaheight}", percentVal);        
+        sprintf(replacement, "%.5f*{areaheight}", percentVal);
     }
 
     int len = strlen(replacement) + 1;
@@ -888,7 +888,7 @@ void cNumericExpr::CreateFactors(void) {
             f->constValue = EvaluateExpressionDouble(sum);
             s->factors.Add(f);
             free(sum);
-            continue;            
+            continue;
         }
         bool multiplication = true;
         char *fac = strtok(sum, delimiterFac);
@@ -906,7 +906,7 @@ void cNumericExpr::CreateFactors(void) {
                 } else if (SetReferenceFactor(f, fac)) {
                     f->multiplication = multiplication;
                     s->factors.Add(f);
-                } else if (SetGeometryFactor(f, fac)) { 
+                } else if (SetGeometryFactor(f, fac)) {
                     f->multiplication = multiplication;
                     s->factors.Add(f);
                 } else {
@@ -961,7 +961,7 @@ bool cNumericExpr::SetReferenceFactor(cFactor *f, char *tokenName) {
         f->type = eFactorType::widthref;
     } else if (startswith(tokenName, "{height(") && endswith(tokenName, ")}")) {
         start = 8;
-        f->type = eFactorType::heightref;    
+        f->type = eFactorType::heightref;
     }
 
     if (start == 0)
@@ -986,7 +986,7 @@ bool cNumericExpr::SetGeometryFactor(cFactor *f, char *tokenName) {
         f->type = eFactorType::columnwidth;
         ok = true;
     } else if (!strcmp(tokenName, "{rowheight}")) {
-        f->type = eFactorType::rowheight;        
+        f->type = eFactorType::rowheight;
         ok = true;
     }
     return ok;
@@ -1007,7 +1007,7 @@ void cNumericExpr::ConsolidateSummand(void) {
                 s = constSummand;
             }
         }
-    }    
+    }
 }
 
 void cNumericExpr::ConsolidateFactors(void) {
@@ -1020,7 +1020,7 @@ void cNumericExpr::ConsolidateFactors(void) {
                 } else {
                     if (f->multiplication)
                         constFactor->constValue *= f->constValue;
-                    else 
+                    else
                         constFactor->constValue /= f->constValue;
                     s->factors.Del(f);
                     f = constFactor;
@@ -1042,7 +1042,7 @@ cColor::cColor(const char *expression) {
 cColor::cColor(const cColor &other) {
     globals = other.globals;
     expr = strdup(other.expr);
-    value = other.value;    
+    value = other.value;
 }
 
 cColor::~cColor(void) {
@@ -1442,7 +1442,7 @@ bool cTextExpr::ParsePrintfToken(cTextToken *t) {
     strncpy(buffer, startExpr+1, expLen);
     buffer[expLen] = '\0';
     t->printfExpr = strdup(buffer);
-    
+
     //find variables
     char *startVar = strchr(t->constValue, ',');
     if (!startVar)
@@ -1525,7 +1525,7 @@ void cTextExpr::DeterminatePrintfToken(cTextToken *t) {
             }
         } else if (t->printfVarIndices[i].type == ePrintfVarType::looptoken  && loopInfo && loopInfo->row >= 0) {
             if (tokenContainer->LoopToken(loopInfo->index, loopInfo->row, t->printfVarIndices[i].index)) {
-                results.push_back(atoi(tokenContainer->LoopToken(loopInfo->index, loopInfo->row, t->printfVarIndices[i].index)));                
+                results.push_back(atoi(tokenContainer->LoopToken(loopInfo->index, loopInfo->row, t->printfVarIndices[i].index)));
             }
         }
     }
@@ -1611,8 +1611,8 @@ char *cTextExpr::CopyTextPart(char *start, char *stop, bool incLastChar) {
     } else {
         //search end of text
         char *p = start;
-        while (*p)
-            len++; p++;
+        while (*p) {
+           len++; p++; }
         len++;
     }
     val = (char*)malloc(len+1);

@@ -20,7 +20,7 @@
 #endif
 
 
-static const char *VERSION        = "1.2.3";
+static const char *VERSION        = "1.2.4";
 static const char *DESCRIPTION    = trNOOP("Skin Designer");
 
 class cPluginSkinDesigner : public cPlugin, public skindesignerapi::SkindesignerAPI {
@@ -114,7 +114,7 @@ bool cPluginSkinDesigner::Start(void) {
     cImageImporterSVG::InitLibRSVG();
     cGlobalTimers::StartRefreshThread();
     bool trueColorAvailable = true;
-    
+
     if (!cOsdProvider::SupportsTrueColor()) {
         esyslog("skindesigner: No TrueColor OSD found! Using default Skin LCARS!");
         trueColorAvailable = false;
@@ -221,7 +221,7 @@ const char **cPluginSkinDesigner::SVDRPHelpPages(void) {
 }
 
 cString cPluginSkinDesigner::SVDRPCommand(const char *Command, const char *Option, int &ReplyCode) {
-    
+
     cSkinDesigner *activeSkin = NULL;
     cSkinDesigner *availableSkin = NULL;
     config.InitSkinRefsIterator();
