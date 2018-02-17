@@ -439,3 +439,7 @@ Version 1.2.4 (horchi)
 Version 1.2.5 (horchi)
 
 - added timer type to epg2vdr interface
+
+Version 1.2.6 (horchi)
+
+- extended epg2vdr timer interface for schedules

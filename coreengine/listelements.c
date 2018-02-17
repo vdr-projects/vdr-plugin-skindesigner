@@ -683,6 +683,7 @@ void cLeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{durationminutes}", (int)eLeMenuSchedulesST::durationminutes);
     tokenContainer->DefineStringToken("{channelname}", (int)eLeMenuSchedulesST::channelname);
     tokenContainer->DefineStringToken("{channelid}", (int)eLeMenuSchedulesST::channelid);
+    tokenContainer->DefineStringToken("{timertype}", (int)eLeMenuSchedulesST::timertype);
     tokenContainer->DefineIntToken("{nummenuitem}", (int)eLeMenuSchedulesIT::nummenuitem);
     tokenContainer->DefineIntToken("{current}", (int)eLeMenuSchedulesIT::current);
     tokenContainer->DefineIntToken("{separator}", (int)eLeMenuSchedulesIT::separator);
@@ -703,6 +704,7 @@ void cLeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{whatsonfavorites}", (int)eLeMenuSchedulesIT::whatsonfavorites);
     tokenContainer->DefineIntToken("{timerpartitial}", (int)eLeMenuSchedulesIT::timerpartitial);
     tokenContainer->DefineIntToken("{timerfull}", (int)eLeMenuSchedulesIT::timerfull);
+    tokenContainer->DefineIntToken("{isremotetimer}", (int)eLeMenuSchedulesIT::isremotetimer);
     tokenContainer->DefineIntToken("{hasVPS}", (int)eLeMenuSchedulesIT::hasVPS);
     InheritTokenContainer();
 }
@@ -780,6 +782,19 @@ bool cLeMenuSchedules::Parse(bool forced) {
             tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::durationhours, event->Duration() / 3600);
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::durationminutes, *cString::sprintf("%.2d", (event->Duration() / 60)%60));
             tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::hasVPS, (bool)event->Vps());
+
+            if (timerMatch == tmFull || timerMatch == tmPartial) {
+               cTimer_Detail_V1 data;
+               data.eventid = event->EventID();
+               data.hastimer = false;
+               data.local = true;
+               data.type = 'R';
+               if (cPlugin* pEpg2Vdr = cPluginManager::GetPlugin("epg2vdr"))
+                  pEpg2Vdr->Service(EPG2VDR_TIMER_DETAIL_SERVICE, &data);
+               tokenContainer->AddIntToken((int)eLeMenuSchedulesIT::isremotetimer, !data.local);
+               char tp[2]; sprintf(tp, "%c", data.type);
+               tokenContainer->AddStringToken((int)eLeMenuSchedulesST::timertype, tp);
+            }
         } else {
             char *sep = ParseSeparator(event->Title());
             tokenContainer->AddStringToken((int)eLeMenuSchedulesST::title, sep);
@@ -834,6 +849,7 @@ void cCeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineStringToken("{channelid}", (int)eCeMenuSchedulesST::channelid);
     tokenContainer->DefineStringToken("{posterpath}", (int)eCeMenuSchedulesST::posterpath);
     tokenContainer->DefineStringToken("{bannerpath}", (int)eCeMenuSchedulesST::bannerpath);
+    tokenContainer->DefineStringToken("{timertype}", (int)eCeMenuSchedulesST::timertype);
     tokenContainer->DefineIntToken("{menuitemx}", (int)eCeMenuSchedulesIT::menuitemx);
     tokenContainer->DefineIntToken("{menuitemy}", (int)eCeMenuSchedulesIT::menuitemy);
     tokenContainer->DefineIntToken("{menuitemwidth}", (int)eCeMenuSchedulesIT::menuitemwidth);
@@ -861,6 +877,7 @@ void cCeMenuSchedules::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{whatsonfavorites}", (int)eCeMenuSchedulesIT::whatsonfavorites);
     tokenContainer->DefineIntToken("{timerpartitial}", (int)eCeMenuSchedulesIT::timerpartitial);
     tokenContainer->DefineIntToken("{timerfull}", (int)eCeMenuSchedulesIT::timerfull);
+    tokenContainer->DefineIntToken("{isremotetimer}", (int)eCeMenuSchedulesIT::isremotetimer);
     tokenContainer->DefineLoopToken("{schedule[title]}", (int)eCeMenuSchedulesLT::title);
     tokenContainer->DefineLoopToken("{schedule[shorttext]}", (int)eCeMenuSchedulesLT::shorttext);
     tokenContainer->DefineLoopToken("{schedule[start]}", (int)eCeMenuSchedulesLT::start);
@@ -925,8 +942,21 @@ bool cCeMenuSchedules::Parse(bool forced) {
         }
         tokenContainer->AddIntToken((int)eCeMenuSchedulesIT::duration, event->Duration() / 60);
         tokenContainer->AddIntToken((int)eCeMenuSchedulesIT::durationhours, event->Duration() / 3600);
+
+        if (timerMatch == tmFull || timerMatch == tmPartial) {
+           cTimer_Detail_V1 data;
+           data.eventid = event->EventID();
+           data.hastimer = false;
+           data.local = true;
+           data.type = 'R';
+           if (cPlugin* pEpg2Vdr = cPluginManager::GetPlugin("epg2vdr"))
+              pEpg2Vdr->Service(EPG2VDR_TIMER_DETAIL_SERVICE, &data);
+           tokenContainer->AddIntToken((int)eCeMenuSchedulesIT::isremotetimer, !data.local);
+           char tp[2]; sprintf(tp, "%c", data.type);
+           tokenContainer->AddStringToken((int)eCeMenuSchedulesST::timertype, tp);
+        }
         if (LoadFullScrapInfo(event, NULL))
-            SetScraperPosterBanner(tokenContainer);
+           SetScraperPosterBanner(tokenContainer);
     }
     if (channel) {
         tokenContainer->AddStringToken((int)eCeMenuSchedulesST::channelname, channel->Name());

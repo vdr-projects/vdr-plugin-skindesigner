@@ -226,7 +226,7 @@ enum class eDevicesLT {
     signalquality,
     channelnumber,
     channelname,
-    channellogoexists, 
+    channellogoexists,
     channelid,
     source,
     count
@@ -855,6 +855,7 @@ enum class eLeMenuSchedulesST {
     durationminutes,
     channelname,
     channelid,
+    timertype,
     count
 };
 
@@ -879,6 +880,7 @@ enum class eLeMenuSchedulesIT {
     whatsonfavorites,
     timerpartitial,
     timerfull,
+    isremotetimer,
     hasVPS,
     count
 };
@@ -895,6 +897,7 @@ enum class eCeMenuSchedulesST {
     channelid,
     posterpath,
     bannerpath,
+    timertype,
     count
 };
 
@@ -934,6 +937,7 @@ enum class eCeMenuSchedulesIT {
     whatsonfavorites,
     timerpartitial,
     timerfull,
+    isremotetimer,
     count
 };
 
@@ -1623,7 +1627,7 @@ enum class eLeDisplayTracksST {
 enum class eCommonAttribs {
     x = 0,
     y,
-    width, 
+    width,
     height,
     debug,
     count
@@ -1631,7 +1635,7 @@ enum class eCommonAttribs {
 
 enum class eViewAttribs {
     fadetime = 0,
-    shifttime, 
+    shifttime,
     shifttype,
     shiftmode,
     startx,
@@ -1649,7 +1653,7 @@ enum class eViewAttribs {
 enum class eViewElementAttribs {
     delay = 0,
     fadetime,
-    shifttime, 
+    shifttime,
     shifttype,
     shiftmode,
     startx,
@@ -1665,10 +1669,10 @@ enum class eViewListAttribs {
     align = 0,
     menuitemwidth,
     determinatefont,
-    numlistelements, 
+    numlistelements,
     orientation,
     fadetime,
-    shifttime, 
+    shifttime,
     shifttype,
     shiftmode,
     startx,
@@ -1682,7 +1686,7 @@ enum class eAreaAttribs {
     layer = 0,
     transparency,
     mode,
-    orientation, 
+    orientation,
     scrollelement,
     scrollspeed,
     delay,

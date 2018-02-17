@@ -17,24 +17,6 @@
 // Timer - Skin Interface
 //***************************************************************************
 
-class cEpgEvent_Interface_V1 : public cEvent
-{
-   public:
-
-      cEpgEvent_Interface_V1(tEventID EventID)
-         : cEvent(EventID) {}
-
-      // #TODO ... getter
-
-   protected:
-
-      // #TODO ... attributes
-};
-
-//***************************************************************************
-// Timer - Skin Interface
-//***************************************************************************
-
 class cEpgTimer_Interface_V1 : public cTimer
 {
    public:
@@ -90,7 +72,7 @@ class cEpgTimer_Interface_V1 : public cTimer
 };
 
 //***************************************************************************
-// Timer - Service Interface
+// Timer Service
 //***************************************************************************
 
 struct cEpgTimer_Service_V1
@@ -98,23 +80,28 @@ struct cEpgTimer_Service_V1
    std::list<cEpgTimer_Interface_V1*> epgTimers;
 };
 
-#define EPG2VDR_TIMER_SERVICE "Epg2Vdr_Timer_Service-v1.0"
+//***************************************************************************
+// Timer Detail Service
+//***************************************************************************
+
+struct cTimer_Detail_V1
+{
+   long eventid;
+   int hastimer;
+   int local;
+   char type;
+};
+
+#define EPG2VDR_TIMER_DETAIL_SERVICE  "Epg2Vdr_Timer_Detail_Service-v1.0"
+#define EPG2VDR_TIMER_SERVICE         "Epg2Vdr_Timer_Service-v1.0"
 
 #ifdef EPG2VDR
 
 //***************************************************************************
-// Class cEpgEvent
 //***************************************************************************
-
-class cEpgEvent : public cEpgEvent_Interface_V1
-{
-   public:
-
-      cEpgEvent(tEventID EventID);
-      virtual ~cEpgEvent() {}
-
-      // #TODO ... setter
-};
+//***************************************************************************
+// EPG2VDR Internal Stuff
+//***************************************************************************
 
 //***************************************************************************
 // Class cEpgTimer
@@ -124,13 +111,16 @@ class cEpgTimer : public cEpgTimer_Interface_V1
 {
    public:
 
-      cEpgTimer(bool Instant = false, bool Pause = false, cChannel* Channel = 0);
+      cEpgTimer(bool Instant = false, bool Pause = false, const cChannel* Channel = 0);
       virtual ~cEpgTimer();
 
-      void setTimerId(long id)    { timerid = id; }
-      void setEventId(long id)    { eventid = id; }
+      void setTimerId(long id)      { timerid = id; }
+      void setEventId(long id)      { eventid = id; }
+      void setAction(char a)        { action = a; }
+      void setType(char t)          { type = t; }
+      void setCreateTime(time_t t)  { createTime = t; }
+      void setModTime(time_t t)     { modTime = t; }
       void setState(char s, const char* info);
-      void setAction(char a);
       void setVdr(const char* name, const char* uuid = 0, int running = 0);
 };
 
