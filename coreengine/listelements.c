@@ -474,6 +474,31 @@ cVeMenuMain::~cVeMenuMain(void) {
     free(label);
 }
 
+int countDigits(int arg)
+{
+   return snprintf(NULL, 0, "%d", arg) - (arg < 0);
+}
+
+void cVeMenuMain::SplitText(void) {
+   char* string = skipspace(text);
+   unsigned int num = atoi(string);
+   int digits = countDigits(num);
+
+   free(number);
+   free(label);
+
+   if (digits > 0 && digits < 4 && string[digits] == ' ')
+   {
+      if (asprintf(&label, "%s", string+digits+1)) ;
+      if (asprintf(&number, "%d", num)) ;
+   }
+   else
+   {
+      if (asprintf(&label, "%s", string)) ;
+      number = strdup("");
+   }
+}
+/*
 void cVeMenuMain::SplitText(void) {
     char *start = skipspace(text);
     bool found = false;
@@ -521,6 +546,7 @@ void cVeMenuMain::SplitText(void) {
     }
     label = strdup(skipspace(c));
 }
+*/
 
 /******************************************************************
 * cLeMenuMain

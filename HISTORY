@@ -443,3 +443,8 @@ Version 1.2.5 (horchi)
 Version 1.2.6 (horchi)
 
 - extended epg2vdr timer interface for schedules
+
+Version 1.2.7 (horchi)
+
+- changed menu numbering handling vor mcMain
+    > now only numbers up to 999 are detected as 'Numbering'
