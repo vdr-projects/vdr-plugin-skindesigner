@@ -96,14 +96,14 @@
         <drawtext align="center" y="0" name="title" font="{light}" fontsize="10%" color="{fontdefault}" text="{tr(rerunsof)} '{title}'" />
         <loop name="reruns" x="0" y="{height(title)} + 10" width="{areawidth}" orientation="vertical">
             <drawimage name="logo" condition="{reruns[channellogoexists]}" imagetype="channellogo" path="{reruns[channelid]}" x="0" width="10%" height="10%" />
-            <drawtext name="channelname" condition="not{reruns[channellogoexists]}" x="-5" font="{light}" fontsize="10%" color="{fontdefault}" text="{reruns[channelname]}" />
-            <drawtext condition="{reruns[channellogoexists]}" x="{width(logo)}+20" y="-5" width="{areawidth} - {width(logo)} - 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{reruns[day]} {reruns[date]} {reruns[start]} - {reruns[stop]}: {reruns[title]}  {reruns[shorttext]}" />
-            <drawtext condition="not{reruns[channellogoexists]}" x="{width(channelname)}+20" y="-5" width="{areawidth} - {width(logo)} - 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{reruns[day]} {reruns[date]} {reruns[start]} - {reruns[stop]}: {reruns[title]}  {reruns[shorttext]}" />
+            <drawtext name="channelname" condition="not{reruns[channellogoexists]}" x="-5" font="{light}" fontsize="9%" color="{fontdefault}" text="{reruns[channelname]}" />
+            <drawtext condition="{reruns[channellogoexists]}" x="{width(logo)}+20" y="0" width="{areawidth} - {width(logo)} - 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{reruns[day]} {reruns[date]} {reruns[start]} - {reruns[stop]}: {reruns[title]}  {reruns[shorttext]}" />
+            <drawtext condition="not{reruns[channellogoexists]}" x="{width(channelname)}+20" y="0" width="{areawidth} - {width(logo)} - 20" font="{light}" fontsize="8%" color="{fontdefault}" text="{reruns[day]} {reruns[date]} {reruns[start]} - {reruns[stop]}: {reruns[title]}  {reruns[shorttext]}" />
         </loop>
     </tab>
     <!-- TAB ACTORS -->
     <tab condition="{isseries}||{ismovie}" name="{tr(actors)}" x="2%" y="20%" width="94%" height="65%" layer="2" scrollheight="{areaheight}/4">
-        <drawtext align="center" name="title" y="0" font="{semibold}" fontsize="15%" color="{fontdefault}" text="{tr(actors)}" />
+        <drawtext align="center" name="title" y="0" font="{semibold}" fontsize="10%" color="{fontdefault}" text="{tr(actors)}" />
         <loop name="actors" x="0" y="{height(title)} + 10" width="{areawidth}" orientation="horizontal" columnwidth="{areawidth}/5" rowheight="{areawidth}/5*1.8" overflow="linewrap">
             <drawimage name="thumb" imagetype="image" path="{actors[thumb]}" x="20" y="0" width="{columnwidth}-40" height="{columnwidth} * {actors[thumbheight]} / {actors[thumbwidth]} - 40 * {actors[thumbheight]} / {actors[thumbwidth]}"/>
             <drawtext align="center" y="{height(thumb)} + 10" width="{columnwidth}" name="actorname" font="{light}" fontsize="7%" color="{fontdefault}" text="{actors[name]}" />
