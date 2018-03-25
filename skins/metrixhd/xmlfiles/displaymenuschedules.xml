@@ -165,13 +165,8 @@
             <area condition="{whatson}" x="63%" y="0" width="36%" height="100%" layer="2">
                 <!-- title -->
                 <drawtext name="title" x="10" y="0" font="{semibold}" width="{areawidth}-20" fontsize="8%" color="{fontactive}" text="{title}" />
-                <!-- progress bar if event is running -->
-                <drawtext condition="{running}" name="start" x="{areawidth}/4 - {width(start)}" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{start}" />
-                <drawtext condition="{running}" name="stop" x="{areawidth}*3/4" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{stop}" />
-                <drawrectangle condition="{running}" x="{areawidth}/4+10" y="{height(start)}/2+{posy(start)}" width="{areawidth}/2 - 20" height="1" color="{fontactive}" />
-                <drawrectangle condition="{running}" x="{areawidth}/4+10" y="{height(start)}/2+{posy(start)} -2" width="{areawidth}/2 * {elapsed} / {duration} - 20 * {elapsed} / {duration}" height="5" color="{fontactive}" />
-                <!-- start and stop if event is not running -->
-                <drawtext condition="not{running}" x="10" y="{posy(title)}+{height(title)}" font="{light}" fontsize="7%" color="{fontactive}" text="{start} - {stop} ({duration} min)" />
+                <!-- start and stop -->
+                <drawtext name="start"  x="10" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{printf('%02d.%02d', daynumeric, month)}  {start} - {stop} ({duration} min)" />
                 <!-- scraper poster -->
                 <drawimage condition="{hasposter}" name="poster" imagetype="image" path="{posterpath}" x="10" y="{posy(start)} + {height(start)} + 20" width="{areawidth}/3" height="{areawidth}/3 * {posterheight} / {posterwidth}"/>
                 <!-- description -->
@@ -182,13 +177,8 @@
                 <area x="63%" y="0" width="36%" height="100%" layer="2">
                     <!-- title -->
                     <drawtext name="title" x="10" y="0" font="{semibold}" width="{areawidth}-20" fontsize="8%" color="{fontactive}" text="{title}" />
-                    <!-- progress bar if event is running -->
-                    <drawtext condition="{running}" name="start" x="{areawidth}/4 - {width(start)}" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{start}" />
-                    <drawtext condition="{running}" name="stop" x="{areawidth}*3/4" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{stop}" />
-                    <drawrectangle condition="{running}" x="{areawidth}/4+10" y="{height(start)}/2+{posy(start)}" width="{areawidth}/2 - 20" height="1" color="{fontactive}" />
-                    <drawrectangle condition="{running}" x="{areawidth}/4+10" y="{height(start)}/2+{posy(start)}-2" width="{areawidth}/2 * {elapsed} / {duration} - 20 * {elapsed} / {duration}" height="5" color="{fontactive}" />
-                    <!-- start and stop if event is not running -->
-                    <drawtext condition="not{running}" x="10" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{start} - {stop} ({duration} min)" />
+                    <!-- start and stop -->
+                    <drawtext name="start" x="10" y="{posy(title)}+{height(title)}" font="{light}" fontsize="6%" color="{fontactive}" text="{printf('%02d.%02d', daynumeric, month)}  {start} - {stop} ({duration} min)" />
                     <!-- scraper poster -->
                     <drawimage condition="{hasposter}" name="poster" imagetype="image" path="{posterpath}" x="10" y="{posy(start)} + {height(start)} + 10" width="{areawidth}/3" height="{areawidth}/3 * {posterheight} / {posterwidth}"/>
                     <!-- description -->

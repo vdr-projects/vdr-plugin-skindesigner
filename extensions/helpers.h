@@ -44,7 +44,7 @@ public:
 
 string GetTimeString(int seconds);
 
-string GetScreenResolutionString(int width, int height, bool *isHD);
+string GetScreenResolutionString(int width, int height, int *isHD);
 string GetScreenAspectString(double aspect, bool *isWideScreen);
 
 #endif // __HELPERS_H

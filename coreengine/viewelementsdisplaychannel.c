@@ -477,7 +477,7 @@ bool cVeDcScreenResolution::Parse(bool forced) {
     lastAspect = aspect;
     SetDirty();
 
-    bool isHD = false;
+    int isHD = 0;
     string resName = GetScreenResolutionString(screenWidth, screenHeight, &isHD);
 
     bool isWideScreen = false;

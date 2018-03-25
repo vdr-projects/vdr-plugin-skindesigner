@@ -22,7 +22,7 @@ public:
   int resWidth;
   int resHeight;
   string resString;
-  bool isHD;
+  int isHD;
   string aspectratio;
   bool isWideScreen;
   string codec;

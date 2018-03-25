@@ -78,7 +78,7 @@
         </areacontainer>
     </colorbuttons>
 
-    <menuitems x="0" y="10%" orientation="vertical" width="98%" height="80%" align="center" numlistelements="10">
+    <menuitems x="0" y="10%" orientation="vertical" width="98%" height="80%" align="center" numlistelements="13">
         <listelement>
             <area x="0" width="60%" layer="2">
                 <fill condition="not{current}" color="{clrTransparent}" />

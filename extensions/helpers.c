@@ -198,29 +198,28 @@ string GetTimeString(int seconds) {
 
 
 //View Helpers
-string GetScreenResolutionString(int width, int height, bool *isHD) {
+string GetScreenResolutionString(int width, int height, int *isHD) {
     string name = "";
-    switch (width) {
-        case 1920:
-        case 1440:
-            name = "hd1080i";
-            *isHD = true;
+    switch (height) {
+        case 2160:
+            name = "uhd2160p";
+            *isHD = 2;
             break;
-        case 1280:
-            if (height == 720)
-                name = "hd720p";
-            else
-                name = "hd1080i";
-            *isHD = true;
+        case 1080:
+            name = "hd1080i";
+            *isHD = 1;
             break;
         case 720:
-            name = "sd576i";
+            name = "hd720p";
+            *isHD = 1;
             break;
-        case 544:
-            name = "sd480i";
+        case 576:
+            name = "sd576i";
+            *isHD = 0;
             break;
         default:
             name = "sd576i";
+            *isHD = 0;
             break;
     }
     return name;

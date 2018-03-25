@@ -52,20 +52,22 @@
             <drawrectangle condition="{isWideScreen}" x="{areawidth} - {areaheight}*16/9" y="0" width="{areaheight}*16/9" height="{areaheight}" color="{icontextactive}" />
             <drawrectangle condition="not{isWideScreen}" x="{areawidth} - {areaheight}*16/9" y="0" width="{areaheight}*16/9" height="{areaheight}" color="{icontextinactive}" />
             <drawrectangle x="{areawidth} - {areaheight}*16/9 + 1" y="1" width="{areaheight}*16/9 - 2" height="{areaheight} - 2" color="00000000" />
-            <drawtext name="wide" condition="{isWideScreen}" x="{areawidth} - {areaheight}*16/9 + {areaheight}*16/9/2 - {width(wide)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="WIDE" />
-            <drawtext condition="not{isWideScreen}" x="{areawidth} - {areaheight}*16/9 + {areaheight}*16/9/2 - {width(wide)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextinactive}" text="WIDE" />
+            <drawtext name="wide" condition="{isWideScreen}" x="{areawidth} - {areaheight}*16/9 + {areaheight}*16/9/2 - {width(wide)}/2" valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="WIDE" />
+            <drawtext condition="not{isWideScreen}" x="{areawidth} - {areaheight}*16/9 + {areaheight}*16/9/2 - {width(wide)}/2" valign="center" fontsize="55%" font="{bold}" color="{icontextinactive}" text="WIDE" />
             <!-- Resolution -->
             <drawrectangle x="{areawidth} - 2*{areaheight}*16/9 - 3" y="0" width="{areaheight}*16/9" height="{areaheight}" color="{icontextactive}" />
             <drawrectangle x="{areawidth} - 2*{areaheight}*16/9 - 3 + 1" y="1" width="{areaheight}*16/9 - 2" height="{areaheight} - 2" color="00000000" />
-            <drawtext name="sd576i" condition="strequal({resolution}, 'sd576i')" x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(sd576i)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="576i" />
-            <drawtext name="hd720p" condition="strequal({resolution}, 'hd720p')" x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(sd576i)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="720p" />
-            <drawtext name="hd1080i" condition="strequal({resolution}, 'hd1080i')" x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(hd1080i)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="1080i" />
-            <drawtext name="sd480i" condition="strequal({resolution}, 'sd480i')" x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(sd576i)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="480i" />
+            <drawtext name="sd576i"   condition="strequal({resolution}, 'sd576i')"   x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(sd576i)}/2"   valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="576i" />
+            <drawtext name="hd720p"   condition="strequal({resolution}, 'hd720p')"   x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(hd720p)}/2"   valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="720p" />
+            <drawtext name="hd1080i"  condition="strequal({resolution}, 'hd1080i')"  x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(hd1080i)}/2"  valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="1080i" />
+            <drawtext name="sd480i"   condition="strequal({resolution}, 'sd480i')"   x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(sd480i)}/2"   valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="480i" />
+            <drawtext name="uhd2160p" condition="strequal({resolution}, 'uhd2160p')" x="{areawidth} - 2*{areaheight}*16/9 - 3 + {areaheight}*16/9/2 - {width(uhd2160p)}/2" valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="2160p" />
             <!-- SD / HD -->
             <drawrectangle x="{areawidth} - 3*{areaheight}*16/9 - 6" y="0" width="{areaheight}*16/9" height="{areaheight}" color="{icontextactive}" />
             <drawrectangle x="{areawidth} - 3*{areaheight}*16/9 - 6 + 1" y="1" width="{areaheight}*16/9 - 2" height="{areaheight} - 2" color="00000000" />
-            <drawtext name="enc" condition="{isHD}" x="{areawidth} - 3*{areaheight}*16/9 - 6 + {areaheight}*16/9/2 - {width(enc)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="HDTV" />
-            <drawtext name="fta" condition="not{isHD}" x="{areawidth} - 3*{areaheight}*16/9 - 6 + {areaheight}*16/9/2 - {width(fta)}/2" valign="center" fontsize="70%" font="{bold}" color="{icontextactive}" text="SDTV" />
+            <drawtext name="uhd"  condition="eq({isHD},2)" x="{areawidth} - 3*{areaheight}*16/9 - 6 + {areaheight}*16/9/2 - {width(uhd)}/2"  valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="UHD" />
+            <drawtext name="hdtv" condition="eq({isHD},1)" x="{areawidth} - 3*{areaheight}*16/9 - 6 + {areaheight}*16/9/2 - {width(hdtv)}/2" valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="HDTV" />
+            <drawtext name="stv"  condition="eq({isHD},0)" x="{areawidth} - 3*{areaheight}*16/9 - 6 + {areaheight}*16/9/2 - {width(stv)}/2"  valign="center" fontsize="55%" font="{bold}" color="{icontextactive}" text="SDTV" />
         </area>
     </recinfo>
 

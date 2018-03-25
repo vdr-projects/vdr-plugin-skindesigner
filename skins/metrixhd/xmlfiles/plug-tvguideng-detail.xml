@@ -25,43 +25,43 @@
 
     <viewelement name="footer">
         <area x="0" y="92%" width="25%" height="8%" layer="2">
-            <drawtext condition="{red1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+            <drawtext condition="{red1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
             <drawrectangle condition="{red1}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+            <drawtext condition="{green1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
             <drawrectangle condition="{green1}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+            <drawtext condition="{yellow1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
             <drawrectangle condition="{yellow1}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue1}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+            <drawtext condition="{blue1}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
             <drawrectangle condition="{blue1}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
         </area>
         <area x="25%" y="92%" width="25%" height="8%" layer="2">
-            <drawtext condition="{red2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+            <drawtext condition="{red2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
             <drawrectangle condition="{red2}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+            <drawtext condition="{green2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
             <drawrectangle condition="{green2}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+            <drawtext condition="{yellow2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
             <drawrectangle condition="{yellow2}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue2}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+            <drawtext condition="{blue2}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
             <drawrectangle condition="{blue2}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
         </area>
         <area x="50%" y="92%" width="25%" height="8%" layer="2">
-            <drawtext condition="{red3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+            <drawtext condition="{red3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
             <drawrectangle condition="{red3}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+            <drawtext condition="{green3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
             <drawrectangle condition="{green3}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+            <drawtext condition="{yellow3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
             <drawrectangle condition="{yellow3}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue3}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+            <drawtext condition="{blue3}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
             <drawrectangle condition="{blue3}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
         </area>
         <area x="75%" y="92%" width="25%" height="8%" layer="2">
-            <drawtext condition="{red4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{red}" />
+            <drawtext condition="{red4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{red}" />
             <drawrectangle condition="{red4}" x="0" y="0" width="10" height="100%" color="{clrRed}" />
-            <drawtext condition="{green4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{green}" />
+            <drawtext condition="{green4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{green}" />
             <drawrectangle condition="{green4}" x="0" y="0" width="10" height="100%" color="{clrGreen}" />
-            <drawtext condition="{yellow4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{yellow}" />
+            <drawtext condition="{yellow4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{yellow}" />
             <drawrectangle condition="{yellow4}" x="0" y="0" width="10" height="100%" color="{clrYellow}" />
-            <drawtext condition="{blue4}" x="20" valign="center" font="{light}" fontsize="80%" color="{fontdefault}" text="{blue}" />
+            <drawtext condition="{blue4}" x="20" valign="center" font="{light}" fontsize="70%" color="{fontdefault}" text="{blue}" />
             <drawrectangle condition="{blue4}" x="0" y="0" width="10" height="100%" color="{clrBlue}" />
         </area>
     </viewelement>

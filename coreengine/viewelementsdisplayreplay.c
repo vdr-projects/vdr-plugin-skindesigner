@@ -96,7 +96,7 @@ bool cVeDrRecInfo::Parse(bool force) {
     int screenHeight = 0;
     double aspect = 0;
     cDevice::PrimaryDevice()->GetVideoSize(screenWidth, screenHeight, aspect);
-    bool isHD = false;
+    int isHD = 0;
     string resName = GetScreenResolutionString(screenWidth, screenHeight, &isHD);
     bool isWideScreen = false;
     string aspectName = GetScreenAspectString(aspect, &isWideScreen);

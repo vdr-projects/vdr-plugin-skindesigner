@@ -50,14 +50,30 @@
 
         </listelement>
         <currentelement delay="0" fadetime="{fadetimecurrent}">
-            <area x="63%" y="0" width="36%" height="100%" layer="2">
+            <area condition="{channellogoexists}" x="63%" y="0" width="36%" height="100%" layer="2">
                 <drawtext name="channame" x="2%" y="0" width="96%" font="{semibold}" fontsize="8%" color="{fontactive}" text="{name}" />
-                <drawimage name="logo" align="center" imagetype="channellogo" path="{channelid}" x="10" y="{height(channame)}" width="50%" height="20%" />
+                <drawimage condition="{channellogoexists}" name="logo" align="center" imagetype="channellogo" path="{channelid}" x="10" y="{height(channame)}" width="50%" height="20%" />
                 <!--progressbar for now -->
                 <drawtext name="start" x="{areawidth}/4 - {width(start)}" y="{height(channame)} + {height(logo)} + 15" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventstart}" />
                 <drawtext name="stop" x="{areawidth}*3/4" y="{height(channame)} + {height(logo)} + 15" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventstop}" />
                 <drawrectangle x="{areawidth}/4+10" y="{height(channame)} + {height(logo)} + {height(start)} / 2 + 15" width="{areawidth}/2 - 20" height="1" color="{fontactive}" />
                 <drawrectangle x="{areawidth}/4+10" y="{height(channame)} + {height(logo)} + {height(start)} / 2 + 13" width="{areawidth}/2 * {presenteventelapsed} / {presenteventduration} - 20 * {presenteventelapsed} / {presenteventduration}" height="5" color="{fontactive}" />
+                <!-- now -->
+                <drawtext name="now" x="2%" y="{posy(start)} + {height(start)} + 5" width="96%" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventtitle}" />
+                <!-- shorttext and description -->
+                <drawtext name="nowshort" x="2%" y="{posy(now)} + {height(now)}" width="96%" font="{light}" fontsize="6%" color="{fontactive}" text="{presenteventshorttext}" />
+                <drawtextbox name="nowdesc" x="2%" y="{posy(nowshort)} + {height(nowshort)}" width="96%" height="28%" font="{light}" fontsize="6%" color="{fontactive}" text="{presenteventdescription}" />
+                <!-- next -->
+                <drawtext name="nexttime" x="2%" y="{posy(nowdesc)} + {height(nowdesc)} + 10" width="96%" font="{semibold}" fontsize="7%" color="{fontactive}" text="Von: {nexteventstart} - {nexteventstop}  ({nexteventduration} min)" />
+                <drawtext name="next" x="2%" y="{posy(nexttime)} + {height(nexttime)}" width="96%" font="{semibold}" fontsize="6%" color="{fontactive}" text="{nexteventtitle}" />
+            </area>
+            <area condition="not{channellogoexists}" x="63%" y="0" width="36%" height="100%" layer="2">
+                <drawtext name="channame" x="2%" y="0" width="96%" font="{semibold}" fontsize="8%" color="{fontactive}" text="{name}" />
+                <!--progressbar for now -->
+                <drawtext name="start" x="{areawidth}/4 - {width(start)}" y="{height(channame)} + 15" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventstart}" />
+                <drawtext name="stop" x="{areawidth}*3/4" y="{height(channame)} + 15" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventstop}" />
+                <drawrectangle x="{areawidth}/4+10" y="{height(channame)} + {height(start)} / 2 + 15" width="{areawidth}/2 - 20" height="1" color="{fontactive}" />
+                <drawrectangle x="{areawidth}/4+10" y="{height(channame)} + {height(start)} / 2 + 13" width="{areawidth}/2 * {presenteventelapsed} / {presenteventduration} - 20 * {presenteventelapsed} / {presenteventduration}" height="5" color="{fontactive}" />
                 <!-- now -->
                 <drawtext name="now" x="2%" y="{posy(start)} + {height(start)} + 5" width="96%" font="{semibold}" fontsize="7%" color="{fontactive}" text="{presenteventtitle}" />
                 <!-- shorttext and description -->

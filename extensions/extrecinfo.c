@@ -88,7 +88,7 @@ void cExtRecInfo::Debug(void) {
 	dsyslog("skindesigner: extRecInfo xml: %s", xml.c_str());
 	dsyslog("skindesigner: : res_width %d, res_height %d, res %s, aspectratio %s, codec %s, format %s, framerate %s, interlace %s, hd %s, widescreen %s", 
 			resWidth, resHeight, resString.c_str(), aspectratio.c_str(), codec.c_str(), format.c_str(), framerate.c_str(), interlace.c_str(),
-			isHD ? "true": "false", isWideScreen ? "true" : "false");
+			isHD > 0 ? "true": "false", isWideScreen ? "true" : "false");
 	int numTrack = 1;
 	for (vector<tAudioTrack>::iterator it = tracks.begin(); it != tracks.end(); it++) {
 		dsyslog("skindesigner: audio track %d, codec %s, bitrate %s, language: %s", numTrack++, (*it).codec.c_str(), (*it).bitrate.c_str(), (*it).language.c_str());
