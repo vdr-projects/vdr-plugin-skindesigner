@@ -31,9 +31,9 @@
 
     <header>
         <area x="0" y="0" width="40%" height="10%" layer="2">
-            <drawtext condition="not{hasicon}" x="10" width="{areawidth}-10" valign="center" font="{light}" fontsize="75%" color="{fontdefault}" text="{title}" />
+            <drawtext condition="not{hasicon}" x="10" width="{areawidth}-90" valign="center" font="{light}" fontsize="75%" color="{fontdefault}" text="{title}" />
             <drawimage condition="{hasicon}" name="menuicon" imagetype="menuicon" path="{icon}" x="10" valign="center" width="{areaheight}*8/10" height="80%"/>
-            <drawtext condition="{hasicon}" x="{width(menuicon)}+20" valign="center" width="{areawidth}-{width(menuicon)}-30" font="{light}" fontsize="75%" color="{fontdefault}" text="{title}" />
+            <drawtext condition="{hasicon}" x="{width(menuicon)}+20" valign="center" width="{areawidth}-{width(menuicon)}-90" font="{light}" fontsize="75%" color="{fontdefault}" text="{title}" />
         </area>
     </header>
 
