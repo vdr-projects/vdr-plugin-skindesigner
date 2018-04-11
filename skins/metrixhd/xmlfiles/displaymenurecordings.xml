@@ -67,30 +67,30 @@
             </area>
             <!-- recording item -->
             <areacontainer condition="not{folder}++not{current}">
-                <area x="1%" width="51%" layer="3">
+                <area x="1%" width="53%" layer="3">
                     <drawtext name="recdate" x="10" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{printf('%02d.%02d.%d', daynumeric, month, year)} {time}" />
                     <drawtext x="{posx(recdate)} + {width(recdate)} + 30" valign="center" font="{light}" fontsize="85%" color="{fontdefault}" text="{name}" />
                 </area>
                 <area x="1%" width="58%" layer="4">
-                    <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
-                    <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - 2*{areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
-                    <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                    <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new" x="{areawidth} - {areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
+                    <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - 1.7*{areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
+                    <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted" x="{areawidth} - {areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
                 </area>
             </areacontainer>
 
             <areacontainer condition="not{folder}++{current}">
-                <areascroll condition="not{doitsimple}" scrollelement="menutext" x="1%" width="51%" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" layer="3">
+                <areascroll condition="not{doitsimple}" scrollelement="menutext" x="1%" width="53%" mode="forthandback" orientation="horizontal" delay="2000" scrollspeed="medium" layer="3">
                     <drawtext name="recdate" x="10" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{printf('%02d.%02d.%d', daynumeric, month, year)} {time}" />
                     <drawtext name="menutext" x="{posx(recdate)} + {width(recdate)} + 30" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{name}" />
                 </areascroll>
-                <area condition="{doitsimple}" x="1%" width="51%" layer="3">
+                <area condition="{doitsimple}" x="1%" width="53%" layer="3">
                     <drawtext name="recdate" x="10" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{printf('%02d.%02d.%d', daynumeric, month, year)} {time}" />
                     <drawtext name="menutext" x="{posx(recdate)} + {width(recdate)} + 30" valign="center" font="{light}" fontsize="85%" color="{fontactive}" text="{name}" />
                 </area>
                 <area x="1%" width="58%" layer="4">
-                    <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new_active" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
-                    <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - 2*{areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
-                    <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - {areaheight}" width="0.9*{areaheight}" height="0.9*{areaheight}" valign="center" />
+                    <drawimage condition="{new}" name="new" imagetype="icon" path="ico_new_active" x="{areawidth} - {areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
+                    <drawimage condition="{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - 1.7*{areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
+                    <drawimage condition="not{new}++{cutted}" imagetype="icon" path="ico_cutted_active" x="{areawidth} - {areaheight}" width="0.6*{areaheight}" height="0.6*{areaheight}" valign="center" />
                 </area>
             </areacontainer>
         </listelement>
