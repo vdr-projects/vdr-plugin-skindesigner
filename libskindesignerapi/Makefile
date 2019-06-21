@@ -32,7 +32,8 @@ OBJS = $(SRCS:.c=.o)
 all: ${TARGET_LIB} ${LIBNAME}.pc
  
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) -o $@ $<
+	@echo CC $@
+	$(Q)$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) -o $@ $<
 
 # Dependencies:
 
@@ -46,7 +47,8 @@ $(DEPFILE): Makefile
 # The main lib
 
 $(TARGET_LIB): $(OBJS)
-	$(CXX) ${LDFLAGS} -o $@ $^
+	@echo LD $@
+	$(Q)$(CXX) ${LDFLAGS} -o $@ $^
 	if [ -n "$(LCLBLD)" ] ; then \
 		ln -s $(TARGET_LIB) $(LIBNAME).so ; \
 		ln -s $(TARGET_LIB) $(SONAME) ; \
