@@ -10,7 +10,6 @@ private:
     bool ok;
     bool init;
     cViewReplay *view;
-    void SetTimeShiftValues(const cRecording *recording);
 public:
     cSDDisplayReplay(cViewReplay *replayView, bool ModeOnly);
     virtual ~cSDDisplayReplay();

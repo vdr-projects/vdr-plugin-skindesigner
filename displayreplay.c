@@ -18,7 +18,7 @@ void cSDDisplayReplay::SetRecording(const cRecording *Recording) {
         view->SetRecording(Recording);
         if (init) {
             view->SetRecordingLength(Recording->LengthInSeconds());
-            SetTimeShiftValues(Recording);
+            view->SetTimeShiftValues(Recording);
             init = false;
         }
     }
@@ -78,38 +78,6 @@ void cSDDisplayReplay::SetMessage(eMessageType Type, const char *Text) {
 void cSDDisplayReplay::Flush(void) {
     if (!ok)
         return;
+    view->GetTimers();
     view->Flush();
-}
-
-void cSDDisplayReplay::SetTimeShiftValues(const cRecording *recording) {
-    //check for instant recording
-    const char *recName = recording->Name();
-    if (recName && *recName == '@')
-        return;
-    bool isTimeShift = false;
-#if APIVERSNUM >= 20101
-    int usage = recording->IsInUse();
-    if (usage & ruTimer)
-        isTimeShift = true;
-    else {
-        cGlobalTimers globalTimers;
-        globalTimers.LoadTimers();
-        if (globalTimers.IsRecording(recording))
-            isTimeShift = true;
-    }
-#endif
-    if (!isTimeShift)
-        return;
-    const cRecordingInfo *recInfo = recording->Info();
-    if (!recInfo)
-        return;
-    const cEvent *event = recInfo->GetEvent();
-    if (!event)
-        return;
-    double fps = recording->FramesPerSecond();
-    time_t liveEventStop = event->EndTime();
-    time_t recordingStart = time(0) - recording->LengthInSeconds();
-    int framesTotal = (liveEventStop - recordingStart)*fps;
-    int recLength = liveEventStop - recordingStart;
-    view->SetTimeShift(framesTotal, recLength);
 }

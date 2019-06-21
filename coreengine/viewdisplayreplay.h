@@ -30,6 +30,8 @@ private:
     int timeShiftFramesTotal;
     int timeShiftLength;
     cString timeShiftDuration;
+    bool timersLoaded;
+    cGlobalTimers globalTimers;
     void SetViewElements(void);
     void ClearVariables(void);
     void SetViewElementObjects(void);
@@ -43,6 +45,8 @@ public:
     void SetTimeShift(int framesTotal, int timeShiftLength);
     void SetRecording(const cRecording *recording);
     void SetTitle(const char *title);
+    void GetTimers(void);
+    void SetTimeShiftValues(const cRecording *recording);
     void SetCurrent(const char *current);
     void SetTotal(const char *total);
     void SetEndTime(int current, int total);

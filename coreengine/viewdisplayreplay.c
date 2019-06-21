@@ -157,6 +157,8 @@ void cViewReplay::ClearVariables(void) {
         veEndTime->Set(cString(""));
     if (veCutMarks)
         veCutMarks->Reset();
+    timersLoaded = false;
+    globalTimers.ClearTimers();
 }
 
 void cViewReplay::SetTimeShift(int framesTotal, int timeShiftLength) {
@@ -178,6 +180,44 @@ void cViewReplay::SetRecording(const cRecording *recording) {
     if (veScraperContent) {
         veScraperContent->Set(recording);
     }
+}
+
+void cViewReplay::GetTimers(void) {
+    if (!timersLoaded) {
+        timersLoaded = true;
+        globalTimers.LoadTimers();
+    }
+}
+
+void cViewReplay::SetTimeShiftValues(const cRecording *recording) {
+    //check for instant recording
+    const char *recName = recording->Name();
+    if (recName && *recName == '@')
+        return;
+    bool isTimeShift = false;
+#if APIVERSNUM >= 20101
+    int usage = recording->IsInUse();
+    if (usage & ruTimer)
+        isTimeShift = true;
+    else {
+        if (globalTimers.IsRecording(recording))
+            isTimeShift = true;
+    }
+#endif
+    if (!isTimeShift)
+        return;
+    const cRecordingInfo *recInfo = recording->Info();
+    if (!recInfo)
+        return;
+    const cEvent *event = recInfo->GetEvent();
+    if (!event)
+        return;
+    double fps = recording->FramesPerSecond();
+    time_t liveEventStop = event->EndTime();
+    time_t recordingStart = time(0) - recording->LengthInSeconds();
+    int framesTotal = (liveEventStop - recordingStart)*fps;
+    int recLength = liveEventStop - recordingStart;
+    SetTimeShift(framesTotal, recLength);
 }
 
 void cViewReplay::SetTitle(const char *title) {
