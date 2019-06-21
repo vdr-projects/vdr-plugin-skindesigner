@@ -56,6 +56,7 @@ public:
     void SetGlobals(cGlobals *globals);
     void PreCache(void);
     void AddChannelViewList(const char *listName, cViewList *viewList);
+    void GetTimers(void);
     void SetChannel(const cChannel *channel, int number);
     void SetEvents(const cEvent *present, const cEvent *following);
     void SetMessage(eMessageType type, const char *text);

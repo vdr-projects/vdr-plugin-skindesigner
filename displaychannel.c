@@ -95,5 +95,6 @@ void cSDDisplayChannel::SetChannelHint(const cChannel *Channel) {
 void cSDDisplayChannel::Flush(void) {
     if (!ok)
         return;
+    view->GetTimers();
     view->Flush();
 }

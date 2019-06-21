@@ -205,11 +205,14 @@ void cViewChannel::ClearVariables(void) {
     globalTimers.ClearTimers();
 }
 
-void cViewChannel::SetChannel(const cChannel *channel, int number) {
+void cViewChannel::GetTimers(void) {
     if (!timersLoaded) {
         timersLoaded = true;
         globalTimers.LoadTimers();
     }
+}
+
+void cViewChannel::SetChannel(const cChannel *channel, int number) {
     channelChange = true;
 
     //check if channelgroups have to be cleared
@@ -252,10 +255,6 @@ void cViewChannel::SetChannel(const cChannel *channel, int number) {
 }
 
 void cViewChannel::SetEvents(const cEvent *present, const cEvent *following) {
-    if (!timersLoaded) {
-        timersLoaded = true;
-        globalTimers.LoadTimers();
-    }
     Clear((int)eVeDisplayChannel::epginfo);
     Clear((int)eVeDisplayChannel::progressbar);
     Clear((int)eVeDisplayChannel::scrapercontent);
