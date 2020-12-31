@@ -453,3 +453,7 @@ Version 1.2.8 (kamel5)
 
 - fixed some look sequence reports
 - Updated Makefile
+
+Version 1.2.8+ (pbiering)
+
+- expose {fps} and from 'info' retrieved {isHD} to recordings

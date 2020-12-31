@@ -109,4 +109,10 @@ public:
     virtual void Debug(bool full = false);
 };
 
+
+/******************************************************************
+* helper function (did not find any other common place)
+******************************************************************/
+bool RecordingIsHD(const cEvent* event);
+
 #endif //__VIEWELEMENT_H

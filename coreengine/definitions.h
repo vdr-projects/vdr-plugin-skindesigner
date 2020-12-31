@@ -1159,6 +1159,8 @@ enum class eLeMenuRecordingsIT {
     hasposter,
     posterwidth,
     posterheight,
+    framesPerSecond,
+    isHD,
     count
 };
 
@@ -1202,6 +1204,8 @@ enum class eCeMenuRecordingsIT {
     hasposter,
     posterwidth,
     posterheight,
+    framesPerSecond,
+    isHD,
     count
 };
 
@@ -1312,6 +1316,8 @@ enum class eDmDetailedHeaderRecIT {
     durationeventhours,
     recimgavailable,
     recchannelnumber,
+    framesPerSecond,
+    isHD,
     count
 };
 
@@ -1419,6 +1425,8 @@ enum class eDmDetailedRecIT {
     recimg1avaialble,
     recimg2avaialble,
     recimg3avaialble,
+    framesPerSecond,
+    isHD,
     count
 };
 

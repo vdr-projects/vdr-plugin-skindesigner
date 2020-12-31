@@ -609,6 +609,8 @@ void cViewDetailRec::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{recimg1avaialble}", (int)eDmDetailedRecIT::recimg1avaialble);
     tokenContainer->DefineIntToken("{recimg2avaialble}", (int)eDmDetailedRecIT::recimg2avaialble);
     tokenContainer->DefineIntToken("{recimg3avaialble}", (int)eDmDetailedRecIT::recimg3avaialble);
+    tokenContainer->DefineIntToken("{fps}", (int)eDmDetailedRecIT::framesPerSecond);
+    tokenContainer->DefineIntToken("{isHD}", (int)eDmDetailedRecIT::isHD);
     tokenContainer->DefineIntToken("{ismovie}", (int)eScraperIT::ismovie);
     tokenContainer->DefineIntToken("{moviebudget}", (int)eScraperIT::moviebudget);
     tokenContainer->DefineIntToken("{movierevenue}", (int)eScraperIT::movierevenue);
@@ -672,6 +674,7 @@ bool cViewDetailRec::Parse(bool forced) {
         tokenContainer->AddStringToken((int)eDmDetailedRecST::epgname, info->Title());
         tokenContainer->AddStringToken((int)eDmDetailedRecST::shorttext, info->ShortText());
         tokenContainer->AddStringToken((int)eDmDetailedRecST::description, info->Description());
+        tokenContainer->AddIntToken((int)eDmDetailedRecIT::framesPerSecond, info->FramesPerSecond());
         const cEvent *event = info->GetEvent();
         if (event) {
             cString recDate = event->GetDateString();
@@ -697,6 +700,7 @@ bool cViewDetailRec::Parse(bool forced) {
             tokenContainer->AddIntToken((int)eDmDetailedRecIT::durationevent, duration);
             tokenContainer->AddIntToken((int)eDmDetailedRecIT::durationeventhours, duration / 60);
             tokenContainer->AddStringToken((int)eDmDetailedRecST::durationeventminutes, *cString::sprintf("%.2d", duration%60));
+            tokenContainer->AddIntToken((int)eDmDetailedRecIT::isHD, RecordingIsHD(event)); // detect HD from 'info'
         }
     }
     SetRecInfos();

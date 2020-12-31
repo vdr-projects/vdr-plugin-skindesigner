@@ -1166,6 +1166,8 @@ void cVeDmDetailheaderRec::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{durationeventhours}", (int)eDmDetailedHeaderRecIT::durationeventhours);
     tokenContainer->DefineIntToken("{recimgavailable}", (int)eDmDetailedHeaderRecIT::recimgavailable);
     tokenContainer->DefineIntToken("{recchannelnumber}", (int)eDmDetailedHeaderRecIT::recchannelnumber);
+    tokenContainer->DefineIntToken("{fps}", (int)eDmDetailedHeaderRecIT::framesPerSecond);
+    tokenContainer->DefineIntToken("{isHD}", (int)eDmDetailedHeaderRecIT::isHD);
     InheritTokenContainer();
 }
 
@@ -1185,6 +1187,7 @@ bool cVeDmDetailheaderRec::Parse(bool forced) {
     if (info) {
         tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::epgname, info->Title());
         tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::shorttext, info->ShortText());
+        tokenContainer->AddIntToken((int)eDmDetailedHeaderRecIT::framesPerSecond, info->FramesPerSecond());
         const cEvent *event = info->GetEvent();
         if (event) {
             cString recDate = event->GetDateString();
@@ -1210,6 +1213,7 @@ bool cVeDmDetailheaderRec::Parse(bool forced) {
             tokenContainer->AddIntToken((int)eDmDetailedHeaderRecIT::durationevent, duration);
             tokenContainer->AddIntToken((int)eDmDetailedHeaderRecIT::durationeventhours, duration / 60);
             tokenContainer->AddStringToken((int)eDmDetailedHeaderRecST::durationeventminutes, *cString::sprintf("%.2d", duration%60));
+            tokenContainer->AddIntToken((int)eDmDetailedHeaderRecIT::isHD, RecordingIsHD(event)); // detect HD from 'info'
         }
 #if defined (APIVERSNUM) && (APIVERSNUM >= 20301)
         LOCK_CHANNELS_READ;
