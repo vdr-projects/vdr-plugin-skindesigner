@@ -588,25 +588,41 @@ bool RecordingIsHD(const cEvent* event) {
     bool isHD = false;
     cComponents *Components = (cComponents *)event->Components();
     if (Components) {
-	// detect HD
-	// Stream: 1 = MPEG2-Video, 2 = MPEG2 Audio, 3 = Untertitel, 4 = AC3-Audio, 5 = H.264-Video, 6 = HEAAC-Audio
-	// Stream == Video: 01 = 05 = 4:3, 02 = 03 = 06 = 07 = 16:9, 04 = 08 = >16:9, 09 = 0D = HD 4:3, 0A = 0B = 0E = 0F = HD 16:9, 0C = 10 = HD >16:9
+	// detect HD (see also ETSI EN 300 468)
+	// Stream: 1 = MPEG2-Video, 2 = MPEG2 Audio, 3 = Untertitel, 4 = AC3-Audio, 5 = H.264-Video, 6 = HEAAC-Audio, 7 = DTS/DTS HD audio, 8 = SRM/CPCM data, 9 = HEVC Video, AC4 Audio
+	// Stream == Video(1|5): 01 = 05 = 4:3, 02 = 03 = 06 = 07 = 16:9, 04 = 08 = >16:9, 09 = 0D = HD 4:3, 0A = 0B = 0E = 0F = HD 16:9, 0C = 10 = HD >16:9
 
-	// get video stream component
-	tComponent *Component = Components->GetComponent(0, 5, 0);
+	tComponent *Component;
+	int type = -1;
 
+	// #1: MPEG2 (stream content: 1)
+	Component = Components->GetComponent(0, 1, 0);
 	if (Component) {
-	    switch (Component->type) {
-		case 0x09: // HD 4:3
-		case 0x0D: // HD 4:3
-		case 0x0A: // HD 16:9
-		case 0x0B: // HD 16:9
-		case 0x0E: // HD 16:9
-		case 0x0F: // HD 16:9
-		case 0x0C: // HD > 16:9
-		case 0x10: // HD > 16:9
-		    isHD = true;
+	    type = Component->type;
+	} else {
+	    // #2: H.264 (stream content: 5)
+	    Component = Components->GetComponent(0, 5, 0);
+	    if (Component) {
+		type = Component->type;
+	    } else {
+		// #3: HVEC (stream content: 9)
+		Component = Components->GetComponent(0, 9, 0);
+		if (Component) {
+		    isHD = true; // HVEC is always HD, type 4 would be even UHD
+		};
 	    };
+	};
+
+	switch (type) {
+	    case 0x09:
+	    case 0x0A:
+	    case 0x0B:
+	    case 0x0C:
+	    case 0x0D:
+	    case 0x0E:
+	    case 0x0F:
+	    case 0x10:
+		isHD = true;
 	};
     };
     return isHD;
