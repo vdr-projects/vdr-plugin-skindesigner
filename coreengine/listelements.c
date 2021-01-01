@@ -1961,6 +1961,8 @@ void cCeMenuRecordings::SetTokenContainer(void) {
     tokenContainer->DefineIntToken("{hasposter}", (int)eCeMenuRecordingsIT::hasposter);
     tokenContainer->DefineIntToken("{posterwidth}", (int)eCeMenuRecordingsIT::posterwidth);
     tokenContainer->DefineIntToken("{posterheight}", (int)eCeMenuRecordingsIT::posterheight);
+    tokenContainer->DefineIntToken("{fps}", (int)eCeMenuRecordingsIT::framesPerSecond);
+    tokenContainer->DefineIntToken("{isHD}", (int)eCeMenuRecordingsIT::isHD);
     InheritTokenContainer();
 }
 
@@ -2095,6 +2097,8 @@ bool cCeMenuRecordings::Parse(bool forced) {
 
     tokenContainer->AddStringToken((int)eCeMenuRecordingsST::shorttext, info->ShortText());
     tokenContainer->AddStringToken((int)eCeMenuRecordingsST::description, info->Description());
+    tokenContainer->AddIntToken((int)eCeMenuRecordingsIT::framesPerSecond, info->FramesPerSecond());
+    tokenContainer->AddIntToken((int)eCeMenuRecordingsIT::isHD, RecordingIsHD(event)); // detect HD from 'info'
 
     SetScraperRecordingPoster(tokenContainer, usedRecording, false);
 
