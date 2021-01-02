@@ -29,6 +29,8 @@
     {recchannelname}          name of channel from which was recorded
     {recchannelid}            id of channel from which was recorded
     {recchannelnumber}        number of channel from which was recorded
+    {framesPerSecond}         frames per second (from EPG info)
+    {isHD}                    true if recording is HD (from EPG info)
     -->
     <detailheader>
     </detailheader>
@@ -49,6 +51,8 @@
     {durationeventhours}      event duration, full hours
     {durationeventminutes}    event duration, rest of minutes
     {cutted}                  true if recording is cutted
+    {framesPerSecond}         frames per second (from EPG info)
+    {isHD}                    true if recording is HD (from EPG info)
 
     {recordingsize}           size of recording (automatically in GB / MB)
     {recordingsizecutted}     size of cutted recording (automatically in GB / MB)
