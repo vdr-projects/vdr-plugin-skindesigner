@@ -595,20 +595,20 @@ bool RecordingIsHD(const cEvent* event) {
 	tComponent *Component;
 	int type = -1;
 
-	// #1: MPEG2 (stream content: 1)
-	Component = Components->GetComponent(0, 1, 0);
+	// #1: HVEC (stream content: 9)
+	Component = Components->GetComponent(0, 9, 0);
 	if (Component) {
-	    type = Component->type;
+	    isHD = true; // HVEC is always HD, type 4 would be even UHD
 	} else {
 	    // #2: H.264 (stream content: 5)
 	    Component = Components->GetComponent(0, 5, 0);
 	    if (Component) {
 		type = Component->type;
 	    } else {
-		// #3: HVEC (stream content: 9)
-		Component = Components->GetComponent(0, 9, 0);
+		// #3: MPEG2 (stream content: 1)
+		Component = Components->GetComponent(0, 1, 0);
 		if (Component) {
-		    isHD = true; // HVEC is always HD, type 4 would be even UHD
+		    type = Component->type;
 		};
 	    };
 	};
